@@ -57,5 +57,69 @@ class FTrainingCard{
         $stmt->bindValue(":emailPersonalTrainer", $trainingCard->getEmailPersonalTrainer(), PDO::PARAM_STR);
     }
 
+    public static function getObj($id){
+        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $id);
+        if(count($result) > 0){
+            $TrainingCard = self::createTrainingCardObj($result);
+            return $TrainingCard;
+        }else{
+            return null;
+        }
+    }
+
+    public static function saveObj($obj , $fieldArray = null){
+        if($fieldArray === null){
+            $saveTrainingCard = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $obj);
+            if($saveTrainingCard !== null){
+                return $saveTrainingCard;
+            }else{
+                return false;
+            }
+        }else{
+            try{
+                FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
+                foreach($fieldArray as $fv){
+                    FEntityManagerSQL::getInstance()->updateObj(FTrainingCard::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getIdTrainingCard());
+                }
+                FEntityManagerSQL::getInstance()->getDb()->commit();
+                return true;
+            }catch(PDOException $e){
+                echo "ERROR " . $e->getMessage();
+                FEntityManagerSQL::getInstance()->getDb()->rollBack();
+                return false;
+            }finally{
+                FEntityManagerSQL::getInstance()->closeConnection();
+            }
+        }
+    }
+
+    public static function deleteTrainingCardInDb($idTrainingCard){
+        try{
+            // Start a new database transaction
+            FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
+
+            // Delete the news item from the database
+            $queryResult  = FEntityManagerSQL::getInstance()->deleteObj(self::getTable(), self::getKey(), $idTrainingCard);
+
+            // Commit the transaction if the delete operation was successful
+            FEntityManagerSQL::getInstance()->getDb()->commit();
+
+            // Return true if the news item was deleted successfully
+            if($queryResult ){
+                return true;
+            } else {
+                return false;
+            }
+        } catch(PDOException $e){
+            // Print the error message and rollback the transaction in case of an exception
+            echo "ERROR " . $e->getMessage();
+            FEntityManagerSQL::getInstance()->getDb()->rollBack();
+            return false;
+        } finally{
+            // Close the database connection
+            FEntityManagerSQL::getInstance()->closeConnection();
+        }
+    }
+
 
 }

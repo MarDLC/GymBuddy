@@ -98,5 +98,15 @@ class ETrainingCard {
         $this->emailPersonalTrainer = $emailPersonalTrainer;
     }
 
+    public function getIdTrainingCard()
+    {
+        return $this->idTrainingCard;
+    }
+
+    public function setIdTrainingCard($idTrainingCard)
+    {
+        $this->idTrainingCard = $idTrainingCard;
+    }
+
 
 }
