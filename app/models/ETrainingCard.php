@@ -4,6 +4,7 @@
 class ETrainingCard {
 
     //attributes
+    private $idTrainingCard;
     private $emailRegisteredUser;
     private DateTime $creation;
     private$exercises;
@@ -85,6 +86,16 @@ class ETrainingCard {
     public function setRecovery($recovery)
     {
         $this->recovery = $recovery;
+    }
+
+    public function getEmailPersonalTrainer()
+    {
+        return $this->emailPersonalTrainer;
+    }
+
+    public function setEmailPersonalTrainer($emailPersonalTrainer)
+    {
+        $this->emailPersonalTrainer = $emailPersonalTrainer;
     }
 
 

@@ -4,6 +4,7 @@
 class ECreditCard {
 
     //attributes
+    private $idCreditCard;
     private $cvc;
     private $accountHolder;
     private $cardNumber;
@@ -72,4 +73,15 @@ class ECreditCard {
     {
         $this->email = $email;
     }
+
+    public function getIdCreditCard()
+    {
+        return $this->idCreditCard;
+    }
+
+    public function setIdCreditCard($idCreditCard)
+    {
+        $this->idCreditCard = $idCreditCard;
+    }
+
 }

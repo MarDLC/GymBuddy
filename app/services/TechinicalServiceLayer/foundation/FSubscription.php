@@ -26,17 +26,18 @@ class FSubscription{
 
 
     public static function createSubscriptionObj($queryResult){
-        if(count($queryResult) > 0){
-            $subscriptions = array();
-            for($i = 0; $i < count($queryResult); $i++){
-                $sub = new ESubscription($queryResult[$i]['type'],$queryResult[$i]['duration'],$queryResult[$i]['price']);
-                $subscriptions[] = $sub;
-            }
-            return $subscriptions;
-        }else{
-            return array();
+    if(count($queryResult) > 0){
+        $subscriptions = array();
+        for($i = 0; $i < count($queryResult); $i++){
+            $sub = new ESubscription($queryResult[$i]['type'],$queryResult[$i]['duration'],$queryResult[$i]['price']);
+            $sub->setEmail($queryResult[$i]['email']);
+            $subscriptions[] = $sub;
         }
+        return $subscriptions;
+    }else{
+        return array();
     }
+}
 
     public static function bind($stmt, $subscription){
         $stmt->bindValue(":email", $subscription->getEmail(), PDO::PARAM_STR);
@@ -49,8 +50,8 @@ class FSubscription{
         $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $email);
         //var_dump($result);
         if(count($result) > 0){
-            $comment = self::crateCommentObj($result);
-            return $comment;
+            $subscription = self::crateSubscriptionObj($result);
+            return $subscription;
         }else{
             return null;
         }

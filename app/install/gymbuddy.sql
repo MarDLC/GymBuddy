@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 15, 2024 alle 19:29
+-- Creato il: Mag 18, 2024 alle 17:11
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -40,9 +40,10 @@ CREATE TABLE `admin` (
 CREATE TABLE `creditcard` (
   `cvc` int(11) NOT NULL,
   `accountHolder` varchar(255) DEFAULT NULL,
-  `cardNumber` int(11) DEFAULT NULL,
+  `cardNumber` varchar(16) DEFAULT NULL,
   `expirationDate` date DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL
+  `email` varchar(255) DEFAULT NULL,
+  `idCreditCard` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -142,7 +143,8 @@ CREATE TABLE `subscription` (
 --
 
 CREATE TABLE `trainingcard` (
-  `emailRegisteredUser` varchar(255) NOT NULL,
+  `idTrainingCard` int(11) NOT NULL,
+  `emailRegisteredUser` varchar(255) DEFAULT NULL,
   `creation` date DEFAULT NULL,
   `exercises` text DEFAULT NULL,
   `repetition` text DEFAULT NULL,
@@ -178,7 +180,7 @@ ALTER TABLE `admin`
 -- Indici per le tabelle `creditcard`
 --
 ALTER TABLE `creditcard`
-  ADD PRIMARY KEY (`cvc`),
+  ADD PRIMARY KEY (`idCreditCard`),
   ADD KEY `email` (`email`);
 
 --
@@ -231,7 +233,8 @@ ALTER TABLE `subscription`
 -- Indici per le tabelle `trainingcard`
 --
 ALTER TABLE `trainingcard`
-  ADD PRIMARY KEY (`emailRegisteredUser`),
+  ADD PRIMARY KEY (`idTrainingCard`),
+  ADD KEY `emailRegisteredUser` (`emailRegisteredUser`),
   ADD KEY `emailPersonalTrainer` (`emailPersonalTrainer`);
 
 --
@@ -245,10 +248,22 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT per la tabella `creditcard`
+--
+ALTER TABLE `creditcard`
+  MODIFY `idCreditCard` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT per la tabella `news`
 --
 ALTER TABLE `news`
   MODIFY `idNews` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la tabella `trainingcard`
+--
+ALTER TABLE `trainingcard`
+  MODIFY `idTrainingCard` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Limiti per le tabelle scaricate

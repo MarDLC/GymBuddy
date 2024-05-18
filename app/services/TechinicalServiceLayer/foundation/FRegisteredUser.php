@@ -63,16 +63,16 @@ class FRegisteredUser{
 public static function createUserObj($queryResult){
     if(count($queryResult) == 1){
         // If there is only one result, create a single user object.
-        $user = new EUser($queryResult[0]['first_name'], $queryResult[0]['last_name'], $queryResult[0]['email'], $queryResult[0]['password'], $queryResult[0]['username']);
-        return $user;
+        $registeredUser = new ERegisteredUser($queryResult[0]['first_name'], $queryResult[0]['last_name'], $queryResult[0]['email'], $queryResult[0]['password'], $queryResult[0]['username']);
+        return $registeredUser;
     } elseif(count($queryResult) > 1){
         // If there are multiple results, create an array of user objects.
-        $users = array();
+        $registeredUsers = array();
         for($i = 0; $i < count($queryResult); $i++){
-            $user = new EUser($queryResult[$i]['first_name'], $queryResult[$i]['last_name'], $queryResult[$i]['email'], $queryResult[$i]['password'], $queryResult[$i]['username']);
-            $users[] = $user;
+            $registeredUser = new EUser($queryResult[$i]['first_name'], $queryResult[$i]['last_name'], $queryResult[$i]['email'], $queryResult[$i]['password'], $queryResult[$i]['username']);
+            $registeredUsers[] = $registeredUser;
         }
-        return $users;
+        return $registeredUsers;
     } else{
         // If there are no results, return an empty array.
         return array();
@@ -99,8 +99,8 @@ public static function createUserObj($queryResult){
     $result = FEntityManagerSQL::getInstance()->retriveObj(FUser::getTable(), self::getKey(), $email);
     //var_dump($result);
     if(count($result) > 0){
-        $user = self::createUserObj($result);
-        return $user;
+        $registeredUser = self::createUserObj($result);
+        return $registeredUser;
     }else{
         return null;
     }
@@ -130,11 +130,11 @@ public static function saveObj($obj, $fieldArray = null){
             // Check if the save operation was successful
             if($savePersonAndLastInsertedEmail !== null){
                 // Save the user object with the last inserted email
-                $saveUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedEmail);
+                $saveRegisteredUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedEmail);
                 // Commit the transaction if the save operation was successful
                 FEntityManagerSQL::getInstance()->getDb()->commit();
                 // Return the last inserted email if the user was saved successfully
-                if($saveUser){
+                if($saveRegisteredUser){
                     return $savePersonAndLastInsertedEmail;
                 }
             }else{
@@ -163,7 +163,7 @@ public static function saveObj($obj, $fieldArray = null){
                     FEntityManagerSQL::getInstance()->updateObj(FRegisteredUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getEmail());
                 }else{
                     // Update the user field in the user table
-                    FEntityManagerSQL::getInstance()->updateObj(FUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getEmail());
+                    FEntityManagerSQL::getInstance()->updateObj(FRegisteredUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getEmail());
                 }
             }
             // Commit the transaction after updating the user fields
@@ -180,5 +180,17 @@ public static function saveObj($obj, $fieldArray = null){
         }
     }
 }
+
+    public static function getUserByUsername($username)
+    {
+        $result = FEntityManagerSQL::getInstance()->retriveObj(FUser::getTable(), 'username', $username);
+
+        if(count($result) > 0){
+            $registeredUser = self::crateUserObj($result);
+            return $registeredUser;
+        }else{
+            return null;
+        }
+    }
 
 }
