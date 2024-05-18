@@ -12,9 +12,9 @@ class ESubscription {
     private static $entity = ESubscription::class;
 
     //constructor
-    public function __construct($email, $type, $duration, $price)
+    public function __construct($type, $duration, $price)
     {
-        $this->email = $email;
+
         $this->type = $type;
         $this->duration = $duration;
         $this->price = $price;

@@ -4,6 +4,8 @@
 class ENews {
 
     //attributes
+
+    private $idNews;
     private $title;
     private $description;
     private DateTime $date;
@@ -73,5 +75,15 @@ class ENews {
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+
+    public function getIdNews()
+    {
+        return $this->idNews;
+    }
+
+    public function setIdNews($idNews)
+    {
+        $this->idNews = $idNews;
     }
 }

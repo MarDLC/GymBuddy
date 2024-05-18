@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 05, 2024 alle 18:00
+-- Creato il: Mag 15, 2024 alle 19:29
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `gymbuddydb`
+-- Database: `gymbuddy`
 --
 
 -- --------------------------------------------------------
@@ -63,6 +63,7 @@ CREATE TABLE `followeduser` (
 --
 
 CREATE TABLE `news` (
+  `idNews` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` longtext DEFAULT NULL,
   `date` date NOT NULL,
@@ -191,7 +192,7 @@ ALTER TABLE `followeduser`
 -- Indici per le tabelle `news`
 --
 ALTER TABLE `news`
-  ADD PRIMARY KEY (`title`,`date`),
+  ADD PRIMARY KEY (`idNews`),
   ADD KEY `email` (`email`);
 
 --
@@ -238,6 +239,16 @@ ALTER TABLE `trainingcard`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`email`);
+
+--
+-- AUTO_INCREMENT per le tabelle scaricate
+--
+
+--
+-- AUTO_INCREMENT per la tabella `news`
+--
+ALTER TABLE `news`
+  MODIFY `idNews` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Limiti per le tabelle scaricate

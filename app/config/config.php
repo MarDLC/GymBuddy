@@ -2,7 +2,7 @@
 
 //Database Connection
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'provafinale');
+define('DB_NAME', 'gymbuddy');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('SQL_FILE_PATH', 'gymbuddy.sql');

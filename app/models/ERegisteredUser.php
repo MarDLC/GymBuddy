@@ -4,7 +4,9 @@ require_once("EUser.php");
 
 class ERegisteredUser extends EUser {
 
-    //no attributes
+    public $role = "registered_user";
+
+
 
 
     private static $entity = ERegisteredUser::class;
@@ -13,6 +15,7 @@ class ERegisteredUser extends EUser {
     public function __construct($email, $username, $first_name, $last_name, $password)
     {
         parent::__construct($email, $username, $first_name, $last_name, $password);
+
     }
 
     //no methods

@@ -7,6 +7,8 @@ class EFollowedUser {
     protected $emailPersonalTrainer;
     protected $emailRegisteredUser;
 
+    public $role = "followed_user";
+
     private static $entity = EFollowedUser::class;
 
     //constructor

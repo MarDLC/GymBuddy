@@ -5,6 +5,8 @@ class EPersonalTrainer extends EUser {
 
     //no attributes
 
+    public $role = "personal_trainer";
+
     private static $entity = PersonalTrainer::class;
 
     //constructor
