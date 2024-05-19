@@ -7,18 +7,18 @@ class EReservation {
     private $emailRegisteredUser;
     private $date;
     private $time;
-    private $TrainingPT;
+    private $trainingPT;
     private $emailPersonalTrainer;
 
     private static $entity = EReservation::class;
 
     //constructor
-    public function __construct($emailRegisteredUser, $date, $TrainingPT, $time = '02:00:00')
+    public function __construct($emailRegisteredUser, $date, $trainingPT, $time = '02:00:00')
     {
         $this->emailRegisteredUser = $emailRegisteredUser;
         $this->date = $date;
         $this->time = $time;
-        $this->TrainingPT = $TrainingPT;
+        $this->trainingPT = $trainingPT;
     }
 
     //methods
@@ -35,6 +35,16 @@ class EReservation {
     public function setEmailRegisteredUser($emailRegisteredUser)
     {
         $this->emailRegisteredUser = $emailRegisteredUser;
+    }
+
+    public function getEmailPersonalTrainer()
+    {
+        return $this->emailPersonalTrainer;
+    }
+
+    public function setEmailPersonalTrainer($emailPersonalTrainer)
+    {
+        $this->emailPersonalTrainer = $emailPersonalTrainer;
     }
 
     public function getDate()
@@ -57,14 +67,18 @@ class EReservation {
         $this->time = $time;
     }
 
-    public function getTrainingPT()
-    {
-        return $this->TrainingPT;
+    public function setCreationTime(DateTime $dateTime){
+        $this->date = $dateTime;
     }
 
-    public function setTrainingPT($TrainingPT)
+    public function getTrainingPT()
     {
-        $this->TrainingPT = $TrainingPT;
+        return $this->trainingPT;
+    }
+
+    public function setTrainingPT($trainingPT)
+    {
+        $this->trainingPT = $trainingPT;
     }
 
 

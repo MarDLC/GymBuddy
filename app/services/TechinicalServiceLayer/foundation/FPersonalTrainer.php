@@ -2,7 +2,7 @@
 
 class FPersonalTrainer{
 
-    private static $table = "personaltrainer";
+    private static $table = "PersonalTrainer";
 
     private static $value = "(:email)";
 
@@ -51,7 +51,7 @@ class FPersonalTrainer{
         $result = FEntityManagerSQL::getInstance()->retriveObj(FUser::getTable(), self::getKey(), $email);
         //var_dump($result);
         if(count($result) > 0){
-            $personalTrainer = self::createUserObj($result);
+            $personalTrainer = self::createPersolTrainerObj($result);
             return $personalTrainer;
         }else{
             return null;

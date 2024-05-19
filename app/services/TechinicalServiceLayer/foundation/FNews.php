@@ -100,7 +100,7 @@ public static function createNewsObj($queryResult){
             FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
 
             // Delete the news item from the database
-            $queryResult  = FEntityManagerSQL::getInstance()->deleteObj(self::getTable(), self::getKey(), $idNews);
+            $queryResult  = FEntityManagerSQL::getInstance()->deleteObjInDb(self::getTable(), self::getKey(), $idNews);
 
             // Commit the transaction if the delete operation was successful
             FEntityManagerSQL::getInstance()->getDb()->commit();

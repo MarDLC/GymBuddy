@@ -99,7 +99,7 @@ class FTrainingCard{
             FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
 
             // Delete the news item from the database
-            $queryResult  = FEntityManagerSQL::getInstance()->deleteObj(self::getTable(), self::getKey(), $idTrainingCard);
+            $queryResult  = FEntityManagerSQL::getInstance()->deleteObjInDb(self::getTable(), self::getKey(), $idTrainingCard);
 
             // Commit the transaction if the delete operation was successful
             FEntityManagerSQL::getInstance()->getDb()->commit();

@@ -60,7 +60,7 @@ class FRegisteredUser{
  *
  * @return array|EUser Returns an array of user objects if there are multiple results, a single user object if there is one result, or an empty array if there are no results.
  */
-public static function createUserObj($queryResult){
+public static function createRegisteredUserObj($queryResult){
     if(count($queryResult) == 1){
         // If there is only one result, create a single user object.
         $registeredUser = new ERegisteredUser($queryResult[0]['first_name'], $queryResult[0]['last_name'], $queryResult[0]['email'], $queryResult[0]['password'], $queryResult[0]['username']);
@@ -99,7 +99,7 @@ public static function createUserObj($queryResult){
     $result = FEntityManagerSQL::getInstance()->retriveObj(FUser::getTable(), self::getKey(), $email);
     //var_dump($result);
     if(count($result) > 0){
-        $registeredUser = self::createUserObj($result);
+        $registeredUser = self::createRegisteredUserObj($result);
         return $registeredUser;
     }else{
         return null;
@@ -186,7 +186,7 @@ public static function saveObj($obj, $fieldArray = null){
         $result = FEntityManagerSQL::getInstance()->retriveObj(FUser::getTable(), 'username', $username);
 
         if(count($result) > 0){
-            $registeredUser = self::crateUserObj($result);
+            $registeredUser = self::createRegisteredUserObj($result);
             return $registeredUser;
         }else{
             return null;

@@ -102,7 +102,7 @@ class FPhysicalData{
             FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
 
             // Delete the news item from the database
-            $queryResult  = FEntityManagerSQL::getInstance()->deleteObj(self::getTable(), self::getKey(), $idPhysicalData);
+            $queryResult  = FEntityManagerSQL::getInstance()->deleteObjInDb(self::getTable(), self::getKey(), $idPhysicalData);
 
             // Commit the transaction if the delete operation was successful
             FEntityManagerSQL::getInstance()->getDb()->commit();

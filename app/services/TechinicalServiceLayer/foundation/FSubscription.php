@@ -50,7 +50,7 @@ class FSubscription{
         $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $email);
         //var_dump($result);
         if(count($result) > 0){
-            $subscription = self::crateSubscriptionObj($result);
+            $subscription = self::createSubscriptionObj($result);
             return $subscription;
         }else{
             return null;
