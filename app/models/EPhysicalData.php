@@ -4,6 +4,7 @@
 class EPhysicalData {
 
     //attributes
+    private $idPhysicalData;
     private $emailRegisteredUser;
     private $sex;
     private $height;
@@ -122,6 +123,26 @@ class EPhysicalData {
     public function setBmi($bmi)
     {
         $this->bmi = $bmi;
+    }
+
+    public function getEmailPersonalTrainer()
+    {
+        return $this->emailPersonalTrainer;
+    }
+
+    public function setEmailPersonalTrainer($emailPersonalTrainer)
+    {
+        $this->emailPersonalTrainer = $emailPersonalTrainer;
+    }
+
+    public function getIdPhysicalData()
+    {
+        return $this->idPhysicalData;
+    }
+
+    public function setIdPhysicalData($idPhysicalData)
+    {
+        $this->idPhysicalData = $idPhysicalData;
     }
 
 }

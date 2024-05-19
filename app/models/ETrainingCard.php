@@ -7,7 +7,7 @@ class ETrainingCard {
     private $idTrainingCard;
     private $emailRegisteredUser;
     private DateTime $creation;
-    private$exercises;
+    private $exercises;
     private $repetition;
     private $recovery;
     private $emailPersonalTrainer;

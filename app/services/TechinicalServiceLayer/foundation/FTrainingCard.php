@@ -26,23 +26,23 @@ class FTrainingCard{
 
     public static function createTrainingCardObj($queryResult){
         if(count($queryResult) == 1){
-            $TrainingCard = new ETrainingCard($queryResult[0]['emailRegisteredUser'],$queryResult[0]['excercises'],$queryResult[0]['repetition'],$queryResult[0]['recovery']);
-            $TrainingCard->setIdTrainingCard($queryResult[0]['idTrainingCard']);
+            $trainingCard = new ETrainingCard($queryResult[0]['emailRegisteredUser'],$queryResult[0]['excercises'],$queryResult[0]['repetition'],$queryResult[0]['recovery']);
+            $trainingCard->setIdTrainingCard($queryResult[0]['idTrainingCard']);
             $dateTime =  DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[0]['creation_time']);
-            $TrainingCard->setCreationTime($dateTime);
-            $TrainingCard->setEmailPersonalTrainer($queryResult[0]['emailPersonalTrainer']);
-            return $TrainingCard;
+            $trainingCard->setCreationTime($dateTime);
+            $trainingCard->setEmailPersonalTrainer($queryResult[0]['emailPersonalTrainer']);
+            return $trainingCard;
         }elseif(count($queryResult) > 1){
-            $TrainingCards = array();
+            $trainingCards = array();
             for($i = 0; $i < count($queryResult); $i++){
-                $TrainingCard = new ETrainingCard($queryResult[0]['emailRegisteredUser'],$queryResult[0]['excercises'],$queryResult[0]['repetition'],$queryResult[0]['recovery']);
-                $TrainingCard->setIdTrainingCard($queryResult[$i]['idTrainingCard']);
+                $trainingCard = new ETrainingCard($queryResult[0]['emailRegisteredUser'],$queryResult[0]['excercises'],$queryResult[0]['repetition'],$queryResult[0]['recovery']);
+                $trainingCard->setIdTrainingCard($queryResult[$i]['idTrainingCard']);
                 $dateTime =  DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[$i]['creation_time']);
-                $TrainingCard->setCreationTime($dateTime);
-                $TrainingCard->setEmailPersonalTrainer($queryResult[$i]['emailPersonalTrainer']);
-                $TrainingCards[] = $TrainingCard;
+                $trainingCard->setCreationTime($dateTime);
+                $trainingCard->setEmailPersonalTrainer($queryResult[$i]['emailPersonalTrainer']);
+                $trainingCards[] = $trainingCard;
             }
-            return $TrainingCards;
+            return $trainingCards;
         }else{
             return array();
         }
@@ -60,8 +60,8 @@ class FTrainingCard{
     public static function getObj($id){
         $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $id);
         if(count($result) > 0){
-            $TrainingCard = self::createTrainingCardObj($result);
-            return $TrainingCard;
+            $trainingCard = self::createTrainingCardObj($result);
+            return $trainingCard;
         }else{
             return null;
         }

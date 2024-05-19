@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 18, 2024 alle 17:11
+-- Creato il: Mag 19, 2024 alle 13:19
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -96,7 +96,8 @@ CREATE TABLE `physicaldata` (
   `fatMass` float DEFAULT NULL,
   `bmi` float DEFAULT NULL,
   `date` date DEFAULT NULL,
-  `emailPersonalTrainer` varchar(255) DEFAULT NULL
+  `emailPersonalTrainer` varchar(255) DEFAULT NULL,
+  `idPhysicalData` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -207,8 +208,9 @@ ALTER TABLE `personaltrainer`
 -- Indici per le tabelle `physicaldata`
 --
 ALTER TABLE `physicaldata`
-  ADD PRIMARY KEY (`emailRegisteredUser`),
-  ADD KEY `emailPersonalTrainer` (`emailPersonalTrainer`);
+  ADD PRIMARY KEY (`idPhysicalData`),
+  ADD KEY `emailPersonalTrainer` (`emailPersonalTrainer`),
+  ADD KEY `physicaldata_ibfk_1` (`emailRegisteredUser`);
 
 --
 -- Indici per le tabelle `registereduser`
@@ -258,6 +260,12 @@ ALTER TABLE `creditcard`
 --
 ALTER TABLE `news`
   MODIFY `idNews` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la tabella `physicaldata`
+--
+ALTER TABLE `physicaldata`
+  MODIFY `idPhysicalData` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `trainingcard`
