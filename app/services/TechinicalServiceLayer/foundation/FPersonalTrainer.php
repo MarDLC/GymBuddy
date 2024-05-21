@@ -1,33 +1,79 @@
 <?php
 
+/**
+ * Class FPersonalTrainer
+ *
+ * This class represents a personal trainer in the system. It provides methods for retrieving, binding, creating, and saving personal trainer objects.
+ */
 class FPersonalTrainer{
 
+    /**
+     * @var string The name of the table in the database where personal trainers are stored.
+     */
     private static $table = "PersonalTrainer";
 
+    /**
+     * @var string The value to be used in SQL queries.
+     */
     private static $value = "(:email)";
 
+    /**
+     * @var string The key to be used in SQL queries.
+     */
     private static $key = "email";
 
+    /**
+     * Returns the name of the table where personal trainers are stored.
+     *
+     * @return string The name of the table.
+     */
     public static function getTable(){
         return self::$table;
     }
 
+    /**
+     * Returns the value to be used in SQL queries.
+     *
+     * @return string The value.
+     */
     public static function getValue(){
         return self::$value;
     }
 
+    /**
+     * Returns the name of this class.
+     *
+     * @return string The name of this class.
+     */
     public static function getClass(){
         return self::class;
     }
 
+    /**
+     * Returns the key to be used in SQL queries.
+     *
+     * @return string The key.
+     */
     public static function getKey(){
         return self::$key;
     }
 
+    /**
+     * Binds the given user's email to the given statement.
+     *
+     * @param PDOStatement $stmt The statement to bind the user's email to.
+     * @param EPersonalTrainer $user The user whose email to bind.
+     */
     public static function bind($stmt, $user){
         $stmt->bindValue(":email", $user->getEmail(), PDO::PARAM_STR);
     }
 
+    /**
+     * Creates a personal trainer object or an array of personal trainer objects from the given query result.
+     *
+     * @param array $queryResult The query result to create the personal trainer object(s) from.
+     * @return EPersonalTrainer|array The created personal trainer object or array of personal trainer objects.
+     */
     public static function createPersolTrainerObj($queryResult){
         if(count($queryResult) == 1){
             // If there is only one result, create a single user object.
@@ -47,17 +93,37 @@ class FPersonalTrainer{
         }
     }
 
-    public static function getObj($email){
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FUser::getTable(), self::getKey(), $email);
-        //var_dump($result);
-        if(count($result) > 0){
-            $personalTrainer = self::createPersolTrainerObj($result);
-            return $personalTrainer;
-        }else{
-            return null;
-        }
-    }
+    /**
+ * Retrieves a personal trainer object with the given email.
+ *
+ * @param string $email The email of the personal trainer to retrieve.
+ * @return EPersonalTrainer|null The retrieved personal trainer object, or null if no personal trainer was found.
+ */
+public static function getObj($email){
+    // Retrieve the personal trainer object from the database using the given email
+    $result = FEntityManagerSQL::getInstance()->retriveObj(FPersonalTrainer::getTable(), self::getKey(), $email);
 
+    // Check if the query returned any results
+    if(count($result) > 0){
+        // If results were found, create a personal trainer object from the result
+        $personalTrainer = self::createPersolTrainerObj($result);
+        // Return the created personal trainer object
+        return $personalTrainer;
+    }else{
+        // If no results were found, return null
+        return null;
+    }
+}
+
+    /**
+     * Saves the given personal trainer object to the database.
+     *
+     * If the given field array is null, a new personal trainer is saved. Otherwise, an existing personal trainer is updated.
+     *
+     * @param EPersonalTrainer $obj The personal trainer object to save.
+     * @param array|null $fieldArray The array of fields to update, or null to save a new personal trainer.
+     * @return string|bool The last inserted email if a new personal trainer was saved, true if an existing personal trainer was updated, or false if the save operation was not successful.
+     */
     public static function saveObj($obj, $fieldArray = null){
         // Check if fieldArray is null, which means we are saving a new user
         if($fieldArray === null){

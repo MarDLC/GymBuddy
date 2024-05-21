@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 19, 2024 alle 13:19
+-- Creato il: Mag 22, 2024 alle 00:23
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -44,17 +44,6 @@ CREATE TABLE `creditcard` (
   `expirationDate` date DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `idCreditCard` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `followeduser`
---
-
-CREATE TABLE `followeduser` (
-  `emailPersonalTrainer` varchar(255) NOT NULL,
-  `emailRegisteredUser` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -107,7 +96,8 @@ CREATE TABLE `physicaldata` (
 --
 
 CREATE TABLE `registereduser` (
-  `email` varchar(255) NOT NULL
+  `email` varchar(255) NOT NULL,
+  `type` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -183,13 +173,6 @@ ALTER TABLE `admin`
 ALTER TABLE `creditcard`
   ADD PRIMARY KEY (`idCreditCard`),
   ADD KEY `email` (`email`);
-
---
--- Indici per le tabelle `followeduser`
---
-ALTER TABLE `followeduser`
-  ADD KEY `emailPersonalTrainer` (`emailPersonalTrainer`),
-  ADD KEY `emailRegisteredUser` (`emailRegisteredUser`);
 
 --
 -- Indici per le tabelle `news`
@@ -288,13 +271,6 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `creditcard`
   ADD CONSTRAINT `creditcard_ibfk_1` FOREIGN KEY (`email`) REFERENCES `subscription` (`email`);
-
---
--- Limiti per la tabella `followeduser`
---
-ALTER TABLE `followeduser`
-  ADD CONSTRAINT `followeduser_ibfk_1` FOREIGN KEY (`emailPersonalTrainer`) REFERENCES `user` (`email`),
-  ADD CONSTRAINT `followeduser_ibfk_2` FOREIGN KEY (`emailRegisteredUser`) REFERENCES `user` (`email`);
 
 --
 -- Limiti per la tabella `news`

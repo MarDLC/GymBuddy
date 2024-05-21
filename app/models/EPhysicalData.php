@@ -1,23 +1,80 @@
 <?php
 
-
+/**
+ * Class EPhysicalData
+ *
+ * This class represents the physical data of a registered user in the application.
+ * It includes properties for id, email of registered user, sex, height, weight, lean mass, fat mass, bmi, date, and email of personal trainer.
+ * It also includes methods for getting and setting these properties.
+ */
 class EPhysicalData {
 
-    //attributes
+    /**
+     * @var int $idPhysicalData The ID of the physical data record.
+     */
     private $idPhysicalData;
+
+    /**
+     * @var string $emailRegisteredUser The email of the registered user.
+     */
     private $emailRegisteredUser;
+
+    /**
+     * @var string $sex The sex of the registered user.
+     */
     private $sex;
+
+    /**
+     * @var float $height The height of the registered user.
+     */
     private $height;
+
+    /**
+     * @var float $weight The weight of the registered user.
+     */
     private $weight;
+
+    /**
+     * @var float $leanMass The lean mass of the registered user.
+     */
     private $leanMass;
+
+    /**
+     * @var float $fatMass The fat mass of the registered user.
+     */
     private $fatMass;
+
+    /**
+     * @var float $bmi The Body Mass Index (BMI) of the registered user.
+     */
     private $bmi;
+
+    /**
+     * @var DateTime $date The date of the physical data record.
+     */
     private DateTime $date;
+
+    /**
+     * @var string $emailPersonalTrainer The email of the personal trainer.
+     */
     private $emailPersonalTrainer;
 
+    /**
+     * @var string $entity The name of the class. This is set to EPhysicalData::class.
+     */
     private static $entity = EPhysicalData::class;
 
-    //constructor
+    /**
+     * Constructor for the EPhysicalData class.
+     *
+     * @param string $emailRegisteredUser The email of the registered user.
+     * @param string $sex The sex of the registered user.
+     * @param float $height The height of the registered user.
+     * @param float $weight The weight of the registered user.
+     * @param float $leanMass The lean mass of the registered user.
+     * @param float $fatMass The fat mass of the registered user.
+     * @param float $bmi The Body Mass Index (BMI) of the registered user.
+     */
     public function __construct($emailRegisteredUser, $sex, $height, $weight, $leanMass, $fatMass, $bmi)
     {
         $this->emailRegisteredUser = $emailRegisteredUser;
@@ -30,119 +87,231 @@ class EPhysicalData {
         $this->setTime();
     }
 
-    //methods
-    public static function getEntity(): string
-    {
-        return self::$entity;
-    }
+   /**
+ * Get the name of the class.
+ *
+ * @return string The name of the class.
+ */
+public static function getEntity(): string
+{
+    return self::$entity;
+}
 
-    public function getTime()
-    {
-        return $this->date;
-    }
+/**
+ * Get the date of the physical data record.
+ *
+ * @return DateTime The date of the physical data record.
+ */
+public function getTime()
+{
+    return $this->date;
+}
 
-    private function setTime()
-    {
-        $this->date = new DateTime("now");
-    }
+/**
+ * Set the current date and time as the date of the physical data record.
+ */
+private function setTime()
+{
+    $this->date = new DateTime("now");
+}
 
-    public function getTimeStr()
-    {
-        return $this->date->format('Y-m-d H:i:s');
-    }
+/**
+ * Get the date of the physical data record as a string.
+ *
+ * @return string The date of the physical data record in 'Y-m-d H:i:s' format.
+ */
+public function getTimeStr()
+{
+    return $this->date->format('Y-m-d H:i:s');
+}
 
-    public function setCreationTime(DateTime $dateTime){
-        $this->date = $dateTime;
-    }
+/**
+ * Set the creation time of the physical data record.
+ *
+ * @param DateTime $dateTime The new creation time of the physical data record.
+ */
+public function setCreationTime(DateTime $dateTime){
+    $this->date = $dateTime;
+}
 
-    public function getEmailRegisteredUser()
-    {
-        return $this->emailRegisteredUser;
-    }
+/**
+ * Get the email of the registered user.
+ *
+ * @return string The email of the registered user.
+ */
+public function getEmailRegisteredUser()
+{
+    return $this->emailRegisteredUser;
+}
 
-    public function setEmailRegisteredUser($emailRegisteredUser)
-    {
-        $this->emailRegisteredUser = $emailRegisteredUser;
-    }
+/**
+ * Set the email of the registered user.
+ *
+ * @param string $emailRegisteredUser The new email of the registered user.
+ */
+public function setEmailRegisteredUser($emailRegisteredUser)
+{
+    $this->emailRegisteredUser = $emailRegisteredUser;
+}
 
-    public function getSex()
-    {
-        return $this->sex;
-    }
+/**
+ * Get the sex of the registered user.
+ *
+ * @return string The sex of the registered user.
+ */
+public function getSex()
+{
+    return $this->sex;
+}
 
-    public function setSex($sex)
-    {
-        $this->sex = $sex;
-    }
+/**
+ * Set the sex of the registered user.
+ *
+ * @param string $sex The new sex of the registered user.
+ */
+public function setSex($sex)
+{
+    $this->sex = $sex;
+}
 
-    public function getHeight()
-    {
-        return $this->height;
-    }
+/**
+ * Get the height of the registered user.
+ *
+ * @return float The height of the registered user.
+ */
+public function getHeight()
+{
+    return $this->height;
+}
 
-    public function setHeight($height)
-    {
-        $this->height = $height;
-    }
+/**
+ * Set the height of the registered user.
+ *
+ * @param float $height The new height of the registered user.
+ */
+public function setHeight($height)
+{
+    $this->height = $height;
+}
 
-    public function getWeight()
-    {
-        return $this->weight;
-    }
+   /**
+ * Get the weight of the registered user.
+ *
+ * @return float The weight of the registered user.
+ */
+public function getWeight()
+{
+    return $this->weight;
+}
 
-    public function setWeight($weight)
-    {
-        $this->weight = $weight;
-    }
+/**
+ * Set the weight of the registered user.
+ *
+ * @param float $weight The new weight of the registered user.
+ */
+public function setWeight($weight)
+{
+    $this->weight = $weight;
+}
 
-    public function getLeanMass()
-    {
-        return $this->leanMass;
-    }
+/**
+ * Get the lean mass of the registered user.
+ *
+ * @return float The lean mass of the registered user.
+ */
+public function getLeanMass()
+{
+    return $this->leanMass;
+}
 
-    public function setLeanMass($leanMass)
-    {
-        $this->leanMass = $leanMass;
-    }
+/**
+ * Set the lean mass of the registered user.
+ *
+ * @param float $leanMass The new lean mass of the registered user.
+ */
+public function setLeanMass($leanMass)
+{
+    $this->leanMass = $leanMass;
+}
 
-    public function getFatMass()
-    {
-        return $this->fatMass;
-    }
+/**
+ * Get the fat mass of the registered user.
+ *
+ * @return float The fat mass of the registered user.
+ */
+public function getFatMass()
+{
+    return $this->fatMass;
+}
 
-    public function setFatMass($fatMass)
-    {
-        $this->fatMass = $fatMass;
-    }
+/**
+ * Set the fat mass of the registered user.
+ *
+ * @param float $fatMass The new fat mass of the registered user.
+ */
+public function setFatMass($fatMass)
+{
+    $this->fatMass = $fatMass;
+}
 
-    public function getBmi()
-    {
-        return $this->bmi;
-    }
+/**
+ * Get the Body Mass Index (BMI) of the registered user.
+ *
+ * @return float The Body Mass Index (BMI) of the registered user.
+ */
+public function getBmi()
+{
+    return $this->bmi;
+}
 
-    public function setBmi($bmi)
-    {
-        $this->bmi = $bmi;
-    }
+/**
+ * Set the Body Mass Index (BMI) of the registered user.
+ *
+ * @param float $bmi The new Body Mass Index (BMI) of the registered user.
+ */
+public function setBmi($bmi)
+{
+    $this->bmi = $bmi;
+}
 
-    public function getEmailPersonalTrainer()
-    {
-        return $this->emailPersonalTrainer;
-    }
+/**
+ * Get the email of the personal trainer.
+ *
+ * @return string The email of the personal trainer.
+ */
+public function getEmailPersonalTrainer()
+{
+    return $this->emailPersonalTrainer;
+}
 
-    public function setEmailPersonalTrainer($emailPersonalTrainer)
-    {
-        $this->emailPersonalTrainer = $emailPersonalTrainer;
-    }
+/**
+ * Set the email of the personal trainer.
+ *
+ * @param string $emailPersonalTrainer The new email of the personal trainer.
+ */
+public function setEmailPersonalTrainer($emailPersonalTrainer)
+{
+    $this->emailPersonalTrainer = $emailPersonalTrainer;
+}
 
-    public function getIdPhysicalData()
-    {
-        return $this->idPhysicalData;
-    }
+/**
+ * Get the ID of the physical data record.
+ *
+ * @return int The ID of the physical data record.
+ */
+public function getIdPhysicalData()
+{
+    return $this->idPhysicalData;
+}
 
-    public function setIdPhysicalData($idPhysicalData)
-    {
-        $this->idPhysicalData = $idPhysicalData;
-    }
+/**
+ * Set the ID of the physical data record.
+ *
+ * @param int $idPhysicalData The new ID of the physical data record.
+ */
+public function setIdPhysicalData($idPhysicalData)
+{
+    $this->idPhysicalData = $idPhysicalData;
+}
 
 }

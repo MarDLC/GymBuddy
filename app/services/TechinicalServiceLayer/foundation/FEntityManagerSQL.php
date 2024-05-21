@@ -312,4 +312,27 @@ class FEntityManagerSQL{
             return array();
         }
     }
+
+    public static function verifyFieldValue($table, $field, $value){
+    try{
+        // Prepare the SQL statement to check if a record with the specified value for the specified field exists
+        $stmt = self::$db->prepare("SELECT * FROM " . $table . " WHERE " . $field . " = :value");
+        // Bind the parameters
+        $stmt->bindValue(":value", $value, PDO::PARAM_STR);
+        // Execute the SQL statement
+        $stmt->execute();
+        // Fetch the result
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        // If a record with the specified value for the specified field exists, return true
+        if($result){
+            return true;
+        }
+        // If a record with the specified value for the specified field does not exist, return false
+        return false;
+    }catch(PDOException $e){
+        // Print the error message
+        echo "ERROR " . $e->getMessage();
+        return false;
+    }
+}
 }
