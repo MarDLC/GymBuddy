@@ -185,4 +185,21 @@ public static function getObj($email){
             }
         }
     }
+
+    public static function getListEmailsOfFollowedUsers() {
+    // Get the rows where type is 'followed_user'
+    $rows = FEntityManagerSQL::retriveObj('RegisteredUser', 'type', 'followed_user');
+
+    // Initialize an empty array to hold the emails
+    $emails = array();
+
+    // Iterate over the rows
+    foreach ($rows as $row) {
+        // Add the email to the array
+        $emails[] = $row['email'];
+    }
+
+    // Return the array of emails
+    return $emails;
+}
 }

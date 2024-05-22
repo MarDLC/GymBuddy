@@ -323,12 +323,12 @@ class FEntityManagerSQL{
         $stmt->execute();
         // Fetch the result
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        // If a record with the specified value for the specified field exists, return true
+        // If a record with the specified value for the specified field exists, return the value of the field
         if($result){
-            return true;
+            return $result[$field];
         }
-        // If a record with the specified value for the specified field does not exist, return false
-        return false;
+        // If a record with the specified value for the specified field does not exist, return null
+        return null;
     }catch(PDOException $e){
         // Print the error message
         echo "ERROR " . $e->getMessage();
