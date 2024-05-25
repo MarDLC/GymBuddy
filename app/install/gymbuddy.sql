@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 22, 2024 alle 00:23
+-- Creato il: Mag 25, 2024 alle 18:55
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -67,7 +67,8 @@ CREATE TABLE `news` (
 --
 
 CREATE TABLE `personaltrainer` (
-  `email` varchar(255) NOT NULL
+  `email` varchar(255) NOT NULL,
+  `approved` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------

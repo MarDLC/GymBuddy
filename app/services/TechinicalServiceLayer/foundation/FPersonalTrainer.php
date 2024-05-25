@@ -15,7 +15,7 @@ class FPersonalTrainer{
     /**
      * @var string The value to be used in SQL queries.
      */
-    private static $value = "(:email)";
+    private static $value = "(:email, approved)";
 
     /**
      * @var string The key to be used in SQL queries.
@@ -66,6 +66,7 @@ class FPersonalTrainer{
      */
     public static function bind($stmt, $user){
         $stmt->bindValue(":email", $user->getEmail(), PDO::PARAM_STR);
+        $stmt->bindValue(":approved", $user->isApproved(), PDO::PARAM_BOOL);
     }
 
     /**
@@ -74,16 +75,18 @@ class FPersonalTrainer{
      * @param array $queryResult The query result to create the personal trainer object(s) from.
      * @return EPersonalTrainer|array The created personal trainer object or array of personal trainer objects.
      */
-    public static function createPersolTrainerObj($queryResult){
+    public static function createPersonalTrainerObj($queryResult){
         if(count($queryResult) == 1){
             // If there is only one result, create a single user object.
             $personalTrainer = new EPersonalTrainer($queryResult[0]['first_name'], $queryResult[0]['last_name'], $queryResult[0]['email'], $queryResult[0]['password'], $queryResult[0]['username']);
+            $personalTrainer->setApproved($queryResult[0]['approved']);
             return $personalTrainer;
         } elseif(count($queryResult) > 1){
             // If there are multiple results, create an array of user objects.
             $personalTrainers = array();
             for($i = 0; $i < count($queryResult); $i++){
                 $personalTrainer = new EPersonalTrainer($queryResult[$i]['first_name'], $queryResult[$i]['last_name'], $queryResult[$i]['email'], $queryResult[$i]['password'], $queryResult[$i]['username']);
+                $personalTrainer->setApproved($queryResult[0]['approved']);
                 $personalTrainers[] = $personalTrainer;
             }
             return $personalTrainers;
@@ -106,7 +109,7 @@ public static function getObj($email){
     // Check if the query returned any results
     if(count($result) > 0){
         // If results were found, create a personal trainer object from the result
-        $personalTrainer = self::createPersolTrainerObj($result);
+        $personalTrainer = self::createPersonalTrainerObj($result);
         // Return the created personal trainer object
         return $personalTrainer;
     }else{

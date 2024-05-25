@@ -692,22 +692,16 @@ class FPersistentManager{
 
 //------------------------------------------------------------------------------------
 
-    /**
-     * $userinput can be an array of user or an user id,, in this case retrive the user
-     * Method to load Users and their Profile Image
-     * @param array | int $userInput
-     */
-    public static function loadUsersAndImage($userInput){
+
+    public static function loadUsers($userInput){
         $result = array();
         if(is_array($userInput)){
             foreach($userInput as $u){
-                $arrayData = array($u, self::retriveObj(FImage::getClass(), $u->getIdImage()));
-                $result[] = $arrayData;
+                $result[] = $u;
             }
         }else{
-            $user = self::retriveObj(FUser::getClass(), $userInput);
-            $arrayData = array($user, self::retriveObj(FImage::getClass(), $user->getIdImage()));
-            $result[] = $arrayData;
+            $user = self::retriveObj(FRegisteredUser::getClass(), $userInput);
+            $result[] = $user;
         }
         return $result;
     }
@@ -842,4 +836,16 @@ class FPersistentManager{
         return [true, null];
     }
 
+
+    //-------------------------------METODI AGGIUNTI----------------------------------------------
+
+    public static function updateUserApproval($user){
+        // Set the approval status of the user
+        $user->setIsApproved(true);
+
+        // Update the user in the database
+        $result = self::uploadObj($user);
+
+        return $result;
+    }
 }
