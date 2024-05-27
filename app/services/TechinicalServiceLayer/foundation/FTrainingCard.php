@@ -219,4 +219,18 @@ class FTrainingCard{
             FEntityManagerSQL::getInstance()->closeConnection();
         }
     }
+
+    public static function getTrainingCardsByEmail($emailRegisteredUser){
+        // Retrieve the TrainingCard objects for the client
+        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), 'emailRegisteredUser', $emailRegisteredUser);
+        // If the result is not empty, create a TrainingCard object from the result
+        if(count($result) > 0){
+            $trainingCards = self::createTrainingCardObj($result);
+            return $trainingCards;
+        }else{
+            // If the result is empty, return null
+            return null;
+        }
+    }
+
 }

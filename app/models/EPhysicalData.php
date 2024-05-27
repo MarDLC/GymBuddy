@@ -9,6 +9,9 @@
  */
 class EPhysicalData {
 
+    //TODO PHPDOC
+    protected $personalTrainer;
+
     /**
      * @var int $idPhysicalData The ID of the physical data record.
      */
@@ -313,5 +316,15 @@ public function setIdPhysicalData($idPhysicalData)
 {
     $this->idPhysicalData = $idPhysicalData;
 }
+
+    public function getPersonalTrainer()
+    {
+        return $this->personalTrainer;
+    }
+
+    public function setPersonalTrainer(EPersonalTrainer $personalTrainer):void
+    {
+        $this->personalTrainer = $personalTrainer;
+    }
 
 }

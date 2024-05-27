@@ -19,6 +19,9 @@ class ETrainingCard {
      */
     private $emailRegisteredUser;
 
+   //TODO PHPDOC
+    protected $personalTrainer;
+
     /**
      * @var DateTime $creation The creation date of the training card.
      */
@@ -232,6 +235,16 @@ public function getIdTrainingCard()
 public function setIdTrainingCard($idTrainingCard)
 {
     $this->idTrainingCard = $idTrainingCard;
+}
+
+public function getPersonalTrainer()
+{
+    return $this->personalTrainer;
+}
+
+public function setPersonalTrainer(EPersonalTrainer $personalTrainer):void
+{
+    $this->personalTrainer = $personalTrainer;
 }
 
 

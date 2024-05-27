@@ -27,4 +27,19 @@ class CAdmin{
         }
     }
 
+    public static function redirectUser() {
+        // Ottieni l'utente corrente
+        $user = USession::getInstance()->getSessionElement('user');
+
+        // Controlla il tipo di utente e reindirizza alla corretta home page
+        if ($user instanceof ERegisteredUser) {
+            header('Location: /GymBuddy/User/Home');
+        } elseif ($user instanceof EPersonalTrainer) {
+            header('Location: /GymBuddy/PersonalTrainer/Home');
+        } elseif ($user instanceof EAdmin) {
+            header('Location: /GymBuddy/Admin/Home');
+        }
+    }
+
+
 }

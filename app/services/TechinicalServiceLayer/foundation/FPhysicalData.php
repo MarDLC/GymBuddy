@@ -238,4 +238,17 @@ public static function deletePhysicalDataInDb($idPhysicalData){
         FEntityManagerSQL::getInstance()->closeConnection();
     }
  }
+
+    public static function getPhysicalDataByEmail($emailRegisteredUser){
+        // Retrieve the PhysicalData objects for the client
+        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), 'emailRegisteredUser', $emailRegisteredUser);
+        // If the result is not empty, create a PhysicalData object from the result
+        if(count($result) > 0){
+            $physicalData = self::createPhysicalDataObj($result);
+            return $physicalData;
+        }else{
+            // If the result is empty, return null
+            return null;
+        }
+    }
 }

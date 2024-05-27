@@ -191,7 +191,7 @@ public static function getObj($email){
 
     public static function getListEmailsOfFollowedUsers() {
     // Get the rows where type is 'followed_user'
-    $rows = FEntityManagerSQL::retriveObj('RegisteredUser', 'type', 'followed_user');
+    $rows = FEntityManagerSQL::retriveObj('registereduser', 'type', 'followed_user');
 
     // Initialize an empty array to hold the emails
     $emails = array();
@@ -205,4 +205,18 @@ public static function getObj($email){
     // Return the array of emails
     return $emails;
 }
+
+    public static function getTrainingCardsOfClient($emailRegisteredUser) {
+        // Retrieve the TrainingCard objects for the client
+        return FTrainingCard::getTrainingCardsByEmail($emailRegisteredUser);
+    }
+
+    public static function getPhysicalDataOfClient($emailRegisteredUser) {
+        // Retrieve the PhysicalData objects for the client
+        return FPhysicalData::getPhysicalDataByEmail($emailRegisteredUser);
+    }
+
+
+
+
 }
