@@ -135,5 +135,24 @@ class CUser{
     }
 
 
+    public static function viewTrainingCard($emailRegisteredUser) {
+        // Retrieve the TrainingCard objects for the client
+        $trainingCards = FTrainingCard::getTrainingCardsByEmail($emailRegisteredUser);
+
+        // Pass the TrainingCard objects to the view for display
+        $view = new VPersonalTrainer();
+        $view->showTrainingCards($trainingCards);
+    }
+
+
+    public static function viewPhysicalData($emailRegisteredUser) {
+        // Retrieve the PhysicalData objects for the client
+        $physicalData = FPhysicalData::getPhysicalDataByEmail($emailRegisteredUser);
+
+        // Pass the PhysicalData objects to the view for display
+        $view = new VPersonalTrainer();
+        $view->showPhysicalData($physicalData);
+    }
+
 
 }

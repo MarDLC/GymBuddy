@@ -848,4 +848,25 @@ class FPersistentManager{
 
         return $result;
     }
+    /**
+     * Method to update a physicalData Obj that have changed his physicalData (sex, fatMass, leanMass, height, weight, bmi)
+     * @param \EPhysicalData $physicalData
+     */
+
+    public static function updatePhysicalData($physicalData){
+        $field = [['sex', $physicalData->getSex()], ['height', $physicalData->getHeight()], ['weight', $physicalData->getWeight()], ['leanMass', $physicalData->getLeanMass()], ['fatMass', $physicalData->getFatMass()], ['bmi', $physicalData->getBmi()]];
+        $result = FPhysicalData::saveObj($physicalData, $field);
+
+        return $result;
+    }
+
+    public static function updateTrainingCard($trainingCard){
+        $field = [['exercises', $trainingCard->getExercises()], ['repetition', $trainingCard->getRepetition()], ['recovery', $trainingCard->getRecovery()]];
+        $result = FTrainingCard::saveObj($trainingCard, $field);
+
+        return $result;
+    }
+
+
 }
+
