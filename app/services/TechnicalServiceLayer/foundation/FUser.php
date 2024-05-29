@@ -17,7 +17,7 @@ class FUser{
     /**
      * @var string $value The SQL value string for inserting a new record into the table.
      */
-    private static $value = "(:email,:username,:first_name,:last_name,:password,:discr)";
+    private static $value = "(:email,:username,:first_name,:last_name,:password,:role)";
 
     /**
      * @var string $key The primary key of the table.
@@ -82,7 +82,7 @@ public static function bind($stmt, $user){
     // Bind the password of the user to the corresponding parameter in the SQL statement
     $stmt->bindValue(":password", $user->getPassword(), PDO::PARAM_STR);
     // Bind the discriminator of the user (used for inheritance) to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":discr", $user->discr, PDO::PARAM_STR);
+    $stmt->bindValue(":role", $user->role, PDO::PARAM_STR);
 }
 
 /**

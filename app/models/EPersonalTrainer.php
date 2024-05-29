@@ -26,7 +26,7 @@ class EPersonalTrainer extends EUser {
     /**
      * @var string $entity The name of the class. This is set to PersonalTrainer::class.
      */
-    private static $entity = PersonalTrainer::class;
+    private static $entity = EPersonalTrainer::class;
 
     /**
      * Constructor for the EPersonalTrainer class.
