@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 25, 2024 alle 18:55
+-- Creato il: Giu 01, 2024 alle 18:30
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -71,6 +71,22 @@ CREATE TABLE `personaltrainer` (
   `approved` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dump dei dati per la tabella `personaltrainer`
+--
+
+INSERT INTO `personaltrainer` (`email`, `approved`) VALUES
+('testPT@example.com', 0),
+('testFPersonalTrainer@example.com', 0),
+('testFPersonalTrainer@example.com', 0),
+('testFPersonalTrainer@example.com', 0),
+('testFPersonalTrainer@example.com', 0),
+('testSaveObj@example.com', 0),
+('testSaveObj@example.com', 0),
+('testSaveObj@example.com', 0),
+('testSaveObj22@example.com', 0),
+('testSaveObj22@example.com', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -100,6 +116,14 @@ CREATE TABLE `registereduser` (
   `email` varchar(255) NOT NULL,
   `type` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dump dei dati per la tabella `registereduser`
+--
+
+INSERT INTO `registereduser` (`email`, `type`) VALUES
+('test13@example.com', NULL),
+('test14@example.com', NULL);
 
 -- --------------------------------------------------------
 
@@ -155,8 +179,22 @@ CREATE TABLE `user` (
   `username` varchar(255) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dump dei dati per la tabella `user`
+--
+
+INSERT INTO `user` (`email`, `username`, `first_name`, `last_name`, `password`, `role`) VALUES
+('newPT@example.com', 'newPT', 'New', 'PT', '$2y$10$4d7TaKP/pxptay1.kex70OxOW6s/cYuTeU3LCBq5mhtWgGe00g11e', 'personalTrainer'),
+('test13@example.com', 'testuser', 'Test', 'User', '$2y$10$91o0JgKE2.UJzxjqJ7BgXeTaMgNXT5wN5BFISUd2waPFQGujz8aHW', 'registeredUser'),
+('test14@example.com', 'testuser', 'Test', 'User', '$2y$10$5tVHQNFL7edY6Db58nHcMezburYANynzznOOh1O.CQgYSoz5OSSs6', 'registeredUser'),
+('testFPersonalTrainer@example.com', 'testuser', 'Test', 'FPersonalTrainer', '$2y$10$EriR2Yw61ExDirj5hYZoDOQcFUPY94ri2hdIbt2D/VQ14A7nlJ/eK', 'personalTrainer'),
+('testPT@example.com', 'testPT', 'Test', 'PT', '$2y$10$mg.XqyQtd5hhiAOVgiCiQuIIo6XmCWHdcDVu5sc.iuI18FXo18dQG', 'personalTrainer'),
+('testSaveObj@example.com', 'testuser', 'Test', 'SaveObj', '$2y$10$9OifPP5HyARBnOryXjpSjuqaIjBUzNGCNrQvwc54FtG8heh40Y9lm', 'personalTrainer'),
+('testSaveObj22@example.com', 'testuser', 'Test', 'SaveObj', '$2y$10$6sB1dakCFnYdChAIxzlWG.abhjwStWP8yc90jAeJ/tRUB5vk0h3hm', 'personalTrainer');
 
 --
 -- Indici per le tabelle scaricate
@@ -265,7 +303,7 @@ ALTER TABLE `trainingcard`
 -- Limiti per la tabella `admin`
 --
 ALTER TABLE `admin`
-  ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`email`) REFERENCES `user` (`email`) ON DELETE CASCADE;
+  ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`email`) REFERENCES `user` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `creditcard`
@@ -283,7 +321,7 @@ ALTER TABLE `news`
 -- Limiti per la tabella `personaltrainer`
 --
 ALTER TABLE `personaltrainer`
-  ADD CONSTRAINT `personaltrainer_ibfk_1` FOREIGN KEY (`email`) REFERENCES `user` (`email`);
+  ADD CONSTRAINT `personaltrainer_ibfk_1` FOREIGN KEY (`email`) REFERENCES `user` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `physicaldata`
@@ -296,7 +334,7 @@ ALTER TABLE `physicaldata`
 -- Limiti per la tabella `registereduser`
 --
 ALTER TABLE `registereduser`
-  ADD CONSTRAINT `registereduser_ibfk_1` FOREIGN KEY (`email`) REFERENCES `user` (`email`) ON DELETE CASCADE;
+  ADD CONSTRAINT `registereduser_ibfk_1` FOREIGN KEY (`email`) REFERENCES `user` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `reservation`

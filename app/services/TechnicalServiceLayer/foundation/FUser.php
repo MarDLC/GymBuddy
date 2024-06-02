@@ -70,20 +70,20 @@ class FUser{
  * @param PDOStatement $stmt The PDO statement that the User entity attributes are to be bound to.
  * @param User $user The User entity whose attributes are to be bound.
  */
-public static function bind($stmt, $user){
-    // Bind the email of the user to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":email", $user->getEmail(), PDO::PARAM_STR);
-    // Bind the username of the user to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":username", $user->getUsername(), PDO::PARAM_STR);
-    // Bind the first name of the user to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":first_name", $user->getFirstName(), PDO::PARAM_STR);
-    // Bind the last name of the user to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":last_name", $user->getLastName(), PDO::PARAM_STR);
-    // Bind the password of the user to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":password", $user->getPassword(), PDO::PARAM_STR);
-    // Bind the discriminator of the user (used for inheritance) to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":role", $user->role, PDO::PARAM_STR);
-}
+    public static function bind($stmt, $user){
+        // Bind the email of the user to the corresponding parameter in the SQL statement
+        $stmt->bindValue(":email", $user->getEmail(), PDO::PARAM_STR);
+        // Bind the username of the user to the corresponding parameter in the SQL statement
+        $stmt->bindValue(":username", $user->getUsername(), PDO::PARAM_STR);
+        // Bind the first name of the user to the corresponding parameter in the SQL statement
+        $stmt->bindValue(":first_name", $user->getFirstName(), PDO::PARAM_STR);
+        // Bind the last name of the user to the corresponding parameter in the SQL statement
+        $stmt->bindValue(":last_name", $user->getLastName(), PDO::PARAM_STR);
+        // Bind the password of the user to the corresponding parameter in the SQL statement
+        $stmt->bindValue(":password", $user->getPassword(), PDO::PARAM_STR);
+        // Bind the discriminator of the user (used for inheritance) to the corresponding parameter in the SQL statement
+        $stmt->bindValue(":role", $user->role, PDO::PARAM_STR);
+    }
 
 /**
  * Verifies if a User entity exists in the database.

@@ -163,9 +163,13 @@ class FEntityManagerSQL{
             $stmt->execute();
             $id = self::$db->lastInsertId();
             return $id;
-        }catch(Exception $e){
-            echo "ERROR: " . $e->getMessage();
-            return null;
+        }catch(PDOException $e){
+            if($e->getCode() === '23000'){ // se è un errore di duplicazione della chiave primaria
+                return 'errore_di_duplicazione_chiave_primaria';
+            }else{
+                echo "ERRORE: " . $e->getMessage();
+                return null;
+            }
         }
     }
 

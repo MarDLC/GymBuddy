@@ -78,15 +78,19 @@ class FPersonalTrainer{
     public static function createPersonalTrainerObj($queryResult){
         if(count($queryResult) == 1){
             // If there is only one result, create a single user object.
-            $personalTrainer = new EPersonalTrainer($queryResult[0]['first_name'], $queryResult[0]['last_name'], $queryResult[0]['email'], $queryResult[0]['password'], $queryResult[0]['username']);
-            $personalTrainer->setApproved($queryResult[0]['approved']);
+            $personalTrainer = new EPersonalTrainer($queryResult[0]['email'], $queryResult[0]['username'], $queryResult[0]['first_name'], $queryResult[0]['last_name'], $queryResult[0]['password']);
+            if (isset($queryResult[0]['approved'])) {
+                $personalTrainer->setApproved($queryResult[0]['approved']);
+            }
             return $personalTrainer;
         } elseif(count($queryResult) > 1){
             // If there are multiple results, create an array of user objects.
             $personalTrainers = array();
             for($i = 0; $i < count($queryResult); $i++){
-                $personalTrainer = new EPersonalTrainer($queryResult[$i]['first_name'], $queryResult[$i]['last_name'], $queryResult[$i]['email'], $queryResult[$i]['password'], $queryResult[$i]['username']);
-                $personalTrainer->setApproved($queryResult[0]['approved']);
+                $personalTrainer = new EPersonalTrainer($queryResult[$i]['email'], $queryResult[$i]['username'], $queryResult[$i]['first_name'], $queryResult[$i]['last_name'], $queryResult[$i]['password']);
+                if (isset($queryResult[$i]['approved'])) {
+                    $personalTrainer->setApproved($queryResult[$i]['approved']);
+                }
                 $personalTrainers[] = $personalTrainer;
             }
             return $personalTrainers;
@@ -95,28 +99,26 @@ class FPersonalTrainer{
             return array();
         }
     }
-
     /**
  * Retrieves a personal trainer object with the given email.
  *
  * @param string $email The email of the personal trainer to retrieve.
  * @return EPersonalTrainer|null The retrieved personal trainer object, or null if no personal trainer was found.
  */
-public static function getObj($email){
-    // Retrieve the personal trainer object from the database using the given email
-    $result = FEntityManagerSQL::getInstance()->retriveObj(FPersonalTrainer::getTable(), self::getKey(), $email);
-
-    // Check if the query returned any results
-    if(count($result) > 0){
-        // If results were found, create a personal trainer object from the result
-        $personalTrainer = self::createPersonalTrainerObj($result);
-        // Return the created personal trainer object
-        return $personalTrainer;
-    }else{
-        // If no results were found, return null
-        return null;
+    public static function getObj($email){
+        // Retrieve the personal trainer object from the database using the given email
+        $result = FEntityManagerSQL::getInstance()->retriveObj(FUser::getTable(), self::getKey(), $email);
+        // Check if the query returned any results
+        if(count($result) > 0){
+            // If results were found, create a personal trainer object from the result
+            $personalTrainer = self::createPersonalTrainerObj($result);
+            // Return the created personal trainer object
+            return $personalTrainer;
+        }else{
+            // If no results were found, return null
+            return null;
+        }
     }
-}
 
     /**
      * Saves the given personal trainer object to the database.
@@ -135,22 +137,20 @@ public static function getObj($email){
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
                 // Save the user object and get the last inserted email
                 $savePersonAndLastInsertedEmail = FEntityManagerSQL::getInstance()->saveObject(FUser::getClass(), $obj);
-                // Check if the save operation was successful
-                if($savePersonAndLastInsertedEmail !== null){
+                // If the save operation was successful, save the user object with the last inserted email
+                if($savePersonAndLastInsertedEmail !== null) {
                     // Save the user object with the last inserted email
                     $savePersonalTrainer = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedEmail);
-                    // Commit the transaction if the save operation was successful
-                    FEntityManagerSQL::getInstance()->getDb()->commit();
-                    // Return the last inserted email if the user was saved successfully
-                    if($savePersonalTrainer){
+                    // If the user was saved successfully, commit the transaction and return the last inserted email
+                    if ($savePersonalTrainer) {
+                        FEntityManagerSQL::getInstance()->getDb()->commit();
                         return $savePersonAndLastInsertedEmail;
                     }
-                }else{
-                    // Return false if the save operation was not successful
-                    return false;
                 }
+                // if the save operation was not successful, return false
+                return false;
             }catch(PDOException $e){
-                // Print the error message and rollback the transaction in case of an exception
+                // If an exception occurs, print the error message, rollback the transaction, and return false
                 echo "ERROR " . $e->getMessage();
                 FEntityManagerSQL::getInstance()->getDb()->rollBack();
                 return false;
@@ -165,13 +165,13 @@ public static function getObj($email){
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
                 // Loop through the fieldArray and update the user fields
                 foreach($fieldArray as $fv){
-                    // Check if the field is not username or password
+                    // If the field is not username or password, update the user field in the personal trainer table
                     if($fv[0] != "username" && $fv[0] != "password"){
-                        // Update the user field in the registered user table
+                        // Update the user field in the personal trainer table
                         FEntityManagerSQL::getInstance()->updateObj(FPersonalTrainer::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getEmail());
                     }else{
-                        // Update the user field in the user table
-                        FEntityManagerSQL::getInstance()->updateObj(FPersonalTrainer::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getEmail());
+                        // if the field is username or password, update the user field in the user table
+                        FEntityManagerSQL::getInstance()->updateObj(FUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getEmail());
                     }
                 }
                 // Commit the transaction after updating the user fields
@@ -188,6 +188,7 @@ public static function getObj($email){
             }
         }
     }
+
 
     public static function deletePersonalTrainerObj($email){
         try{
