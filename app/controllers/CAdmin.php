@@ -41,5 +41,50 @@ class CAdmin{
         }
     }
 
+public static function rejectTrainer($trainerId){
+        // Retrieve the trainer object from the database
+        $trainer = FPersistentManager::getInstance()->retriveObj('EPersonalTrainer', $trainerId);
+
+        // Check if the trainer exists
+        if($trainer){
+            // Set the trainer's approval status to false
+            $trainer->setApproved(false);
+
+            // Update the trainer in the database
+            $result = FPersistentManager::getInstance()->updateUserApproval($trainer);
+
+            // Check if the update was successful
+            if($result){
+                // The trainer was successfully rejected
+                return true;
+            }else{
+                // There was an error rejecting the trainer
+                return false;
+            }
+        }else{
+            // The trainer does not exist
+            return false;
+        }
+    }
+
+    public static function postNews($title, $description) {
+    // Create a new news item
+    $news = new ENews($title, $description);
+
+    // Save the news item in the database
+    $result = FPersistentManager::getInstance()->saveNews($news);
+
+    // Check if the news item was saved successfully
+    if ($result) {
+        // If successful, redirect the admin to a success page
+        header('Location: /GymBuddy/Admin/NewsSuccess');
+    } else {
+        // If not successful, redirect the admin to an error page
+        header('Location: /GymBuddy/Admin/NewsError');
+    }
+}
+
+
+
 
 }

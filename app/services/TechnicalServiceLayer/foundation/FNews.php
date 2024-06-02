@@ -206,13 +206,13 @@ public static function saveObj($obj , $fieldArray = null){
      * @return bool True if the News was successfully deleted, otherwise false.
      * This method is used to delete a News from the database.
      */
-    public static function deleteNewsInDb($idNews){
+    public static function deleteObj($idNews){
         try{
             // Start a new database transaction
             FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
 
             // Delete the news item from the database
-            $queryResult  = FEntityManagerSQL::getInstance()->deleteObjInDb(self::getTable(), self::getKey(), $idNews);
+            $queryResult  = FEntityManagerSQL::getInstance()->deleteObjInDb(FNews::getTable(), FNews::getKey(), $idNews);
 
             // Commit the transaction if the delete operation was successful
             FEntityManagerSQL::getInstance()->getDb()->commit();

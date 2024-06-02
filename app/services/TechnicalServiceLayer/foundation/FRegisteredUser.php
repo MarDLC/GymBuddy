@@ -16,7 +16,7 @@ class FRegisteredUser{
     /**
      * @var string $value The SQL value string for inserting a new record into the table.
      */
-    private static $value = "(:email)";
+    private static $value = "(:email, :type)";
 
     /**
      * @var string $key The primary key of the table.
@@ -195,7 +195,36 @@ public static function saveObj($obj, $fieldArray = null){
     }
 }
 
-/**
+    public static function deleteObj($email){
+        // Call the deleteObjInDb method of FEntityManagerSQL to delete the user
+        $result = FEntityManagerSQL::getInstance()->deleteObjInDb(self::getTable(), self::getKey(), $email);
+
+        // Return the result of the delete operation
+        return $result;
+    }
+
+    public static function deleteRegisteredUserObj($email){
+        try{
+            // Start a new database transaction
+            FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
+            // Delete the user object from the database
+            FEntityManagerSQL::getInstance()->deleteObjInDb(FUser::getTable(), self::getKey(), $email);
+            // Commit the transaction
+            FEntityManagerSQL::getInstance()->getDb()->commit();
+            return true;
+        }catch(PDOException $e){
+            // Print the error message and rollback the transaction in case of an exception
+            echo "ERROR " . $e->getMessage();
+            FEntityManagerSQL::getInstance()->getDb()->rollBack();
+            return false;
+        }finally{
+            // Close the database connection
+            FEntityManagerSQL::getInstance()->closeConnection();
+        }
+    }
+
+
+    /**
  * Retrieves a RegisteredUser object with the given username.
  *
  * @param string $username The username of the RegisteredUser object to retrieve.

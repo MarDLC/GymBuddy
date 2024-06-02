@@ -12,7 +12,7 @@ class FReservation{
     /**
      * @var string $table The name of the table in the database that this class interacts with.
      */
-    private static $table = "Reservation";
+    private static $table = "reservation";
 
     /**
      * @var string $value The SQL value string for inserting a new record into the table.
@@ -177,29 +177,26 @@ public static function saveObj($obj , $fieldArray = null){
  * @param string $emailRegisteredUser The email of the registered user
  * @return bool True if the operation was successful, false otherwise
  */
-public static function deleteReservationInDb($emailRegisteredUser){
-    try{
-        // Start a new database transaction
-        FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
-        // Delete the reservation from the database
-        $queryResult  = FEntityManagerSQL::getInstance()->deleteObjInDb(self::getTable(), self::getKey(), $emailRegisteredUser);
-        // Commit the transaction if the delete operation was successful
-        FEntityManagerSQL::getInstance()->getDb()->commit();
-        // Return true if the reservation was deleted successfully
-        if($queryResult ){
+    public static function deleteObj($email){
+        try{
+            // Start a new database transaction
+            FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
+            // Delete the user object from the database
+            FEntityManagerSQL::getInstance()->deleteObjInDb(FReservation::getTable(), self::getKey(), $email);
+            // Commit the transaction
+            FEntityManagerSQL::getInstance()->getDb()->commit();
             return true;
-        } else {
-            // Return false if the reservation was not deleted successfully
+        }catch(PDOException $e){
+            // Print the error message and rollback the transaction in case of an exception
+            echo "ERROR " . $e->getMessage();
+            FEntityManagerSQL::getInstance()->getDb()->rollBack();
             return false;
+        }finally{
+            // Close the database connection
+            FEntityManagerSQL::getInstance()->closeConnection();
         }
-    } catch(PDOException $e){
-        // If an exception occurs, print the error message, rollback the transaction, and return false
-        echo "ERROR " . $e->getMessage();
-        FEntityManagerSQL::getInstance()->getDb()->rollBack();
-        return false;
-    } finally{
-        // Close the database connection
-        FEntityManagerSQL::getInstance()->closeConnection();
     }
-}
+
+
+
 }

@@ -15,7 +15,7 @@ class FPersonalTrainer{
     /**
      * @var string The value to be used in SQL queries.
      */
-    private static $value = "(:email, approved)";
+    private static $value = "(:email, :approved)";
 
     /**
      * @var string The key to be used in SQL queries.
@@ -186,6 +186,26 @@ public static function getObj($email){
                 // Close the database connection
                 FEntityManagerSQL::getInstance()->closeConnection();
             }
+        }
+    }
+
+    public static function deletePersonalTrainerObj($email){
+        try{
+            // Start a new database transaction
+            FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
+            // Delete the user object from the database
+            FEntityManagerSQL::getInstance()->deleteObjInDb(FUser::getTable(), self::getKey(), $email);
+            // Commit the transaction
+            FEntityManagerSQL::getInstance()->getDb()->commit();
+            return true;
+        }catch(PDOException $e){
+            // Print the error message and rollback the transaction in case of an exception
+            echo "ERROR " . $e->getMessage();
+            FEntityManagerSQL::getInstance()->getDb()->rollBack();
+            return false;
+        }finally{
+            // Close the database connection
+            FEntityManagerSQL::getInstance()->closeConnection();
         }
     }
 

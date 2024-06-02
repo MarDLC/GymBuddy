@@ -867,6 +867,148 @@ class FPersistentManager{
         return $result;
     }
 
+    // Carica l'oggetto credit card dato l'ID della carta di credito
+    public static function loadCreditCardById($idCreditCard){
+        // Recupera l'oggetto credit card dal database
+        $creditCard = FCreditCard::getObj($idCreditCard);
+
+        return $creditCard;
+    }
+
+    //salva l'oggetto subscription nel database
+    public static function saveSubscription($subscription){
+        // Save the subscription object in the database
+        $result = FSubscription::saveObj($subscription);
+        return $result;
+    }
+
+
+    public static function saveReservation($reservation){
+        // Save the reservation object in the database
+        $result = FReservation::saveObj($reservation);
+        return $result;
+    }
+
+    public static function saveNews($news) {
+        // Use the saveObj method of FNews to save the news item
+        $result = FNews::saveObj($news);
+
+        // Return the result of the save operation
+        return $result;
+    }
+
+    public static function deleteRegisteredUser($email){
+        // Call the deleteObj method of FRegisteredUser to delete the user
+        $result = FRegisteredUser::deleteRegisteredUserObj($email);
+
+        // Return the result of the delete operation
+        return $result;
+    }
+
+    public static function deletePersonalTrainer($email){
+        // Call the deleteObj method of FRegisteredUser to delete the user
+        $result = FPersonalTrainer::deletePersonalTrainerObj($email);
+
+        // Return the result of the delete operation
+        return $result;
+    }
+
+    public static function deleteReservation($email) {
+    // Use the deleteReservationInDb method of FReservation to delete the reservation
+    $result = FReservation::deleteObj($email);
+
+    // Return the result of the delete operation
+    return $result;
+   }
+    public static function deleteNews($email) {
+        // Use the deleteReservationInDb method of FReservation to delete the reservation
+        $result = FNews::deleteObj($email);
+
+        // Return the result of the delete operation
+        return $result;
+    }
+
+
+    public function getTrainingCardsByEmail($emailRegisteredUser) {
+        // Use FEntityManagerSQL to execute the SQL statement
+        $results = FEntityManagerSQL::retriveObj(FTrainingCard::getTable(), FTrainingCard::getKey(), $emailRegisteredUser);
+
+        // Convert the results into TrainingCard objects
+        $trainingCards = [];
+        foreach ($results as $row) {
+            $trainingCard = new ETrainingCard($row['emailRegisteredUser'], $row['exercises'], $row['repetition'], $row['recovery']);
+            $trainingCards[] = $trainingCard;
+        }
+        // Return the array of TrainingCard objects
+        return $trainingCards;
+    }
+
+    public static function getPhysicalDataByEmail($emailRegisteredUser) {
+        // Use FEntityManagerSQL to execute the SQL statement
+        $results = FEntityManagerSQL::retriveObj(FPhysicalData::getTable(), FPhysicalData::getKey(), $emailRegisteredUser);
+
+        // Convert the results into PhysicalData objects
+        $physicalData = [];
+        foreach ($results as $row) {
+            $data = new EPhysicalData($row['emailRegisteredUser'], $row['sex'], $row['height'], $row['weight'], $row['leanMass'], $row['fatMass'], $row['bmi']);
+            $physicalData[] = $data;
+        }
+        // Return the array of PhysicalData objects
+        return $physicalData;
+    }
+
+    public static function loadCreditCard($emailRegisteredUser) {
+        // Use FEntityManagerSQL to execute the SQL statement
+        $results = FEntityManagerSQL::retriveObj(FCreditCard::getTable(), FCreditCard::getKey(), $emailRegisteredUser);
+
+        // Convert the results into CreditCard objects
+        $creditCards = [];
+        foreach ($results as $row) {
+            $card = new ECreditCard($row['cvc'], $row['accountHolder'], $row['cardNumber'], $row['expirationDate'], $row['email']);
+            $creditCards[] = $card;
+        }
+        // Return the array of CreditCard objects
+        return $creditCards;
+    }
+
+    public static function createSubscription($subscriptionType, $duration, $price) {
+        // Create a new Subscription object based on the subscription type
+        $subscription = new ESubscription($subscriptionType, $duration, $price);
+
+        // Return the created Subscription object
+        return $subscription;
+    }
+
+    public static function createReservation($emailRegisteredUser, $date, $time, $trainingPT){
+    $reservation = new EReservation($emailRegisteredUser, $date, $time, $trainingPT);
+
+    // Return the created Subscription object
+    return $reservation;
+}
+
+//TODO il path che si trova qui deve essere lo stesso del metodo generatePhysicalProgressChart in CPersonalTrainer
+   public static function getChartImageUrl($emailRegisteredUser) {
+    // Generate the physical progress chart
+    CPersonalTrainer::generatePhysicalProgressChart($emailRegisteredUser);
+
+    // Define the path where the chart image is saved
+    $chartImagePath = "path/to/save/your/image.png";
+
+    // Check if the chart image file exists
+    if (file_exists($chartImagePath)) {
+        // If the file exists, return the URL of the chart image
+        return $chartImagePath;
+    } else {
+        // If the file does not exist, return an error message or a default image URL
+        return "path/to/default/image.png";
+    }
+}
+
+
+
+
+
+
 
 }
 

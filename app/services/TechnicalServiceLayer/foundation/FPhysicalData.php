@@ -11,7 +11,7 @@ class FPhysicalData{
     /**
      * @var string $table The name of the table in the database that this class interacts with.
      */
-    private static $table = "PhysicalData";
+    private static $table = "physicaldata";
 
     /**
      * @var string $value The SQL value string for inserting a new record into the table.
