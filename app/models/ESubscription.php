@@ -41,8 +41,9 @@ class ESubscription {
      * @param int $duration The duration of the subscription.
      * @param float $price The price of the subscription.
      */
-    public function __construct($type, $duration, $price)
+    public function __construct($email, $type, $duration, $price)
     {
+        $this->email = $email;
         $this->type = $type;
         $this->duration = $duration;
         $this->price = $price;

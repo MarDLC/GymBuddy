@@ -251,4 +251,32 @@ public static function deletePhysicalDataInDb($idPhysicalData){
             return null;
         }
     }
+
+    public static function generatePhysicalProgressChart($emailRegisteredUser) {
+        // Retrieve the PhysicalData objects for the client
+        $physicalData = self::getPhysicalDataByEmail($emailRegisteredUser);
+
+        // Create a new pChart object
+        $chart = new pChart\pData();
+
+        // For each physical data you want to track, add a data series to the chart
+        $chart->addPoints(array_column($physicalData, 'weight'), "Peso");
+        $chart->addPoints(array_column($physicalData, 'fatMass'), "Massa grassa");
+        $chart->addPoints(array_column($physicalData, 'leanMass'), "Massa magra");
+        $chart->addPoints(array_column($physicalData, 'bmi'), "BMI");
+
+        // Set the X-axis labels with the dates of the checks
+        $chart->addPoints(array_column($physicalData, 'time'), "Labels");
+        $chart->setSerieDescription("Labels","Mesi");
+        $chart->setAbscissa("Labels");
+
+        // Create a new pChart object for drawing the chart
+        $chartPicture = new pChart\pImage(700, 230, $chart);
+
+        // Draw the chart
+        $chartPicture->drawLineChart();
+
+        // Save the chart as an image
+        $chartPicture->Render("path/to/save/your/image.png");
+    }
 }

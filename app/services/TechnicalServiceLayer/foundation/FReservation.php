@@ -17,7 +17,7 @@ class FReservation{
     /**
      * @var string $value The SQL value string for inserting a new record into the table.
      */
-    private static $value = "(NULL,:emailRegisteredUser,:date,:time,:TrainingPT,:emailPersonalTrainer)";
+    private static $value = "(:emailRegisteredUser,:date,:time,:TrainingPT,:emailPersonalTrainer)";
 
     /**
      * @var string $key The primary key of the table.

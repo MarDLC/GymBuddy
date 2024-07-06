@@ -182,4 +182,11 @@ class ECreditCard {
         $this->idCreditCard = $idCreditCard;
     }
 
+    public function isValid() {
+        return $this->getExpirationDate() > date('Y-m-d');
+    }
+
+
+
+
 }

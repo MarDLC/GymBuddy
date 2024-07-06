@@ -172,7 +172,7 @@ class FCreditCard
                 // Loop through each field in the fieldArray
                 foreach ($fieldArray as $fv) {
                     // Update the field in the database
-                    FEntityManagerSQL::getInstance()->updateObj(FCreditCard::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getIdCardCredit());
+                    FEntityManagerSQL::getInstance()->updateObj(FCreditCard::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getCardNumber());
                 }
                 // Commit the transaction
                 FEntityManagerSQL::getInstance()->getDb()->commit();

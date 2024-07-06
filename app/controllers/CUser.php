@@ -40,7 +40,7 @@ class CUser{
                 USession::getInstance();
             }
         }
-        if(USession::isSetSessionElement('registeredUser')){
+        if(USession::isSetSessionElement('user')){
             $logged = true;
         }
         if(!$logged){
@@ -134,131 +134,38 @@ class CUser{
         }
     }
 
-    //take the training card of the user
-    public static function viewTrainingCard($emailRegisteredUser) {
-        // Retrieve the TrainingCard objects for the client using FPersistentManager
-        $trainingCards = FPersistentManager::getInstance()->getTrainingCardsByEmail($emailRegisteredUser);
 
-        // Pass the TrainingCard objects to the view for display
-        $view = new VPersonalTrainer();
-        $view->showTrainingCards($trainingCards);
-    }
-
-
-    public static function viewPhysicalData($emailRegisteredUser) {
-        // Retrieve the PhysicalData objects for the client
-        $physicalData = FPersistentManager::getInstance()->getPhysicalDataByEmail($emailRegisteredUser);
-
-        // Pass the PhysicalData objects to the view for display
-        $view = new VPersonalTrainer();
-        $view->showPhysicalData($physicalData);
-    }
-
-    //Buy a subscription
-   public static function purchaseSubscription() {
-    // Check if the user is logged in
-    if (CUser::isLogged()) {
-        // Get the current logged in user
-        $userId = USession::getInstance()->getSessionElement('user');
-
-        // Load the user and their credit card information
-        $user = FPersistentManager::getInstance()->loadUsers($userId);
-        $creditCard = FPersistentManager::getInstance()->loadCreditCard($userId);
-
-        // Check if the user has a valid credit card
-        if ($creditCard->isValid()) {
-            // Create a new subscription
-            $subscription = FPersistentManager::getInstance()->createSubscription(UHTTPMethods::post('subscriptionType'), UHTTPMethods::post('duration'), UHTTPMethods::post('price'));
-
-            // Use the credit card to pay for the subscription
-            if ($creditCard->pay($subscription->getPrice())) {
-                // If the payment is successful, save the subscription in the database
-                FPersistentManager::getInstance()->saveSubscription($subscription);
-
-                // Redirect the user to a success page
-                header('Location: /GymBuddy/User/SubscriptionSuccess');
-            } else {
-                // If the payment is not successful, redirect the user to an error page
-                header('Location: /GymBuddy/User/SubscriptionError');
-            }
-        } else {
-            // If the user does not have a valid credit card, redirect them to an error page
-            header('Location: /GymBuddy/User/CreditCardError');
-        }
-    }
-}
-
-    public static function bookSingleTraining() {
-    // Check if the user is logged in
-    if (self::isLogged()) {
-        // Get the current logged in user
-        $userId = USession::getInstance()->getSessionElement('user');
-
-        // Create a new reservation using FPersistentManager
-        $reservation = FPersistentManager::getInstance()->createReservation(UHTTPMethods::post('emailRegisteredUser'), UHTTPMethods::post('date'), UHTTPMethods::post('time'), 'Single Training');
-
-        // Save the reservation in the database
-        $result = FPersistentManager::getInstance()->saveReservation($reservation);
-
-        // Check if the reservation was saved successfully
-        if ($result) {
-            // If successful, redirect the user to a success page
-            header('Location: /GymBuddy/User/ReservationSuccess');
-        } else {
-            // If not successful, redirect the user to an error page
-            header('Location: /GymBuddy/User/ReservationError');
-        }
-    }
-}
-
-//TODO $emailPersonalTrainer da decidere se recuperarla così oppure con metodo UHTTPMethods::post('emailPersonalTrainer')
-    public static function bookTrainingWithPT( $emailPersonalTrainer) {
+    public static function showUserSubscription() {
         // Check if the user is logged in
         if (self::isLogged()) {
             // Get the current logged-in user
             $userId = USession::getInstance()->getSessionElement('user');
 
-            // Create a new reservation using FPersistentManager
-            $reservation = FPersistentManager::getInstance()->createReservation(UHTTPMethods::post('emailRegisteredUser'), UHTTPMethods::post('date'), UHTTPMethods::post('time'), 'Training with PT', $emailPersonalTrainer);
+            // Retrieve the user's subscription using FPersistentManager
+            $subscription = FPersistentManager::getInstance()->getUserSubscription($userId);
 
-            // Save the reservation in the database
-            $result = FPersistentManager::getInstance()->saveReservation($reservation);
-
-            // Check if the reservation was saved successfully
-            if ($result) {
-                // If successful, redirect the user to a success page
-                header('Location: /GymBuddy/User/ReservationSuccess');
-            } else {
-                // If not successful, redirect the user to an error page
-                header('Location: /GymBuddy/User/ReservationError');
-            }
+            // Return the subscription object or null if no subscription was found
+            return $subscription;
         }
-    }
-
-    public static function cancelReservation($reservationId) {
-    // Call the method to delete the reservation from the database
-    $result = FPersistentManager::getInstance()->deleteReservation($reservationId);
-
-    // Check if the reservation was deleted successfully
-    if ($result) {
-        // If successful, redirect the user to a success page
-        header('Location: /GymBuddy/User/ReservationCancellationSuccess');
-    } else {
-        // If not successful, redirect the user to an error page
-        header('Location: /GymBuddy/User/ReservationCancellationError');
-    }
-    }
-
-    //TODO
-    public static function viewProgressChart($emailRegisteredUser) {
-        // Get the URL of the generated chart image using FPersistentManager
-        $chartImageUrl = FPersistentManager::getInstance()->getChartImageUrl($emailRegisteredUser);
-
-        // Return the HTML to display the chart image
-        return '<img src="' . $chartImageUrl . '" alt="Physical Progress Chart">';
+        return null;
     }
 
 
+    public static function showUserReservation() {
+        // Check if the user is logged in
+        if (self::isLogged()) {
+            // Get the current logged-in user
+            $userId = USession::getInstance()->getSessionElement('user');
 
+            // Retrieve the user's reservation using FPersistentManager
+            $reservation = FPersistentManager::getInstance()->getUserReservation($userId);
+
+            // Return the reservation object or null if no reservation was found
+            return $reservation;
+        }
+        return null;
+    }
+
+    //TODO FARE showUserPhysicalData e showUserTrainingCard
 
 }
