@@ -10,6 +10,10 @@
 class EReservation {
 
     /**
+     * @var int $idReservation The id of the reservation.
+     */
+    private $idReservation;
+    /**
      * @var string $emailRegisteredUser The email of the registered user.
      */
     private $emailRegisteredUser;
@@ -65,6 +69,25 @@ class EReservation {
         return self::$entity;
     }
 
+    /**
+     * Get the id of the reservation.
+     *
+     * @return int The id of the reservation.
+     */
+    public function getIdReservation()
+    {
+        return $this->idReservation;
+    }
+
+    /**
+     * Set the id of the reservation.
+     *
+     * @param int $idReservation The new id of the reservation.
+     */
+    public function setIdReservation($idReservation)
+    {
+        $this->idReservation = $idReservation;
+    }
     /**
      * Get the email of the registered user.
      *

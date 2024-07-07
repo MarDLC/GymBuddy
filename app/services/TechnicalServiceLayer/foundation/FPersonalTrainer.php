@@ -15,12 +15,12 @@ class FPersonalTrainer{
     /**
      * @var string The value to be used in SQL queries.
      */
-    private static $value = "(:email, :approved)";
+    private static $value = "(:approved, :idUser)";
 
     /**
      * @var string The key to be used in SQL queries.
      */
-    private static $key = "email";
+    private static $key = "idUser";
 
     /**
      * Returns the name of the table where personal trainers are stored.
@@ -59,14 +59,14 @@ class FPersonalTrainer{
     }
 
     /**
-     * Binds the given user's email to the given statement.
+     * Binds the given user's id to the given statement.
      *
-     * @param PDOStatement $stmt The statement to bind the user's email to.
+     * @param PDOStatement $stmt The statement to bind the user's idto.
      * @param EPersonalTrainer $user The user whose email to bind.
      */
     public static function bind($stmt, $user){
-        $stmt->bindValue(":email", $user->getEmail(), PDO::PARAM_STR);
         $stmt->bindValue(":approved", $user->isApproved(), PDO::PARAM_BOOL);
+        $stmt->bindValue(":idUser", $user->getId(), PDO::PARAM_INT);
     }
 
     /**
@@ -105,9 +105,9 @@ class FPersonalTrainer{
  * @param string $email The email of the personal trainer to retrieve.
  * @return EPersonalTrainer|null The retrieved personal trainer object, or null if no personal trainer was found.
  */
-    public static function getObj($email){
+    public static function getObj($id){
         // Retrieve the personal trainer object from the database using the given email
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FUser::getTable(), self::getKey(), $email);
+        $result = FEntityManagerSQL::getInstance()->retriveObj(FUser::getTable(), self::getKey(), $id);
         // Check if the query returned any results
         if(count($result) > 0){
             // If results were found, create a personal trainer object from the result
@@ -136,15 +136,15 @@ class FPersonalTrainer{
                 // Start a new database transaction
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
                 // Save the user object and get the last inserted email
-                $savePersonAndLastInsertedEmail = FEntityManagerSQL::getInstance()->saveObject(FUser::getClass(), $obj);
+                $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FUser::getClass(), $obj);
                 // If the save operation was successful, save the user object with the last inserted email
-                if($savePersonAndLastInsertedEmail !== null) {
+                if($savePersonAndLastInsertedID !== null) {
                     // Save the user object with the last inserted email
-                    $savePersonalTrainer = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedEmail);
+                    $savePersonalTrainer = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedID);
                     // If the user was saved successfully, commit the transaction and return the last inserted email
                     if ($savePersonalTrainer) {
                         FEntityManagerSQL::getInstance()->getDb()->commit();
-                        return $savePersonAndLastInsertedEmail;
+                        return $savePersonAndLastInsertedID;
                     }
                 }
                 // if the save operation was not successful, return false
@@ -168,10 +168,10 @@ class FPersonalTrainer{
                     // If the field is not username or password, update the user field in the personal trainer table
                     if($fv[0] != "username" && $fv[0] != "password"){
                         // Update the user field in the personal trainer table
-                        FEntityManagerSQL::getInstance()->updateObj(FPersonalTrainer::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getEmail());
+                        FEntityManagerSQL::getInstance()->updateObj(FPersonalTrainer::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
                     }else{
                         // if the field is username or password, update the user field in the user table
-                        FEntityManagerSQL::getInstance()->updateObj(FUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getEmail());
+                        FEntityManagerSQL::getInstance()->updateObj(FUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
                     }
                 }
                 // Commit the transaction after updating the user fields
@@ -190,12 +190,12 @@ class FPersonalTrainer{
     }
 
 
-    public static function deletePersonalTrainerObj($email){
+    public static function deletePersonalTrainerObj($id){
         try{
             // Start a new database transaction
             FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
             // Delete the user object from the database
-            FEntityManagerSQL::getInstance()->deleteObjInDb(FUser::getTable(), self::getKey(), $email);
+            FEntityManagerSQL::getInstance()->deleteObjInDb(FUser::getTable(), self::getKey(), $id);
             // Commit the transaction
             FEntityManagerSQL::getInstance()->getDb()->commit();
             return true;

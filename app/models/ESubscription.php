@@ -10,6 +10,11 @@
 class ESubscription {
 
     /**
+     * @var int $idSubscription The id of the subscription.
+     */
+    private $idSubscription;
+
+    /**
      * @var string $email The email of the subscriber.
      */
     private $email;
@@ -57,6 +62,26 @@ class ESubscription {
     public static function getEntity(): string
     {
         return self::$entity;
+    }
+
+    /**
+     * Get the id of the subscription.
+     *
+     * @return int The id of the subscription.
+     */
+    public function getIdSubscription()
+    {
+        return $this->idSubscription;
+    }
+
+    /**
+     * Set the id of the subscription.
+     *
+     * @param int $idSubscription The new id of the subscription.
+     */
+    public function setIdSubscription($idSubscription)
+    {
+        $this->idSubscription = $idSubscription;
     }
 
     /**

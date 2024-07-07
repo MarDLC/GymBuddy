@@ -80,6 +80,8 @@ class FSubscription
             for ($i = 0; $i < count($queryResult); $i++) {
                 // Create a new subscription object with the type, duration, and price from the query result
                 $sub = new ESubscription($queryResult[$i]['type'], $queryResult[$i]['duration'], $queryResult[$i]['price']);
+                // Set the id of the subscription object
+                $sub->setIdSubscription($queryResult[$i]['idSubscription']);
                 // Set the email of the subscription object
                 $sub->setEmail($queryResult[$i]['email']);
                 // Add the subscription object to the array of subscriptions
@@ -120,10 +122,10 @@ class FSubscription
      * @param string $email The email of the subscription to retrieve.
      * @return ESubscription|null The retrieved subscription object, or null if no subscription was found.
      */
-    public static function getObj($email)
+    public static function getObj($id)
     {
         // Use the singleton instance of FEntityManagerSQL to retrieve the subscription object from the database
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $email);
+        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $id);
 
         // Check if the result is not empty
         if (count($result) > 0) {
@@ -165,7 +167,7 @@ class FSubscription
                 // Loop through each field-value pair in the provided array
                 foreach ($fieldArray as $fv) {
                     // Update the specific field in the database
-                    FEntityManagerSQL::getInstance()->updateObj(FSubscription::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getEmail());
+                    FEntityManagerSQL::getInstance()->updateObj(FSubscription::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getIdSubscription());
                 }
                 // Commit the transaction if all updates were successful
                 FEntityManagerSQL::getInstance()->getDb()->commit();
@@ -190,13 +192,13 @@ class FSubscription
      * @param string $email The email of the subscription to delete.
      * @return bool True if the operation was successful, false otherwise.
      */
-    public static function deleteSubscription($email){
+    public static function deleteSubscription($id){
         try {
             // Start a new database transaction
             FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
 
             // Attempt to delete the subscription from the database
-            $queryResult = FEntityManagerSQL::getInstance()->deleteObjInDb(self::getTable(), self::getKey(), $email);
+            $queryResult = FEntityManagerSQL::getInstance()->deleteObjInDb(self::getTable(), self::getKey(), $id);
 
             // Commit the transaction
             FEntityManagerSQL::getInstance()->getDb()->commit();

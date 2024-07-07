@@ -14,12 +14,12 @@ class FAdmin{
     /**
      * @var string $value The value for the SQL query.
      */
-    private static $value = "(:email)";
+    private static $value = "(:idUser)";
 
     /**
      * @var string $key The key for the SQL query.
      */
-    private static $key = "email";
+    private static $key = "idUser";
 
     /**
      * Get the table name.
@@ -69,7 +69,7 @@ public static function createAdminObj($queryResult){
         // Create a new Admin object using the first_name, last_name, email, password, and username from the query result
         $mod = new EAdmin($queryResult[0]['first_name'], $queryResult[0]['last_name'], $queryResult[0]['email'], $queryResult[0]['password'], $queryResult[0]['username']);
         // Set the email of the Admin object
-        $mod->setEmail($queryResult[0]['Email']);
+        $mod->setEmail($queryResult[0]['idUser']);
         // Set the hashed password of the Admin object
         $mod->setHashedPassword($queryResult[0]['password']);
         // Return the Admin object
@@ -81,14 +81,14 @@ public static function createAdminObj($queryResult){
 }
 
     /**
- * Bind the email parameter to the SQL statement.
+ * Bind the idUser parameter to the SQL statement.
  *
  * @param PDOStatement $stmt The SQL statement.
  * @param EUser $user The user object.
  */
 public static function bind($stmt, $user){
     // Bind the email value from the user object to the ":email" parameter in the SQL statement
-    $stmt->bindValue(":email", $user->getEmail(), PDO::PARAM_STR);
+    $stmt->bindValue(":idUser", $user->getId(), PDO::PARAM_INT);
 }
 
 /**
@@ -97,9 +97,9 @@ public static function bind($stmt, $user){
  * @param string $email The email of the Admin.
  * @return EAdmin|null An Admin object if found, otherwise null.
  */
-public static function getObj($email){
+public static function getObj($id){
     // Use the singleton instance of FEntityManagerSQL to retrieve the user object from the database
-    $result = FEntityManagerSQL::getInstance()->retriveObj(FUser::getTable(), self::getKey(), $email);
+    $result = FEntityManagerSQL::getInstance()->retriveObj(FUser::getTable(), self::getKey(), $id);
 
     // Check if the result is not empty
     if(count($result) > 0){

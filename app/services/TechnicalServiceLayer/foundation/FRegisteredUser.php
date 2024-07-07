@@ -16,12 +16,12 @@ class FRegisteredUser{
     /**
      * @var string $value The SQL value string for inserting a new record into the table.
      */
-    private static $value = "(:email, :type)";
+    private static $value = "(:type, :idUser)";
 
     /**
      * @var string $key The primary key of the table.
      */
-    private static $key = "email";
+    private static $key = "idUser";
 
     /**
      * Returns the name of the table this class interacts with.
@@ -100,8 +100,8 @@ class FRegisteredUser{
  */
     public static function bind($stmt,$registeredUser){
         // Bind the email to the corresponding parameter in the SQL statement
-        $stmt->bindValue(":email", $registeredUser->getEmail() , PDO::PARAM_STR);
         $stmt->bindValue(":type", $registeredUser->getType(), PDO::PARAM_STR);
+        $stmt->bindValue(":idUser", $registeredUser->getId() , PDO::PARAM_INT);
     }
 
 /**
@@ -110,9 +110,9 @@ class FRegisteredUser{
  * @param string $email The email of the RegisteredUser object to retrieve.
  * @return EUser|null The retrieved RegisteredUser object, or null if no RegisteredUser object was found.
  */
-    public static function getObj($email){
+    public static function getObj($id){
         // Retrieve the object from the database using the provided email
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FUser::getTable(), self::getKey(), $email);
+        $result = FEntityManagerSQL::getInstance()->retriveObj(FUser::getTable(), self::getKey(), $id);
         // If the result is not empty, create a RegisteredUser object from the result
         if(count($result) > 0){
             $registeredUser = self::createRegisteredUserObj($result);
@@ -144,14 +144,14 @@ class FRegisteredUser{
                 // Start a new database transaction
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
                 // Save the user object and get the last inserted email
-                $savePersonAndLastInsertedEmail = FEntityManagerSQL::getInstance()->saveObject(FUser::getClass(), $obj);
+                $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FUser::getClass(), $obj);
                 // If the save operation was successful, save the user object with the last inserted email
-                if($savePersonAndLastInsertedEmail !== null){
-                    $saveRegisteredUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedEmail);
+                if($savePersonAndLastInsertedID !== null){
+                    $saveRegisteredUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedID);
                     // If the user was saved successfully, commit the transaction and return the last inserted email
                     if($saveRegisteredUser){
                         FEntityManagerSQL::getInstance()->getDb()->commit();
-                        return $savePersonAndLastInsertedEmail;
+                        return $savePersonAndLastInsertedID;
                     }
                 }
                 // If the save operation was not successful, return false
@@ -174,10 +174,10 @@ class FRegisteredUser{
                 foreach($fieldArray as $fv){
                     // If the field is not username or password, update the user field in the registered user table
                     if($fv[0] != "username" && $fv[0] != "password"){
-                        FEntityManagerSQL::getInstance()->updateObj(FRegisteredUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getEmail());
+                        FEntityManagerSQL::getInstance()->updateObj(FRegisteredUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
                     }else{
                         // If the field is username or password, update the user field in the user table
-                        FEntityManagerSQL::getInstance()->updateObj(FUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getEmail());
+                        FEntityManagerSQL::getInstance()->updateObj(FUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
                     }
                 }
                 // After updating the user fields, commit the transaction and return true
@@ -196,12 +196,12 @@ class FRegisteredUser{
     }
 
 
-    public static function deleteRegisteredUserObj($email){
+    public static function deleteRegisteredUserObj($id){
         try{
             // Start a new database transaction
             FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
             // Delete the user object from the database
-            FEntityManagerSQL::getInstance()->deleteObjInDb(FUser::getTable(), self::getKey(), $email);
+            FEntityManagerSQL::getInstance()->deleteObjInDb(FUser::getTable(), self::getKey(), $id);
             // Commit the transaction
             FEntityManagerSQL::getInstance()->getDb()->commit();
             return true;

@@ -17,12 +17,12 @@ class FReservation{
     /**
      * @var string $value The SQL value string for inserting a new record into the table.
      */
-    private static $value = "(:emailRegisteredUser,:date,:time,:TrainingPT,:emailPersonalTrainer)";
+    private static $value = "(:emailRegisteredUser,:date,:time,:TrainingPT,:emailPersonalTrainer,idReservation)";
 
     /**
      * @var string $key The primary key of the table.
      */
-    private static $key = "emailRegisteredUser";
+    private static $key = "idReservationr";
 
     /**
      * Returns the name of the table this class interacts with.
@@ -77,6 +77,7 @@ public static function bind($stmt, $reservation){
     $stmt->bindValue(":TrainingPT", $reservation->getTrainingPT(), PDO::PARAM_BOOL);
     // Bind the email of the personal trainer to the corresponding parameter in the SQL statement
     $stmt->bindValue(":emailPersonalTrainer", $reservation->getEmailPersonalTrainer(), PDO::PARAM_STR);
+    $stmt->bindValue(":idReservation", $reservation->getIdReservation(), PDO::PARAM_INT);
 }
 
 /**
@@ -90,6 +91,8 @@ public static function createReservationObj($queryResult){
     if(count($queryResult) == 1){
         // Create a new Reservation object from the query result
         $reservation = new EReservation($queryResult[0]['emailRegisteredUser'],$queryResult[0]['date'],$queryResult[0]['time'],$queryResult[0]['trainingPT']);
+        // Set the ID of the reservation in the Reservation object
+        $reservation->setIdReservation($queryResult[0]['idReservation']);
         // Set the email of the registered user in the Reservation object
         $reservation->setEmailRegisteredUser($queryResult[0]['emailRegisteredUser']);
         // Set the creation time in the Reservation object
@@ -153,7 +156,7 @@ public static function saveObj($obj , $fieldArray = null){
             // Loop through the fieldArray and update the reservation fields
             foreach($fieldArray as $fv){
                 // Update the reservation field in the reservation table
-                FEntityManagerSQL::getInstance()->updateObj(FReservation::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getEmailRegisteredUser());
+                FEntityManagerSQL::getInstance()->updateObj(FReservation::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getIdReservation());
             }
             // Commit the transaction after updating the reservation fields
             FEntityManagerSQL::getInstance()->getDb()->commit();
@@ -177,12 +180,12 @@ public static function saveObj($obj , $fieldArray = null){
  * @param string $emailRegisteredUser The email of the registered user
  * @return bool True if the operation was successful, false otherwise
  */
-    public static function deleteObj($email){
+    public static function deleteObj($id){
         try{
             // Start a new database transaction
             FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
             // Delete the user object from the database
-            FEntityManagerSQL::getInstance()->deleteObjInDb(FReservation::getTable(), self::getKey(), $email);
+            FEntityManagerSQL::getInstance()->deleteObjInDb(FReservation::getTable(), self::getKey(), $id);
             // Commit the transaction
             FEntityManagerSQL::getInstance()->getDb()->commit();
             return true;

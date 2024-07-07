@@ -10,6 +10,10 @@
 class EUser {
 
     /**
+     * @var int $idUser The id of the user.
+     */
+    protected $idUser;
+    /**
      * @var string $email The email of the user.
      */
     protected $email;
@@ -71,6 +75,16 @@ class EUser {
     public static function getEntity(): string
     {
         return self::$entity;
+    }
+
+    public function getId()
+    {
+        return $this->idUser;
+    }
+
+    public function setId($id)
+    {
+        $this->idUser = $id;
     }
 
     /**
