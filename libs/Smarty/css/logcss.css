@@ -1,0 +1,14 @@
+body {
+    /* Imposta l'immagine come sfondo e la centra */
+    background-image: url("../img/hero/hero-1.jpg");
+    background-size: cover; /* Imposta l'immagine per coprire l'intero background */
+   
+}
+
+.content {
+    /* Stile del contenuto della pagina */
+    text-align: center;
+    padding: 50px;
+    color: white; /* Testo bianco per contrastare con lo sfondo */
+}
+

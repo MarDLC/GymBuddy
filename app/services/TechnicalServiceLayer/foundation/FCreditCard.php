@@ -18,7 +18,7 @@ class FCreditCard
      * @var string $value The value for the SQL query.
      * This is used in SQL queries to specify the values to be inserted into the table.
      */
-    private static $value = "(NULL,:cvc,:accountHolder,:cardNumber,:expirationDate,:email)";
+    private static $value = "(NULL,:cvc,:accountHolder,:cardNumber,:expirationDate,:idUser,:idSubscription)";
 
     /**
      * @var string $key The key for the SQL query.
@@ -79,20 +79,25 @@ class FCreditCard
     public static function createCreditCardObj($queryResult)
     {
         // Check if the query result is not empty
-        if (count($queryResult) > 0) {
-            // Initialize an empty array to hold the CreditCard objects
-            $creditCard = array();
+        if (count($queryResult) ==1) {
+            $holder= FRegisteredUser::getObj($queryResult[0]['idUser']);
+            $creditC = new ECreditCard($queryResult[0]['idSubscription'], $holder, $queryResult[0]['cvc'], $queryResult[0]['accountHolder'], $queryResult[0]['cardNumber'], $queryResult[0]['expirationDate']);
+            $creditC->setIdCreditCard($queryResult[0]['idCreditCard']);
+            return $creditC;
+        } elseif (count($queryResult) > 1) {
+            $creditCards = array();
             // Loop through each item in the query result
             for ($i = 0; $i < count($queryResult); $i++) {
+                $holder= FRegisteredUser::getObj($queryResult[$i]['idUser']);
                 // Create a new CreditCard object using the data from the query result
-                $creditC = new ECreditCard($queryResult[$i]['cvc'], $queryResult[$i]['accountHolder'], $queryResult[$i]['cardNumber'], $queryResult[$i]['expirationDate'], $queryResult[$i]['email']);
+                $creditC = new ECreditCard($queryResult[$i]['idSubscription'], $holder, $queryResult[$i]['cvc'], $queryResult[$i]['accountHolder'], $queryResult[$i]['cardNumber'], $queryResult[$i]['expirationDate']);
                 // Set the id of the CreditCard object
                 $creditC->setIdCreditCard($queryResult[$i]['idCreditCard']);
                 // Add the CreditCard object to the array
-                $creditCard[] = $creditC;
+                $creditCards[] = $creditC;
             }
             // Return the array of CreditCard objects
-            return $creditCard;
+            return $creditCards;
         } else {
             // If the query result is empty, return an empty array
             return array();
@@ -107,18 +112,17 @@ class FCreditCard
      */
     public static function bind($stmt, $creditCard)
     {
+        $stmt->bindValue(":idSubscription", $creditCard->getIdSubscription(), PDO::PARAM_INT);
+        $stmt->bindValue(":cvc", $creditCard->getCvc(), PDO::PARAM_INT);
         // Bind the id of the CreditCard object to the ":idCreditCard" parameter in the SQL statement
         $stmt->bindValue(":idCreditCard", $creditCard->getIdCreditCard(), PDO::PARAM_INT);
-        // Bind the cvc of the CreditCard object to the ":cvc" parameter in the SQL statement
-        $stmt->bindValue(":cvc", $creditCard->getCvc(), PDO::PARAM_INT);
         // Bind the account holder of the CreditCard object to the ":accountHolder" parameter in the SQL statement
         $stmt->bindValue(":accountHolder", $creditCard->getAccountHolder(), PDO::PARAM_STR);
         // Bind the card number of the CreditCard object to the ":cardNumber" parameter in the SQL statement
         $stmt->bindValue(":cardNumber", $creditCard->getCardNumber(), PDO::PARAM_STR);
         // Bind the expiration date of the CreditCard object to the ":expirationDate" parameter in the SQL statement
         $stmt->bindValue(":expirationDate", $creditCard->getExpirationDate(), PDO::PARAM_STR);
-        // Bind the email of the CreditCard object to the ":email" parameter in the SQL statement
-        $stmt->bindValue(":email", $creditCard->getEmail(), PDO::PARAM_STR);
+        $stmt->bindValue(":idUser", $creditCard->getIdUser()->getId(), PDO::PARAM_INT);
     }
 
     /**
@@ -172,7 +176,7 @@ class FCreditCard
                 // Loop through each field in the fieldArray
                 foreach ($fieldArray as $fv) {
                     // Update the field in the database
-                    FEntityManagerSQL::getInstance()->updateObj(FCreditCard::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getCardNumber());
+                    FEntityManagerSQL::getInstance()->updateObj(FCreditCard::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getIdCreditCard());
                 }
                 // Commit the transaction
                 FEntityManagerSQL::getInstance()->getDb()->commit();

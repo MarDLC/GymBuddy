@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Lug 07, 2024 alle 21:58
+-- Creato il: Lug 08, 2024 alle 22:39
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -30,6 +30,13 @@ SET time_zone = "+00:00";
 CREATE TABLE `admin` (
   `idUser` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dump dei dati per la tabella `admin`
+--
+
+INSERT INTO `admin` (`idUser`) VALUES
+(2);
 
 -- --------------------------------------------------------
 
@@ -58,7 +65,7 @@ CREATE TABLE `news` (
   `idUser` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` longtext DEFAULT NULL,
-  `date` date NOT NULL
+  `creation_time` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -161,6 +168,14 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
+-- Dump dei dati per la tabella `user`
+--
+
+INSERT INTO `user` (`idUser`, `email`, `username`, `first_name`, `last_name`, `password`, `role`) VALUES
+(2, 'testFAdmin@example.com', 'testuser', 'Test', 'FAdmin', '$2y$10$SB3zrVM4mcxnenjwDac8pejvtgnbwx1uXGHOKMtSCgNaqAmjP3K.W', 'admin'),
+(3, '', 'testuser', 'Test', 'FAdmin', '$2y$10$OTq0FThqTcgzducO/DUlPuw4Sk/1IXbRIOxYpW766e6cig2AbkhiC', 'admin');
+
+--
 -- Indici per le tabelle scaricate
 --
 
@@ -239,7 +254,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT per la tabella `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `creditcard`
@@ -293,7 +308,7 @@ ALTER TABLE `trainingcard`
 -- AUTO_INCREMENT per la tabella `user`
 --
 ALTER TABLE `user`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Limiti per le tabelle scaricate

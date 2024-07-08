@@ -27,7 +27,7 @@ class ENews {
     /**
      * @var DateTime $date The date of the news item.
      */
-    private DateTime $date;
+    private DateTime $creation_time;
 
     private $idUser;
 
@@ -100,43 +100,24 @@ class ENews {
         $this->description = $description;
     }
 
-    /**
-     * Get the date of the news item.
-     *
-     * @return DateTime The date of the news item.
-     */
     public function getTime()
     {
-        return $this->date;
+        return $this->creation_time;
     }
 
-    /**
-     * Set the current date and time as the date of the news item.
-     */
     private function setTime()
     {
-        $this->date = new DateTime("now");
+        $this->creation_time = new DateTime("now");
     }
 
-    /**
-     * Get the date of the news item as a string.
-     *
-     * @return string The date of the news item in 'Y-m-d H:i:s' format.
-     */
     public function getTimeStr()
     {
-        return $this->date->format('Y-m-d H:i:s');
+        return $this->creation_time->format('Y-m-d H:i:s');
     }
 
-    /**
-     * Set the creation time of the news item.
-     *
-     * @param DateTime $dateTime The new creation time of the news item.
-     */
     public function setCreationTime(DateTime $dateTime){
-        $this->date = $dateTime;
+        $this->creation_time = $dateTime;
     }
-
 
 
     /**

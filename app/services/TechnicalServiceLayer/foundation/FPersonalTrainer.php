@@ -236,9 +236,9 @@ class FPersonalTrainer{
         return FTrainingCard::getTrainingCardsByEmail($emailRegisteredUser);
     }
 
-    public static function getPhysicalDataOfClient($emailRegisteredUser) {
+    public static function getPhysicalDataOfClient($idUser) {
         // Retrieve the PhysicalData objects for the client
-        return FPhysicalData::getPhysicalDataByEmail($emailRegisteredUser);
+        return FPhysicalData::getPhysicalDataByIdUser($idUser);
     }
 
     public static function getUnapprovedTrainers() {

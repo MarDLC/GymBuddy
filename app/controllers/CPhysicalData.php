@@ -63,9 +63,9 @@ class CPhysicalData
     }
 
 
-    public static function deletePhysicalData($emailRegisteredUser) {
+    public static function deletePhysicalData($idUser) {
         // Retrieve the PhysicalData objects for the client
-        $physicalData = FPhysicalData::getPhysicalDataByEmail($emailRegisteredUser);
+        $physicalData = FPhysicalData::getPhysicalDataByIdUser($idUser);
 
         // Delete the PhysicalData object from the database
         $result = FPhysicalData::deletePhysicalDataInDb($physicalData->getIdPhysicalData());

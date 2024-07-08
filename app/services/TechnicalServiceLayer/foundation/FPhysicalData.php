@@ -16,7 +16,7 @@ class FPhysicalData{
     /**
      * @var string $value The SQL value string for inserting a new record into the table.
      */
-    private static $value = "(NULL,:emailRegisteredUser,:sex,:height,:weight,:leanMass,:fatMass,:bmi,:date,:emailPersonalTrainer)";
+    private static $value = "(NULL,:idUser,:sex,:height,:weight,:leanMass,:fatMass,:bmi,:date)";
 
     /**
      * @var string $key The primary key of the table.
@@ -66,9 +66,10 @@ class FPhysicalData{
  * @param PDOStatement $stmt The PDOStatement to bind the parameters to.
  * @param EPhysicalData $physicalData The PhysicalData object whose properties to bind.
  */
-public static function bind($stmt, $physicalData){
-    // Bind the email of the registered user to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":emailRegisteredUser", $physicalData->getEmailRegisteredUser(), PDO::PARAM_STR);
+public static function bind($stmt, $physicalData)
+{
+    // Bind the user ID to the corresponding parameter in the SQL statement
+    $stmt->bindValue(":idUser", $physicalData->getIdUser()->getId(), PDO::PARAM_INT);
     // Bind the sex to the corresponding parameter in the SQL statement
     $stmt->bindValue(":sex", $physicalData->getSex(), PDO::PARAM_STR);
     // Bind the height to the corresponding parameter in the SQL statement
@@ -83,8 +84,8 @@ public static function bind($stmt, $physicalData){
     $stmt->bindValue(":bmi", $physicalData->getBmi(), PDO::PARAM_STR);
     // Bind the date to the corresponding parameter in the SQL statement
     $stmt->bindValue(":date", $physicalData->getTimeStr(), PDO::PARAM_STR);
-    // Bind the email of the personal trainer to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":emailPersonalTrainer", $physicalData->getEmailPersonalTrainer(), PDO::PARAM_STR);
+    // Bind the date to the corresponding parameter in the SQL statement using getTimeStr() method
+    $stmt->bindValue(":date", $physicalData->getTimeStr(), PDO::PARAM_STR);
 }
 
 /**
@@ -96,16 +97,13 @@ public static function bind($stmt, $physicalData){
 public static function createPhysicalDataObj($queryResult){
     // If the query result contains only one record
     if(count($queryResult) == 1){
+        $author= FPersonalTrainer::getObj($queryResult[0]['idUser']);
         // Create a new PhysicalData object from the query result
-        $physicalData = new EPhysicalData($queryResult[0]['emailRegisteredUser'],$queryResult[0]['sex'],$queryResult[0]['height'],$queryResult[0]['weight'],$queryResult[0]['leanMass'],$queryResult[0]['fatMass'],$queryResult[0]['bmi']);
+        $physicalData = new EPhysicalData($author, $queryResult[0]['sex'],$queryResult[0]['height'],$queryResult[0]['weight'],$queryResult[0]['leanMass'],$queryResult[0]['fatMass'],$queryResult[0]['bmi']);
         // Set the ID of the PhysicalData object
         $physicalData->setIdPhysicalData($queryResult[0]['idPhysicalData']);
-        // Convert the creation time from a string to a DateTime object
-        $dateTime =  DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[0]['creation_time']);
-        // Set the creation time of the PhysicalData object
-        $physicalData->setCreationTime($dateTime);
-        // Set the email of the personal trainer
-        $physicalData->setEmailPersonalTrainer($queryResult[0]['emailPersonalTrainer']);
+        // Use the date directly as it is already a DateTime object
+        $physicalData->setCreationTime($queryResult[0]['date']);
         // Return the created PhysicalData object
         return $physicalData;
     // If the query result contains more than one record
@@ -115,22 +113,19 @@ public static function createPhysicalDataObj($queryResult){
         // Loop through each record in the query result
         for($i = 0; $i < count($queryResult); $i++){
             // Create a new PhysicalData object from the current record
-            $physicalData = new EPhysicalData($queryResult[0]['emailRegisteredUser'],$queryResult[0]['sex'],$queryResult[0]['height'],$queryResult[0]['weight'],$queryResult[0]['leanMass'],$queryResult[0]['fatMass'],$queryResult[0]['bmi']);
+            $author = FPersonalTrainer::getObj($queryResult[$i]['idUser']);
+            $physicalData = new EPhysicalData($author, $queryResult[$i]['sex'], $queryResult[$i]['height'], $queryResult[$i]['weight'], $queryResult[$i]['leanMass'], $queryResult[$i]['fatMass'], $queryResult[$i]['bmi']);
             // Set the ID of the PhysicalData object
             $physicalData->setIdPhysicalData($queryResult[$i]['idPhysicalData']);
-            // Convert the creation time from a string to a DateTime object
-            $dateTime =  DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[$i]['creation_time']);
-            // Set the creation time of the PhysicalData object
-            $physicalData->setCreationTime($dateTime);
-            // Set the email of the personal trainer
-            $physicalData->setEmailPersonalTrainer($queryResult[$i]['emailPersonalTrainer']);
+            // Use the date directly as it is already a DateTime object
+            $physicalData->setCreationTime($queryResult[$i]['date']);
             // Add the PhysicalData object to the array
             $physicalDatas[] = $physicalData;
         }
         // Return the array of PhysicalData objects
         return $physicalDatas;
-    // If the query result is empty
-    }else{
+        // If the query result is empty
+    } else {
         // Return an empty array
         return array();
     }
@@ -239,22 +234,22 @@ public static function deletePhysicalDataInDb($idPhysicalData){
     }
  }
 
-    public static function getPhysicalDataByEmail($emailRegisteredUser){
-        // Retrieve the PhysicalData objects for the client
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), 'emailRegisteredUser', $emailRegisteredUser);
+    public static function getPhysicalDataByIdUser($idUser){
+        // Retrieve the PhysicalData objects for the client using the user ID
+        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), 'idUser', $idUser);
         // If the result is not empty, create a PhysicalData object from the result
         if(count($result) > 0){
             $physicalData = self::createPhysicalDataObj($result);
             return $physicalData;
-        }else{
+        } else {
             // If the result is empty, return null
             return null;
         }
     }
 
-    public static function generatePhysicalProgressChart($emailRegisteredUser) {
+    public static function generatePhysicalProgressChart($idUser) {
         // Retrieve the PhysicalData objects for the client
-        $physicalData = self::getPhysicalDataByEmail($emailRegisteredUser);
+        $physicalData = self::getPhysicalDataByIdUser($idUser);
 
         // Create a new pChart object
         $chart = new pChart\pData();

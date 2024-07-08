@@ -19,7 +19,7 @@ class FNews{
      * @var string $value The value for the SQL query.
      * This is used in SQL queries to specify the values to be inserted into the table.
      */
-    private static $value = "(NULL,:title,:description,:creation_time,:email)";
+    private static $value = "(NULL,:title,:description,:creation_time,:idUser)";
 
     /**
      * @var string $key The key for the SQL query.
@@ -75,16 +75,15 @@ class FNews{
 public static function createNewsObj($queryResult){
     // Check if the query result contains exactly one item
     if(count($queryResult) == 1){
+        $author = FAdmin::getOBj($queryResult[0]['idUser']);
         // If it does, create a new News object using the data from the query result
-        $news = new ENews($queryResult[0]['title'],$queryResult[0]['description']);
+        $news = new ENews($queryResult[0]['title'],$queryResult[0]['description'], $author);
         // Set the id of the News object
         $news->setIdNews($queryResult[0]['idNews']);
         // Convert the creation time from a string to a DateTime object
         $dateTime =  DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[0]['creation_time']);
         // Set the creation time of the News object
         $news->setCreationTime($dateTime);
-        // Set the email of the News object
-        $news->setEmail($queryResult[0]['email']);
         // Return the News object
         return $news;
     }elseif(count($queryResult) > 1){
@@ -92,16 +91,15 @@ public static function createNewsObj($queryResult){
         $newss = array();
         // Loop through each item in the query result
         for($i = 0; $i < count($queryResult); $i++){
+            $author = FAdmin::getOBj($queryResult[$i]['idUser']);
             // Create a new News object using the data from the current item in the query result
-            $news = new ENews($queryResult[$i]['title'],$queryResult[$i]['description']);
+            $news = new ENews($queryResult[$i]['title'],$queryResult[$i]['description'], $author);
             // Set the id of the News object
             $news->setIdNews($queryResult[$i]['idNews']);
             // Convert the creation time from a string to a DateTime object
             $dateTime =  DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[$i]['creation_time']);
             // Set the creation time of the News object
             $news->setCreationTime($dateTime);
-            // Set the email of the News object
-            $news->setEmail($queryResult[$i]['email']);
             // Add the News object to the array
             $newss[] = $news;
         }
@@ -120,14 +118,13 @@ public static function createNewsObj($queryResult){
  * @param ENews $news The News object.
  */
 public static function bind($stmt, $news){
+    $stmt->bindValue(":idUser", $news->getIdUser()->getId(), PDO::PARAM_INT);
     // Bind the title of the News object to the ":title" parameter in the SQL statement
     $stmt->bindValue(":title", $news->getTitle(), PDO::PARAM_STR);
     // Bind the description of the News object to the ":description" parameter in the SQL statement
     $stmt->bindValue(":description", $news->getDescription(), PDO::PARAM_STR);
     // Bind the creation time of the News object to the ":date" parameter in the SQL statement
-    $stmt->bindValue(":date", $news->getTime(), PDO::PARAM_STR);
-    // Bind the email of the News object to the ":email" parameter in the SQL statement
-    $stmt->bindValue(":email", $news->getEmail(), PDO::PARAM_STR);
+    $stmt->bindValue(":creation_time", $news->getTimeStr(), PDO::PARAM_STR);
 }
 
    /**
