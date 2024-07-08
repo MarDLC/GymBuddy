@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dati Utente</title>
+    <link rel="stylesheet" href="css/style.css"> <!-- Aggiungi i tuoi stili CSS se necessario -->
+</head>
+<body>
+    <div class="container">
+        <h2>Dati Utente</h2>
+        <div id="userDetails">
+            <p><strong>ID:</strong> <span id="userId"></span></p>
+            <p><strong>Nome:</strong> <span id="userName"></span></p>
+            <p><strong>Cognome:</strong> <span id="userSurname"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // Ottieni i parametri dall'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        const nome = urlParams.get('nome');
+        const cognome = urlParams.get('cognome');
+
+        // Mostra i dati nell'HTML
+        document.getElementById('userId').textContent = id;
+        document.getElementById('userName').textContent = nome;
+        document.getElementById('userSurname').textContent = cognome;
+    </script>
+</body>
+</html>
