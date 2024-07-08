@@ -14,13 +14,6 @@
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <style>
-        /* Stili per il form */
-        .form-group label {
-            color: white; /* Imposta il colore del testo a bianco */
-        }
-    </style>
-
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="css/flaticon.css" type="text/css">
@@ -51,7 +44,7 @@
                 <div class="col-lg-6">
                     <nav class="nav-menu">
                         <ul>
-                            <li><a href="indexpt.html">Home</a></li>
+                            <li><a href="indexutentevip.html">Home</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -81,24 +74,61 @@
     <!-- Info Section Begin -->
     <section class="pricing-section service-pricing spad">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title">
-                        <h2>Inserisci le tue informazioni</h2>
-                    </div>
-                    <form action="your-server-endpoint" method="post">
-                        <div class="form-group">
-                            <label for="altezza">Altezza (cm)</label>
-                            <input type="number" class="form-control" id="altezza" name="altezza" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="peso">Peso (kg)</label>
-                            <input type="number" class="form-control" id="peso" name="peso" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Invia</button>
-                    </form>
-                </div>
+            <div class="section-title">
+                <h2>Scheda di allenamento</h2>
             </div>
+            <form action="#" method="post">
+                <!-- Panca Piana -->
+                <div class="form-group">
+                    <label for="pancaPiana" style="color: white;">Panca Piana</label>
+                    <input type="text" class="form-control" id="pancaPianaScheda" name="pancaPianaScheda" placeholder="Serie">
+                    <input type="number" class="form-control" id="pancaPianaRipetizioni" name="pancaPianaRipetizioni" placeholder="Ripetizioni">
+                </div>
+                <!-- Panca Inclinata -->
+                <div class="form-group">
+                    <label for="pancaInclinata" style="color: white;">Panca Inclinata</label>
+                    <input type="text" class="form-control" id="pancaInclinataScheda" name="pancaInclinataScheda" placeholder="Serie">
+                    <input type="number" class="form-control" id="pancaInclinataRipetizioni" name="pancaInclinataRipetizioni" placeholder="Ripetizioni">
+                </div>
+                <!-- Alzate Laterali -->
+                <div class="form-group">
+                    <label for="alzateLaterali" style="color: white;">Alzate Laterali</label>
+                    <input type="text" class="form-control" id="alzateLateraliScheda" name="alzateLateraliScheda" placeholder="Serie">
+                    <input type="number" class="form-control" id="alzateLateraliRipetizioni" name="alzateLateraliRipetizioni" placeholder="Ripetizioni">
+                </div>
+                <!-- Alzate ai Cavi -->
+                <div class="form-group">
+                    <label for="alzateCavi" style="color: white;">Alzate ai Cavi</label>
+                    <input type="text" class="form-control" id="alzateCaviScheda" name="alzateCaviScheda" placeholder="Serie">
+                    <input type="number" class="form-control" id="alzateCaviRipetizioni" name="alzateCaviRipetizioni" placeholder="Ripetizioni">
+                </div>
+                <!-- Curl Alternato -->
+                <div class="form-group">
+                    <label for="curlAlternato" style="color: white;">Curl Alternato</label>
+                    <input type="text" class="form-control" id="curlAlternatoScheda" name="curlAlternatoScheda" placeholder="Serie">
+                    <input type="number" class="form-control" id="curlAlternatoRipetizioni" name="curlAlternatoRipetizioni" placeholder="Ripetizioni">
+                </div>
+                <!-- Hammer Curl -->
+                <div class="form-group">
+                    <label for="hammerCurl" style="color: white;">Hammer Curl</label>
+                    <input type="text" class="form-control" id="hammerCurlScheda" name="hammerCurlScheda" placeholder="Serie">
+                    <input type="number" class="form-control" id="hammerCurlRipetizioni" name="hammerCurlRipetizioni" placeholder="Ripetizioni">
+                </div>
+                <!-- Leg Extension -->
+                <div class="form-group">
+                    <label for="legExtension" style="color: white;">Leg Extension</label>
+                    <input type="text" class="form-control" id="legExtensionScheda" name="legExtensionScheda" placeholder="Serie">
+                    <input type="number" class="form-control" id="legExtensionRipetizioni" name="legExtensionRipetizioni" placeholder="Ripetizioni">
+                </div>
+                <!-- Leg Press -->
+                <div class="form-group">
+                    <label for="legPress" style="color: white;">Leg Press</label>
+                    <input type="text" class="form-control" id="legPressScheda" name="legPressScheda" placeholder="Serie">
+                    <input type="number" class="form-control" id="legPressRipetizioni" name="legPressRipetizioni" placeholder="Ripetizioni">
+                </div>
+                <!-- Pulsante di invio -->
+                <button type="submit" class="btn btn-primary">Salva</button>
+            </form>
         </div>
     </section>
     <!-- Info Section End -->
