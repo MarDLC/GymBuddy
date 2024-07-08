@@ -1,10 +1,14 @@
 <?php
 
+class CSubscription {
 
-class CSubscription
-{
+    // Mostra il modulo di sottoscrizione
+    public static function showForm() {
+        $view = new VSubscription();
+        $view->showSubscriptionForm();
+    }
 
-    //Buy a subscription
+    // Gestisci l'acquisto di una sottoscrizione
     public static function purchaseSubscription() {
         // Check if the user is logged in
         if (CUser::isLogged()) {
@@ -17,12 +21,19 @@ class CSubscription
             // Check if the user has a valid credit card
             if (!empty($creditCards)) {
                 $creditCard = $creditCards[0];
-                if ($creditCard->isValid()){
+                if ($creditCard->isValid()) {
                     // Create a new subscription
-                    $subscription = FPersistentManager::getInstance()->createSubscription(UHTTPMethods::post('email'),UHTTPMethods::post('type'), UHTTPMethods::post('duration'), UHTTPMethods::post('price'));
+                    $subscription = FPersistentManager::getInstance()->createSubscription(UHTTPMethods::post('email'), UHTTPMethods::post('type'), UHTTPMethods::post('duration'), UHTTPMethods::post('price'));
 
                     // If the payment is successful, save the subscription in the database
                     FPersistentManager::getInstance()->saveSubscription($subscription);
+
+                    // Update the user type based on the subscription type
+                    if ($subscription->getType() == 'coached') {
+                        FRegisteredUser::updateTypeIfSubscribedWithPT($userId);
+                    } else {
+                        FRegisteredUser::updateTypeIfSubscribedUserOnly($userId);
+                    }
 
                     // Redirect the user to a success page
                     header('Location: /GymBuddy/User/SubscriptionSuccess');
@@ -36,6 +47,4 @@ class CSubscription
             }
         }
     }
-
-
 }

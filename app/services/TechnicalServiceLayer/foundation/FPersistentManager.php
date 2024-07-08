@@ -377,5 +377,23 @@ class FPersistentManager{
     }
 }
 
+    public static function retrieveUnapprovedTrainers() {
+        // Use FEntityManagerSQL to execute the SQL statement
+        $results = FPersonalTrainer::getUnapprovedTrainers();
+
+        // Convert the results into PersonalTrainer objects
+        $trainers = [];
+        foreach ($results as $row) {
+            if ($row['approved'] == 0) { // Check if the trainer is unapproved
+                $trainer = new EPersonalTrainer($row['first_name'], $row['last_name'], $row['email'], $row['password'], $row['username']);
+                $trainer->setApproved($row['approved']);
+                $trainers[] = $trainer;
+            }
+        }
+        // Return the array of unapproved PersonalTrainer objects
+        return $trainers;
+    }
+
+
 }
 

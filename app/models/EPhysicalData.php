@@ -9,18 +9,14 @@
  */
 class EPhysicalData {
 
-    //TODO PHPDOC
-    protected $personalTrainer;
+
 
     /**
      * @var int $idPhysicalData The ID of the physical data record.
      */
     private $idPhysicalData;
 
-    /**
-     * @var string $emailRegisteredUser The email of the registered user.
-     */
-    private $emailRegisteredUser;
+   private $idUser;
 
     /**
      * @var string $sex The sex of the registered user.
@@ -57,10 +53,7 @@ class EPhysicalData {
      */
     private DateTime $date;
 
-    /**
-     * @var string $emailPersonalTrainer The email of the personal trainer.
-     */
-    private $emailPersonalTrainer;
+
 
     /**
      * @var string $entity The name of the class. This is set to EPhysicalData::class.
@@ -70,7 +63,7 @@ class EPhysicalData {
     /**
      * Constructor for the EPhysicalData class.
      *
-     * @param string $emailRegisteredUser The email of the registered user.
+
      * @param string $sex The sex of the registered user.
      * @param float $height The height of the registered user.
      * @param float $weight The weight of the registered user.
@@ -78,9 +71,9 @@ class EPhysicalData {
      * @param float $fatMass The fat mass of the registered user.
      * @param float $bmi The Body Mass Index (BMI) of the registered user.
      */
-    public function __construct($emailRegisteredUser, $sex, $height, $weight, $leanMass, $fatMass, $bmi)
+    public function __construct($idUser, $sex, $height, $weight, $leanMass, $fatMass, $bmi)
     {
-        $this->emailRegisteredUser = $emailRegisteredUser;
+        $this->idUser = $idUser;
         $this->sex = $sex;
         $this->height = $height;
         $this->weight = $weight;
@@ -137,24 +130,9 @@ public function setCreationTime(DateTime $dateTime){
     $this->date = $dateTime;
 }
 
-/**
- * Get the email of the registered user.
- *
- * @return string The email of the registered user.
- */
-public function getEmailRegisteredUser()
+public function getIdUser()
 {
-    return $this->emailRegisteredUser;
-}
-
-/**
- * Set the email of the registered user.
- *
- * @param string $emailRegisteredUser The new email of the registered user.
- */
-public function setEmailRegisteredUser($emailRegisteredUser)
-{
-    $this->emailRegisteredUser = $emailRegisteredUser;
+    return $this->idUser;
 }
 
 /**
@@ -278,26 +256,6 @@ public function setBmi($bmi)
 }
 
 /**
- * Get the email of the personal trainer.
- *
- * @return string The email of the personal trainer.
- */
-public function getEmailPersonalTrainer()
-{
-    return $this->emailPersonalTrainer;
-}
-
-/**
- * Set the email of the personal trainer.
- *
- * @param string $emailPersonalTrainer The new email of the personal trainer.
- */
-public function setEmailPersonalTrainer($emailPersonalTrainer)
-{
-    $this->emailPersonalTrainer = $emailPersonalTrainer;
-}
-
-/**
  * Get the ID of the physical data record.
  *
  * @return int The ID of the physical data record.
@@ -317,14 +275,8 @@ public function setIdPhysicalData($idPhysicalData)
     $this->idPhysicalData = $idPhysicalData;
 }
 
-    public function getPersonalTrainer()
-    {
-        return $this->personalTrainer;
-    }
 
-    public function setPersonalTrainer(EPersonalTrainer $personalTrainer):void
-    {
-        $this->personalTrainer = $personalTrainer;
-    }
+
+
 
 }

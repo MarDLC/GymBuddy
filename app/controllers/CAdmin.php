@@ -219,5 +219,17 @@ public static function rejectTrainer($trainerId){
     }
 
 
+    //TODO implementare la funzione per visualizzare le richieste di personal trainer
+    public static function viewTrainerRequests() {
+        // Recupera tutti i personal trainer con 'approved' impostato a 0
+        $trainers = FPersistentManager::getInstance()->retrieveUnapprovedTrainers();
+
+        // Passa i personal trainer alla vista
+        $view = new VAdmin();
+        $view->showTrainerRequests($trainers);
+    }
+
+
+
 
 }

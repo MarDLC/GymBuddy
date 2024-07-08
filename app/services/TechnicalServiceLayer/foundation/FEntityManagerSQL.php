@@ -81,7 +81,7 @@ class FEntityManagerSQL{
 
     /**
      * Method to return rows from a query SELECT FROM WHERE but with 2 fields
-     * @param Sring $table Refers to the table of the Database
+     * @param String $table Refers to the table of the Database
      * @param String $field1  Refers to a field of the table (1st field)
      * @param mixed $id1 Refers to the value in the where clause (1st value)
      * @param String $field2  Refers to a field of the table (1st field)
@@ -339,4 +339,32 @@ class FEntityManagerSQL{
         return false;
     }
 }
+
+//utilizzato per  recuperare i dati dei personal trainer non approvati dal database:
+    public static function retrieveDataWithCondition($table, $field, $value) {
+        try{
+            $query = "SELECT * FROM " . $table . " WHERE " . $field . " = :value";
+            $stmt = self::$db->prepare($query);
+            $stmt->bindValue(":value", $value, PDO::PARAM_STR);
+            $stmt->execute();
+            $rowNum = $stmt->rowCount();
+            if($rowNum > 0){
+                $result = array();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $stmt->fetch()){
+                    $result[] = $row;
+                }
+                self::closeConnection();
+                return $result;
+            }else{
+                return array();
+            }
+        } catch(PDOException $e) {
+            echo "ERROR " . $e->getMessage();
+            return array();
+        }
+    }
+
+
+
 }

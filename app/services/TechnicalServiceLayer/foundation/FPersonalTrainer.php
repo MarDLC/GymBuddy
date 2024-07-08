@@ -15,7 +15,7 @@ class FPersonalTrainer{
     /**
      * @var string The value to be used in SQL queries.
      */
-    private static $value = "(:approved, :idUser)";
+    private static $value = "(:idUser,:approved)";
 
     /**
      * @var string The key to be used in SQL queries.
@@ -64,9 +64,10 @@ class FPersonalTrainer{
      * @param PDOStatement $stmt The statement to bind the user's idto.
      * @param EPersonalTrainer $user The user whose email to bind.
      */
-    public static function bind($stmt, $user){
-        $stmt->bindValue(":approved", $user->isApproved(), PDO::PARAM_BOOL);
-        $stmt->bindValue(":idUser", $user->getId(), PDO::PARAM_INT);
+    public static function bind($stmt, $personaltrainer,$id){
+        $stmt->bindValue(":idUser", $id->getId(), PDO::PARAM_INT);
+        $stmt->bindValue(":approved", $personaltrainer->isApproved(), PDO::PARAM_BOOL);
+
     }
 
     /**
@@ -79,6 +80,7 @@ class FPersonalTrainer{
         if(count($queryResult) == 1){
             // If there is only one result, create a single user object.
             $personalTrainer = new EPersonalTrainer($queryResult[0]['email'], $queryResult[0]['username'], $queryResult[0]['first_name'], $queryResult[0]['last_name'], $queryResult[0]['password']);
+            $personalTrainer->setId($queryResult[0]['idUser']);
             if (isset($queryResult[0]['approved'])) {
                 $personalTrainer->setApproved($queryResult[0]['approved']);
             }
@@ -88,6 +90,7 @@ class FPersonalTrainer{
             $personalTrainers = array();
             for($i = 0; $i < count($queryResult); $i++){
                 $personalTrainer = new EPersonalTrainer($queryResult[$i]['email'], $queryResult[$i]['username'], $queryResult[$i]['first_name'], $queryResult[$i]['last_name'], $queryResult[$i]['password']);
+                $personalTrainer->setId($queryResult[$i]['idUser']);
                 if (isset($queryResult[$i]['approved'])) {
                     $personalTrainer->setApproved($queryResult[$i]['approved']);
                 }
@@ -99,6 +102,7 @@ class FPersonalTrainer{
             return array();
         }
     }
+
     /**
  * Retrieves a personal trainer object with the given email.
  *
@@ -235,6 +239,21 @@ class FPersonalTrainer{
     public static function getPhysicalDataOfClient($emailRegisteredUser) {
         // Retrieve the PhysicalData objects for the client
         return FPhysicalData::getPhysicalDataByEmail($emailRegisteredUser);
+    }
+
+    public static function getUnapprovedTrainers() {
+        // Retrieve the unapproved trainer data from the database
+        $results = FEntityManagerSQL::retrieveDataWithCondition('EPersonalTrainer', 'approved', 0);
+
+        // Convert the results into PersonalTrainer objects
+        $trainers = [];
+        foreach ($results as $row) {
+            $trainer = self::createPersonalTrainerObj($row);
+            $trainers[] = $trainer;
+        }
+
+        // Return the array of unapproved PersonalTrainer objects
+        return $trainers;
     }
 
 

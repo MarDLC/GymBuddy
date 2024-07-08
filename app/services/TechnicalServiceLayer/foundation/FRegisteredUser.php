@@ -16,7 +16,7 @@ class FRegisteredUser{
     /**
      * @var string $value The SQL value string for inserting a new record into the table.
      */
-    private static $value = "(:type, :idUser)";
+    private static $value = "(:idUser,:type)";
 
     /**
      * @var string $key The primary key of the table.
@@ -69,8 +69,13 @@ class FRegisteredUser{
     public static function createRegisteredUserObj($queryResult){
         // If the query result contains only one record
         if(count($queryResult) == 1){
+            $attributes = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), "idUser", $queryResult[0]['idUser']);
+
             // Create a new RegisteredUser object from the query result
             $registeredUser = new ERegisteredUser($queryResult[0]['email'], $queryResult[0]['username'], $queryResult[0]['first_name'], $queryResult[0]['last_name'], $queryResult[0]['password']);
+            $registeredUser->setId($queryResult[0]['idUser']);
+            $registeredUser->setHashedPassword($queryResult[0]['password']);
+            $registeredUser->setType($attributes[0]['type']);
             // Return the created RegisteredUser object
             return $registeredUser;
             // If the query result contains more than one record
@@ -79,8 +84,13 @@ class FRegisteredUser{
             $registeredUsers = array();
             // Loop through each record in the query result
             for($i = 0; $i < count($queryResult); $i++){
+                $attributes = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), "idUser", $queryResult[$i]['idUser']);
+
                 // Create a new RegisteredUser object from the current record
                 $registeredUser = new ERegisteredUser($queryResult[$i]['email'], $queryResult[$i]['username'], $queryResult[$i]['first_name'], $queryResult[$i]['last_name'], $queryResult[$i]['password']);
+               $registeredUser->setId($queryResult[$i]['idUser']);
+               $registeredUser->setHashedPassword($queryResult[$i]['password']);
+                $registeredUser->setType($attributes[0]['type']);
                 // Add the RegisteredUser object to the array
                 $registeredUsers[] = $registeredUser;
             }
@@ -92,16 +102,18 @@ class FRegisteredUser{
             return array();
         }
     }
+
 /**
  * Binds the given email to the given PDOStatement's parameters.
  *
  * @param PDOStatement $stmt The PDOStatement to bind the parameters to.
  * @param string $email The email to bind.
  */
-    public static function bind($stmt,$registeredUser){
+    public static function bind($stmt,$registeredUser,$id){
         // Bind the email to the corresponding parameter in the SQL statement
+        $stmt->bindValue(":idUser", $id->getId() , PDO::PARAM_INT);
         $stmt->bindValue(":type", $registeredUser->getType(), PDO::PARAM_STR);
-        $stmt->bindValue(":idUser", $registeredUser->getId() , PDO::PARAM_INT);
+
     }
 
 /**
@@ -149,47 +161,38 @@ class FRegisteredUser{
                 if($savePersonAndLastInsertedID !== null){
                     $saveRegisteredUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedID);
                     // If the user was saved successfully, commit the transaction and return the last inserted email
+                    FEntityManagerSQL::getInstance()->getDb()->commit();
                     if($saveRegisteredUser){
-                        FEntityManagerSQL::getInstance()->getDb()->commit();
                         return $savePersonAndLastInsertedID;
                     }
+                }else{
+                    return false;
                 }
-                // If the save operation was not successful, return false
-                return false;
             }catch(PDOException $e){
-                // If an exception occurs, print the error message, rollback the transaction, and return false
                 echo "ERROR " . $e->getMessage();
                 FEntityManagerSQL::getInstance()->getDb()->rollBack();
                 return false;
             }finally{
-                // Close the database connection
                 FEntityManagerSQL::getInstance()->closeConnection();
             }
         }else{
-            // If fieldArray is not null, we are updating an existing user
             try{
-                // Start a new database transaction
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
-                // Loop through the fieldArray and update the user fields
+                //var_dump($fieldArray);
                 foreach($fieldArray as $fv){
-                    // If the field is not username or password, update the user field in the registered user table
                     if($fv[0] != "username" && $fv[0] != "password"){
                         FEntityManagerSQL::getInstance()->updateObj(FRegisteredUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
                     }else{
-                        // If the field is username or password, update the user field in the user table
                         FEntityManagerSQL::getInstance()->updateObj(FUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
                     }
                 }
-                // After updating the user fields, commit the transaction and return true
                 FEntityManagerSQL::getInstance()->getDb()->commit();
                 return true;
             }catch(PDOException $e){
-                // If an exception occurs, print the error message, rollback the transaction, and return false
                 echo "ERROR " . $e->getMessage();
                 FEntityManagerSQL::getInstance()->getDb()->rollBack();
                 return false;
             }finally{
-                // Close the database connection
                 FEntityManagerSQL::getInstance()->closeConnection();
             }
         }
@@ -238,14 +241,14 @@ class FRegisteredUser{
         }
     }
 
-    public static function updateTypeIfSubscribedWithPT($email){
+    public static function updateTypeIfSubscribedWithPT($id){
         try{
             // Start a new database transaction
             FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
             // Check if the user has a 'coached' subscription using the verifyFieldValue method
             if(FEntityManagerSQL::verifyFieldValue('subscription', 'type', 'coached')){
                 // If the user has a 'coached' subscription, use the updateObj method of FEntityManagerSQL to update the user type
-                FEntityManagerSQL::updateObj(self::getTable(), 'type', 'followed_user', 'email', $email);
+                FEntityManagerSQL::updateObj(self::getTable(), 'type', 'followed_user', 'idUser', $id);
             }
             // Commit the transaction
             FEntityManagerSQL::getInstance()->getDb()->commit();
@@ -261,14 +264,14 @@ class FRegisteredUser{
         }
     }
 
-    public static function updateTypeIfSubscribedUserOnly($email){
+    public static function updateTypeIfSubscribedUserOnly($id){
         try{
             // Start a new database transaction
             FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
             // Check if the user has a 'individual' subscription using the verifyFieldValue method
             if(FEntityManagerSQL::verifyFieldValue('subscription', 'type', 'individual')){
                 // If the user has a 'individual' subscription, use the updateObj method of FEntityManagerSQL to update the user type
-                FEntityManagerSQL::updateObj(self::getTable(), 'type', 'user_only', 'email', $email);
+                FEntityManagerSQL::updateObj(self::getTable(), 'type', 'user_only', 'idUser', $id);
             }
             // Commit the transaction
             FEntityManagerSQL::getInstance()->getDb()->commit();

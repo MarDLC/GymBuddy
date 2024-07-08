@@ -22,14 +22,24 @@ class CUser{
     {
         $view = new VRegisteredUser();
         if(FPersistentManager::getInstance()->verifyUserEmail(UHTTPMethods::post('email')) == false && FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username')) == false){
-            $user = new ERegisteredUser(UHTTPMethods::post('first_name'), UHTTPMethods::post('last_name'), UHTTPMethods::post('email'),UHTTPMethods::post('password'),UHTTPMethods::post('username'));
-            FPersistentManager::getInstance()->uploadObj($user);
+            // Controlla se l'utente vuole registrarsi come Personal Trainer
+            if (isset($_POST['isTrainer'])) {
+                $user = new EPersonalTrainer(UHTTPMethods::post('first_name'), UHTTPMethods::post('last_name'), UHTTPMethods::post('email'),UHTTPMethods::post('password'),UHTTPMethods::post('username'));
+                $user->setApproved(0);  // Imposta 'approved' a 0
+                FPersistentManager::getInstance()->uploadObj($user);
 
-            $view->showLoginForm();
+                // Mostra un messaggio all'utente per informarlo che la sua richiesta è in attesa di approvazione
+                $view->showMessage('La tua richiesta è stata inviata e sarà esaminata da un amministratore. Riceverai una notifica quando la tua richiesta sarà approvata.');
+            } else {
+                $user = new ERegisteredUser(UHTTPMethods::post('first_name'), UHTTPMethods::post('last_name'), UHTTPMethods::post('email'),UHTTPMethods::post('password'),UHTTPMethods::post('username'));
+                FPersistentManager::getInstance()->uploadObj($user);
+                $view->showLoginForm();
+            }
         }else{
             $view->registrationError();
         }
     }
+
 
     public static function isLogged()
     {
@@ -59,7 +69,12 @@ class CUser{
                 if(USession::getSessionStatus() == PHP_SESSION_NONE){
                     USession::getInstance();
                     USession::setSessionElement('user', $user);
-                    header('Location: /GymBuddy/User/Home');
+                    // Controlla se l'utente è un Personal Trainer approvato
+                    if ($user instanceof EPersonalTrainer && $user->getApproved() == 1) {
+                        header('Location: /GymBuddy/PersonalTrainer/Home');
+                    } else {
+                        header('Location: /GymBuddy/User/Home');
+                    }
                 }
             }else{
                 $view->loginError();
@@ -68,6 +83,7 @@ class CUser{
             $view->loginError();
         }
     }
+
 
     public static function logout(){
         USession::getInstance();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Giu 01, 2024 alle 18:30
+-- Creato il: Lug 07, 2024 alle 21:58
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
-  `email` varchar(255) NOT NULL
+  `idUser` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -38,12 +38,13 @@ CREATE TABLE `admin` (
 --
 
 CREATE TABLE `creditcard` (
+  `idCreditCard` int(11) NOT NULL,
+  `idSubscription` int(11) NOT NULL,
   `cvc` int(11) NOT NULL,
   `accountHolder` varchar(255) DEFAULT NULL,
   `cardNumber` varchar(16) DEFAULT NULL,
   `expirationDate` date DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `idCreditCard` int(11) NOT NULL
+  `idUser` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -54,10 +55,10 @@ CREATE TABLE `creditcard` (
 
 CREATE TABLE `news` (
   `idNews` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` longtext DEFAULT NULL,
-  `date` date NOT NULL,
-  `email` varchar(255) DEFAULT NULL
+  `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -67,25 +68,9 @@ CREATE TABLE `news` (
 --
 
 CREATE TABLE `personaltrainer` (
-  `email` varchar(255) NOT NULL,
+  `idUser` int(11) NOT NULL,
   `approved` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dump dei dati per la tabella `personaltrainer`
---
-
-INSERT INTO `personaltrainer` (`email`, `approved`) VALUES
-('testPT@example.com', 0),
-('testFPersonalTrainer@example.com', 0),
-('testFPersonalTrainer@example.com', 0),
-('testFPersonalTrainer@example.com', 0),
-('testFPersonalTrainer@example.com', 0),
-('testSaveObj@example.com', 0),
-('testSaveObj@example.com', 0),
-('testSaveObj@example.com', 0),
-('testSaveObj22@example.com', 0),
-('testSaveObj22@example.com', 0);
 
 -- --------------------------------------------------------
 
@@ -94,7 +79,7 @@ INSERT INTO `personaltrainer` (`email`, `approved`) VALUES
 --
 
 CREATE TABLE `physicaldata` (
-  `emailRegisteredUser` varchar(255) NOT NULL,
+  `idUser` int(11) NOT NULL,
   `sex` varchar(255) DEFAULT NULL,
   `height` float DEFAULT NULL,
   `weight` float DEFAULT NULL,
@@ -102,7 +87,6 @@ CREATE TABLE `physicaldata` (
   `fatMass` float DEFAULT NULL,
   `bmi` float DEFAULT NULL,
   `date` date DEFAULT NULL,
-  `emailPersonalTrainer` varchar(255) DEFAULT NULL,
   `idPhysicalData` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -113,17 +97,9 @@ CREATE TABLE `physicaldata` (
 --
 
 CREATE TABLE `registereduser` (
-  `email` varchar(255) NOT NULL,
+  `idUser` int(11) NOT NULL,
   `type` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dump dei dati per la tabella `registereduser`
---
-
-INSERT INTO `registereduser` (`email`, `type`) VALUES
-('test13@example.com', NULL),
-('test14@example.com', NULL);
 
 -- --------------------------------------------------------
 
@@ -132,11 +108,11 @@ INSERT INTO `registereduser` (`email`, `type`) VALUES
 --
 
 CREATE TABLE `reservation` (
-  `emailRegisteredUser` varchar(255) NOT NULL,
+  `idReservation` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
   `date` date DEFAULT NULL,
   `time` time DEFAULT NULL,
-  `TrainingPT` tinyint(1) DEFAULT NULL,
-  `emailPersonalTrainer` varchar(255) DEFAULT NULL
+  `trainingPT` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -146,7 +122,8 @@ CREATE TABLE `reservation` (
 --
 
 CREATE TABLE `subscription` (
-  `email` varchar(255) NOT NULL,
+  `idSubscription` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
   `type` varchar(255) DEFAULT NULL,
   `duration` int(11) DEFAULT NULL,
   `price` float DEFAULT NULL
@@ -159,13 +136,12 @@ CREATE TABLE `subscription` (
 --
 
 CREATE TABLE `trainingcard` (
+  `idUser` int(11) NOT NULL,
   `idTrainingCard` int(11) NOT NULL,
-  `emailRegisteredUser` varchar(255) DEFAULT NULL,
   `creation` date DEFAULT NULL,
   `exercises` text DEFAULT NULL,
   `repetition` text DEFAULT NULL,
-  `recovery` text DEFAULT NULL,
-  `emailPersonalTrainer` varchar(255) DEFAULT NULL
+  `recovery` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -175,6 +151,7 @@ CREATE TABLE `trainingcard` (
 --
 
 CREATE TABLE `user` (
+  `idUser` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `first_name` varchar(255) NOT NULL,
@@ -184,19 +161,6 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dump dei dati per la tabella `user`
---
-
-INSERT INTO `user` (`email`, `username`, `first_name`, `last_name`, `password`, `role`) VALUES
-('newPT@example.com', 'newPT', 'New', 'PT', '$2y$10$4d7TaKP/pxptay1.kex70OxOW6s/cYuTeU3LCBq5mhtWgGe00g11e', 'personalTrainer'),
-('test13@example.com', 'testuser', 'Test', 'User', '$2y$10$91o0JgKE2.UJzxjqJ7BgXeTaMgNXT5wN5BFISUd2waPFQGujz8aHW', 'registeredUser'),
-('test14@example.com', 'testuser', 'Test', 'User', '$2y$10$5tVHQNFL7edY6Db58nHcMezburYANynzznOOh1O.CQgYSoz5OSSs6', 'registeredUser'),
-('testFPersonalTrainer@example.com', 'testuser', 'Test', 'FPersonalTrainer', '$2y$10$EriR2Yw61ExDirj5hYZoDOQcFUPY94ri2hdIbt2D/VQ14A7nlJ/eK', 'personalTrainer'),
-('testPT@example.com', 'testPT', 'Test', 'PT', '$2y$10$mg.XqyQtd5hhiAOVgiCiQuIIo6XmCWHdcDVu5sc.iuI18FXo18dQG', 'personalTrainer'),
-('testSaveObj@example.com', 'testuser', 'Test', 'SaveObj', '$2y$10$9OifPP5HyARBnOryXjpSjuqaIjBUzNGCNrQvwc54FtG8heh40Y9lm', 'personalTrainer'),
-('testSaveObj22@example.com', 'testuser', 'Test', 'SaveObj', '$2y$10$6sB1dakCFnYdChAIxzlWG.abhjwStWP8yc90jAeJ/tRUB5vk0h3hm', 'personalTrainer');
-
---
 -- Indici per le tabelle scaricate
 --
 
@@ -204,72 +168,78 @@ INSERT INTO `user` (`email`, `username`, `first_name`, `last_name`, `password`, 
 -- Indici per le tabelle `admin`
 --
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`email`);
+  ADD PRIMARY KEY (`idUser`);
 
 --
 -- Indici per le tabelle `creditcard`
 --
 ALTER TABLE `creditcard`
   ADD PRIMARY KEY (`idCreditCard`),
-  ADD KEY `email` (`email`);
+  ADD KEY `creditcard_ibfk_1` (`idSubscription`),
+  ADD KEY `fk_creditcard` (`idUser`);
 
 --
 -- Indici per le tabelle `news`
 --
 ALTER TABLE `news`
   ADD PRIMARY KEY (`idNews`),
-  ADD KEY `email` (`email`);
+  ADD KEY `news_ibfk_1` (`idUser`);
 
 --
 -- Indici per le tabelle `personaltrainer`
 --
 ALTER TABLE `personaltrainer`
-  ADD KEY `email` (`email`);
+  ADD PRIMARY KEY (`idUser`);
 
 --
 -- Indici per le tabelle `physicaldata`
 --
 ALTER TABLE `physicaldata`
   ADD PRIMARY KEY (`idPhysicalData`),
-  ADD KEY `emailPersonalTrainer` (`emailPersonalTrainer`),
-  ADD KEY `physicaldata_ibfk_1` (`emailRegisteredUser`);
+  ADD KEY `physicaldata_ibfk_1` (`idUser`);
 
 --
 -- Indici per le tabelle `registereduser`
 --
 ALTER TABLE `registereduser`
-  ADD PRIMARY KEY (`email`);
+  ADD PRIMARY KEY (`idUser`);
 
 --
 -- Indici per le tabelle `reservation`
 --
 ALTER TABLE `reservation`
-  ADD PRIMARY KEY (`emailRegisteredUser`),
-  ADD KEY `emailPersonalTrainer` (`emailPersonalTrainer`);
+  ADD PRIMARY KEY (`idReservation`),
+  ADD KEY `reservation_ibfk_1` (`idUser`);
 
 --
 -- Indici per le tabelle `subscription`
 --
 ALTER TABLE `subscription`
-  ADD PRIMARY KEY (`email`);
+  ADD PRIMARY KEY (`idSubscription`),
+  ADD KEY `subscription_ibfk_1` (`idUser`);
 
 --
 -- Indici per le tabelle `trainingcard`
 --
 ALTER TABLE `trainingcard`
   ADD PRIMARY KEY (`idTrainingCard`),
-  ADD KEY `emailRegisteredUser` (`emailRegisteredUser`),
-  ADD KEY `emailPersonalTrainer` (`emailPersonalTrainer`);
+  ADD KEY `trainingcard_ibfk_1` (`idUser`);
 
 --
 -- Indici per le tabelle `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`email`);
+  ADD PRIMARY KEY (`idUser`);
 
 --
 -- AUTO_INCREMENT per le tabelle scaricate
 --
+
+--
+-- AUTO_INCREMENT per la tabella `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `creditcard`
@@ -284,16 +254,46 @@ ALTER TABLE `news`
   MODIFY `idNews` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT per la tabella `personaltrainer`
+--
+ALTER TABLE `personaltrainer`
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT per la tabella `physicaldata`
 --
 ALTER TABLE `physicaldata`
   MODIFY `idPhysicalData` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT per la tabella `registereduser`
+--
+ALTER TABLE `registereduser`
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la tabella `reservation`
+--
+ALTER TABLE `reservation`
+  MODIFY `idReservation` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la tabella `subscription`
+--
+ALTER TABLE `subscription`
+  MODIFY `idSubscription` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT per la tabella `trainingcard`
 --
 ALTER TABLE `trainingcard`
   MODIFY `idTrainingCard` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la tabella `user`
+--
+ALTER TABLE `user`
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Limiti per le tabelle scaricate
@@ -303,58 +303,56 @@ ALTER TABLE `trainingcard`
 -- Limiti per la tabella `admin`
 --
 ALTER TABLE `admin`
-  ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`email`) REFERENCES `user` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `creditcard`
 --
 ALTER TABLE `creditcard`
-  ADD CONSTRAINT `creditcard_ibfk_1` FOREIGN KEY (`email`) REFERENCES `subscription` (`email`);
+  ADD CONSTRAINT `creditcard_ibfk_1` FOREIGN KEY (`idSubscription`) REFERENCES `subscription` (`idSubscription`),
+  ADD CONSTRAINT `fk_creditcard` FOREIGN KEY (`idUser`) REFERENCES `registereduser` (`idUser`);
 
 --
 -- Limiti per la tabella `news`
 --
 ALTER TABLE `news`
-  ADD CONSTRAINT `news_ibfk_1` FOREIGN KEY (`email`) REFERENCES `user` (`email`);
+  ADD CONSTRAINT `news_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `admin` (`idUser`);
 
 --
 -- Limiti per la tabella `personaltrainer`
 --
 ALTER TABLE `personaltrainer`
-  ADD CONSTRAINT `personaltrainer_ibfk_1` FOREIGN KEY (`email`) REFERENCES `user` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `personaltrainer_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `physicaldata`
 --
 ALTER TABLE `physicaldata`
-  ADD CONSTRAINT `physicaldata_ibfk_1` FOREIGN KEY (`emailRegisteredUser`) REFERENCES `registereduser` (`email`),
-  ADD CONSTRAINT `physicaldata_ibfk_2` FOREIGN KEY (`emailPersonalTrainer`) REFERENCES `personaltrainer` (`email`);
+  ADD CONSTRAINT `physicaldata_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `registereduser` (`idUser`);
 
 --
 -- Limiti per la tabella `registereduser`
 --
 ALTER TABLE `registereduser`
-  ADD CONSTRAINT `registereduser_ibfk_1` FOREIGN KEY (`email`) REFERENCES `user` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `registereduser_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `reservation`
 --
 ALTER TABLE `reservation`
-  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`emailRegisteredUser`) REFERENCES `registereduser` (`email`),
-  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`emailPersonalTrainer`) REFERENCES `personaltrainer` (`email`);
+  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `registereduser` (`idUser`);
 
 --
 -- Limiti per la tabella `subscription`
 --
 ALTER TABLE `subscription`
-  ADD CONSTRAINT `subscription_ibfk_1` FOREIGN KEY (`email`) REFERENCES `registereduser` (`email`);
+  ADD CONSTRAINT `subscription_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `registereduser` (`idUser`);
 
 --
 -- Limiti per la tabella `trainingcard`
 --
 ALTER TABLE `trainingcard`
-  ADD CONSTRAINT `trainingcard_ibfk_1` FOREIGN KEY (`emailRegisteredUser`) REFERENCES `registereduser` (`email`),
-  ADD CONSTRAINT `trainingcard_ibfk_2` FOREIGN KEY (`emailPersonalTrainer`) REFERENCES `personaltrainer` (`email`);
+  ADD CONSTRAINT `trainingcard_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `registereduser` (`idUser`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -29,10 +29,7 @@ class ENews {
      */
     private DateTime $date;
 
-    /**
-     * @var string $email The email associated with the news item.
-     */
-    private $email;
+    private $idUser;
 
     /**
      * @var string $entity The name of the class. This is set to ENews::class.
@@ -45,10 +42,11 @@ class ENews {
      * @param string $title The title of the news item.
      * @param string $description The description of the news item.
      */
-    public function __construct($title, $description)
+    public function __construct($title, $description, $idUser)
     {
         $this->title = $title;
         $this->description = $description;
+        $this->idUser = $idUser;
         $this->setTime();
     }
 
@@ -139,25 +137,7 @@ class ENews {
         $this->date = $dateTime;
     }
 
-    /**
-     * Get the email associated with the news item.
-     *
-     * @return string The email associated with the news item.
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
 
-    /**
-     * Set the email associated with the news item.
-     *
-     * @param string $email The new email associated with the news item.
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
 
     /**
      * Get the ID of the news item.
@@ -178,4 +158,10 @@ class ENews {
     {
         $this->idNews = $idNews;
     }
+
+    public function getIdUser()
+    {
+        return $this->idUser;
+    }
+
 }

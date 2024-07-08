@@ -17,12 +17,12 @@ class FUser{
     /**
      * @var string $value The SQL value string for inserting a new record into the table.
      */
-    private static $value = "(:email,:username,:first_name,:last_name,:password,:role)";
+    private static $value = "(NULL,:email,:username,:first_name,:last_name,:password,:role)";
 
     /**
      * @var string $key The primary key of the table.
      */
-    private static $key = "email";
+    private static $key = "idUser";
 
     /**
      * Returns the name of the table this class interacts with.

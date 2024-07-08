@@ -67,9 +67,9 @@ public static function createAdminObj($queryResult){
     // Check if the query result is not empty
     if(count($queryResult) > 0){
         // Create a new Admin object using the first_name, last_name, email, password, and username from the query result
-        $mod = new EAdmin($queryResult[0]['first_name'], $queryResult[0]['last_name'], $queryResult[0]['email'], $queryResult[0]['password'], $queryResult[0]['username']);
+        $mod = new EAdmin($queryResult[0]['email'], $queryResult[0]['username'], $queryResult[0]['first_name'], $queryResult[0]['last_name'], $queryResult[0]['password']);
         // Set the email of the Admin object
-        $mod->setEmail($queryResult[0]['idUser']);
+        $mod->setId($queryResult[0]['idUser']);
         // Set the hashed password of the Admin object
         $mod->setHashedPassword($queryResult[0]['password']);
         // Return the Admin object
@@ -104,9 +104,9 @@ public static function getObj($id){
     // Check if the result is not empty
     if(count($result) > 0){
         // If the result is not empty, create an Admin object from the result
-        $user = self::createAdminObj($result);
+        $admin = self::createAdminObj($result);
         // Return the Admin object
-        return $user;
+        return $admin;
     }else{
         // If the result is empty, return null
         return null;

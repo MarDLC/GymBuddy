@@ -1,7 +1,7 @@
 <?php
 
 // Include l'autoloader using a relative path
-require_once __DIR__ . '/app/config/autoloader.php';
+require_once 'C:\\xampp\\htdocs\\BetaTestGymBuddy\\app\\config\\autoloader.php';
 
 // Test for the class EPersonalTrainer
 function testEPersonalTrainer($pdo){
@@ -171,41 +171,90 @@ function testFPersonalTrainerCreatePersonalTrainerObj() {
 
 
 function testFPersonalTrainerSaveObj($pdo) {
-    // Create a new instance of EPersonalTrainer
-    $personalTrainer = new EPersonalTrainer('testSaveObj35@example.com', 'testuser', 'Test', 'SaveObj', 'password123');
+    // Creazione della classe di test FAdminTest
+    class FPersonalTrainerTest {
 
-    // Check if the personal trainer already exists in the database
-    $stmt = $pdo->prepare("SELECT * FROM user WHERE email = :email");
-    $stmt->execute(['email' => $personalTrainer->getEmail()]);
-    $existingTrainer = $stmt->fetch(PDO::FETCH_ASSOC);
+        // Variabile per connettersi al database
+        private $db;
 
-    if ($existingTrainer) {
-        // If the personal trainer exists, update it
-        $personalTrainer->setEmail('updatedEmail35@example.com');
-        // Non chiamare FPersonalTrainer::saveObj nuovamente
-        $lastInsertedEmail = 'updatedEmail35@example.com'; // Assegna direttamente la nuova email
-        echo "Last inserted email: " . $lastInsertedEmail . "\n";
-    } else {
-        // If the personal trainer does not exist, save it
-        $lastInsertedEmail = FPersonalTrainer::saveObj($personalTrainer);
-        echo "Last inserted email: " . $lastInsertedEmail . "\n";
+        // Costruttore per inizializzare la connessione al database
+        public function __construct($db) {
+            $this->db = $db;
+        }
+
+        // Metodo per eseguire il test dell'inserimento di un nuovo oggetto
+        public function testSaveNewObj() {
+            // Creazione di un nuovo oggetto da salvare
+            $newPersonalTrainer = new EPersonalTrainer('test@example.com', 'testuser', 'Test', 'PersonalTrainer', 'testpassword');
+
+            // Chiamata al metodo saveObj per salvare il nuovo oggetto
+            $result = FPersonalTrainer::saveObj($newPersonalTrainer);
+
+            // Verifica del risultato
+            if ($result !== false) {
+                echo "Test inserimento nuovo oggetto passato: ID restituito " . $result . "\n";
+            } else {
+                echo "Test inserimento nuovo oggetto fallito\n";
+            }
+
+            // Pulizia: rimuovere l'oggetto inserito per lasciare il database nello stato originale
+            $this->db->query("DELETE FROM personaltrainer WHERE email = 'test@example.com'");
+            $this->db->query("DELETE FROM user WHERE email = 'test@example.com'");
+        }
+
+        // Metodo per eseguire il test dell'aggiornamento di un oggetto esistente
+        public function testUpdateExistingObj() {
+            // Inserimento di un oggetto di test nel database
+            $this->db->query("INSERT INTO user (email, username, password) VALUES ('existing@example.com', 'existinguser', 'existingpassword')");
+            $this->db->query("INSERT INTO personaltrainer (email) VALUES ('existing@example.com')");
+
+            // Creazione di un oggetto da aggiornare
+            $existingPersonalTrainer = new EPersonalTrainer('existing@example.com', 'existinguser', 'Existing', 'PersonalTrainer', 'existingpassword');
+
+            // Creazione di un array con i campi da aggiornare
+            $fieldArray = [
+                ['username', 'updateduser'],
+                ['password', 'updatedpassword']
+            ];
+
+            // Chiamata al metodo saveObj per aggiornare l'oggetto esistente
+            $result = FPersonalTrainer::saveObj($existingPersonalTrainer, $fieldArray);
+
+            // Verifica del risultato
+            if ($result === true) {
+                echo "Test aggiornamento oggetto esistente passato\n";
+            } else {
+                echo "Test aggiornamento oggetto esistente fallito\n";
+            }
+
+            // Verifica degli aggiornamenti nel database
+            $result = $this->db->query("SELECT username, password FROM user WHERE email = 'existing@example.com'");
+            $updatedUser = $result->fetch(PDO::FETCH_ASSOC);
+
+            if ($updatedUser['username'] == 'updateduser' && $updatedUser['password'] == 'updatedpassword') {
+                echo "Verifica aggiornamenti nel database passata\n";
+            } else {
+                echo "Verifica aggiornamenti nel database fallita\n";
+            }
+
+            // Pulizia: rimuovere l'oggetto aggiornato per lasciare il database nello stato originale
+            $this->db->query("DELETE FROM personaltrainer WHERE email = 'existing@example.com'");
+            $this->db->query("DELETE FROM user WHERE email = 'existing@example.com'");
+        }
     }
 
-    // Verify that the personal trainer was saved or updated correctly
-    $stmt = $pdo->prepare("SELECT * FROM user WHERE email = :email");
-    $stmt->execute(['email' => $personalTrainer->getEmail()]);
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Creazione di un'istanza della classe di test
+    $test = new FPersonalTrainerTest($pdo);
 
-    if ($result !== false) {
-        // Assert that the email matches and the save operation was successful
-        assert($result['email'] === $personalTrainer->getEmail());
-        assert($lastInsertedEmail === $personalTrainer->getEmail());
-    } else {
-        echo "No rows found in the database for the email " . $personalTrainer->getEmail() . "\n";
-    }
-
-    echo "All tests for FPersonalTrainer::saveObj have passed.\n";
+    // Esecuzione dei test
+    $test->testSaveNewObj();
+    $test->testUpdateExistingObj();
 }
+
+
+
+
+
 
 function testFPersonalTrainerGetListEmailsOfFollowedUsers($pdo) {
     // Create some test data: two users with 'followed_user' type
@@ -238,6 +287,8 @@ function cleanUpTestUsers() {
     FRegisteredUser::deleteRegisteredUserObj('user5@example.com');
 }
 
+
+
 try {
     // Database connection
     $pdo = new PDO("mysql:host=localhost;dbname=gymbuddy", "root", "");
@@ -248,6 +299,7 @@ try {
     testFPersonalTrainerCreatePersonalTrainerObj();
     testFPersonalTrainerSaveObj($pdo);
     testFPersonalTrainerGetListEmailsOfFollowedUsers($pdo);
+   // testFPersonalTrainerGetPhysicalDataOfClient ($pdo);
 } catch (PDOException $e) {
     echo "Error during the connection to the database: " . $e->getMessage();
 }

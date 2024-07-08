@@ -13,10 +13,8 @@ class EReservation {
      * @var int $idReservation The id of the reservation.
      */
     private $idReservation;
-    /**
-     * @var string $emailRegisteredUser The email of the registered user.
-     */
-    private $emailRegisteredUser;
+
+    private $idUser;
 
     /**
      * @var DateTime $date The date of the reservation.
@@ -33,10 +31,7 @@ class EReservation {
      */
     private $trainingPT;
 
-    /**
-     * @var string $emailPersonalTrainer The email of the personal trainer.
-     */
-    private $emailPersonalTrainer;
+
 
     /**
      * @var string $entity The name of the class. This is set to EReservation::class.
@@ -51,9 +46,9 @@ class EReservation {
      * @param string $trainingPT The training personal trainer of the reservation.
      * @param string $time The time of the reservation. Default is '02:00:00'.
      */
-    public function __construct($emailRegisteredUser, $date, $trainingPT, $time = '02:00:00')
+    public function __construct($idUser, $date, $trainingPT, $time = '02:00:00')
     {
-        $this->emailRegisteredUser = $emailRegisteredUser;
+        $this->idUser = $idUser;
         $this->date = $date;
         $this->time = $time;
         $this->trainingPT = $trainingPT;
@@ -87,45 +82,6 @@ class EReservation {
     public function setIdReservation($idReservation)
     {
         $this->idReservation = $idReservation;
-    }
-    /**
-     * Get the email of the registered user.
-     *
-     * @return string The email of the registered user.
-     */
-    public function getEmailRegisteredUser()
-    {
-        return $this->emailRegisteredUser;
-    }
-
-    /**
-     * Set the email of the registered user.
-     *
-     * @param string $emailRegisteredUser The new email of the registered user.
-     */
-    public function setEmailRegisteredUser($emailRegisteredUser)
-    {
-        $this->emailRegisteredUser = $emailRegisteredUser;
-    }
-
-    /**
-     * Get the email of the personal trainer.
-     *
-     * @return string The email of the personal trainer.
-     */
-    public function getEmailPersonalTrainer()
-    {
-        return $this->emailPersonalTrainer;
-    }
-
-    /**
-     * Set the email of the personal trainer.
-     *
-     * @param string $emailPersonalTrainer The new email of the personal trainer.
-     */
-    public function setEmailPersonalTrainer($emailPersonalTrainer)
-    {
-        $this->emailPersonalTrainer = $emailPersonalTrainer;
     }
 
     /**
@@ -196,4 +152,11 @@ class EReservation {
     {
         $this->trainingPT = $trainingPT;
     }
+
+    public function getIdUser()
+    {
+        return $this->idUser;
+    }
+
+
 }

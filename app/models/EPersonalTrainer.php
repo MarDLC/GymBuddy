@@ -57,6 +57,11 @@ class EPersonalTrainer extends EUser {
         return $this->approved;
     }
 
+    public function getApproved()
+    {
+        return $this->approved;
+    }
+
     public function setApproved($bool)
     {
         $this->approved = $bool;

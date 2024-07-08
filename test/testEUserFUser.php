@@ -1,7 +1,7 @@
 <?php
 
 // Include l'autoloader usando un percorso relativo
-require_once __DIR__ . '/app/config/autoloader.php';
+require_once 'C:\\xampp\\htdocs\\BetaTestGymBuddy\\app\\config\\autoloader.php';
 
 // Test per la classe EUser
 function testEUser($pdo) {

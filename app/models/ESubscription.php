@@ -14,10 +14,8 @@ class ESubscription {
      */
     private $idSubscription;
 
-    /**
-     * @var string $email The email of the subscriber.
-     */
-    private $email;
+
+    private $idUser;
 
     /**
      * @var string $type The type of the subscription.
@@ -46,9 +44,9 @@ class ESubscription {
      * @param int $duration The duration of the subscription.
      * @param float $price The price of the subscription.
      */
-    public function __construct($email, $type, $duration, $price)
+    public function __construct($idUser, $type, $duration, $price)
     {
-        $this->email = $email;
+        $this->idUser = $idUser;
         $this->type = $type;
         $this->duration = $duration;
         $this->price = $price;
@@ -84,24 +82,9 @@ class ESubscription {
         $this->idSubscription = $idSubscription;
     }
 
-    /**
-     * Get the email of the subscriber.
-     *
-     * @return string The email of the subscriber.
-     */
-    public function getEmail()
+   public function getIdUser()
     {
-        return $this->email;
-    }
-
-    /**
-     * Set the email of the subscriber.
-     *
-     * @param string $email The new email of the subscriber.
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
+        return $this->idUser;
     }
 
     /**

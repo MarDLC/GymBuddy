@@ -14,13 +14,7 @@ class ETrainingCard {
      */
     private $idTrainingCard;
 
-    /**
-     * @var string $emailRegisteredUser The email of the registered user.
-     */
-    private $emailRegisteredUser;
-
-   //TODO PHPDOC
-    protected $personalTrainer;
+  private $idUser;
 
     /**
      * @var DateTime $creation The creation date of the training card.
@@ -42,10 +36,7 @@ class ETrainingCard {
      */
     private $recovery;
 
-    /**
-     * @var string $emailPersonalTrainer The email of the personal trainer.
-     */
-    private $emailPersonalTrainer;
+
 
     /**
      * @var string $entity The name of the class. This is set to ETrainingCard::class.
@@ -55,14 +46,14 @@ class ETrainingCard {
     /**
      * Constructor for the ETrainingCard class.
      *
-     * @param string $emailRegisteredUser The email of the registered user.
+
      * @param string $exercises The exercises in the training card.
      * @param int $repetition The repetition count for the exercises.
      * @param string $recovery The recovery time after the exercises.
      */
-    public function __construct($emailRegisteredUser, $exercises, $repetition, $recovery)
+    public function __construct($idUser, $exercises, $repetition, $recovery)
     {
-        $this->emailRegisteredUser = $emailRegisteredUser;
+        $this->idUser = $idUser;
         $this->exercises = $exercises;
         $this->repetition = $repetition;
         $this->recovery = $recovery;
@@ -79,25 +70,6 @@ class ETrainingCard {
         return self::$entity;
     }
 
-    /**
-     * Get the email of the registered user.
-     *
-     * @return string The email of the registered user.
-     */
-    public function getEmailRegisteredUser()
-    {
-        return $this->emailRegisteredUser;
-    }
-
-    /**
-     * Set the email of the registered user.
-     *
-     * @param string $emailRegisteredUser The new email of the registered user.
-     */
-    public function setEmailRegisteredUser($emailRegisteredUser)
-    {
-        $this->emailRegisteredUser = $emailRegisteredUser;
-    }
 
     /**
      * Get the creation date of the training card.
@@ -197,25 +169,7 @@ public function setRecovery($recovery)
     $this->recovery = $recovery;
 }
 
-/**
- * Get the email of the personal trainer.
- *
- * @return string The email of the personal trainer.
- */
-public function getEmailPersonalTrainer()
-{
-    return $this->emailPersonalTrainer;
-}
 
-/**
- * Set the email of the personal trainer.
- *
- * @param string $emailPersonalTrainer The new email of the personal trainer.
- */
-public function setEmailPersonalTrainer($emailPersonalTrainer)
-{
-    $this->emailPersonalTrainer = $emailPersonalTrainer;
-}
 
 /**
  * Get the ID of the training card.
@@ -245,6 +199,11 @@ public function getPersonalTrainer()
 public function setPersonalTrainer(EPersonalTrainer $personalTrainer):void
 {
     $this->personalTrainer = $personalTrainer;
+}
+
+public function getIdUser()
+{
+    return $this->idUser;
 }
 
 

@@ -14,6 +14,12 @@ class ECreditCard {
      */
     private $idCreditCard;
 
+
+    private $idSubscription;
+
+
+    private $idUser;
+
     /**
      * @var int $cvc The CVC of the credit card.
      */
@@ -34,10 +40,7 @@ class ECreditCard {
      */
     private $expirationDate;
 
-    /**
-     * @var string $email The email associated with the credit card.
-     */
-    private $email;
+
 
     /**
      * @var string $entity The name of the class. This is set to ECreditCard::class.
@@ -53,13 +56,14 @@ class ECreditCard {
      * @param string $expirationDate The expiration date of the credit card.
      * @param string $email The email associated with the credit card.
      */
-    public function __construct($cvc, $accountHolder, $cardNumber, $expirationDate, $email)
+    public function __construct($idSubscription, $idUser, $cvc, $accountHolder, $cardNumber, $expirationDate)
     {
+        $this->idSubscription = $idSubscription;
+        $this->idUser = $idUser;
         $this->cvc = $cvc;
         $this->accountHolder = $accountHolder;
         $this->cardNumber = $cardNumber;
         $this->expirationDate = $expirationDate;
-        $this->email = $email;
     }
 
     /**
@@ -142,24 +146,15 @@ class ECreditCard {
         $this->expirationDate = $expirationDate;
     }
 
-    /**
-     * Get the email associated with the credit card.
-     *
-     * @return string The email associated with the credit card.
-     */
-    public function getEmail()
+
+    public function getIdSubscription()
     {
-        return $this->email;
+        return $this->idSubscription;
     }
 
-    /**
-     * Set the email associated with the credit card.
-     *
-     * @param string $email The new email associated with the credit card.
-     */
-    public function setEmail($email)
+    public function getIdUser()
     {
-        $this->email = $email;
+        return $this->idUser;
     }
 
     /**

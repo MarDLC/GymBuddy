@@ -32,4 +32,6 @@ class EAdmin extends EUser {
     {
         return self::$entity;
     }
+
+
 }
