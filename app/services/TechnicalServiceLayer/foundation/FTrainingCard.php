@@ -17,7 +17,7 @@ class FTrainingCard{
     /**
      * @var string $value The SQL value string for inserting a new record into the table.
      */
-    private static $value = "(NULL,:emailRegisteredUser,:creation,:exercises,:repetition,:recovery,:emailPersonalTrainer)";
+    private static $value = "(NULL,:idUser,:creation,:exercises,:repetition,:recovery,:date)";
 
     /**
      * @var string $key The primary key of the table.
@@ -69,30 +69,28 @@ class FTrainingCard{
     public static function createTrainingCardObj($queryResult){
         // If the query result contains only one record
         if(count($queryResult) == 1){
+            $author = FPersonalTrainer::getObj($queryResult[0]['idUser']);
             // Create a new TrainingCard object from the query result
-            $trainingCard = new ETrainingCard($queryResult[0]['emailRegisteredUser'],$queryResult[0]['excercises'],$queryResult[0]['repetition'],$queryResult[0]['recovery']);
+            $trainingCard = new ETrainingCard($author,$queryResult[0]['excercises'],$queryResult[0]['repetition'],$queryResult[0]['recovery']);
             // Set the id of the training card in the TrainingCard object
             $trainingCard->setIdTrainingCard($queryResult[0]['idTrainingCard']);
-            // Set the creation time in the TrainingCard object
-            $dateTime =  DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[0]['creation_time']);
-            $trainingCard->setCreationTime($dateTime);
-            // Set the email of the personal trainer in the TrainingCard object
-            $trainingCard->setEmailPersonalTrainer($queryResult[0]['emailPersonalTrainer']);
+            // Use the date directly as it is already a DateTime object
+            $trainingCard->setCreationTime($queryResult[0]['date']);
+
             // Return the created TrainingCard object
             return $trainingCard;
         }elseif(count($queryResult) > 1){
             // If the query result contains more than one record, create an array of TrainingCard objects
             $trainingCards = array();
             for($i = 0; $i < count($queryResult); $i++){
+                $author = FPersonalTrainer::getObj($queryResult[$i]['idUser']);
                 // Create a new TrainingCard object for each record in the query result
-                $trainingCard = new ETrainingCard($queryResult[0]['emailRegisteredUser'],$queryResult[0]['excercises'],$queryResult[0]['repetition'],$queryResult[0]['recovery']);
+                $trainingCard = new ETrainingCard($author,$queryResult[$i]['excercises'],$queryResult[$i]['repetition'],$queryResult[$i]['recovery']);
                 // Set the id of the training card in the TrainingCard object
                 $trainingCard->setIdTrainingCard($queryResult[$i]['idTrainingCard']);
-                // Set the creation time in the TrainingCard object
-                $dateTime =  DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[$i]['creation_time']);
-                $trainingCard->setCreationTime($dateTime);
-                // Set the email of the personal trainer in the TrainingCard object
-                $trainingCard->setEmailPersonalTrainer($queryResult[$i]['emailPersonalTrainer']);
+                // Use the date directly as it is already a DateTime object
+                $trainingCard->setCreationTime($queryResult[$i]['date']);
+
                 // Add the TrainingCard object to the array of TrainingCard objects
                 $trainingCards[] = $trainingCard;
             }
@@ -111,18 +109,16 @@ class FTrainingCard{
      * @param ETrainingCard $trainingCard The training card object
      */
     public static function bind($stmt, $trainingCard){
-        // Bind the email of the registered user to the corresponding parameter in the SQL statement
-        $stmt->bindValue(":emailRegisteredUser", $trainingCard->getEmailRegisteredUser(), PDO::PARAM_STR);
-        // Bind the creation time of the training card to the corresponding parameter in the SQL statement
-        $stmt->bindValue(":creation", $trainingCard->getTimeStr(), PDO::PARAM_STR);
+       $stmt->bindValue(":idUser", $trainingCard->getIdUser()->getId(), PDO::PARAM_INT);
+
         // Bind the exercises of the training card to the corresponding parameter in the SQL statement
         $stmt->bindValue(":exercises", $trainingCard->getExercises(), PDO::PARAM_STR);
         // Bind the repetition of the training card to the corresponding parameter in the SQL statement
         $stmt->bindValue(":repetition", $trainingCard->getRepetition(), PDO::PARAM_STR);
         // Bind the recovery of the training card to the corresponding parameter in the SQL statement
         $stmt->bindValue(":recovery", $trainingCard->getRecovery(), PDO::PARAM_STR);
-        // Bind the email of the personal trainer to the corresponding parameter in the SQL statement
-        $stmt->bindValue(":emailPersonalTrainer", $trainingCard->getEmailPersonalTrainer(), PDO::PARAM_STR);
+        $stmt->bindValue(":date", $trainingCard->getTimeStr(), PDO::PARAM_STR);
+
     }
 
     /**
@@ -220,9 +216,9 @@ class FTrainingCard{
         }
     }
 
-    public static function getTrainingCardsByEmail($emailRegisteredUser){
+    public static function getTrainingCardsByIdUserl($idUser){
         // Retrieve the TrainingCard objects for the client
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), 'emailRegisteredUser', $emailRegisteredUser);
+        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), 'idUser', $idUser);
         // If the result is not empty, create a TrainingCard object from the result
         if(count($result) > 0){
             $trainingCards = self::createTrainingCardObj($result);

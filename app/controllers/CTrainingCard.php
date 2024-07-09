@@ -61,9 +61,9 @@ class CTrainingCard
         }
     }
 
-    public static function deleteTrainingCard($emailRegisteredUser) {
+    public static function deleteTrainingCard($idUser) {
         // Retrieve the TrainingCard objects for the client
-        $trainingCards = FTrainingCard::getTrainingCardsByEmail($emailRegisteredUser);
+        $trainingCards = FTrainingCard::getTrainingCardsByIdUserl($idUser);
 
         // Delete each TrainingCard object from the database
         foreach ($trainingCards as $trainingCard) {
@@ -79,9 +79,9 @@ class CTrainingCard
     }
 
 
-    public static function showTrainingCard($emailRegisteredUser) {
+    public static function showTrainingCard($idUser) {
         // Retrieve the TrainingCard objects for the client
-        $trainingCards = FTrainingCard::getTrainingCardsByEmail($emailRegisteredUser);
+        $trainingCards = FTrainingCard::getTrainingCardsByIdUserl($idUser);
 
         // Pass the TrainingCard objects to the view for display
         $view = new VPersonalTrainer();

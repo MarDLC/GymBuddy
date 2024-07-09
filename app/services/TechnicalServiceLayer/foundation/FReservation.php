@@ -17,7 +17,7 @@ class FReservation{
     /**
      * @var string $value The SQL value string for inserting a new record into the table.
      */
-    private static $value = "(:emailRegisteredUser,:date,:time,:TrainingPT,:emailPersonalTrainer,idReservation)";
+    private static $value = "(NULL, :idUser,:date,:time,:TrainingPT)";
 
     /**
      * @var string $key The primary key of the table.
@@ -67,17 +67,15 @@ class FReservation{
  * @param EReservation $reservation The reservation object
  */
 public static function bind($stmt, $reservation){
-    // Bind the email of the registered user to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":emailRegisteredUser", $reservation->getEmailRegisteredUser(), PDO::PARAM_STR);
-    // Bind the date of the reservation to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":date", $reservation->getDate(), PDO::PARAM_STR);
+    // Bind the user ID to the corresponding parameter in the SQL statement
+    $stmt->bindValue(":idUser", $reservation->getIdUser()->getId(), PDO::PARAM_INT);
+    // Bind the date to the corresponding parameter in the SQL statement
+    $stmt->bindValue(":date", $reservation->getTimeStr(), PDO::PARAM_STR);
     // Bind the time of the reservation to the corresponding parameter in the SQL statement
     $stmt->bindValue(":time", $reservation->getTime(), PDO::PARAM_STR);
     // Bind the training PT of the reservation to the corresponding parameter in the SQL statement
     $stmt->bindValue(":TrainingPT", $reservation->getTrainingPT(), PDO::PARAM_BOOL);
-    // Bind the email of the personal trainer to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":emailPersonalTrainer", $reservation->getEmailPersonalTrainer(), PDO::PARAM_STR);
-    $stmt->bindValue(":idReservation", $reservation->getIdReservation(), PDO::PARAM_INT);
+
 }
 
 /**
@@ -89,21 +87,30 @@ public static function bind($stmt, $reservation){
 public static function createReservationObj($queryResult){
     // If the query result contains only one record
     if(count($queryResult) == 1){
+        $author= FRegisteredUser ::getObj($queryResult[0]['idUser']);
         // Create a new Reservation object from the query result
-        $reservation = new EReservation($queryResult[0]['emailRegisteredUser'],$queryResult[0]['date'],$queryResult[0]['time'],$queryResult[0]['trainingPT']);
+        $reservation = new EReservation($author, $queryResult[0]['date'],$queryResult[0]['time'],$queryResult[0]['trainingPT']);
         // Set the ID of the reservation in the Reservation object
         $reservation->setIdReservation($queryResult[0]['idReservation']);
-        // Set the email of the registered user in the Reservation object
-        $reservation->setEmailRegisteredUser($queryResult[0]['emailRegisteredUser']);
-        // Set the creation time in the Reservation object
-        $dateTime =  DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[0]['creation_time']);
-        $reservation->setCreationTime($dateTime);
-        // Set the email of the personal trainer in the Reservation object
-        $reservation->setEmailPersonalTrainer($queryResult[0]['emailPersonalTrainer']);
+        $reservation->setCreationTime($queryResult[0]['date']);
         // Return the created Reservation object
         return $reservation;
-    }else{
+    }elseif (count($queryResult) > 1){
+        $reservations= array();
+        // Loop through the query result
+        for($i = 0; $i < count($queryResult); $i++){
+            $author= FRegisteredUser ::getObj($queryResult[$i]['idUser']);
+            // Create a new Reservation object from the query result
+            $reservation = new EReservation($author, $queryResult[$i]['date'],$queryResult[$i]['time'],$queryResult[$i]['trainingPT']);
+            // Set the ID of the reservation in the Reservation object
+            $reservation->setIdReservation($queryResult[$i]['idReservation']);
+            $reservation->setCreationTime($queryResult[$i]['date']);
+            // Add the Reservation object to the reservations array
+            $reservations[] = $reservation;
+        }
         // If the query result is empty, return an empty array
+        return $reservations;
+    }else{
         return array();
     }
 }
@@ -185,19 +192,30 @@ public static function saveObj($obj , $fieldArray = null){
             // Start a new database transaction
             FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
             // Delete the user object from the database
-            FEntityManagerSQL::getInstance()->deleteObjInDb(FReservation::getTable(), self::getKey(), $id);
+            $queryResult = FEntityManagerSQL::getInstance()->deleteObjInDb(FReservation::getTable(), self::getKey(), $id);
             // Commit the transaction
             FEntityManagerSQL::getInstance()->getDb()->commit();
-            return true;
-        }catch(PDOException $e){
-            // Print the error message and rollback the transaction in case of an exception
+            // If the delete operation was successful, return true
+            if($queryResult ){
+                return true;
+            } else {
+                // If the delete operation was not successful, return false
+                return false;
+            }
+        } catch(PDOException $e){
+            // If an exception occurs, print the error message and rollback the transaction
             echo "ERROR " . $e->getMessage();
             FEntityManagerSQL::getInstance()->getDb()->rollBack();
+            // Return false to indicate that the delete operation was not successful
             return false;
-        }finally{
+        } finally{
             // Close the database connection
             FEntityManagerSQL::getInstance()->closeConnection();
         }
+    }
+
+    public static function countReservationsByDateAndTime($date, $time) {
+        return FEntityManagerSQL::countReservations(self::getTable(), $date, $time);
     }
 
 

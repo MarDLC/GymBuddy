@@ -21,33 +21,45 @@ class CReservation
             // Set the trainingPT field based on the user type
             $trainingPT = ($user->getType() == 'followed_user') ? 1 : 0;
 
-            // Create a new reservation using FPersistentManager
-            $reservation = FPersistentManager::getInstance()->createReservation($user->getEmail(), UHTTPMethods::post('date'), $trainingPT, UHTTPMethods::post('time'));
+            $date = UHTTPMethods::post('date');
+            $time = UHTTPMethods::post('time');
 
-            // Save the reservation in the database
-            $result = FPersistentManager::getInstance()->saveReservation($reservation);
+            // Controlla il numero di prenotazioni esistenti per la data e l'ora specificate
+            $maxReservationsPerSlot = 15;  // Definisce il limite di prenotazioni per fascia oraria
+            $currentReservations = FReservation::countReservationsByDateAndTime($date, $time);
 
-            // Check if the reservation was saved successfully
-            if ($result) {
-                // If successful, redirect the user to a success page
-                header('Location: /GymBuddy/User/ReservationSuccess');
+            if ($currentReservations >= $maxReservationsPerSlot) {
+                // Se il limite è stato raggiunto, reindirizza l'utente a una pagina di errore
+                header('Location: /GymBuddy/User/ReservationLimitReached');
             } else {
-                // If not successful, redirect the user to an error page
-                header('Location: /GymBuddy/User/ReservationError');
+                // Se il limite non è stato raggiunto, crea una nuova prenotazione
+                $reservation = FPersistentManager::getInstance()->createReservation($user->getEmail(), $date, $trainingPT, $time);
+
+                // Salva la prenotazione nel database
+                $result = FPersistentManager::getInstance()->saveReservation($reservation);
+
+                // Controlla se la prenotazione è stata salvata correttamente
+                if ($result) {
+                    // Se ha avuto successo, reindirizza l'utente a una pagina di successo
+                    header('Location: /GymBuddy/User/ReservationSuccess');
+                } else {
+                    // Se non ha avuto successo, reindirizza l'utente a una pagina di errore
+                    header('Location: /GymBuddy/User/ReservationError');
+                }
             }
         }
     }
 
     public static function cancelReservation($reservationId) {
-        // Call the method to delete the reservation from the database
+        // Chiama il metodo per eliminare la prenotazione dal database
         $result = FPersistentManager::getInstance()->deleteReservation($reservationId);
 
-        // Check if the reservation was deleted successfully
+        // Controlla se la prenotazione è stata eliminata correttamente
         if ($result) {
-            // If successful, redirect the user to a success page
+            // Se ha avuto successo, reindirizza l'utente a una pagina di successo
             header('Location: /GymBuddy/User/ReservationCancellationSuccess');
         } else {
-            // If not successful, redirect the user to an error page
+            // Se non ha avuto successo, reindirizza l'utente a una pagina di errore
             header('Location: /GymBuddy/User/ReservationCancellationError');
         }
     }

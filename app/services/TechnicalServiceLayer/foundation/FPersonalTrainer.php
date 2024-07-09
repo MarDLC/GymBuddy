@@ -231,9 +231,9 @@ class FPersonalTrainer{
     return $emails;
 }
 
-    public static function getTrainingCardsOfClient($emailRegisteredUser) {
+    public static function getTrainingCardsOfClient($idUser) {
         // Retrieve the TrainingCard objects for the client
-        return FTrainingCard::getTrainingCardsByEmail($emailRegisteredUser);
+        return FTrainingCard::getTrainingCardsByIdUserl($idUser);
     }
 
     public static function getPhysicalDataOfClient($idUser) {

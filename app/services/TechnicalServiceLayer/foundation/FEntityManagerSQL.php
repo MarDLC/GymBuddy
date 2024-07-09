@@ -163,13 +163,9 @@ class FEntityManagerSQL{
             $stmt->execute();
             $id = self::$db->lastInsertId();
             return $id;
-        }catch(PDOException $e){
-            if($e->getCode() === '23000'){ // se è un errore di duplicazione della chiave primaria
-                return 'errore_di_duplicazione_chiave_primaria';
-            }else{
-                echo "ERRORE: " . $e->getMessage();
-                return null;
-            }
+        }catch(Exception $e){
+            echo "ERROR: " . $e->getMessage();
+            return null;
         }
     }
 
@@ -362,6 +358,21 @@ class FEntityManagerSQL{
         } catch(PDOException $e) {
             echo "ERROR " . $e->getMessage();
             return array();
+        }
+    }
+
+    public static function countReservations($table, $date, $time) {
+        try {
+            $query = "SELECT COUNT(*) as count FROM " . $table . " WHERE date = :date AND time = :time";
+            $stmt = self::$db->prepare($query);
+            $stmt->bindValue(':date', $date, PDO::PARAM_STR);
+            $stmt->bindValue(':time', $time, PDO::PARAM_STR);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result['count'];
+        } catch (PDOException $e) {
+            echo "ERROR: " . $e->getMessage();
+            return 0;
         }
     }
 

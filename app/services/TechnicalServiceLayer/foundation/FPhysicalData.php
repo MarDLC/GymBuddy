@@ -84,8 +84,7 @@ public static function bind($stmt, $physicalData)
     $stmt->bindValue(":bmi", $physicalData->getBmi(), PDO::PARAM_STR);
     // Bind the date to the corresponding parameter in the SQL statement
     $stmt->bindValue(":date", $physicalData->getTimeStr(), PDO::PARAM_STR);
-    // Bind the date to the corresponding parameter in the SQL statement using getTimeStr() method
-    $stmt->bindValue(":date", $physicalData->getTimeStr(), PDO::PARAM_STR);
+
 }
 
 /**

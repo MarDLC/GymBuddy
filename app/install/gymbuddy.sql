@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Lug 08, 2024 alle 22:39
+-- Creato il: Lug 09, 2024 alle 18:08
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -93,7 +93,7 @@ CREATE TABLE `physicaldata` (
   `leanMass` float DEFAULT NULL,
   `fatMass` float DEFAULT NULL,
   `bmi` float DEFAULT NULL,
-  `date` date DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
   `idPhysicalData` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -145,10 +145,10 @@ CREATE TABLE `subscription` (
 CREATE TABLE `trainingcard` (
   `idUser` int(11) NOT NULL,
   `idTrainingCard` int(11) NOT NULL,
-  `creation` date DEFAULT NULL,
   `exercises` text DEFAULT NULL,
   `repetition` text DEFAULT NULL,
-  `recovery` text DEFAULT NULL
+  `recovery` text DEFAULT NULL,
+  `date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------

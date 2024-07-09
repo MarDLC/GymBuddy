@@ -124,15 +124,19 @@ class EReservation {
         $this->time = $time;
     }
 
+    public function getTimeStr()
+    {
+        return $this->date->format('Y-m-d H:i:s');
+    }
+
     /**
-     * Set the creation time of the reservation.
+     * Set the creation time of the physical data record.
      *
-     * @param DateTime $dateTime The new creation time of the reservation.
+     * @param DateTime $dateTime The new creation time of the physical data record.
      */
     public function setCreationTime(DateTime $dateTime){
         $this->date = $dateTime;
     }
-
     /**
      * Get the training personal trainer of the reservation.
      *

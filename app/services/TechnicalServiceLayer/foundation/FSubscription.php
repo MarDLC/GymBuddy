@@ -16,12 +16,12 @@ class FSubscription
     /**
      * @var string $value The value string used for binding parameters in SQL queries.
      */
-    private static $value = "(:type,:duration,:price)";
+    private static $value = "(NULL, :idUser, :type, :duration, :price)";
 
     /**
      * @var string $key The key used for identifying subscriptions in the database.
      */
-    private static $key = "email";
+    private static $key = "idSubscription";
 
     /**
      * Get the name of the table where the subscriptions are stored.
@@ -64,28 +64,26 @@ class FSubscription
     }
 
 
-    /**
-     * Create an array of subscription objects from a query result.
-     *
-     * @param array $queryResult The result of a database query.
-     * @return array An array of subscription objects.
-     */
-    public static function createSubscriptionObj($queryResult)
-    {
-        // Check if the query result is not empty
-        if (count($queryResult) > 0) {
+
+    public static function createSubscriptionObj($queryResult){
+        if(count($queryResult) == 1) {
+            $buyer = FRegisteredUser::getObj($queryResult[0]['idUser']);
+            $subscription = new ESubscription($buyer, $queryResult[0]['type'], $queryResult[0]['duration'], $queryResult[0]['price']);
+            $subscription->setIdSubscription($queryResult[0]['idSubscription']);
+            return $subscription;
+            // Check if the query result is not empty
+        }elseif (count($queryResult) > 1) {
             // Initialize an empty array to hold the subscription objects
             $subscriptions = array();
             // Loop through each item in the query result
             for ($i = 0; $i < count($queryResult); $i++) {
+                $buyer = FRegisteredUser::getObj($queryResult[$i]['idUser']);
                 // Create a new subscription object with the type, duration, and price from the query result
-                $sub = new ESubscription($queryResult[$i]['type'], $queryResult[$i]['duration'], $queryResult[$i]['price']);
+                $subscription= new ESubscription($buyer, $queryResult[$i]['type'], $queryResult[$i]['duration'], $queryResult[$i]['price']);
                 // Set the id of the subscription object
-                $sub->setIdSubscription($queryResult[$i]['idSubscription']);
-                // Set the email of the subscription object
-                $sub->setEmail($queryResult[$i]['email']);
+                $subscription->setIdSubscription($queryResult[$i]['idSubscription']);
                 // Add the subscription object to the array of subscriptions
-                $subscriptions[] = $sub;
+                $subscriptions[] = $subscription;
             }
             // Return the array of subscription objects
             return $subscriptions;
@@ -103,8 +101,7 @@ class FSubscription
      */
     public static function bind($stmt, $subscription)
     {
-        // Bind the email value from the subscription object to the ":email" parameter in the SQL statement
-        $stmt->bindValue(":email", $subscription->getEmail(), PDO::PARAM_STR);
+       $stmt->bindValue(":idUser", $subscription->getIdUser()->getId(), PDO::PARAM_INT);
 
         // Bind the type value from the subscription object to the ":type" parameter in the SQL statement
         $stmt->bindValue(":type", $subscription->getType(), PDO::PARAM_STR);

@@ -16,10 +16,8 @@ class ETrainingCard {
 
   private $idUser;
 
-    /**
-     * @var DateTime $creation The creation date of the training card.
-     */
-    private DateTime $creation;
+
+    private DateTime $date;
 
     /**
      * @var string $exercises The exercises in the training card.
@@ -78,7 +76,7 @@ class ETrainingCard {
      */
     public function getTime()
     {
-        return $this->creation;
+        return $this->date;
     }
 
     /**
@@ -86,7 +84,7 @@ class ETrainingCard {
      */
     private function setTime()
     {
-        $this->creation = new DateTime("now");
+        $this->date = new DateTime("now");
     }
 
     /**
@@ -96,7 +94,7 @@ class ETrainingCard {
      */
     public function getTimeStr()
     {
-        return $this->creation->format('Y-m-d H:i:s');
+        return $this->date->format('Y-m-d H:i:s');
     }
 
     /**
@@ -105,7 +103,7 @@ class ETrainingCard {
      * @param DateTime $dateTime The new creation date of the training card.
      */
     public function setCreationTime(DateTime $dateTime){
-        $this->creation = $dateTime;
+        $this->date= $dateTime;
     }
 
     /**
@@ -191,15 +189,7 @@ public function setIdTrainingCard($idTrainingCard)
     $this->idTrainingCard = $idTrainingCard;
 }
 
-public function getPersonalTrainer()
-{
-    return $this->personalTrainer;
-}
 
-public function setPersonalTrainer(EPersonalTrainer $personalTrainer):void
-{
-    $this->personalTrainer = $personalTrainer;
-}
 
 public function getIdUser()
 {

@@ -320,40 +320,41 @@ class FPersistentManager{
         return $subscription;
     }
 
-    public static function createReservation($emailRegisteredUser, $date, $trainingPT, $time){
-    $reservation = new EReservation($emailRegisteredUser, $date, $trainingPT, $time);
+    // Crea una nuova prenotazione
+    public static function createReservation($idUser, $date, $trainingPT, $time = '02:00:00'){
+        $reservation = new EReservation($idUser, $date, $trainingPT, $time);
+        return $reservation;
+    }
 
-    // Return the created Subscription object
-    return $reservation;
-}
-
-    public static function getUserReservation($emailRegisteredUser) {
-        // Use FEntityManagerSQL to execute the SQL statement
-        $results = FReservation::getObj($emailRegisteredUser);
-
-        // Convert the results into Reservation objects
-        $reservations = [];
-        foreach ($results as $row) {
-            $reservation = new EReservation($row['emailRegisteredUser'], $row['date'], $row['trainingPT'], $row['time']);
-            $reservations[] = $reservation;
-        }
-        // Return the array of Reservation objects
-        return $reservations;
+    // Conta le prenotazioni per una determinata data e ora
+    public static function countReservationsByDateAndTime($date, $time) {
+        return FReservation::countReservationsByDateAndTime($date, $time);
     }
 
 
-    public static function getUserSubscription($emailRegisteredUser) {
-        // Use FEntityManagerSQL to execute the SQL statement
-        $results = FSubscription::getObj($emailRegisteredUser);
-
-        // Convert the results into Reservation objects
+    // Ottieni le prenotazioni di un utente
+    public static function getUserReservation($idUser) {
+        $results = FReservation::getObj($idUser);
         $reservations = [];
         foreach ($results as $row) {
-            $reservation = new EReservation($row ['email'], $row['type'], $row['duration'], $row['price']);
+            $reservation = new EReservation($row['idUser'], $row['date'], $row['trainingPT'], $row['time']);
             $reservations[] = $reservation;
         }
-        // Return the array of Reservation objects
         return $reservations;
+    }
+
+    public static function getUserSubscription($idUser) {
+        // Use FEntityManagerSQL to execute the SQL statement
+        $results = FSubscription::getObj($idUser);
+
+        // Convert the results into Reservation objects
+        $subscriptions = [];
+        foreach ($results as $row) {
+            $subscription = new ESubscription($row ['idUser'], $row['type'], $row['duration'], $row['price']);
+            $subscriptions[] = $subscription;
+        }
+        // Return the array of Reservation objects
+        return $subscriptions;
     }
 
 
@@ -385,7 +386,7 @@ class FPersistentManager{
         $trainers = [];
         foreach ($results as $row) {
             if ($row['approved'] == 0) { // Check if the trainer is unapproved
-                $trainer = new EPersonalTrainer($row['first_name'], $row['last_name'], $row['email'], $row['password'], $row['username']);
+                $trainer = new EPersonalTrainer($row['email'], $row['username'], $row['first_name'], $row['last_name'],  $row['password']);
                 $trainer->setApproved($row['approved']);
                 $trainers[] = $trainer;
             }

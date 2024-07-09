@@ -25,5 +25,11 @@ class VReservation {
         $this->smarty->display('bookingOptions.tpl');
     }
 
+    // Mostra un messaggio di errore quando il limite di prenotazioni è stato raggiunto
+    public function showReservationLimitReached() {
+        // Carica il template del messaggio di errore
+        $this->smarty->display('reservationLimitReached.tpl');
+    }
+
     // ... Resto del codice ...
 }
