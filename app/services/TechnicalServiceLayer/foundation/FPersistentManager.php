@@ -71,6 +71,13 @@ class FPersistentManager{
         return $result;
     }
 
+    public static function retriveUserOnEmail($email)
+    {
+        $result = FRegisteredUser::getUserByEmail($email);
+
+        return $result;
+    }
+
     /**
      * Method to return the list of the followed user pf a user
      * @param int $idUser Refrs to the user who follow

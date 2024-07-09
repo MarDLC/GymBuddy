@@ -31,7 +31,7 @@ class CUser{
                 // Mostra un messaggio all'utente per informarlo che la sua richiesta è in attesa di approvazione
                 $view->showMessage('La tua richiesta è stata inviata e sarà esaminata da un amministratore. Riceverai una notifica quando la tua richiesta sarà approvata.');
             } else {
-                $user = new ERegisteredUser(UHTTPMethods::post('first_name'), UHTTPMethods::post('last_name'), UHTTPMethods::post('email'),UHTTPMethods::post('password'),UHTTPMethods::post('username'));
+                $user = new ERegisteredUser(UHTTPMethods::post('email'), UHTTPMethods::post('username'), UHTTPMethods::post('first_name'),UHTTPMethods::post('last_name'),UHTTPMethods::post('password'));
                 FPersistentManager::getInstance()->uploadObj($user);
                 $view->showLoginForm();
             }
@@ -62,9 +62,9 @@ class CUser{
 
     public static function checkLogin(){
         $view = new VRegisteredUser();
-        $username = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));
-        if($username){
-            $user = FPersistentManager::getInstance()->retriveUserOnUsername(UHTTPMethods::post('username'));
+        $email = FPersistentManager::getInstance()->verifyUserEmail(UHTTPMethods::post('email'));
+        if($email){
+            $user = FPersistentManager::getInstance()->retriveUserOnEmail(UHTTPMethods::post('email'));
             if(password_verify(UHTTPMethods::post('password'), $user->getPassword())){
                 if(USession::getSessionStatus() == PHP_SESSION_NONE){
                     USession::getInstance();

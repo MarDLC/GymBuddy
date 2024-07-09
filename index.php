@@ -3,6 +3,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
 
 // Includi autoloader e altri file di configurazione
 require_once __DIR__ . "/app/config/autoloader.php";

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-09 19:38:22
+/* Smarty version 3.1.33, created on 2024-07-10 00:12:33
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_668d758ecb9ba9_60058972',
+  'unifunc' => 'content_668db5d1a0ced3_12716565',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3397d9d632a797d70e2934b4bcc7801b4878858f' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\login.tpl',
-      1 => 1720546641,
+      1 => 1720563149,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_668d758ecb9ba9_60058972 (Smarty_Internal_Template $_smarty_tpl) {
+function content_668db5d1a0ced3_12716565 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +29,8 @@ function content_668d758ecb9ba9_60058972 (Smarty_Internal_Template $_smarty_tpl)
     <title>Login</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/logcss.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/logcss.css"type="text/css">
+
 
     <style>
         body {
@@ -73,6 +74,7 @@ function content_668d758ecb9ba9_60058972 (Smarty_Internal_Template $_smarty_tpl)
         .login-container .error-message {
             color: #dc3545;
             font-size: 14px;
+            margin-top: 10px; /* Aggiunto margine superiore per separare il messaggio dal form */
         }
     </style>
 </head>
@@ -80,7 +82,11 @@ function content_668d758ecb9ba9_60058972 (Smarty_Internal_Template $_smarty_tpl)
 <div class="container">
     <div class="login-container">
         <h2>Accedi al tuo account</h2>
-        <form action="/GymBuddy/User/checkLogin" method="post">
+        <?php if (isset($_smarty_tpl->tpl_vars['error_message']->value)) {?>
+            <p class="error-message"><?php echo $_smarty_tpl->tpl_vars['error_message']->value;?>
+</p>
+        <?php }?>
+        <form id="login-form" action="/GymBuddy/User/checkLogin" method="post">
             <div class="form-group">
                 <label for="email">Indirizzo email</label>
                 <input type="email" id="email" name="email" class="form-control" required>
@@ -90,17 +96,23 @@ function content_668d758ecb9ba9_60058972 (Smarty_Internal_Template $_smarty_tpl)
                 <input type="password" id="password" name="password" class="form-control" required>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Accedi</button>
-            <?php if (isset($_smarty_tpl->tpl_vars['error_message']->value)) {?>
-                <p class="error-message"><?php echo $_smarty_tpl->tpl_vars['error_message']->value;?>
-</p>
-            <?php }?>
         </form>
         <div class="text-center mt-3">
-            <a href="registrazione.html" class="btn btn-secondary btn-sm">Registrati</a>
+            <a href="/GymBuddy/libs/Smarty/html/registrazione.html" class="btn btn-secondary btn-sm">Registrati</a>
         </div>
     </div>
 </div>
+
+<?php echo '<script'; ?>
+>
+    document.addEventListener("DOMContentLoaded", function() {
+        if (!navigator.cookieEnabled) {
+            alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
+        }
+    });
+<?php echo '</script'; ?>
+>
+
 </body>
-</html>
-<?php }
+</html><?php }
 }

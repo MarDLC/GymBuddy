@@ -6,7 +6,8 @@
     <title>Login</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/logcss.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/logcss.css"type="text/css">
+
 
     <style>
         body {
@@ -50,6 +51,7 @@
         .login-container .error-message {
             color: #dc3545;
             font-size: 14px;
+            margin-top: 10px; /* Aggiunto margine superiore per separare il messaggio dal form */
         }
     </style>
 </head>
@@ -57,7 +59,10 @@
 <div class="container">
     <div class="login-container">
         <h2>Accedi al tuo account</h2>
-        <form action="/GymBuddy/User/checkLogin" method="post">
+        {if isset($error_message)}
+            <p class="error-message">{$error_message}</p>
+        {/if}
+        <form id="login-form" action="/GymBuddy/User/checkLogin" method="post">
             <div class="form-group">
                 <label for="email">Indirizzo email</label>
                 <input type="email" id="email" name="email" class="form-control" required>
@@ -67,14 +72,20 @@
                 <input type="password" id="password" name="password" class="form-control" required>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Accedi</button>
-            {if isset($error_message)}
-                <p class="error-message">{$error_message}</p>
-            {/if}
         </form>
         <div class="text-center mt-3">
-            <a href="registrazione.html" class="btn btn-secondary btn-sm">Registrati</a>
+            <a href="/GymBuddy/libs/Smarty/html/registrazione.html" class="btn btn-secondary btn-sm">Registrati</a>
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        if (!navigator.cookieEnabled) {
+            alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
+        }
+    });
+</script>
+
 </body>
 </html>

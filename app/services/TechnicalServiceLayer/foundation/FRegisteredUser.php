@@ -241,6 +241,23 @@ class FRegisteredUser{
         }
     }
 
+
+    public static function getUserByEmail($email)
+    {
+        // Recupera gli oggetti utente dal database utilizzando l'email fornita
+        $result = FEntityManagerSQL::getInstance()->retriveObj(FUser::getTable(), 'email', $email);
+
+        // Se il risultato non è vuoto, crea un oggetto RegisteredUser dal primo risultato e restituiscilo
+        if(count($result) > 0){
+            $registeredUser = self::createRegisteredUserObj(array($result[0]));
+            return $registeredUser;
+        }else{
+            // Se il risultato è vuoto, restituisci null
+            return null;
+        }
+    }
+
+
     public static function updateTypeIfSubscribedWithPT($id){
         try{
             // Start a new database transaction

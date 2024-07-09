@@ -6,7 +6,7 @@
     <title>Registrazione</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/logcss.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/logcss.css"type="text/css">
 
     <style>
         body {
@@ -59,24 +59,24 @@
         <h2>REGISTRAZIONE</h2>
         <form action="/GymBuddy/User/registration" method="post">
             <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" class="form-control" required>
-            </div>
-            <div class="form-group">
                 <label for="email">Email</label>
                 <input type="text" id="email" name="email" class="form-control" required>
             </div>
             <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="first_name">Nome</label>
+                <input type="text" id="first_name" name="first_name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Cognome</label>
+                <input type="text" id="last_name" name="last_name" class="form-control" required>
+            </div>
+            <div class="form-group">
                 <label for="password">Password</label>
                 <input type="text" id="password" name="password" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="nome">Nome</label>
-                <input type="text" id="nome" name="nome" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="cognome">Cognome</label>
-                <input type="text" id="cognome" name="cognome" class="form-control" required>
             </div>
 
             <button type="submit" class="btn btn-primary btn-block">Registrati</button>
