@@ -20,21 +20,26 @@ class CUser{
 
     public static function registration()
     {
+        error_log('first_name: ' . (isset($_POST['first_name']) ? $_POST['first_name'] : 'missing'));
+        error_log('last_name: ' . (isset($_POST['last_name']) ? $_POST['last_name'] : 'missing'));
+
         $view = new VRegisteredUser();
         if(FPersistentManager::getInstance()->verifyUserEmail(UHTTPMethods::post('email')) == false && FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username')) == false){
+            /*
             // Controlla se l'utente vuole registrarsi come Personal Trainer
             if (isset($_POST['isTrainer'])) {
-                $user = new EPersonalTrainer(UHTTPMethods::post('first_name'), UHTTPMethods::post('last_name'), UHTTPMethods::post('email'),UHTTPMethods::post('password'),UHTTPMethods::post('username'));
+                $user = new EPersonalTrainer(UHTTPMethods::post('email'), UHTTPMethods::post('username'), UHTTPMethods::post('first_name'),UHTTPMethods::post('last_name'),UHTTPMethods::post('password'));
                 $user->setApproved(0);  // Imposta 'approved' a 0
                 FPersistentManager::getInstance()->uploadObj($user);
 
                 // Mostra un messaggio all'utente per informarlo che la sua richiesta è in attesa di approvazione
                 $view->showMessage('La tua richiesta è stata inviata e sarà esaminata da un amministratore. Riceverai una notifica quando la tua richiesta sarà approvata.');
-            } else {
+            } else { */
                 $user = new ERegisteredUser(UHTTPMethods::post('email'), UHTTPMethods::post('username'), UHTTPMethods::post('first_name'),UHTTPMethods::post('last_name'),UHTTPMethods::post('password'));
+
                 FPersistentManager::getInstance()->uploadObj($user);
                 $view->showLoginForm();
-            }
+           // }
         }else{
             $view->registrationError();
         }

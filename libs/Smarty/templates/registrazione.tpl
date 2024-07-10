@@ -79,9 +79,11 @@
                 <input type="text" id="password" name="password" class="form-control" required>
             </div>
 
+            <p id="passwordMatchError" class="error-text" style="display: none;">Password must be at least 8 characters long, containing at least 1 number, 1 uppercase letter, and 1 special character.</p>
             <button type="submit" class="btn btn-primary btn-block">Registrati</button>
         </form>
     </div>
 </div>
+<script src="/GymBuddy/libs/Smarty/js/validatePwd.js"></script>
 </body>
 </html>
