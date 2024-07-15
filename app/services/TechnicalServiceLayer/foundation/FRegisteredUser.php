@@ -137,20 +137,8 @@ class FRegisteredUser{
         }
     }
 
-    /**
-     * Save a user object.
-     *
-     * This method is responsible for saving a user object to the database. It can either save a new user or update an existing one.
-     * If the $fieldArray parameter is null, it will save a new user. Otherwise, it will update the fields of an existing user.
-     *
-     * @param EUser $obj The user object to save. This should be an instance of the EUser class.
-     * @param array|null $fieldArray An associative array where the keys are the field names and the values are the new values for the fields. If this parameter is null, a new user will be saved.
-     *
-     * @return bool|string If a new user is saved, it returns the email of the last inserted user. If an existing user is updated, it returns true if the update was successful and false otherwise. If an error occurs during the saving process, it returns false.
-     *
-     * @throws PDOException If there is an error with the database operation, a PDOException will be thrown.
-     */
-    public static function saveObj($obj, $fieldArray = null) {
+
+    /*public static function saveObj($obj, $fieldArray = null) {
         // If fieldArray is null, we are saving a new user
         if ($fieldArray === null) {
             try {
@@ -191,6 +179,75 @@ class FRegisteredUser{
                 return true;
             } catch (PDOException $e) {
                 echo "ERROR " . $e->getMessage();
+                FEntityManagerSQL::getInstance()->getDb()->rollBack();
+                return false;
+            } finally {
+                FEntityManagerSQL::getInstance()->closeConnection();
+            }
+        }
+    }*/
+
+    public static function saveObj($obj, $fieldArray = null) {
+        if ($fieldArray === null) {
+            try {
+                // Inizia una nuova transazione del database
+                $db = FEntityManagerSQL::getInstance()->getDb();
+                $db->beginTransaction();
+                error_log('Inizio transazione per il salvataggio di un nuovo utente');
+
+                // Salva l'oggetto utente e ottieni l'ID dell'ultimo inserimento
+                $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FUser::getClass(), $obj);
+
+                // Se l'operazione di salvataggio è avvenuta con successo, salva l'oggetto utente con l'ID inserito
+                if ($savePersonAndLastInsertedID !== null) {
+                    // Setta l'ID dell'oggetto con l'ID appena generato
+                    $obj->setId($savePersonAndLastInsertedID);
+
+                    // Salva l'oggetto nella tabella registeredUser
+                    $saveRegisteredUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $obj);
+
+                    // Se l'utente è stato salvato con successo, commetti la transazione e ritorna l'ID dell'ultimo inserimento
+                    if ($saveRegisteredUser) {
+                        $db->commit();
+                        error_log('Transazione completata con successo per il nuovo utente ID: ' . $savePersonAndLastInsertedID);
+                        return $savePersonAndLastInsertedID;
+                    } else {
+                        $db->rollBack();
+                        error_log('Errore durante il salvataggio nella tabella `registeredUser`');
+                        return false;
+                    }
+                } else {
+                    $db->rollBack();
+                    error_log('Errore durante il salvataggio nella tabella `user`');
+                    return false;
+                }
+            } catch (PDOException $e) {
+                error_log('Errore PDO: ' . $e->getMessage());
+                FEntityManagerSQL::getInstance()->getDb()->rollBack();
+                return false;
+            } finally {
+                FEntityManagerSQL::getInstance()->closeConnection();
+            }
+        } else {
+            // Aggiornamento di un utente esistente
+            try {
+                $db = FEntityManagerSQL::getInstance()->getDb();
+                $db->beginTransaction();
+                error_log('Inizio transazione per l\'aggiornamento di un utente esistente');
+
+                foreach ($fieldArray as $fv) {
+                    if ($fv[0] != "username" && $fv[0] != "password") {
+                        FEntityManagerSQL::getInstance()->updateObj(FRegisteredUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
+                    } else {
+                        FEntityManagerSQL::getInstance()->updateObj(FUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
+                    }
+                }
+
+                $db->commit();
+                error_log('Transazione completata con successo per l\'aggiornamento utente ID: ' . $obj->getId());
+                return true;
+            } catch (PDOException $e) {
+                error_log('Errore PDO: ' . $e->getMessage());
                 FEntityManagerSQL::getInstance()->getDb()->rollBack();
                 return false;
             } finally {

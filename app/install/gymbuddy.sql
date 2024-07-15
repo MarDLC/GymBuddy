@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Lug 09, 2024 alle 18:08
+-- Creato il: Lug 15, 2024 alle 16:09
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -30,13 +30,6 @@ SET time_zone = "+00:00";
 CREATE TABLE `admin` (
   `idUser` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dump dei dati per la tabella `admin`
---
-
-INSERT INTO `admin` (`idUser`) VALUES
-(2);
 
 -- --------------------------------------------------------
 
@@ -172,8 +165,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`idUser`, `email`, `username`, `first_name`, `last_name`, `password`, `role`) VALUES
-(2, 'testFAdmin@example.com', 'testuser', 'Test', 'FAdmin', '$2y$10$SB3zrVM4mcxnenjwDac8pejvtgnbwx1uXGHOKMtSCgNaqAmjP3K.W', 'admin'),
-(3, '', 'testuser', 'Test', 'FAdmin', '$2y$10$OTq0FThqTcgzducO/DUlPuw4Sk/1IXbRIOxYpW766e6cig2AbkhiC', 'admin');
+(7, 'mario@gmail.com', 'mariox', 'mario', 'rossi', '$2y$10$ojYoKKwtlBnGqAn6mVS2cuOu7Nr1Cp8bXKH63cYPSXsmaJw7zOEVC', 'registeredUser'),
+(8, 'mario1@gmail.com', 'mario1', 'mario', 'rossi', '$2y$10$3NahKGxGE5gJ7fkKYdfvyuQp4NbNq/PoqgAN3BLUbMTIoU/wbC8Qq', 'registeredUser'),
+(9, 'luigi@gmail.com', 'luigi1', 'luigi', 'neri', '$2y$10$MI7WZ.5gjGHLaHBkJLFSwup3GC5JehMD5OTDFlyAE9FbZS2LLYI.y', 'registeredUser');
 
 --
 -- Indici per le tabelle scaricate
@@ -284,7 +278,7 @@ ALTER TABLE `physicaldata`
 -- AUTO_INCREMENT per la tabella `registereduser`
 --
 ALTER TABLE `registereduser`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT per la tabella `reservation`
@@ -308,7 +302,7 @@ ALTER TABLE `trainingcard`
 -- AUTO_INCREMENT per la tabella `user`
 --
 ALTER TABLE `user`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Limiti per le tabelle scaricate
@@ -349,7 +343,7 @@ ALTER TABLE `physicaldata`
 -- Limiti per la tabella `registereduser`
 --
 ALTER TABLE `registereduser`
-  ADD CONSTRAINT `registereduser_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `registereduser_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`) ON DELETE CASCADE;
 
 --
 -- Limiti per la tabella `reservation`
