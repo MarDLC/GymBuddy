@@ -17,7 +17,7 @@ class FTrainingCard{
     /**
      * @var string $value The SQL value string for inserting a new record into the table.
      */
-    private static $value = "(NULL,:idUser,:creation,:exercises,:repetition,:recovery,:date)";
+    private static $value = "(NULL,:idUser, :exercises,:repetition,:recovery,:date)";
 
     /**
      * @var string $key The primary key of the table.

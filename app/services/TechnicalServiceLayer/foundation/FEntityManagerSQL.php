@@ -79,6 +79,7 @@ class FEntityManagerSQL{
         }
     }
 
+
     /**
      * Method to return rows from a query SELECT FROM WHERE but with 2 fields
      * @param String $table Refers to the table of the Database

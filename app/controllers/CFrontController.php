@@ -3,7 +3,7 @@
 class CFrontController
 {
 
-    //TODO: FARE LA PAGINA Page404 MOLTO SEMPLICE .
+
     public function run($requestUri)
     {
         // Parse the request URI
@@ -36,11 +36,11 @@ class CFrontController
                 call_user_func_array([$controllerClass, $methodName], $params);
             } else {
                 // Method not found, handle appropriately (e.g., show 404 page)
-                header('Location: /GymBuddy/Page404');
+                header('Location: /GymBuddy/libs/Smarty/html/Page404');
             }
         } else {
             // Controller not found, handle appropriately (e.g., show 404 page)
-            header('Location: /GymBuddy/Page404');
+            header('Location: /GymBuddy/libs/Smarty/html/Page404');
         }
     }
 }

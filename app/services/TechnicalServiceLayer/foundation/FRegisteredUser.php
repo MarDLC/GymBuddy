@@ -60,12 +60,12 @@ class FRegisteredUser{
     }
 
 
-   /**
- * Creates a RegisteredUser object from the given query result.
- *
- * @param array $queryResult The query result to create the RegisteredUser object from.
- * @return EUser|array|null The created RegisteredUser object, or an array of RegisteredUser objects, or null if no RegisteredUser object could be created.
- */
+    /**
+     * Creates a RegisteredUser object from the given query result.
+     *
+     * @param array $queryResult The query result to create the RegisteredUser object from.
+     * @return EUser|array|null The created RegisteredUser object, or an array of RegisteredUser objects, or null if no RegisteredUser object could be created.
+     */
     public static function createRegisteredUserObj($queryResult){
         // If the query result contains only one record
         if(count($queryResult) == 1){
@@ -88,8 +88,8 @@ class FRegisteredUser{
 
                 // Create a new RegisteredUser object from the current record
                 $registeredUser = new ERegisteredUser($queryResult[$i]['email'], $queryResult[$i]['username'], $queryResult[$i]['first_name'], $queryResult[$i]['last_name'], $queryResult[$i]['password']);
-               $registeredUser->setId($queryResult[$i]['idUser']);
-               $registeredUser->setHashedPassword($queryResult[$i]['password']);
+                $registeredUser->setId($queryResult[$i]['idUser']);
+                $registeredUser->setHashedPassword($queryResult[$i]['password']);
                 $registeredUser->setType($attributes[0]['type']);
                 // Add the RegisteredUser object to the array
                 $registeredUsers[] = $registeredUser;
@@ -103,25 +103,25 @@ class FRegisteredUser{
         }
     }
 
-/**
- * Binds the given email to the given PDOStatement's parameters.
- *
- * @param PDOStatement $stmt The PDOStatement to bind the parameters to.
- * @param string $email The email to bind.
- */
-    public static function bind($stmt,$registeredUser,$id){
+    /**
+     * Binds the given email to the given PDOStatement's parameters.
+     *
+     * @param PDOStatement $stmt The PDOStatement to bind the parameters to.
+     * @param string $email The email to bind.
+     */
+    public static function bind($stmt, $registeredUser, $id) {
         // Bind the email to the corresponding parameter in the SQL statement
-        $stmt->bindValue(":idUser", $id->getId() , PDO::PARAM_INT);
+        $stmt->bindValue(":idUser", $registeredUser->getId(), PDO::PARAM_INT); // Use the registeredUser object to get the ID
         $stmt->bindValue(":type", $registeredUser->getType(), PDO::PARAM_STR);
-
     }
 
-/**
- * Retrieves a RegisteredUser object with the given email.
- *
- * @param string $email The email of the RegisteredUser object to retrieve.
- * @return EUser|null The retrieved RegisteredUser object, or null if no RegisteredUser object was found.
- */
+
+    /**
+     * Retrieves a RegisteredUser object with the given email.
+     *
+     * @param string $email The email of the RegisteredUser object to retrieve.
+     * @return EUser|null The retrieved RegisteredUser object, or null if no RegisteredUser object was found.
+     */
     public static function getObj($id){
         // Retrieve the object from the database using the provided email
         $result = FEntityManagerSQL::getInstance()->retriveObj(FUser::getTable(), self::getKey(), $id);
@@ -136,67 +136,68 @@ class FRegisteredUser{
         }
     }
 
-  /**
- * Save a user object.
- *
- * This method is responsible for saving a user object to the database. It can either save a new user or update an existing one.
- * If the $fieldArray parameter is null, it will save a new user. Otherwise, it will update the fields of an existing user.
- *
- * @param EUser $obj The user object to save. This should be an instance of the EUser class.
- * @param array|null $fieldArray An associative array where the keys are the field names and the values are the new values for the fields. If this parameter is null, a new user will be saved.
- *
- * @return bool|string If a new user is saved, it returns the email of the last inserted user. If an existing user is updated, it returns true if the update was successful and false otherwise. If an error occurs during the saving process, it returns false.
- *
- * @throws PDOException If there is an error with the database operation, a PDOException will be thrown.
- */
-    public static function saveObj($obj, $fieldArray = null){
+    /**
+     * Save a user object.
+     *
+     * This method is responsible for saving a user object to the database. It can either save a new user or update an existing one.
+     * If the $fieldArray parameter is null, it will save a new user. Otherwise, it will update the fields of an existing user.
+     *
+     * @param EUser $obj The user object to save. This should be an instance of the EUser class.
+     * @param array|null $fieldArray An associative array where the keys are the field names and the values are the new values for the fields. If this parameter is null, a new user will be saved.
+     *
+     * @return bool|string If a new user is saved, it returns the email of the last inserted user. If an existing user is updated, it returns true if the update was successful and false otherwise. If an error occurs during the saving process, it returns false.
+     *
+     * @throws PDOException If there is an error with the database operation, a PDOException will be thrown.
+     */
+    public static function saveObj($obj, $fieldArray = null) {
         // If fieldArray is null, we are saving a new user
-        if($fieldArray === null){
-            try{
+        if ($fieldArray === null) {
+            try {
                 // Start a new database transaction
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
-                // Save the user object and get the last inserted email
+                // Save the user object and get the last inserted ID
                 $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FUser::getClass(), $obj);
-                // If the save operation was successful, save the user object with the last inserted email
-                if($savePersonAndLastInsertedID !== null){
-                    $saveRegisteredUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedID);
-                    // If the user was saved successfully, commit the transaction and return the last inserted email
+                // If the save operation was successful, save the user object with the last inserted ID
+                if ($savePersonAndLastInsertedID !== null) {
+                    $saveRegisteredUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $obj); // Pass the object itself
+                    // If the user was saved successfully, commit the transaction and return the last inserted ID
                     FEntityManagerSQL::getInstance()->getDb()->commit();
-                    if($saveRegisteredUser){
+                    if ($saveRegisteredUser) {
                         return $savePersonAndLastInsertedID;
                     }
-                }else{
+                } else {
                     return false;
                 }
-            }catch(PDOException $e){
+            } catch (PDOException $e) {
                 echo "ERROR " . $e->getMessage();
                 FEntityManagerSQL::getInstance()->getDb()->rollBack();
                 return false;
-            }finally{
+            } finally {
                 FEntityManagerSQL::getInstance()->closeConnection();
             }
-        }else{
-            try{
+        } else {
+            try {
                 FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
-                //var_dump($fieldArray);
-                foreach($fieldArray as $fv){
-                    if($fv[0] != "username" && $fv[0] != "password"){
+                // var_dump($fieldArray);
+                foreach ($fieldArray as $fv) {
+                    if ($fv[0] != "username" && $fv[0] != "password") {
                         FEntityManagerSQL::getInstance()->updateObj(FRegisteredUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
-                    }else{
+                    } else {
                         FEntityManagerSQL::getInstance()->updateObj(FUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
                     }
                 }
                 FEntityManagerSQL::getInstance()->getDb()->commit();
                 return true;
-            }catch(PDOException $e){
+            } catch (PDOException $e) {
                 echo "ERROR " . $e->getMessage();
                 FEntityManagerSQL::getInstance()->getDb()->rollBack();
                 return false;
-            }finally{
+            } finally {
                 FEntityManagerSQL::getInstance()->closeConnection();
             }
         }
     }
+
 
 
     public static function deleteRegisteredUserObj($id){
@@ -221,25 +222,26 @@ class FRegisteredUser{
 
 
     /**
- * Retrieves a RegisteredUser object with the given username.
- *
- * @param string $username The username of the RegisteredUser object to retrieve.
- * @return EUser|null The retrieved RegisteredUser object, or null if no RegisteredUser object was found.
- */
+     * Retrieves a RegisteredUser object with the given username.
+     *
+     * @param string $username The username of the RegisteredUser object to retrieve.
+     * @return EUser|null The retrieved RegisteredUser object, or null if no RegisteredUser object was found.
+     */
+
+
     public static function getUserByUsername($username)
     {
-        // Recupera gli oggetti utente dal database utilizzando l'username fornito
         $result = FEntityManagerSQL::getInstance()->retriveObj(FUser::getTable(), 'username', $username);
 
-        // Se il risultato non è vuoto, crea un oggetto RegisteredUser dal primo risultato e restituiscilo
         if(count($result) > 0){
-            $registeredUser = self::createRegisteredUserObj(array($result[0]));
-            return $registeredUser;
+            $user = self::createRegisteredUserObj($result);
+            return $user;
         }else{
-            // Se il risultato è vuoto, restituisci null
             return null;
         }
     }
+
+
 
 
     public static function getUserByEmail($email)

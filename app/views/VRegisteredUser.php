@@ -35,9 +35,12 @@ class VRegisteredUser {
     public function registrationError() {
         $this->smarty->assign('error', false);
         $this->smarty->assign('regErr', true);
-        $this->smarty->display('registrazione.tpl');
+        $this->smarty->display('login.tpl');
     }
 
+    public function showHome() {
+        $this->smarty->display('home.tpl');
+    }
 
 
     /**

@@ -90,6 +90,8 @@ class CUser{
     }
 
 
+
+
     public static function logout(){
         USession::getInstance();
         USession::unsetSession();

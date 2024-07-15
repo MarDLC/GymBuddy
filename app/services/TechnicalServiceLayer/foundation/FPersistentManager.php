@@ -82,36 +82,35 @@ class FPersistentManager{
      * Method to return the list of the followed user pf a user
      * @param int $idUser Refrs to the user who follow
      */
-    public static function getFollowedUserList($idUser){
-        //prende gli utenti seguti da $idUser, crea una lista di utenti
-        $followRow = FEntityManagerSQL::getInstance()->retriveObj(FRegisteredUser::getTable(), 'idFollower', $idUser);
-        $result = array();
-        if(count($followRow) > 0){
-            for($i = 0; $i < count($followRow); $i++){
-                $user = FRegisteredUser::getObj($followRow[$i]['idFollowed']);
-                $result[] = $user;
-            }
+  public static function getUsersFollowedByTrainer($idTrainer){
+    //prende gli utenti seguiti dal personal trainer con id $idTrainer, crea una lista di utenti
+    $followRow = FEntityManagerSQL::getInstance()->retriveObj(FRegisteredUser::getTable(), 'idFollower', $idTrainer);
+    $result = array();
+    if(count($followRow) > 0){
+        for($i = 0; $i < count($followRow); $i++){
+            $user = FRegisteredUser::getObj($followRow[$i]['idFollowed']);
+            $result[] = $user;
         }
-        return $result;
     }
+    return $result;
+}
 
     /**
      * Method to return the list of the follower user pf a user
      * @param int $idUser Refrs to the user who follow
      */
-    public static function getFollowerUserList($idUser){
-        //prende gli utenti che seguono $idUser, crea una lista di utenti
-        $followerRow = FEntityManagerSQL::getInstance()->retriveObj(FRegisteredUser::getTable(), 'idFollowed', $idUser);
-        $result = array();
-        if(count($followerRow) > 0){
-            for($i = 0; $i < count($followerRow); $i++){
-                $user = FRegisteredUser::getObj($followerRow[$i]['idFollower']);
-                $result[] = $user;
-            }
+    public static function getTrainersFollowingUser($idUser){
+    //prende i personal trainer che seguono $idUser, crea una lista di personal trainer
+    $followerRow = FEntityManagerSQL::getInstance()->retriveObj(FPersonalTrainer::getTable(), 'idFollowed', $idUser);
+    $result = array();
+    if(count($followerRow) > 0){
+        for($i = 0; $i < count($followerRow); $i++){
+            $trainer = FPersonalTrainer::getObj($followerRow[$i]['idFollower']);
+            $result[] = $trainer;
         }
-        return $result;
     }
-
+    return $result;
+}
 //----------------------------------------------VERIFY-----------------------------------------------------
 
     /**
@@ -270,7 +269,7 @@ class FPersistentManager{
         // Convert the results into TrainingCard objects
         $trainingCards = [];
         foreach ($results as $row) {
-            $trainingCard = new ETrainingCard($row['emailRegisteredUser'], $row['exercises'], $row['repetition'], $row['recovery']);
+            $trainingCard = new ETrainingCard($row['idUser'], $row['exercises'], $row['repetition'], $row['recovery']);
             $trainingCards[] = $trainingCard;
         }
         // Return the array of TrainingCard objects
@@ -284,7 +283,7 @@ class FPersistentManager{
         // Convert the results into PhysicalData objects
         $physicalData = [];
         foreach ($results as $row) {
-            $data = new EPhysicalData($row['emailRegisteredUser'], $row['sex'], $row['height'], $row['weight'], $row['leanMass'], $row['fatMass'], $row['bmi']);
+            $data = new EPhysicalData($row['idUser'], $row['sex'], $row['height'], $row['weight'], $row['leanMass'], $row['fatMass'], $row['bmi']);
             $physicalData[] = $data;
         }
         // Return the array of PhysicalData objects
@@ -298,7 +297,7 @@ class FPersistentManager{
         // Convert the results into CreditCard objects
         $creditCard = [];
         foreach ($results as $row) {
-            $card = new ECreditCard($row['cvc'], $row['accountHolder'], $row['cardNumber'], $row['expirationDate'], $row['email']);
+            $card = new ECreditCard($row['idSubscription'], $row['idUser'], $row['cvc'], $row['accountHolder'], $row['cardNumber'], $row['expirationDate']);
             $creditCard[] = $card;
         }
         // Return the array of CreditCard objects
@@ -312,16 +311,16 @@ class FPersistentManager{
         // Convert the results into Reservation objects
         $reservations = [];
         foreach ($results as $row) {
-            $reservation = new EReservation($row['emailRegisteredUser'], $row['date'], $row['trainingPT'], $row['time']);
+            $reservation = new EReservation($row['idUser'], $row['date'], $row['trainingPT'], $row['time']);
             $reservations[] = $reservation;
         }
         // Return the array of Reservation objects
         return $reservations;
     }
 
-    public static function createSubscription($email, $subscriptionType, $duration, $price) {
+    public static function createSubscription($idUser, $type, $duration, $price) {
         // Create a new Subscription object based on the subscription type
-        $subscription = new ESubscription($email, $subscriptionType, $duration, $price);
+        $subscription = new ESubscription($idUser, $type, $duration, $price);
 
         // Return the created Subscription object
         return $subscription;
