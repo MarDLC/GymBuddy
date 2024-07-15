@@ -103,6 +103,7 @@ class FRegisteredUser{
         }
     }
 
+
     /**
      * Binds the given email to the given PDOStatement's parameters.
      *
@@ -231,7 +232,7 @@ class FRegisteredUser{
 
     public static function getUserByUsername($username)
     {
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FUser::getTable(), 'username', $username);
+        $result = FEntityManagerSQL::getInstance()->retriveObj(FPerson::getTable(), 'username', $username);
 
         if(count($result) > 0){
             $user = self::createRegisteredUserObj($result);
@@ -240,6 +241,7 @@ class FRegisteredUser{
             return null;
         }
     }
+
 
 
 
