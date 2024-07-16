@@ -78,6 +78,13 @@ class FPersistentManager{
         return $result;
     }
 
+    public static function retriveUserOnUsernameAD($username)
+    {
+        $result = FAdmin::getUserByUsernameAdmin($username);
+
+        return $result;
+    }
+
     /**
      * Method to return the list of the followed user pf a user
      * @param int $idUser Refrs to the user who follow

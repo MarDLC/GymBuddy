@@ -197,4 +197,10 @@ class EUser {
     {
         $this->password = $hashedPassword;
     }
+
+    public function getRole()
+    {
+        return $this->role;
+    }
+
 }

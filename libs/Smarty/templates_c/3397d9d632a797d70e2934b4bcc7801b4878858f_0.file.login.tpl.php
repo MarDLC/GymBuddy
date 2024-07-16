@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-16 10:19:53
+/* Smarty version 3.1.33, created on 2024-07-16 22:23:40
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_66962d298558b0_42863229',
+  'unifunc' => 'content_6696d6cc5c5eb6_10784074',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3397d9d632a797d70e2934b4bcc7801b4878858f' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\login.tpl',
-      1 => 1721117987,
+      1 => 1721161414,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_66962d298558b0_42863229 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6696d6cc5c5eb6_10784074 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,7 +65,7 @@ function content_66962d298558b0_42863229 (Smarty_Internal_Template $_smarty_tpl)
                     <?php if ($_smarty_tpl->tpl_vars['regErr']->value == true) {?>
                         <p style="color: red; margin-left: 7%">email or username is already taken</p>
                     <?php }?>
-                    <form id="login" action="/GymBuddy/User/checkLogin" method="post">
+                    <form id="login" method="post" onsubmit="setLoginFormAction(); return true;">
                         <h3 class="mb-4 text-center" style="color: #fff;">Have an account?</h3>
 
                         <div class="form-group">
@@ -121,7 +121,7 @@ function content_66962d298558b0_42863229 (Smarty_Internal_Template $_smarty_tpl)
                         </div>
 
                         <div class="form-group">
-                            <button type="submit" class="form-control btn btn-primary submit px-3" >Register</button>
+                            <button type="submit" class="form-control btn btn-primary submit px-3">Register</button>
                         </div>
                     </form>
                 </div>
@@ -164,25 +164,23 @@ function content_66962d298558b0_42863229 (Smarty_Internal_Template $_smarty_tpl)
         });
     });
 
-    const x = document.getElementById("login");
-    const y = document.getElementById("register");
-    const z = document.getElementById("btn-log");
+    function setLoginFormAction() {
+        var username = document.getElementsByName('username')[0].value;
+        var form = document.getElementById('login');
+        var action = '/GymBuddy/User/checkLogin'; // Default action for registeredUser
 
-    function register(){
-        x.style.left = "-400px"
-        y.style.left = "50px"
-        z.style.left = "110px"
+        // Check the role based on the username entered
+        if (username.toLowerCase() === 'admin') {
+            action = '/GymBuddy/Admin/checkLogin';
+        }
+
+        // Set the action attribute of the form
+        form.action = action;
     }
-
-    function login(){
-        x.style.left = "50px"
-        y.style.left = "550px"
-        z.style.left = "0px"
-    }
-
 <?php echo '</script'; ?>
 >
 
 </body>
-</html><?php }
+</html>
+<?php }
 }

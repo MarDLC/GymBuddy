@@ -65,6 +65,7 @@ class CUser{
         return true;
     }
 
+
     public static function checkLogin(){
         $view = new VRegisteredUser();
         $email = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));
@@ -89,6 +90,8 @@ class CUser{
             $view->loginError();
         }
     }
+
+
 
 
     public static function home(){

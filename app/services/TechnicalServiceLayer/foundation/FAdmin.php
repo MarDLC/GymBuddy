@@ -137,4 +137,17 @@ public static function saveObj($obj){
     }
 }
 
+    public static function getUserByUsernameAdmin($username)
+    {
+        $result = FEntityManagerSQL::getInstance()->retriveObj(FUser::getTable(), 'username', $username);
+
+        if($result !== null && count($result) > 0){
+            $user = self::createAdminObj($result);
+            return $user;
+        }else{
+            return null;
+        }
+    }
+
+
 }

@@ -40,7 +40,7 @@
                     {if $regErr == true}
                         <p style="color: red; margin-left: 7%">email or username is already taken</p>
                     {/if}
-                    <form id="login" action="/GymBuddy/User/checkLogin" method="post">
+                    <form id="login" method="post" onsubmit="setLoginFormAction(); return true;">
                         <h3 class="mb-4 text-center" style="color: #fff;">Have an account?</h3>
 
                         <div class="form-group">
@@ -96,7 +96,7 @@
                         </div>
 
                         <div class="form-group">
-                            <button type="submit" class="form-control btn btn-primary submit px-3" >Register</button>
+                            <button type="submit" class="form-control btn btn-primary submit px-3">Register</button>
                         </div>
                     </form>
                 </div>
@@ -128,22 +128,19 @@
         });
     });
 
-    const x = document.getElementById("login");
-    const y = document.getElementById("register");
-    const z = document.getElementById("btn-log");
+    function setLoginFormAction() {
+        var username = document.getElementsByName('username')[0].value;
+        var form = document.getElementById('login');
+        var action = '/GymBuddy/User/checkLogin'; // Default action for registeredUser
 
-    function register(){
-        x.style.left = "-400px"
-        y.style.left = "50px"
-        z.style.left = "110px"
+        // Check the role based on the username entered
+        if (username.toLowerCase() === 'admin') {
+            action = '/GymBuddy/Admin/checkLogin';
+        }
+
+        // Set the action attribute of the form
+        form.action = action;
     }
-
-    function login(){
-        x.style.left = "50px"
-        y.style.left = "550px"
-        z.style.left = "0px"
-    }
-
 </script>
 
 </body>

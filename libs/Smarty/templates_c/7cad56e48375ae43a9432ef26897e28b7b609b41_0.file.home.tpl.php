@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-16 18:13:57
-  from 'C:\Users\lorex\OneDrive - Università degli Studi dell'Aquila\GymBuddy\libs\Smarty\templates\home.tpl' */
+/* Smarty version 3.1.33, created on 2024-07-16 18:42:33
+  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_66969c455cd5d7_19301096',
+  'unifunc' => 'content_6696a2f9e45730_99079556',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '3e8f22097cb2dd93c8b20a8fcaca63f984cb4724' => 
+    '7cad56e48375ae43a9432ef26897e28b7b609b41' => 
     array (
-      0 => 'C:\\Users\\lorex\\OneDrive - Università degli Studi dell\'Aquila\\GymBuddy\\libs\\Smarty\\templates\\home.tpl',
-      1 => 1721146434,
+      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\home.tpl',
+      1 => 1721147756,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_66969c455cd5d7_19301096 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6696a2f9e45730_99079556 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 

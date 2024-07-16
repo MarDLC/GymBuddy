@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2024-07-16 22:34:04
+  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\homeAD.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_6696d93ca44cc0_89153749',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'ad48bbf4bd77658b0c1142912b444b6a26068316' => 
+    array (
+      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\homeAD.tpl',
+      1 => 1721162042,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_6696d93ca44cc0_89153749 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -7,26 +30,36 @@
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HomeRU</title>
+    <title>HomeAD</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/flaticon.css" type="text/css">
-    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/barfiller.css" type="text/css">
-    <link rel="stylesheet" href="../css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/style.css" type="text/css">
-    <link rel="stylesheet" href="../css/stylelogin.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/barfiller.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
+
+    <?php echo '<script'; ?>
+>
+        function ready(){
+            if (!navigator.cookieEnabled) {
+                alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
+            }
+        }
+        document.addEventListener("DOMContentLoaded", ready);
+    <?php echo '</script'; ?>
+>
 </head>
 
 <body>
-
 <!-- Offcanvas Menu Section Begin -->
 <div class="offcanvas-menu-overlay"></div>
 <div class="offcanvas-menu-wrapper">
@@ -38,18 +71,9 @@
     </div>
     <nav class="canvas-menu mobile-menu">
         <ul>
-            <li><a href="./homeRU.html">Home</a></li>
-            <li><a href="./about-us.html">About Us</a></li>
-            <li><a href="./services.html">Services</a></li>
-            <li><a href="./team.html">Our Team</a></li>
-            <li><a href="#">Pages</a>
-                <ul class="dropdown">
-                    <li><a href="./gallery.html">Gallery</a></li>
-                    <li><a href="./blog.html">Our blog</a></li>
-                    <li><a href="./404.html">404</a></li>
-                </ul>
-            </li>
-            <li><a href="./contact.html">Contact</a></li>
+            <li><a href="/GymBuddy/Admin/homeAD">Home</a></li>
+            <li><a href="/GymBuddy/Admin/requests">PT Requests</a></li>
+            <li><a href="/GymBuddy/Admin/postNews">News</a></li>
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
@@ -68,34 +92,22 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="./homeRU.html">
-                        <img src="../img/logo.png" alt="">
+                    <a href="/GymBuddy/Admin/homeAD">
+                        <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
             </div>
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li class="active"><a href="./homeRU.html">Home</a></li>
-                        <li><a href="./about-us.html">About Us</a></li>
-                        <li><a href="./services.html">Services</a></li>
-                        <li><a href="./team.html">Our Team</a></li>
-                        <li><a href="#">Pages</a>
-                            <ul class="dropdown">
-                                <li><a href="./gallery.html">Gallery</a></li>
-                                <li><a href="./blog.html">Our blog</a></li>
-                                <li><a href="./404.html">404</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="./contact.html">Contact</a></li>
+                        <li><a href="/GymBuddy/Admin/homeAD">Home</a></li>
+                        <li><a href="/GymBuddy/Admin/requests">PT Requests</a></li>
+                        <li><a href="/GymBuddy/Admin/postNews">News</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="col-lg-3">
                 <div class="top-option">
-                    <div class="to-search search-switch">
-                        <i class="fa fa-search"></i>
-                    </div>
                     <div class="to-social">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
@@ -103,7 +115,7 @@
                         <a href="#"><i class="fa fa-instagram"></i></a>
                     </div>
                     <!-- Aggiunta del pulsante di login -->
-                    <a href="./login.html" class="btn btn-primary">Logout</a>
+                    <a href="/GymBuddy/User/logout" class="btn btn-primary">Logout</a>
                 </div>
             </div>
         </div>
@@ -115,21 +127,19 @@
 <!-- Header End -->
 
 <!-- Hero Section Begin -->
-<section class="hero-section" style="background-image: url('../img/hero/hero-2.jpg'); background-size: cover; background-position: center center; height: 100vh; display: flex; align-items: flex-end; justify-content: flex-end;">
+<section class="hero-section" style="background-image: url('/GymBuddy/libs/Smarty/img/hero/hero-1.png'); background-size: cover; background-position: center center; height: 100vh; display: flex; align-items: flex-end; justify-content: flex-end;">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 offset-lg-6">
                 <div class="hi-text" style="margin-bottom: 250px; margin-left: 50px;">
                     <span style="color: white; text-transform: uppercase;">Shape your body</span>
-                    <h1 style="color: white; text-transform: uppercase;">Be <strong style="color: orange; text-transform: uppercase;">strong</strong> training hard</h1>
+                    <h1 style="color: white; text-transform: uppercase;">Be <strong style="color: #f36100; text-transform: uppercase;">strong</strong> training hard</h1>
                 </div>
             </div>
         </div>
     </div>
 </section>
 <!-- Hero Section End -->
-
-
 
 <!-- Get In Touch Section Begin -->
 <div class="gettouch-section">
@@ -168,7 +178,7 @@
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href="#"><img src="../img/logo.png" alt=""></a>
+                        <a href="#"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
                     <p>The most iconic gym in the world has arrived in L'Aquila!
                         Live the best training experience in a unique atmosphere.
@@ -194,7 +204,6 @@
                 </div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-6">
-
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="fs-widget">
@@ -220,7 +229,9 @@
             <div class="col-lg-12 text-center">
                 <div class="copyright-text">
                     <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        Copyright &copy;<?php echo '<script'; ?>
+>document.write(new Date().getFullYear());<?php echo '</script'; ?>
+> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                 </div>
             </div>
@@ -241,15 +252,32 @@
 <!-- Search model end -->
 
 <!-- Js Plugins -->
-<script src="/GymBuddy/libs/Smarty/js/jquery-3.3.1.min.js"></script>
-<script src="/GymBuddy/libs/Smarty/js/bootstrap.min.js"></script>
-<script src="/GymBuddy/libs/Smarty/js/jquery.magnific-popup.min.js"></script>
-<script src="/GymBuddy/libs/Smarty/js/masonry.pkgd.min.js"></script>
-<script src="/GymBuddy/libs/Smarty/js/jquery.barfiller.js"></script>
-<script src="/GymBuddy/libs/Smarty/js/jquery.slicknav.js"></script>
-<script src="/GymBuddy/libs/Smarty/js/owl.carousel.min.js"></script>
-<script src="/GymBuddy/libs/Smarty/js/main.js"></script>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/jquery-3.3.1.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/jquery.magnific-popup.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/masonry.pkgd.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/jquery.barfiller.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/jquery.slicknav.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/owl.carousel.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/main.js"><?php echo '</script'; ?>
+>
 
 </body>
 
-</html>
+</html><?php }
+}

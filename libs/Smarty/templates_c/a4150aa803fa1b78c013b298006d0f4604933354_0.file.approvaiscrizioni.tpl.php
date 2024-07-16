@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-16 18:42:38
-  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\homeRU.tpl' */
+/* Smarty version 3.1.33, created on 2024-07-17 00:12:58
+  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\approvaiscrizioni.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6696a2fe0e50a1_91883866',
+  'unifunc' => 'content_6696f06abfd464_06383889',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'be74bb0ab98886899c29b2235d5e4e4988160913' => 
+    'a4150aa803fa1b78c013b298006d0f4604933354' => 
     array (
-      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\homeRU.tpl',
-      1 => 1721147756,
+      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\approvaiscrizioni.tpl',
+      1 => 1721167977,
       2 => 'file',
     ),
   ),
@@ -20,17 +20,20 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6696a2fe0e50a1_91883866 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6696f06abfd464_06383889 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Gym Template">
-    <meta name="keywords" content="Gym, unica, creative, html">
+    <meta name="description" content="<?php echo $_smarty_tpl->tpl_vars['meta_description']->value;?>
+">
+    <meta name="keywords" content="<?php echo $_smarty_tpl->tpl_vars['meta_keywords']->value;?>
+">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HomeRU</title>
+    <title><?php echo $_smarty_tpl->tpl_vars['title']->value;?>
+</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
@@ -57,37 +60,20 @@ function content_6696a2fe0e50a1_91883866 (Smarty_Internal_Template $_smarty_tpl)
         document.addEventListener("DOMContentLoaded", ready);
     <?php echo '</script'; ?>
 >
+
+    <style>
+        #options-table tbody tr.selected {
+            background-color: #d3d3d3;
+        }
+
+        .selected {
+            background-color: #f1f1f1;
+        }
+
+    </style>
 </head>
 
 <body>
-    <!-- Offcanvas Menu Section Begin -->
-    <div class="offcanvas-menu-overlay"></div>
-    <div class="offcanvas-menu-wrapper">
-        <div class="canvas-close">
-            <i class="fa fa-close"></i>
-        </div>
-        <div class="canvas-search search-switch">
-            <i class="fa fa-search"></i>
-        </div>
-        <nav class="canvas-menu mobile-menu">
-            <ul>
-                <li><a href="/GymBuddy/User/homeRU">Home</a></li>
-                <li><a href="/GymBuddy/Home/about-us">About Us</a></li>
-                <li><a href="/GymBuddy/Home/services">Services</a></li>
-                <li><a href="/GymBuddy/Home/team">Our Team</a></li>
-                <li><a href="/GymBuddy/Home/gallery">Gallery</a></li>
-                <li><a href="/GymBuddy/Home/contact">Contact</a></li>
-            </ul>
-        </nav>
-        <div id="mobile-menu-wrap"></div>
-        <div class="canvas-social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-youtube-play"></i></a>
-            <a href="#"><i class="fa fa-instagram"></i></a>
-        </div>
-    </div>
-    <!-- Offcanvas Menu Section End -->
 
     <!-- Header Section Begin -->
     <header class="header-section">
@@ -95,7 +81,7 @@ function content_6696a2fe0e50a1_91883866 (Smarty_Internal_Template $_smarty_tpl)
             <div class="row">
                 <div class="col-lg-3">
                     <div class="logo">
-                        <a href="/GymBuddy/User/homeRU">
+                        <a href="/GymBuddy/Admin/homeAD">
                             <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                         </a>
                     </div>
@@ -103,24 +89,15 @@ function content_6696a2fe0e50a1_91883866 (Smarty_Internal_Template $_smarty_tpl)
                 <div class="col-lg-6">
                     <nav class="nav-menu">
                         <ul>
-                            <li class="active"><a href="/GymBuddy/User/homeRU">Home</a></li>
-                            <li><a href="/GymBuddy/Home/about-us">About Us</a></li>
-                            <li><a href="/GymBuddy/Home/services">Services</a></li>
-                            <li><a href="/GymBuddy/Home/team">Our Team</a></li>
-                            <li><a href="/GymBuddy/Home/gallery">Gallery</a></li>
-                            <li><a href="/GymBuddy/Home/contact">Contact</a></li>
+                            <li><a href="/GymBuddy/Admin/homeAD">Home</a></li>
                         </ul>
                     </nav>
                 </div>
                 <div class="col-lg-3">
                     <div class="top-option">
-                        <div class="to-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-youtube-play"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                        </div>
-                        <!-- Aggiunta del pulsante di login -->
+                        <div</div>
+
+                        <!-- Aggiunta del pulsante di logout -->
                         <a href="/GymBuddy/User/logout" class="btn btn-primary">Logout</a>
                     </div>
                 </div>
@@ -132,20 +109,46 @@ function content_6696a2fe0e50a1_91883866 (Smarty_Internal_Template $_smarty_tpl)
     </header>
     <!-- Header End -->
 
-    <!-- Hero Section Begin -->
-    <section class="hero-section" style="background-image: url('/GymBuddy/libs/Smarty/img/hero/hero-2.jpg'); background-size: cover; background-position: center center; height: 100vh; display: flex; align-items: flex-end; justify-content: flex-end;">
+    <!-- Info Section Begin -->
+    <section class="pricing-section service-pricing spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 offset-lg-6">
-                    <div class="hi-text" style="margin-bottom: 250px; margin-left: 50px;">
-                        <span style="color: white; text-transform: uppercase;">Shape your body</span>
-                        <h1 style="color: white; text-transform: uppercase;">Be <strong style="color: #f36100; text-transform: uppercase;">strong</strong> training hard</h1>
+                <div class="col-lg-12">
+                    <div class="section-title">
+
+                        <h2><?php echo $_smarty_tpl->tpl_vars['section_title']->value;?>
+</h2>
+                    </div>
+                    <table id="options-table" class="table table-hover">
+                        <thead>
+                            <tr>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['options']->value, 'option');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['option']->value) {
+?>
+                            <tr>
+                                <td><?php echo $_smarty_tpl->tpl_vars['option']->value;?>
+</td>
+                            </tr>
+                            <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <button id="confirm-button" class="btn btn-primary">CONFIRM</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Hero Section End -->
+    <!-- Info Section End -->
+
 
     <!-- Get In Touch Section Begin -->
     <div class="gettouch-section">

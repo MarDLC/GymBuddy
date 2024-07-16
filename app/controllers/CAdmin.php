@@ -8,25 +8,13 @@ class CAdmin{
                 USession::getInstance();
             }
         }
-        if(USession::isSetSessionElement('user')){
-            header('Location: /GymBuddy/User/Home');
+        if(USession::isSetSessionElement('admin')){
+            header('Location: /GymBuddy/Admin/HomeAD');
         }
-        $view = new VRegisteredUser();
+        $view = new VAdmin();
         $view->showLoginForm();
     }
 
-    public static function registration()
-    {
-        $view = new VRegisteredUser();
-        if(FPersistentManager::getInstance()->verifyUserEmail(UHTTPMethods::post('email')) == false && FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username')) == false){
-            $user = new ERegisteredUser(UHTTPMethods::post('first_name'), UHTTPMethods::post('last_name'), UHTTPMethods::post('email'),UHTTPMethods::post('password'),UHTTPMethods::post('username'));
-            FPersistentManager::getInstance()->uploadObj($user);
-
-            $view->showLoginForm();
-        }else{
-            $view->registrationError();
-        }
-    }
 
     public static function isLogged()
     {
@@ -37,27 +25,33 @@ class CAdmin{
                 USession::getInstance();
             }
         }
-        if(USession::isSetSessionElement('registeredUser')){
+        if(USession::isSetSessionElement('admin')){
             $logged = true;
         }
         if(!$logged){
-            header('Location: /GymBuddy/User/Login');
+            header('Location: /GymBuddy/Admin/Login');
             exit;
         }
         return true;
     }
 
     public static function checkLogin(){
-        $view = new VRegisteredUser();
-        $username = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));
-        if($username){
-            $user = FPersistentManager::getInstance()->retriveUserOnUsername(UHTTPMethods::post('username'));
+        $view = new VAdmin();
+        $email = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));
+        if($email){
+            $user = FPersistentManager::getInstance()->retriveUserOnUsernameAD(UHTTPMethods::post('username'));
             if(password_verify(UHTTPMethods::post('password'), $user->getPassword())){
                 if(USession::getSessionStatus() == PHP_SESSION_NONE){
                     USession::getInstance();
-                    USession::setSessionElement('user', $user);
-                    header('Location: /GymBuddy/User/Home');
+                    USession::setSessionElement('admin', $user->getId());  // Aggiunta logica per ottenere l'ID
+                    /*
+                     // Controlla se l'utente è un Personal Trainer approvato
+                     if ($user instanceof EPersonalTrainer && $user->getApproved() == 1) {
+                         header('Location: /GymBuddy/PersonalTrainer/Home');
+                     } else {*/
+                    header('Location: /GymBuddy/Admin/homeAD');
                 }
+                //}
             }else{
                 $view->loginError();
             }
@@ -70,12 +64,12 @@ class CAdmin{
         USession::getInstance();
         USession::unsetSession();
         USession::destroySession();
-        header('Location: /GymBuddy/User/Login');
+        header('Location: /GymBuddy/Admin/Login');
     }
 
     public static function settings(){
-        if(CUser::isLogged()){
-            $view = new VRegisteredUser();
+        if(CAdmin::isLogged()){
+            $view = new VAdmin();
 
             $userId = USession::getInstance()->getSessionElement('user');
             $user = FPersistentManager::getInstance()->loadUsers($userId);
@@ -84,52 +78,38 @@ class CAdmin{
     }
 
 
-    public static function setUsername(){
-        if(CUser::isLogged()){
-            $userId = USession::getInstance()->getSessionElement('user');
-            $user = FPersistentManager::getInstance()->retriveObj(ERegisteredUser::getEntity(), $userId);
-
-            if($user->getUsername() == UHTTPMethods::post('username')){
-                header('Location: /GymBuddy/User/PersonalProfile');
-            }else{
-                if(FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username')) == false)
-                {
-                    $user->setUsername(UHTTPMethods::post('username'));
-                    FPersistentManager::getInstance()->updateUserUsername($user);
-                    header('Location: /GymBuddy/User/PersonalProfile');
-                }else{
-                    $view = new VRegisteredUser();
-                    $user = FPersistentManager::getInstance()->loadUsers($userId);
-                    $view->usernameError($user , true);
-                }
-            }
-        }
-    }
-
-    public static function setPassword(){
-        if(CUser::isLogged()){
-            $userId = USession::getInstance()->getSessionElement('user');
-            $user = FPersistentManager::getInstance()->retriveObj(ERegisteredUser::getEntity(), $userId);$newPass = UHTTPMethods::post('password');
-            $user->setPassword($newPass);
-            FPersistentManager::getInstance()->updateUserPassword($user);
-
-            header('Location: /GymBuddy/User/PersonalProfile');
-        }
-    }
 
     public static function redirectUser() {
         // Ottieni l'utente corrente
-        $user = USession::getInstance()->getSessionElement('user');
+        $user = USession::getInstance()->getSessionElement('admin');
 
         // Controlla il tipo di utente e reindirizza alla corretta home page
         if ($user instanceof ERegisteredUser) {
-            header('Location: /GymBuddy/User/Home');
+            header('Location: /GymBuddy/User/HomeRU');
         } elseif ($user instanceof EPersonalTrainer) {
             header('Location: /GymBuddy/PersonalTrainer/Home');
         } elseif ($user instanceof EAdmin) {
-            header('Location: /GymBuddy/Admin/Home');
+            header('Location: /GymBuddy/Admin/HomeAD');
         }
     }
+
+    public static function homeAD(){
+        if (CAdmin::isLogged()) {
+            $view = new VAdmin();
+            $view->showHomeAD();
+        } else {
+            // Se l'utente non è loggato, reindirizza alla pagina di login
+            header('Location: /GymBuddy/login');
+            exit();
+        }
+    }
+
+    public static function requests(){
+        $view = new VAdmin();
+        $view->showRequests();
+    }
+
+
 
 
 
