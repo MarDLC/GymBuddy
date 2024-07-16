@@ -12,7 +12,7 @@ class CUser{
             }
         }
         if(USession::isSetSessionElement('user')){
-            header('Location: /GymBuddy/User/Home');
+            header('Location: /GymBuddy/User/HomeRU');
         }
         $view = new VRegisteredUser();
         $view->showLoginForm();
@@ -67,25 +67,37 @@ class CUser{
 
     public static function checkLogin(){
         $view = new VRegisteredUser();
-        $email = FPersistentManager::getInstance()->verifyUserEmail(UHTTPMethods::post('email'));
+        $email = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));
         if($email){
-            $user = FPersistentManager::getInstance()->retriveUserOnEmail(UHTTPMethods::post('email'));
+            $user = FPersistentManager::getInstance()->retriveUserOnUsername(UHTTPMethods::post('username'));
             if(password_verify(UHTTPMethods::post('password'), $user->getPassword())){
                 if(USession::getSessionStatus() == PHP_SESSION_NONE){
                     USession::getInstance();
-                    USession::setSessionElement('user', $user);
+                    USession::setSessionElement('user', $user->getId());  // Aggiunta logica per ottenere l'ID
+                   /*
                     // Controlla se l'utente è un Personal Trainer approvato
                     if ($user instanceof EPersonalTrainer && $user->getApproved() == 1) {
                         header('Location: /GymBuddy/PersonalTrainer/Home');
-                    } else {
-                        header('Location: /GymBuddy/User/Home');
+                    } else {*/
+                        header('Location: /GymBuddy/User/home');
                     }
-                }
+                //}
             }else{
                 $view->loginError();
             }
         }else{
             $view->loginError();
+        }
+    }
+
+    public static function home(){
+        if (CUser::isLogged()) {
+            $view = new VRegisteredUser();
+            $view->showHome();
+        } else {
+            // Se l'utente non è loggato, reindirizza alla pagina di login
+            header('Location: /GymBuddy/login');
+            exit();
         }
     }
 
@@ -150,7 +162,7 @@ class CUser{
 
         // Controlla il tipo di utente e reindirizza alla corretta home page
         if ($user instanceof ERegisteredUser) {
-            header('Location: /GymBuddy/User/Home');
+            header('Location: /GymBuddy/User/HomeRU');
         } elseif ($user instanceof EPersonalTrainer) {
             header('Location: /GymBuddy/PersonalTrainer/Home');
         } elseif ($user instanceof EAdmin) {

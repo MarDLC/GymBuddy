@@ -25,10 +25,6 @@
 </head>
 
 <body>
-<!-- Page Preloder -->
-<div id="preloder">
-    <div class="loader"></div>
-</div>
 
 <!-- Offcanvas Menu Section Begin -->
 <div class="offcanvas-menu-overlay"></div>
@@ -41,7 +37,7 @@
     </div>
     <nav class="canvas-menu mobile-menu">
         <ul>
-            <li><a href="./home.html">Home</a></li>
+            <li><a href="./homeRU.html">Home</a></li>
             <li><a href="./about-us.html">About Us</a></li>
             <li><a href="./services.html">Services</a></li>
             <li><a href="./team.html">Our Team</a></li>
@@ -71,15 +67,15 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="./home.html">
-                        <img src="/GymBuddy/libs/smarty/img/logo.png" alt="">
+                    <a href="./homeRU.html">
+                        <img src="../img/logo.png" alt="">
                     </a>
                 </div>
             </div>
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li class="active"><a href="./home.html">Home</a></li>
+                        <li class="active"><a href="./homeRU.html">Home</a></li>
                         <li><a href="./about-us.html">About Us</a></li>
                         <li><a href="./services.html">Services</a></li>
                         <li><a href="./team.html">Our Team</a></li>
@@ -106,7 +102,7 @@
                         <a href="#"><i class="fa fa-instagram"></i></a>
                     </div>
                     <!-- Aggiunta del pulsante di login -->
-                    <a href="./login.html" class="btn btn-primary">Login</a>
+                    <a href="./login.html" class="btn btn-primary">Logout</a>
                 </div>
             </div>
         </div>
@@ -118,37 +114,21 @@
 <!-- Header End -->
 
 <!-- Hero Section Begin -->
-<section class="hero-section">
-    <div class="hs-slider owl-carousel">
-        <div class="hs-item set-bg" data-setbg="../img/hero/hero-1.jpg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 offset-lg-6">
-                        <div class="hi-text">
-                            <span>Shape your body</span>
-                            <h1>Be <strong>strong</strong> traning hard</h1>
-                            <a href="#" class="primary-btn">Get info</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="hs-item set-bg" data-setbg="../img/hero/hero-2.jpg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 offset-lg-6">
-                        <div class="hi-text">
-                            <span>Shape your body</span>
-                            <h1>Be <strong>strong</strong> traning hard</h1>
-                            <a href="#" class="primary-btn">Get info</a>
-                        </div>
-                    </div>
+<section class="hero-section" style="background-image: url('../img/hero/hero-2.jpg'); background-size: cover; background-position: center center; height: 100vh; display: flex; align-items: flex-end; justify-content: flex-end;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-6">
+                <div class="hi-text" style="margin-bottom: 250px; margin-left: 50px;">
+                    <span style="color: white; text-transform: uppercase;">Shape your body</span>
+                    <h1 style="color: white; text-transform: uppercase;">Be <strong style="color: orange; text-transform: uppercase;">strong</strong> training hard</h1>
                 </div>
             </div>
         </div>
     </div>
 </section>
 <!-- Hero Section End -->
+
+
 
 <!-- Get In Touch Section Begin -->
 <div class="gettouch-section">
@@ -157,7 +137,7 @@
             <div class="col-md-4">
                 <div class="gt-text">
                     <i class="fa fa-map-marker"></i>
-                    <p>333 Middle Winchendon Rd, Rindge,<br/> NH 03461</p>
+                    <p>L'Aquila Via Vetoio, 48<br/> 67100 Coppito AQ</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -172,7 +152,7 @@
             <div class="col-md-4">
                 <div class="gt-text email">
                     <i class="fa fa-envelope"></i>
-                    <p>Support.gymcenter@gmail.com</p>
+                    <p>support.gymbuddy@gmail.com</p>
                 </div>
             </div>
         </div>
@@ -187,10 +167,11 @@
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href="#"><img src="/GymBuddy/libs/smarty/img/logo.png" alt=""></a>
+                        <a href="#"><img src="../img/logo.png" alt=""></a>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore dolore magna aliqua endisse ultrices gravida lorem.</p>
+                    <p>The most iconic gym in the world has arrived in L'Aquila!
+                        Live the best training experience in a unique atmosphere.
+                        DISCOVER THE LEGACY: GymBuddy L'Aquila.</p>
                     <div class="fa-social">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
@@ -267,16 +248,14 @@
 <!-- Search model end -->
 
 <!-- Js Plugins -->
-<script src="../js/jquery-3.3.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery.magnific-popup.min.js"></script>
-<script src="../js/masonry.pkgd.min.js"></script>
-<script src="../js/jquery.barfiller.js"></script>
-<script src="../js/jquery.slicknav.js"></script>
-<script src="../js/owl.carousel.min.js"></script>
-<script src="../js/main.js"></script>
-
-
+<script src="/GymBuddy/libs/Smarty/js/jquery-3.3.1.min.js"></script>
+<script src="/GymBuddy/libs/Smarty/js/bootstrap.min.js"></script>
+<script src="/GymBuddy/libs/Smarty/js/jquery.magnific-popup.min.js"></script>
+<script src="/GymBuddy/libs/Smarty/js/masonry.pkgd.min.js"></script>
+<script src="/GymBuddy/libs/Smarty/js/jquery.barfiller.js"></script>
+<script src="/GymBuddy/libs/Smarty/js/jquery.slicknav.js"></script>
+<script src="/GymBuddy/libs/Smarty/js/owl.carousel.min.js"></script>
+<script src="/GymBuddy/libs/Smarty/js/main.js"></script>
 
 </body>
 

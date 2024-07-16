@@ -289,7 +289,7 @@ class FRegisteredUser{
 
     public static function getUserByUsername($username)
     {
-        $result = FEntityManagerSQL::getInstance()->retriveObj(FPerson::getTable(), 'username', $username);
+        $result = FEntityManagerSQL::getInstance()->retriveObj(FUser::getTable(), 'username', $username);
 
         if(count($result) > 0){
             $user = self::createRegisteredUserObj($result);
