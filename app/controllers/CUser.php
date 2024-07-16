@@ -79,7 +79,7 @@ class CUser{
                     if ($user instanceof EPersonalTrainer && $user->getApproved() == 1) {
                         header('Location: /GymBuddy/PersonalTrainer/Home');
                     } else {*/
-                        header('Location: /GymBuddy/User/home');
+                        header('Location: /GymBuddy/User/homeRU');
                     }
                 //}
             }else{
@@ -90,10 +90,16 @@ class CUser{
         }
     }
 
+
     public static function home(){
-        if (CUser::isLogged()) {
             $view = new VRegisteredUser();
             $view->showHome();
+    }
+
+    public static function homeRU(){
+        if (CUser::isLogged()) {
+            $view = new VRegisteredUser();
+            $view->showHomeRU();
         } else {
             // Se l'utente non è loggato, reindirizza alla pagina di login
             header('Location: /GymBuddy/login');
@@ -105,11 +111,12 @@ class CUser{
 
 
 
+
     public static function logout(){
         USession::getInstance();
         USession::unsetSession();
         USession::destroySession();
-        header('Location: /GymBuddy/User/Login');
+        header('Location: /GymBuddy/User/Home');
     }
 
     public static function settings(){

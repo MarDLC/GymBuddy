@@ -39,6 +39,10 @@ class VRegisteredUser {
     }
 
     public function showHome() {
+        $this->smarty->display('home.tpl');
+    }
+
+    public function showHomeRU() {
         $this->smarty->display('homeRU.tpl');
     }
 
