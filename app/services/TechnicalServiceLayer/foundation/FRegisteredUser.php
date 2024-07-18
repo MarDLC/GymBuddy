@@ -275,51 +275,27 @@ class FRegisteredUser{
     }
 
 
-    public static function updateTypeIfSubscribedWithPT($id){
-        try{
-            // Start a new database transaction
-            FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
-            // Check if the user has a 'coached' subscription using the verifyFieldValue method
-            if(FEntityManagerSQL::verifyFieldValue('subscription', 'type', 'coached')){
-                // If the user has a 'coached' subscription, use the updateObj method of FEntityManagerSQL to update the user type
-                FEntityManagerSQL::updateObj(self::getTable(), 'type', 'followed_user', 'idUser', $id);
-            }
-            // Commit the transaction
-            FEntityManagerSQL::getInstance()->getDb()->commit();
-            return true;
-        }catch(PDOException $e){
-            // Print the error message and rollback the transaction in case of an exception
-            echo "ERROR " . $e->getMessage();
-            FEntityManagerSQL::getInstance()->getDb()->rollBack();
-            return false;
-        }finally{
-            // Close the database connection
-            FEntityManagerSQL::getInstance()->closeConnection();
-        }
+   public static function updateType($subscription){
+    try{
+        // Start a new database transaction
+        FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
+        // Determine the user type based on the subscription type
+        $userType = ($subscription->getType() === 'coached') ? 'followed_user' : 'user_only';
+        // Update the user type in the database
+        FEntityManagerSQL::updateObj(self::getTable(), 'type', $userType, 'idUser', $subscription->getIdUser());
+        // Commit the transaction
+        FEntityManagerSQL::getInstance()->getDb()->commit();
+        return true;
+    }catch(PDOException $e){
+        // Print the error message and rollback the transaction in case of an exception
+        echo "ERROR " . $e->getMessage();
+        FEntityManagerSQL::getInstance()->getDb()->rollBack();
+        return false;
+    }finally{
+        // Close the database connection
+        FEntityManagerSQL::getInstance()->closeConnection();
     }
-
-    public static function updateTypeIfSubscribedUserOnly($id){
-        try{
-            // Start a new database transaction
-            FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
-            // Check if the user has a 'individual' subscription using the verifyFieldValue method
-            if(FEntityManagerSQL::verifyFieldValue('subscription', 'type', 'individual')){
-                // If the user has a 'individual' subscription, use the updateObj method of FEntityManagerSQL to update the user type
-                FEntityManagerSQL::updateObj(self::getTable(), 'type', 'user_only', 'idUser', $id);
-            }
-            // Commit the transaction
-            FEntityManagerSQL::getInstance()->getDb()->commit();
-            return true;
-        }catch(PDOException $e){
-            // Print the error message and rollback the transaction in case of an exception
-            echo "ERROR " . $e->getMessage();
-            FEntityManagerSQL::getInstance()->getDb()->rollBack();
-            return false;
-        }finally{
-            // Close the database connection
-            FEntityManagerSQL::getInstance()->closeConnection();
-        }
-    }
+}
 
 
 }

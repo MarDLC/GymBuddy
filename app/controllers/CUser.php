@@ -249,15 +249,10 @@ class CUser
     }
 
 
- public static function payment()
+public static function payment()
 {
     // Ensure the session is started
     USession::getInstance();
-
-    // Add these lines to check the session status and the session data
-    error_log("Session status in payment: " . session_status());
-    error_log("Session data in payment: " . print_r($_SESSION, true));
-    error_log("Session ID in paymentInizio: " . session_id());
 
     // Verifica se l'utente è loggato
     if (!self::isLoggedIn()) {
@@ -277,21 +272,10 @@ class CUser
         exit();
     }
 
-    error_log("User in session: " . print_r($user, true));
-
-    // Add this line to log the user object
-    error_log("Retrieved user: " . print_r($user, true));
-
     // Recupera i dettagli dell'abbonamento dalla sessione
     $type = USession::getSessionElement('subscription_type');
     $duration = USession::getSessionElement('subscription_duration');
     $price = USession::getSessionElement('subscription_price');
-
-    // Add these lines to log the subscription details
-    error_log("Retrieved subscription type: " . $type);
-    error_log("Retrieved subscription duration: " . $duration);
-    error_log("Retrieved subscription price: " . $price);
-    error_log("Session ID in paymentFine: " . session_id());
 
     // Recupera i dati della carta di credito dal form
     $cardNumber = UHTTPMethods::post('cardNumber');
@@ -299,29 +283,25 @@ class CUser
     $cvv = UHTTPMethods::post('cvv');
     $accountHolder = UHTTPMethods::post('accountHolder');
 
-    // Debug: Verifica i dati ricevuti
-    error_log("Type: $type, Duration: $duration, Price: $price");
-    error_log("Card Number: $cardNumber, Expiry Date: $expiryDate, CVV: $cvv, Account Holder: $accountHolder");
-
     // Crea un nuovo oggetto Subscription
     $subscription = new ESubscription($user->getId(), $type, $duration, $price);
 
     // Salva l'oggetto Subscription nel database e verifica il risultato
     $idSubscription = FPersistentManager::getInstance()->uploadObj($subscription);
-    error_log("Subscription save result: " . print_r($idSubscription, true));
 
     // Crea un nuovo oggetto CreditCard
     $creditCard = new ECreditCard($idSubscription, $user->getId(), $cvv, $accountHolder, $cardNumber, $expiryDate);
 
     // Salva l'oggetto CreditCard nel database e verifica il risultato
     $result = FPersistentManager::getInstance()->uploadObj($creditCard);
-    error_log("CreditCard save result: " . print_r($result, true));
+
+    // Se l'oggetto Subscription e l'oggetto CreditCard sono stati salvati con successo, aggiorna il tipo di utente
+    if ($idSubscription && $result) {
+        FPersistentManager::getInstance()->updateUserTypeBasedOnSubscription($userId, $subscription);
+    }
 
     // Set a session variable to indicate that the payment was successful
     USession::setSessionElement('payment_success', 'Your payment was successful!');
-
-    // Debug: Log the user object after all operations
-    error_log("User after all operations: " . print_r($user, true));
 
     // Reindirizza l'utente alla pagina di conferma
     header('Location: /GymBuddy/User/confirmation');

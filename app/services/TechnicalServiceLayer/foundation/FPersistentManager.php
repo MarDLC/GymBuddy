@@ -98,34 +98,6 @@ public static function retrieveUserById($userId)
 }
 
 
-    /*
-    public static function retriveUserOnUsername($username) {
-        $registeredUser = FRegisteredUser::getUserByUsername($username);
-        if ($registeredUser !== null) {
-            return $registeredUser;
-        } /*
-
-        $admin = FAdmin::getUserByUsernameAdmin($username);
-        if ($admin !== null) {
-            return $admin;
-        }
-
-        $personalTrainer = FPersonalTrainer::getPersonalTrainerByUsername($username);
-        if ($personalTrainer !== null) {
-            return $personalTrainer;
-        }
-
-        return null; // Se nessun utente è trovato, ritorna null
-    }
-
-    public static function retriveUserOnEmail($email)
-    {
-        $result = FRegisteredUser::getUserByEmail($email);
-
-        return $result;
-    } */
-
-
 
     public function retriveUserOnUsernameAD($username)
     {
@@ -442,6 +414,18 @@ public static function retrieveUserById($userId)
         // Return the created Subscription object
         return $subscription;
     }
+
+ public static function updateUserTypeBasedOnSubscription($userId, $subscription)
+{
+    // Prepara la chiamata al metodo appropriato in FRegisteredUser
+    $foundClass = "FRegisteredUser";
+    $staticMethod = "updateType";
+
+    // Esegui la chiamata al metodo
+    $result = call_user_func([$foundClass, $staticMethod], $subscription);
+
+    return $result;
+}
 
     // Crea una nuova prenotazione
     public static function createReservation($idUser, $date, $trainingPT, $time = '02:00:00')
