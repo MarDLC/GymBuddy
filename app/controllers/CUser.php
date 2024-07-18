@@ -52,6 +52,16 @@ class CUser{
         return true;
     }
 
+    public static function isLoggedIn()
+    {
+        if(UCookie::isSet('PHPSESSID')){
+            if(session_status() == PHP_SESSION_NONE){
+                USession::getInstance();
+            }
+        }
+        return USession::isSetSessionElement('user');
+    }
+
 
 
     public static function checkLogin(){
@@ -91,33 +101,12 @@ class CUser{
     }
 
 
-
-
-
-
-
-    public static function checkRole() {
-        // Prendi l'username dal POST request
-        $username = UHTTPMethods::post('username');
-
-        // Cerca l'utente nel database
-        $user = FPersistentManager::getInstance()->retriveUserOnUsernameGeneral($username);
-
-        // Se l'utente esiste, restituisci il suo ruolo
-        if ($user) {
-            echo $user->getRole();
-        } else {
-            // Se l'utente non esiste, restituisci un messaggio di errore
-            echo "User not found";
-        }
-    }
-
-
-
     public static function home(){
             $view = new VRegisteredUser();
             $view->showHome();
     }
+
+
 
     public static function homeRU(){
         if (CUser::isLogged()) {
@@ -129,6 +118,46 @@ class CUser{
             exit();
         }
     }
+
+    public static function aboutus(){
+        $view = new VRegisteredUser();
+        $view->showAboutUs();
+    }
+
+    public static function services(){
+        $view = new VRegisteredUser();
+        $view->showServices();
+    }
+
+    public static function team(){
+        $view = new VRegisteredUser();
+        $view->showTeam();
+    }
+
+    public static function gallery(){
+        $view = new VRegisteredUser();
+        $view->showGallery();
+    }
+
+    public static function contact(){
+        $view = new VRegisteredUser();
+        $view->showContact();
+    }
+
+    public static function subscription(){
+        $view = new VRegisteredUser();
+        $view->showSubscription();
+    }
+
+    public static function paymentForm(){
+        $view = new VRegisteredUser();
+        $view->showPayment();
+    }
+
+
+
+
+
 
 
 
@@ -191,6 +220,29 @@ class CUser{
         return null;
     }
 
-    //TODO FARE showUserPhysicalData e showUserTrainingCard
+    public static function payment()
+    {
+        // Verifica se l'utente è loggato
+        if (!self::isLoggedIn()) {
+            header('Location: /GymBuddy/User/Login');
+            exit();
+        }
+
+        // Estrai i dettagli dell'abbonamento dal corpo della richiesta
+        $type = UHTTPMethods::post('type');
+        $duration = UHTTPMethods::post('duration');
+        $price = UHTTPMethods::post('price');
+
+        // Crea un nuovo oggetto ESubscription con i dettagli dell'abbonamento
+        $subscription = new ESubscription(USession::getSessionElement('user'), $type, $duration, $price);
+
+        // Inserisci l'oggetto ESubscription nel database
+        FPersistentManager::getInstance()->uploadObj($subscription);
+
+        // Mostra il form di pagamento
+        $view = new VRegisteredUser();
+        $view->showPaymentForm();
+    }
+
 
 }

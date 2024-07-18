@@ -7,7 +7,7 @@
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
+    <title>Subscription</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
@@ -32,37 +32,10 @@
         }
         document.addEventListener("DOMContentLoaded", ready);
     </script>
+
 </head>
 
 <body>
-<!-- Offcanvas Menu Section Begin -->
-<div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-    <div class="canvas-close">
-        <i class="fa fa-close"></i>
-    </div>
-    <div class="canvas-search search-switch">
-        <i class="fa fa-search"></i>
-    </div>
-    <nav class="canvas-menu mobile-menu">
-        <ul>
-            <li><a href="/GymBuddy/User/home">Home</a></li>
-            <li><a href="/GymBuddy/User/aboutus">About Us</a></li>
-            <li><a href="/GymBuddy/User/services">Services</a></li>
-            <li><a href="/GymBuddy/User/team">Our Team</a></li>
-            <li><a href="/GymBuddy/User/gallery">Gallery</a></li>
-            <li><a href="/GymBuddy/User/contact">Contact</a></li>
-        </ul>
-    </nav>
-    <div id="mobile-menu-wrap"></div>
-    <div class="canvas-social">
-        <a href="#"><i class="fa fa-facebook"></i></a>
-        <a href="#"><i class="fa fa-twitter"></i></a>
-        <a href="#"><i class="fa fa-youtube-play"></i></a>
-        <a href="#"><i class="fa fa-instagram"></i></a>
-    </div>
-</div>
-<!-- Offcanvas Menu Section End -->
 
 <!-- Header Section Begin -->
 <header class="header-section">
@@ -70,7 +43,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="/GymBuddy/User/home">
+                    <a href="/GymBuddy/User/homeRU">
                         <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
@@ -78,25 +51,23 @@
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li class="active"><a href="/GymBuddy/User/home">Home</a></li>
-                        <li><a href="/GymBuddy/User/aboutus">About Us</a></li>
-                        <li><a href="/GymBuddy/User/services">Services</a></li>
-                        <li><a href="/GymBuddy/User/team">Our Team</a></li>
-                        <li><a href="/GymBuddy/User/gallery">Gallery</a></li>
-                        <li><a href="/GymBuddy/User/contact">Contact</a></li>
+                        <li class="active"><a href="/GymBuddy/User/homeRU" id="home-link">Home</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="col-lg-3">
                 <div class="top-option">
+                    <div class="to-search search-switch">
+                        <i class="fa fa-search"></i>
+                    </div>
                     <div class="to-social">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
                         <a href="#"><i class="fa fa-youtube-play"></i></a>
                         <a href="#"><i class="fa fa-instagram"></i></a>
                     </div>
-                    <!-- Aggiunta del pulsante di login -->
-                    <a href="/GymBuddy/User/login" class="btn btn-primary">Login / Sign Up</a>
+                    <!-- Aggiunta del pulsante di logout -->
+                    <a href="/GymBuddy/User/logout" class="btn btn-primary">Logout</a>
                 </div>
             </div>
         </div>
@@ -107,20 +78,84 @@
 </header>
 <!-- Header End -->
 
-<!-- Hero Section Begin -->
-<section class="hero-section" style="background-image: url('/GymBuddy/libs/Smarty/img/hero/hero-2.jpg'); background-size: cover; background-position: center center; height: 100vh; display: flex; align-items: flex-end; justify-content: flex-end;">
+<!-- Pricing Section Begin -->
+<section class="pricing-section service-pricing spad">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 offset-lg-6">
-                <div class="hi-text" style="margin-bottom: 250px; margin-left: 50px;">
-                    <span style="color: white; text-transform: uppercase;">Shape your body</span>
-                    <h1 style="color: white; text-transform: uppercase;">Be <strong style="color: #f36100; text-transform: uppercase;">strong</strong> training hard</h1>
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <span>Our Plan</span>
+                    <h2>Choose your pricing plan</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-8">
+                <div class="ps-item">
+                    <h3>1 Month</h3>
+                    <div class="pi-price">
+                        <h2>$ 30.0</h2>
+                        <span>SINGLE CLASS</span>
+                    </div>
+                    <ul>
+                        <li>Unlimited equipments</li>
+                        <li>No time restriction</li>
+                    </ul>
+                    <a href="/GymBuddy/User/paymentForm" class="primary-btn pricing-btn">Enroll now</a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-8">
+                <div class="ps-item">
+                    <h3>12 Month</h3>
+                    <div class="pi-price">
+                        <h2>$ 300.0</h2>
+                        <span>SINGLE CLASS</span>
+                    </div>
+                    <ul>
+                        <li>Unlimited equipments</li>
+                        <li>No time restriction</li>
+                    </ul>
+                    <a href="/GymBuddy/User/paymentForm" class="primary-btn pricing-btn">Enroll now</a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-8">
+                <div class="ps-item">
+                    <h3>1 Month vip</h3>
+                    <div class="pi-price">
+                        <h2>$ 100.0</h2>
+                        <span>SINGLE CLASS</span>
+                    </div>
+                    <ul>
+                        <li>Unlimited equipments</li>
+                        <li>Personal trainer</li>
+                        <li>Weight losing classes</li>
+                        <li>Personal training card</li>
+                        <li>No time restriction</li>
+                    </ul>
+                    <a href="/GymBuddy/User/paymentForm" class="primary-btn pricing-btn">Enroll now</a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-8">
+                <div class="ps-item">
+                    <h3>12 Month vip</h3>
+                    <div class="pi-price">
+                        <h2>$ 1000.0</h2>
+                        <span>SINGLE CLASS</span>
+                    </div>
+                    <ul>
+                        <li>Unlimited equipments</li>
+                        <li>Personal trainer</li>
+                        <li>Weight losing classes</li>
+                        <li>Personal training card</li>
+                        <li>No time restriction</li>
+                    </ul>
+                    <a href="/GymBuddy/User/paymentForm" class="primary-btn pricing-btn">Enroll now</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Hero Section End -->
+<!-- Pricing Section End -->
 
 <!-- Get In Touch Section Begin -->
 <div class="gettouch-section">
@@ -159,11 +194,9 @@
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href="#"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
+                        <a href="/GymBuddy/Home/homeRU"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
-                    <p>The most iconic gym in the world has arrived in L'Aquila!
-                        Live the best training experience in a unique atmosphere.
-                        DISCOVER THE LEGACY: GymBuddy L'Aquila.</p>
+                    <p>Transform Your Body, Elevate Your Life: Join Our Community of Fitness Enthusiasts and Experience the Best in Modern Equipment, Expert Training, and Personalized Programs.</p>
                     <div class="fa-social">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
@@ -184,7 +217,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-3 col-sm-6"></div>
+            <div class="col-lg-2 col-md-3 col-sm-6">
+            </div>
             <div class="col-lg-4 col-md-6">
                 <div class="fs-widget">
                     <h4>Tips & Guides</h4>

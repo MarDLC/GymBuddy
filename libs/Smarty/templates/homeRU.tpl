@@ -47,11 +47,12 @@
         <nav class="canvas-menu mobile-menu">
             <ul>
                 <li><a href="/GymBuddy/User/homeRU">Home</a></li>
-                <li><a href="/GymBuddy/Home/about-us">About Us</a></li>
-                <li><a href="/GymBuddy/Home/services">Services</a></li>
-                <li><a href="/GymBuddy/Home/team">Our Team</a></li>
-                <li><a href="/GymBuddy/Home/gallery">Gallery</a></li>
-                <li><a href="/GymBuddy/Home/contact">Contact</a></li>
+                <li><a href="/GymBuddy/User/aboutus">About Us</a></li>
+                <li><a href="/GymBuddy/User/services">Services</a></li>
+                <li><a href="/GymBuddy/User/team">Our Team</a></li>
+                <li><a href="/GymBuddy/User/gallery">Gallery</a></li>
+                <li><a href="/GymBuddy/User/contact">Contact</a></li>
+
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -79,11 +80,12 @@
                     <nav class="nav-menu">
                         <ul>
                             <li class="active"><a href="/GymBuddy/User/homeRU">Home</a></li>
-                            <li><a href="/GymBuddy/Home/about-us">About Us</a></li>
-                            <li><a href="/GymBuddy/Home/services">Services</a></li>
-                            <li><a href="/GymBuddy/Home/team">Our Team</a></li>
-                            <li><a href="/GymBuddy/Home/gallery">Gallery</a></li>
-                            <li><a href="/GymBuddy/Home/contact">Contact</a></li>
+                            <li><a href="/GymBuddy/User/aboutus">About Us</a></li>
+                            <li><a href="/GymBuddy/User/services">Services</a></li>
+                            <li><a href="/GymBuddy/User/team">Our Team</a></li>
+                            <li><a href="/GymBuddy/User/gallery">Gallery</a></li>
+                            <li><a href="/GymBuddy/User/contact">Contact</a></li>
+
                         </ul>
                     </nav>
                 </div>

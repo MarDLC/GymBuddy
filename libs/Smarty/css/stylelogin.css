@@ -1334,17 +1334,26 @@ pre {
 .table {
   width: 100%;
   margin-bottom: 1rem;
-  color: #212529; }
-  .table th,
-  .table td {
-    padding: 0.75rem;
-    vertical-align: top;
-    border-top: 1px solid #dee2e6; }
-  .table thead th {
-    vertical-align: bottom;
-    border-bottom: 2px solid #dee2e6; }
-  .table tbody + tbody {
-    border-top: 2px solid #dee2e6; }
+  color: #ffffff; }
+.table th {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+  font-size: 1.4rem;
+  color: #f36100
+}
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #ffffff;
+  font-size: 1.2rem;
+}
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6; }
+.table tbody + tbody {
+  border-top: 2px solid #dee2e6; }
+
 
 .table-sm th,
 .table-sm td {
@@ -8331,9 +8340,11 @@ textarea.form-control {
   .btn:hover, .btn:active, .btn:focus {
     outline: none; }
   .btn.btn-primary {
-    background: #fd7e14 !important;
+    background: #f36100 !important;
     border: 1px solid #000 !important;
-    color: #000 !important; }
+    color: #ffffff !important;
+    font-weight: bold;
+  }
     .btn.btn-primary:hover {
       border: 1px solid #fd7e14;
       background: transparent;

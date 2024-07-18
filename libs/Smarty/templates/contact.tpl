@@ -7,7 +7,7 @@
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
+    <title>Contact Us</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/stylelogin.css" type="text/css">
 
     <script>
         function ready(){
@@ -32,26 +32,25 @@
         }
         document.addEventListener("DOMContentLoaded", ready);
     </script>
+
 </head>
 
 <body>
+
 <!-- Offcanvas Menu Section Begin -->
 <div class="offcanvas-menu-overlay"></div>
 <div class="offcanvas-menu-wrapper">
     <div class="canvas-close">
         <i class="fa fa-close"></i>
     </div>
-    <div class="canvas-search search-switch">
-        <i class="fa fa-search"></i>
-    </div>
     <nav class="canvas-menu mobile-menu">
         <ul>
-            <li><a href="/GymBuddy/User/home">Home</a></li>
+            <li><a href="{$homePath}">Home</a></li>
             <li><a href="/GymBuddy/User/aboutus">About Us</a></li>
             <li><a href="/GymBuddy/User/services">Services</a></li>
             <li><a href="/GymBuddy/User/team">Our Team</a></li>
             <li><a href="/GymBuddy/User/gallery">Gallery</a></li>
-            <li><a href="/GymBuddy/User/contact">Contact</a></li>
+            <li class="active"><a href="/GymBuddy/User/contact">Contact</a></li>
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
@@ -70,7 +69,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="/GymBuddy/User/home">
+                    <a href="{$homePath}">
                         <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
@@ -78,12 +77,12 @@
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li class="active"><a href="/GymBuddy/User/home">Home</a></li>
+                        <li><a href="{$homePath}">Home</a></li>
                         <li><a href="/GymBuddy/User/aboutus">About Us</a></li>
                         <li><a href="/GymBuddy/User/services">Services</a></li>
                         <li><a href="/GymBuddy/User/team">Our Team</a></li>
                         <li><a href="/GymBuddy/User/gallery">Gallery</a></li>
-                        <li><a href="/GymBuddy/User/contact">Contact</a></li>
+                        <li class="active"><a href="/GymBuddy/User/contact">Contact</a></li>
                     </ul>
                 </nav>
             </div>
@@ -95,8 +94,7 @@
                         <a href="#"><i class="fa fa-youtube-play"></i></a>
                         <a href="#"><i class="fa fa-instagram"></i></a>
                     </div>
-                    <!-- Aggiunta del pulsante di login -->
-                    <a href="/GymBuddy/User/login" class="btn btn-primary">Login / Sign Up</a>
+
                 </div>
             </div>
         </div>
@@ -107,20 +105,72 @@
 </header>
 <!-- Header End -->
 
-<!-- Hero Section Begin -->
-<section class="hero-section" style="background-image: url('/GymBuddy/libs/Smarty/img/hero/hero-2.jpg'); background-size: cover; background-position: center center; height: 100vh; display: flex; align-items: flex-end; justify-content: flex-end;">
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" style="background-image: url('/GymBuddy/libs/Smarty/img/breadcrumb-bg.jpg')">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 offset-lg-6">
-                <div class="hi-text" style="margin-bottom: 250px; margin-left: 50px;">
-                    <span style="color: white; text-transform: uppercase;">Shape your body</span>
-                    <h1 style="color: white; text-transform: uppercase;">Be <strong style="color: #f36100; text-transform: uppercase;">strong</strong> training hard</h1>
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb-text">
+                    <h2>Contact Us</h2>
+                    <div class="bt-option">
+                        <a href="{$homePath}">Home</a>
+                        <span>Contact us</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Hero Section End -->
+<!-- Breadcrumb Section End -->
+
+<!-- Contact Section Begin -->
+<section class="contact-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section-title contact-title">
+                    <span>Contact Us</span>
+                    <h2>GET IN TOUCH</h2>
+                </div>
+                <div class="contact-widget">
+                    <div class="cw-text">
+                        <i class="fa fa-map-marker"></i>
+                        <p>L'Aquila Via Vetoio, 48<br/> 67100 Coppito AQ</p>
+                    </div>
+                    <div class="cw-text">
+                        <i class="fa fa-mobile"></i>
+                        <ul>
+                            <li>125-711-811</li>
+                            <li>125-668-886</li>
+                        </ul>
+                    </div>
+                    <div class="cw-text email">
+                        <i class="fa fa-envelope"></i>
+                        <p>Support.gymbuddy@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="leave-comment">
+                    <form action="#">
+                        <input type="text" placeholder="Name">
+                        <input type="text" placeholder="Email">
+                        <input type="text" placeholder="Website">
+                        <textarea placeholder="Comment"></textarea>
+                        <button onclick="return false;">Submit</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="map">
+            <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2902.722134597978!2d13.361808815709322!3d42.35772597918767!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1334c32d39d56f4b%3A0x9b9189d7a2793b4a!2sVia%20Vetoio%2C%2048%2C%2067123%20Coppito%20AQ%2C%20Italy!5e0!3m2!1sen!2sit!4v1689785562372!5m2!1sen!2sit"
+                    height="550" style="border:0;" allowfullscreen=""></iframe>
+        </div>
+    </div>
+</section>
+<!-- Contact Section End -->
 
 <!-- Get In Touch Section Begin -->
 <div class="gettouch-section">
@@ -161,9 +211,7 @@
                     <div class="fa-logo">
                         <a href="#"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
-                    <p>The most iconic gym in the world has arrived in L'Aquila!
-                        Live the best training experience in a unique atmosphere.
-                        DISCOVER THE LEGACY: GymBuddy L'Aquila.</p>
+                    <p>Transform Your Body, Elevate Your Life: Join Our Community of Fitness Enthusiasts and Experience the Best in Modern Equipment, Expert Training, and Personalized Programs.</p>
                     <div class="fa-social">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
@@ -184,7 +232,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-3 col-sm-6"></div>
+            <div class="col-lg-2 col-md-3 col-sm-6">
+            </div>
             <div class="col-lg-4 col-md-6">
                 <div class="fs-widget">
                     <h4>Tips & Guides</h4>
@@ -238,6 +287,8 @@
 <script src="/GymBuddy/libs/Smarty/js/jquery.slicknav.js"></script>
 <script src="/GymBuddy/libs/Smarty/js/owl.carousel.min.js"></script>
 <script src="/GymBuddy/libs/Smarty/js/main.js"></script>
+
+
 
 </body>
 

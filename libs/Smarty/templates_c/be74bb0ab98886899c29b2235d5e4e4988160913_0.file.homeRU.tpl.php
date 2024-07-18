@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-16 18:42:38
+/* Smarty version 3.1.33, created on 2024-07-18 16:37:39
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\homeRU.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6696a2fe0e50a1_91883866',
+  'unifunc' => 'content_669928b3f0c3f6_84200786',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'be74bb0ab98886899c29b2235d5e4e4988160913' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\homeRU.tpl',
-      1 => 1721147756,
+      1 => 1721313429,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6696a2fe0e50a1_91883866 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669928b3f0c3f6_84200786 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -72,11 +72,12 @@ function content_6696a2fe0e50a1_91883866 (Smarty_Internal_Template $_smarty_tpl)
         <nav class="canvas-menu mobile-menu">
             <ul>
                 <li><a href="/GymBuddy/User/homeRU">Home</a></li>
-                <li><a href="/GymBuddy/Home/about-us">About Us</a></li>
-                <li><a href="/GymBuddy/Home/services">Services</a></li>
-                <li><a href="/GymBuddy/Home/team">Our Team</a></li>
-                <li><a href="/GymBuddy/Home/gallery">Gallery</a></li>
-                <li><a href="/GymBuddy/Home/contact">Contact</a></li>
+                <li><a href="/GymBuddy/User/aboutus">About Us</a></li>
+                <li><a href="/GymBuddy/User/services">Services</a></li>
+                <li><a href="/GymBuddy/User/team">Our Team</a></li>
+                <li><a href="/GymBuddy/User/gallery">Gallery</a></li>
+                <li><a href="/GymBuddy/User/contact">Contact</a></li>
+
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -104,11 +105,12 @@ function content_6696a2fe0e50a1_91883866 (Smarty_Internal_Template $_smarty_tpl)
                     <nav class="nav-menu">
                         <ul>
                             <li class="active"><a href="/GymBuddy/User/homeRU">Home</a></li>
-                            <li><a href="/GymBuddy/Home/about-us">About Us</a></li>
-                            <li><a href="/GymBuddy/Home/services">Services</a></li>
-                            <li><a href="/GymBuddy/Home/team">Our Team</a></li>
-                            <li><a href="/GymBuddy/Home/gallery">Gallery</a></li>
-                            <li><a href="/GymBuddy/Home/contact">Contact</a></li>
+                            <li><a href="/GymBuddy/User/aboutus">About Us</a></li>
+                            <li><a href="/GymBuddy/User/services">Services</a></li>
+                            <li><a href="/GymBuddy/User/team">Our Team</a></li>
+                            <li><a href="/GymBuddy/User/gallery">Gallery</a></li>
+                            <li><a href="/GymBuddy/User/contact">Contact</a></li>
+
                         </ul>
                     </nav>
                 </div>

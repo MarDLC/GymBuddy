@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2024-07-18 16:37:38
+  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\about-us.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_669928b2bb3163_68185618',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'b9dfb3925f36bf136827db215078d33245220ed6' => 
+    array (
+      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\about-us.tpl',
+      1 => 1721313457,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_669928b2bb3163_68185618 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -14,15 +37,26 @@
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/flaticon.css" type="text/css">
-    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/barfiller.css" type="text/css">
-    <link rel="stylesheet" href="../css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/style.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="../css/stylelogin.css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/barfiller.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
+
+    <?php echo '<script'; ?>
+>
+        function ready(){
+            if (!navigator.cookieEnabled) {
+                alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
+            }
+        }
+        document.addEventListener("DOMContentLoaded", ready);
+    <?php echo '</script'; ?>
+>
 </head>
 
 <body>
@@ -38,12 +72,13 @@
     </div>
     <nav class="canvas-menu mobile-menu">
         <ul>
-            <li><a href="./home.html">Home</a></li>
-            <li><a href="./about-us.html">About Us</a></li>
-            <li><a href="./services.html">Services</a></li>
-            <li><a href="./team.html">Our Team</a></li>
-            <li><a href="./gallery.html">Gallery</a></li>
-            <li><a href="./contact.html">Contact</a></li>
+            <li><a href="<?php echo $_smarty_tpl->tpl_vars['homePath']->value;?>
+">Home</a></li>
+            <li class="active"><a href="/GymBuddy/User/aboutus">About Us</a></li>
+            <li><a href="/GymBuddy/User/services">Services</a></li>
+            <li><a href="/GymBuddy/User/team">Our Team</a></li>
+            <li><a href="/GymBuddy/User/gallery">Gallery</a></li>
+            <li><a href="/GymBuddy/User/contact">Contact</a></li>
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
@@ -62,20 +97,22 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="./home.html">
-                        <img src="../img/logo.png" alt="">
+                    <a href="<?php echo $_smarty_tpl->tpl_vars['homePath']->value;?>
+">
+                        <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
             </div>
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li><a href="./home.html">Home</a></li>
-                        <li class="active"><a href="./about-us.html">About Us</a></li>
-                        <li><a href="./services.html">Services</a></li>
-                        <li><a href="./team.html">Our Team</a></li>
-                        <li><a href="./gallery.html">Gallery</a></li>
-                        <li><a href="./contact.html">Contact</a></li>
+                        <li><a href="<?php echo $_smarty_tpl->tpl_vars['homePath']->value;?>
+">Home</a></li>
+                        <li class="active"><a href="/GymBuddy/User/aboutus">About Us</a></li>
+                        <li><a href="/GymBuddy/User/services">Services</a></li>
+                        <li><a href="/GymBuddy/User/team">Our Team</a></li>
+                        <li><a href="/GymBuddy/User/gallery">Gallery</a></li>
+                        <li><a href="/GymBuddy/User/contact">Contact</a></li>
                     </ul>
                 </nav>
             </div>
@@ -87,8 +124,7 @@
                         <a href="#"><i class="fa fa-youtube-play"></i></a>
                         <a href="#"><i class="fa fa-instagram"></i></a>
                     </div>
-                    <!-- Aggiunta del pulsante di login -->
-                    <a href="./login.html" class="btn btn-primary">Login</a>
+
                 </div>
             </div>
         </div>
@@ -100,14 +136,15 @@
 <!-- Header End -->
 
 <!-- Breadcrumb Section Begin -->
-<section class="breadcrumb-section set-bg" style="background-image: url('../img/breadcrumb-bg.jpg')">
+<section class="breadcrumb-section set-bg" style="background-image: url('/GymBuddy/libs/Smarty/img/breadcrumb-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb-text">
                     <h2>About us</h2>
                     <div class="bt-option">
-                        <a href="home.html">Home</a>
+                        <a href="<?php echo $_smarty_tpl->tpl_vars['homePath']->value;?>
+">Home</a>
                         <span>About</span>
                     </div>
                 </div>
@@ -167,7 +204,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-6 p-0">
-                <div class="about-video set-bg" style="background-image: url('../img/about-us.jpg')">
+                <div class="about-video set-bg" style="background-image: url('/GymBuddy/libs/Smarty/img/about-us.jpg')">
                     <!-- Removed the video link and play button icon -->
                 </div>
             </div>
@@ -198,7 +235,7 @@
                         <div class="ab-item">
                             <p>Training</p>
                             <div id="bar2" class="barfiller">
-                                <span class="fill" data-percentage="100" ></span>
+                                <span class="fill" data-percentage="100"></span>
                                 <div class="tipWrap">
                                     <span class="tip"></span>
                                 </div>
@@ -221,14 +258,13 @@
 </section>
 <!-- About US Section End -->
 <!-- Banner Section Begin -->
-<section class="banner-section set-bg" style="background-image: url('../img/banner-bg.jpg')">
+<section class="banner-section set-bg" style="background-image: url('/GymBuddy/libs/Smarty/img/banner-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="bs-text">
                     <h2>registration now to get more deals</h2>
                     <div class="bt-tips">Where health, beauty and fitness meet.</div>
-                    <a href="login.html" class="primary-btn  btn-normal">Join Us</a>
                 </div>
             </div>
         </div>
@@ -273,7 +309,8 @@
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href="./home.html"><img src="../img/logo.png" alt=""></a>
+                        <a href="<?php echo $_smarty_tpl->tpl_vars['homePath']->value;?>
+"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
                     <p>Transform Your Body, Elevate Your Life: Join Our Community of Fitness Enthusiasts and Experience the Best in Modern Equipment, Expert Training, and Personalized Programs.</p>
                     <div class="fa-social">
@@ -322,7 +359,9 @@
             <div class="col-lg-12 text-center">
                 <div class="copyright-text">
                     <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        Copyright &copy;<?php echo '<script'; ?>
+>document.write(new Date().getFullYear());<?php echo '</script'; ?>
+> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                 </div>
             </div>
@@ -343,23 +382,43 @@
 <!-- Search model end -->
 
 <!-- Js Plugins -->
-<script src="../js/jquery-3.3.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery.magnific-popup.min.js"></script>
-<script src="../js/masonry.pkgd.min.js"></script>
-<script src="../js/jquery.barfiller.js"></script>
-<script src="../js/jquery.slicknav.js"></script>
-<script src="../js/owl.carousel.min.js"></script>
-<script src="../js/main.js"></script>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/jquery-3.3.1.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/jquery.magnific-popup.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/masonry.pkgd.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/jquery.barfiller.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/jquery.slicknav.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/owl.carousel.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/main.js"><?php echo '</script'; ?>
+>
 
-<script>
+<?php echo '<script'; ?>
+>
     $(document).ready(function () {
         $('#bar1').barfiller();
         $('#bar2').barfiller();
         $('#bar3').barfiller();
     });
-</script>
+<?php echo '</script'; ?>
+>
 
 </body>
 
 </html>
+<?php }
+}

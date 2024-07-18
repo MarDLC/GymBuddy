@@ -2,6 +2,11 @@ body {
     font-family: Arial;
 }
 
+.barfiller .fill {
+    background-color: #f36100 !important;
+}
+
+
 .barfiller {
     width:100%;
     height:12px;
