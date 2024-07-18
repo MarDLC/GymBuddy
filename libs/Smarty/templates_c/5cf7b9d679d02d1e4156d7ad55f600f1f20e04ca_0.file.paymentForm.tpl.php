@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-18 17:19:58
+/* Smarty version 3.1.33, created on 2024-07-18 22:57:58
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\paymentForm.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6699329ebb27a4_10414078',
+  'unifunc' => 'content_669981d68ed5e8_03912851',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '5cf7b9d679d02d1e4156d7ad55f600f1f20e04ca' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\paymentForm.tpl',
-      1 => 1721315997,
+      1 => 1721336261,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6699329ebb27a4_10414078 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669981d68ed5e8_03912851 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,23 +50,23 @@ function content_6699329ebb27a4_10414078 (Smarty_Internal_Template $_smarty_tpl)
                     <h2>Enter your credit card information</h2>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form action="/GymBuddy/User/payment" method="post">
                         <div class="form-group">
                             <label for="cardNumber">Credit card number</label>
-                            <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+                            <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
                         </div>
                         <div class="form-group">
-                            <label for="expiryDate">Expiration date (MM/YY)</label>
-                            <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" required>
+                            <label for="expiryDate">Expiration date</label>
+                            <input type="date" class="form-control" id="expiryDate" name="expiryDate" required>
                             <div id="expiryDateError" class="invalid-feedback"></div>
                         </div>
                         <div class="form-group">
                             <label for="cvv">CVV</label>
-                            <input type="text" class="form-control" id="cvv" placeholder="123" required>
+                            <input type="text" class="form-control" id="cvv" name="cvv" placeholder="123" required>
                         </div>
                         <div class="form-group">
                             <label for="cardHolderName">Name</label>
-                            <input type="text" class="form-control" id="cardHolderName" placeholder="Name and Surname" required>
+                            <input type="text" class="form-control" id="cardHolderName" name="accountHolder" placeholder="Name and Surname" required>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Pay</button>
                     </form>
@@ -96,6 +96,5 @@ function content_6699329ebb27a4_10414078 (Smarty_Internal_Template $_smarty_tpl)
 <?php echo '</script'; ?>
 >
 </body>
-</html>
-<?php }
+</html><?php }
 }

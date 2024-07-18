@@ -114,7 +114,7 @@ class VRegisteredUser
         $this->smarty->display('subscription.tpl');
     }
 
-    public function showPayment()
+    public function showPaymentForm()
     {
         $this->smarty->display('paymentForm.tpl');
     }
@@ -154,6 +154,14 @@ class VRegisteredUser
         $this->smarty->display('contact.tpl');
     }
 
+
+    public function showConfirmation($message) {
+        // Assign the message to a Smarty variable
+        $this->smarty->assign('message', $message);
+
+        // Display the confirmation template
+        $this->smarty->display('confirmation.tpl');
+    }
 
 
 

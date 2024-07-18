@@ -18,7 +18,7 @@ class FCreditCard
      * @var string $value The value for the SQL query.
      * This is used in SQL queries to specify the values to be inserted into the table.
      */
-    private static $value = "(NULL,:cvc,:accountHolder,:cardNumber,:expirationDate,:idUser,:idSubscription)";
+   private static $value = "(NULL,:idSubscription,:cvc,:accountHolder,:cardNumber,:expirationDate,:idUser)";
 
     /**
      * @var string $key The key for the SQL query.
@@ -110,20 +110,40 @@ class FCreditCard
      * @param PDOStatement $stmt The SQL statement.
      * @param ECreditCard $creditCard The CreditCard object.
      */
-    public static function bind($stmt, $creditCard)
-    {
-        $stmt->bindValue(":idSubscription", $creditCard->getIdSubscription(), PDO::PARAM_INT);
-        $stmt->bindValue(":cvc", $creditCard->getCvc(), PDO::PARAM_INT);
-        // Bind the id of the CreditCard object to the ":idCreditCard" parameter in the SQL statement
-        $stmt->bindValue(":idCreditCard", $creditCard->getIdCreditCard(), PDO::PARAM_INT);
-        // Bind the account holder of the CreditCard object to the ":accountHolder" parameter in the SQL statement
-        $stmt->bindValue(":accountHolder", $creditCard->getAccountHolder(), PDO::PARAM_STR);
-        // Bind the card number of the CreditCard object to the ":cardNumber" parameter in the SQL statement
-        $stmt->bindValue(":cardNumber", $creditCard->getCardNumber(), PDO::PARAM_STR);
-        // Bind the expiration date of the CreditCard object to the ":expirationDate" parameter in the SQL statement
-        $stmt->bindValue(":expirationDate", $creditCard->getExpirationDate(), PDO::PARAM_STR);
-        $stmt->bindValue(":idUser", $creditCard->getIdUser()->getId(), PDO::PARAM_INT);
+  public static function bind($stmt, $creditCard)
+{
+    $idSubscription = $creditCard->getIdSubscription();
+    $stmt->bindValue(":idSubscription", $idSubscription, PDO::PARAM_INT);
+    error_log("Binding idSubscription: $idSubscription");
+
+    $cvc = $creditCard->getCvc();
+    $stmt->bindValue(":cvc", $cvc, PDO::PARAM_INT);
+    error_log("Binding cvc: $cvc");
+
+    $accountHolder = $creditCard->getAccountHolder();
+    $stmt->bindValue(":accountHolder", $accountHolder, PDO::PARAM_STR);
+    error_log("Binding accountHolder: $accountHolder");
+
+    $cardNumber = $creditCard->getCardNumber();
+    $stmt->bindValue(":cardNumber", $cardNumber, PDO::PARAM_STR);
+    error_log("Binding cardNumber: $cardNumber");
+
+    $expirationDate = $creditCard->getExpirationDate();
+    $stmt->bindValue(":expirationDate", $expirationDate, PDO::PARAM_STR);
+    error_log("Binding expirationDate: $expirationDate");
+
+    $idUser = $creditCard->getIdUser();
+    if ($idUser !== null) {
+        $stmt->bindValue(":idUser", $idUser, PDO::PARAM_INT);
+        error_log("Binding user ID: $idUser");
+    } else {
+        // Handle the error, e.g., throw an exception or show an error message
+        $errorMessage = 'User ID is null';
+        error_log($errorMessage);
+        throw new Exception($errorMessage);
     }
+}
+
 
     /**
      * Get a CreditCard object by id.

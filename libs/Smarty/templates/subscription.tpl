@@ -25,11 +25,12 @@
     <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
 
     <script>
-        function ready(){
+        function ready() {
             if (!navigator.cookieEnabled) {
                 alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
             }
         }
+
         document.addEventListener("DOMContentLoaded", ready);
     </script>
 
@@ -66,8 +67,7 @@
                         <a href="#"><i class="fa fa-youtube-play"></i></a>
                         <a href="#"><i class="fa fa-instagram"></i></a>
                     </div>
-                    <!-- Aggiunta del pulsante di logout -->
-                    <a href="/GymBuddy/User/logout" class="btn btn-primary">Logout</a>
+
                 </div>
             </div>
         </div>
@@ -101,7 +101,12 @@
                         <li>Unlimited equipments</li>
                         <li>No time restriction</li>
                     </ul>
-                    <a href="/GymBuddy/User/paymentForm" class="primary-btn pricing-btn">Enroll now</a>
+                    <form action="/GymBuddy/User/paymentForm" method="post">
+                        <input type="hidden" name="type" value="individual">
+                        <input type="hidden" name="duration" value="1">
+                        <input type="hidden" name="price" value="30.0">
+                        <button type="submit" class="primary-btn pricing-btn">Enroll now</button>
+                    </form>
                 </div>
             </div>
             <div class="col-lg-4 col-md-8">
@@ -115,12 +120,17 @@
                         <li>Unlimited equipments</li>
                         <li>No time restriction</li>
                     </ul>
-                    <a href="/GymBuddy/User/paymentForm" class="primary-btn pricing-btn">Enroll now</a>
+                    <form action="/GymBuddy/User/paymentForm" method="post">
+                        <input type="hidden" name="type" value="individual">
+                        <input type="hidden" name="duration" value="12">
+                        <input type="hidden" name="price" value="300.0">
+                        <button type="submit" class="primary-btn pricing-btn">Enroll now</button>
+                    </form>
                 </div>
             </div>
             <div class="col-lg-4 col-md-8">
                 <div class="ps-item">
-                    <h3>1 Month vip</h3>
+                    <h3>1 Month Vip</h3>
                     <div class="pi-price">
                         <h2>$ 100.0</h2>
                         <span>SINGLE CLASS</span>
@@ -132,12 +142,17 @@
                         <li>Personal training card</li>
                         <li>No time restriction</li>
                     </ul>
-                    <a href="/GymBuddy/User/paymentForm" class="primary-btn pricing-btn">Enroll now</a>
+                    <form action="/GymBuddy/User/paymentForm" method="post">
+                        <input type="hidden" name="type" value="coached">
+                        <input type="hidden" name="duration" value="1">
+                        <input type="hidden" name="price" value="100.0">
+                        <button type="submit" class="primary-btn pricing-btn">Enroll now</button>
+                    </form>
                 </div>
             </div>
             <div class="col-lg-4 col-md-8">
                 <div class="ps-item">
-                    <h3>12 Month vip</h3>
+                    <h3>12 Month Vip</h3>
                     <div class="pi-price">
                         <h2>$ 1000.0</h2>
                         <span>SINGLE CLASS</span>
@@ -149,7 +164,12 @@
                         <li>Personal training card</li>
                         <li>No time restriction</li>
                     </ul>
-                    <a href="/GymBuddy/User/paymentForm" class="primary-btn pricing-btn">Enroll now</a>
+                    <form action="/GymBuddy/User/paymentForm" method="post">
+                        <input type="hidden" name="type" value="coached">
+                        <input type="hidden" name="duration" value="12">
+                        <input type="hidden" name="price" value="1000.0">
+                        <button type="submit" class="primary-btn pricing-btn">Enroll now</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -196,7 +216,8 @@
                     <div class="fa-logo">
                         <a href="/GymBuddy/Home/homeRU"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
-                    <p>Transform Your Body, Elevate Your Life: Join Our Community of Fitness Enthusiasts and Experience the Best in Modern Equipment, Expert Training, and Personalized Programs.</p>
+                    <p>Transform Your Body, Elevate Your Life: Join Our Community of Fitness Enthusiasts and Experience
+                        the Best in Modern Equipment, Expert Training, and Personalized Programs.</p>
                     <div class="fa-social">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
@@ -243,7 +264,9 @@
             <div class="col-lg-12 text-center">
                 <div class="copyright-text">
                     <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                        All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i>
+                        by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                 </div>
             </div>

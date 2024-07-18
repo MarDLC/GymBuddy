@@ -157,15 +157,21 @@ class FEntityManagerSQL{
      */
     public static function saveObject($foundClass, $obj)
     {
-        try{
+        try {
             $query = "INSERT INTO " . $foundClass::getTable() . " VALUES " . $foundClass::getValue();
             $stmt = self::$db->prepare($query);
             $foundClass::bind($stmt, $obj);
+
+            error_log("Executing query: $query with object: " . var_export($obj, true));
+
             $stmt->execute();
             $id = self::$db->lastInsertId();
+
+            error_log("Object saved successfully with ID: $id");
+
             return $id;
-        }catch(Exception $e){
-            echo "ERROR: " . $e->getMessage();
+        } catch (Exception $e) {
+            error_log("ERROR in saveObject: " . $e->getMessage());
             return null;
         }
     }

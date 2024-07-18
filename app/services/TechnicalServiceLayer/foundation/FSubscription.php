@@ -64,22 +64,22 @@ class FSubscription
     }
 
 
-
-    public static function createSubscriptionObj($queryResult){
-        if(count($queryResult) == 1) {
+    public static function createSubscriptionObj($queryResult)
+    {
+        if (count($queryResult) == 1) {
             $buyer = FRegisteredUser::getObj($queryResult[0]['idUser']);
             $subscription = new ESubscription($buyer, $queryResult[0]['type'], $queryResult[0]['duration'], $queryResult[0]['price']);
             $subscription->setIdSubscription($queryResult[0]['idSubscription']);
             return $subscription;
             // Check if the query result is not empty
-        }elseif (count($queryResult) > 1) {
+        } elseif (count($queryResult) > 1) {
             // Initialize an empty array to hold the subscription objects
             $subscriptions = array();
             // Loop through each item in the query result
             for ($i = 0; $i < count($queryResult); $i++) {
                 $buyer = FRegisteredUser::getObj($queryResult[$i]['idUser']);
                 // Create a new subscription object with the type, duration, and price from the query result
-                $subscription= new ESubscription($buyer, $queryResult[$i]['type'], $queryResult[$i]['duration'], $queryResult[$i]['price']);
+                $subscription = new ESubscription($buyer, $queryResult[$i]['type'], $queryResult[$i]['duration'], $queryResult[$i]['price']);
                 // Set the id of the subscription object
                 $subscription->setIdSubscription($queryResult[$i]['idSubscription']);
                 // Add the subscription object to the array of subscriptions
@@ -101,17 +101,29 @@ class FSubscription
      */
     public static function bind($stmt, $subscription)
     {
-       $stmt->bindValue(":idUser", $subscription->getIdUser()->getId(), PDO::PARAM_INT);
+      $userId = $subscription->getIdUser();
+if ($userId !== null) {
+    $stmt->bindValue(":idUser", $userId, PDO::PARAM_INT);
+    error_log("Binding user ID: $userId");
+} else {
+    // Handle the error, e.g., throw an exception or show an error message
+    $errorMessage = 'User ID is null';
+    error_log($errorMessage);
+    throw new Exception($errorMessage);
+}
+        $type = $subscription->getType();
+        $stmt->bindValue(":type", $type, PDO::PARAM_STR);
+        error_log("Binding type: $type");
 
-        // Bind the type value from the subscription object to the ":type" parameter in the SQL statement
-        $stmt->bindValue(":type", $subscription->getType(), PDO::PARAM_STR);
+        $duration = $subscription->getDuration();
+        $stmt->bindValue(":duration", $duration, PDO::PARAM_INT);
+        error_log("Binding duration: $duration");
 
-        // Bind the duration value from the subscription object to the ":duration" parameter in the SQL statement
-        $stmt->bindValue(":duration", $subscription->getDuration(), PDO::PARAM_INT);
-
-        // Bind the price value from the subscription object to the ":price" parameter in the SQL statement
-        $stmt->bindValue(":price", $subscription->getPrice(), PDO::PARAM_INT);
+        $price = $subscription->getPrice();
+        $stmt->bindValue(":price", $price, PDO::PARAM_INT);
+        error_log("Binding price: $price");
     }
+
 
     /**
      * Retrieve a subscription object from the database.
@@ -189,7 +201,8 @@ class FSubscription
      * @param string $email The email of the subscription to delete.
      * @return bool True if the operation was successful, false otherwise.
      */
-    public static function deleteSubscription($id){
+    public static function deleteSubscription($id)
+    {
         try {
             // Start a new database transaction
             FEntityManagerSQL::getInstance()->getDb()->beginTransaction();

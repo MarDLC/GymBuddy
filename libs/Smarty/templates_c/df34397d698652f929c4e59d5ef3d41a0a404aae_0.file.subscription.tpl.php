@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-18 17:00:37
+/* Smarty version 3.1.33, created on 2024-07-18 21:42:08
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\subscription.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_66992e159b23c4_07966502',
+  'unifunc' => 'content_66997010dae028_96472428',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'df34397d698652f929c4e59d5ef3d41a0a404aae' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\subscription.tpl',
-      1 => 1721314829,
+      1 => 1721331713,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_66992e159b23c4_07966502 (Smarty_Internal_Template $_smarty_tpl) {
+function content_66997010dae028_96472428 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -49,11 +49,12 @@ function content_66992e159b23c4_07966502 (Smarty_Internal_Template $_smarty_tpl)
 
     <?php echo '<script'; ?>
 >
-        function ready(){
+        function ready() {
             if (!navigator.cookieEnabled) {
                 alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
             }
         }
+
         document.addEventListener("DOMContentLoaded", ready);
     <?php echo '</script'; ?>
 >
@@ -91,8 +92,7 @@ function content_66992e159b23c4_07966502 (Smarty_Internal_Template $_smarty_tpl)
                         <a href="#"><i class="fa fa-youtube-play"></i></a>
                         <a href="#"><i class="fa fa-instagram"></i></a>
                     </div>
-                    <!-- Aggiunta del pulsante di logout -->
-                    <a href="/GymBuddy/User/logout" class="btn btn-primary">Logout</a>
+
                 </div>
             </div>
         </div>
@@ -126,7 +126,12 @@ function content_66992e159b23c4_07966502 (Smarty_Internal_Template $_smarty_tpl)
                         <li>Unlimited equipments</li>
                         <li>No time restriction</li>
                     </ul>
-                    <a href="/GymBuddy/User/payment" class="primary-btn pricing-btn">Enroll now</a>
+                    <form action="/GymBuddy/User/paymentForm" method="post">
+                        <input type="hidden" name="type" value="individual">
+                        <input type="hidden" name="duration" value="1">
+                        <input type="hidden" name="price" value="30.0">
+                        <button type="submit" class="primary-btn pricing-btn">Enroll now</button>
+                    </form>
                 </div>
             </div>
             <div class="col-lg-4 col-md-8">
@@ -140,12 +145,17 @@ function content_66992e159b23c4_07966502 (Smarty_Internal_Template $_smarty_tpl)
                         <li>Unlimited equipments</li>
                         <li>No time restriction</li>
                     </ul>
-                    <a href="/GymBuddy/User/payment" class="primary-btn pricing-btn">Enroll now</a>
+                    <form action="/GymBuddy/User/paymentForm" method="post">
+                        <input type="hidden" name="type" value="individual">
+                        <input type="hidden" name="duration" value="12">
+                        <input type="hidden" name="price" value="300.0">
+                        <button type="submit" class="primary-btn pricing-btn">Enroll now</button>
+                    </form>
                 </div>
             </div>
             <div class="col-lg-4 col-md-8">
                 <div class="ps-item">
-                    <h3>1 Month vip</h3>
+                    <h3>1 Month Vip</h3>
                     <div class="pi-price">
                         <h2>$ 100.0</h2>
                         <span>SINGLE CLASS</span>
@@ -157,12 +167,17 @@ function content_66992e159b23c4_07966502 (Smarty_Internal_Template $_smarty_tpl)
                         <li>Personal training card</li>
                         <li>No time restriction</li>
                     </ul>
-                    <a href="/GymBuddy/User/payment" class="primary-btn pricing-btn">Enroll now</a>
+                    <form action="/GymBuddy/User/paymentForm" method="post">
+                        <input type="hidden" name="type" value="coached">
+                        <input type="hidden" name="duration" value="1">
+                        <input type="hidden" name="price" value="100.0">
+                        <button type="submit" class="primary-btn pricing-btn">Enroll now</button>
+                    </form>
                 </div>
             </div>
             <div class="col-lg-4 col-md-8">
                 <div class="ps-item">
-                    <h3>12 Month vip</h3>
+                    <h3>12 Month Vip</h3>
                     <div class="pi-price">
                         <h2>$ 1000.0</h2>
                         <span>SINGLE CLASS</span>
@@ -174,7 +189,12 @@ function content_66992e159b23c4_07966502 (Smarty_Internal_Template $_smarty_tpl)
                         <li>Personal training card</li>
                         <li>No time restriction</li>
                     </ul>
-                    <a href="/GymBuddy/User/payment" class="primary-btn pricing-btn">Enroll now</a>
+                    <form action="/GymBuddy/User/paymentForm" method="post">
+                        <input type="hidden" name="type" value="coached">
+                        <input type="hidden" name="duration" value="12">
+                        <input type="hidden" name="price" value="1000.0">
+                        <button type="submit" class="primary-btn pricing-btn">Enroll now</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -221,7 +241,8 @@ function content_66992e159b23c4_07966502 (Smarty_Internal_Template $_smarty_tpl)
                     <div class="fa-logo">
                         <a href="/GymBuddy/Home/homeRU"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
-                    <p>Transform Your Body, Elevate Your Life: Join Our Community of Fitness Enthusiasts and Experience the Best in Modern Equipment, Expert Training, and Personalized Programs.</p>
+                    <p>Transform Your Body, Elevate Your Life: Join Our Community of Fitness Enthusiasts and Experience
+                        the Best in Modern Equipment, Expert Training, and Personalized Programs.</p>
                     <div class="fa-social">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
@@ -270,7 +291,9 @@ function content_66992e159b23c4_07966502 (Smarty_Internal_Template $_smarty_tpl)
                     <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         Copyright &copy;<?php echo '<script'; ?>
 >document.write(new Date().getFullYear());<?php echo '</script'; ?>
-> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+>
+                        All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i>
+                        by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                 </div>
             </div>

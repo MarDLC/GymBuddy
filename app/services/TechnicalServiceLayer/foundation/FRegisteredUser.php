@@ -142,54 +142,6 @@ class FRegisteredUser{
     }
 
 
-    /*public static function saveObj($obj, $fieldArray = null) {
-        // If fieldArray is null, we are saving a new user
-        if ($fieldArray === null) {
-            try {
-                // Start a new database transaction
-                FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
-                // Save the user object and get the last inserted ID
-                $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FUser::getClass(), $obj);
-                // If the save operation was successful, save the user object with the last inserted ID
-                if ($savePersonAndLastInsertedID !== null) {
-                    $saveRegisteredUser = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $obj); // Pass the object itself
-                    // If the user was saved successfully, commit the transaction and return the last inserted ID
-                    FEntityManagerSQL::getInstance()->getDb()->commit();
-                    if ($saveRegisteredUser) {
-                        return $savePersonAndLastInsertedID;
-                    }
-                } else {
-                    return false;
-                }
-            } catch (PDOException $e) {
-                echo "ERROR " . $e->getMessage();
-                FEntityManagerSQL::getInstance()->getDb()->rollBack();
-                return false;
-            } finally {
-                FEntityManagerSQL::getInstance()->closeConnection();
-            }
-        } else {
-            try {
-                FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
-                // var_dump($fieldArray);
-                foreach ($fieldArray as $fv) {
-                    if ($fv[0] != "username" && $fv[0] != "password") {
-                        FEntityManagerSQL::getInstance()->updateObj(FRegisteredUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
-                    } else {
-                        FEntityManagerSQL::getInstance()->updateObj(FUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
-                    }
-                }
-                FEntityManagerSQL::getInstance()->getDb()->commit();
-                return true;
-            } catch (PDOException $e) {
-                echo "ERROR " . $e->getMessage();
-                FEntityManagerSQL::getInstance()->getDb()->rollBack();
-                return false;
-            } finally {
-                FEntityManagerSQL::getInstance()->closeConnection();
-            }
-        }
-    }*/
 
     public static function saveObj($obj, $fieldArray = null) {
         if ($fieldArray === null) {

@@ -69,35 +69,6 @@ class FPersonalTrainer{
 
     }
 
-    /*
-    public static function createPersonalTrainerObj($queryResult){
-        if(count($queryResult) == 1){
-            // If there is only one result, create a single user object.
-            $personalTrainer = new EPersonalTrainer($queryResult[0]['email'], $queryResult[0]['username'], $queryResult[0]['first_name'], $queryResult[0]['last_name'], $queryResult[0]['password']);
-            $personalTrainer->setId($queryResult[0]['idUser']);
-            if (isset($queryResult[0]['approved'])) {
-                $personalTrainer->setApproved($queryResult[0]['approved']);
-            }
-            return $personalTrainer;
-        } elseif(count($queryResult) > 1){
-            // If there are multiple results, create an array of user objects.
-            $personalTrainers = array();
-            for($i = 0; $i < count($queryResult); $i++){
-                if ($queryResult[$i] !== null) {
-                    $personalTrainer = new EPersonalTrainer($queryResult[$i]['email'], $queryResult[$i]['username'], $queryResult[$i]['first_name'], $queryResult[$i]['last_name'], $queryResult[$i]['password']);
-                    $personalTrainer->setId($queryResult[$i]['idUser']);
-                    if (isset($queryResult[$i]['approved'])) {
-                        $personalTrainer->setApproved($queryResult[$i]['approved']);
-                    }
-                    $personalTrainers[] = $personalTrainer;
-                }
-            }
-            return $personalTrainers;
-        } else{
-            // If there are no results, return an empty array.
-            return array();
-        }
-    }  */
 
 
 public static function createPersonalTrainerObj($queryResult){

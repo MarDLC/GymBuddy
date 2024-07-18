@@ -25,23 +25,23 @@
                     <h2>Enter your credit card information</h2>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form action="/GymBuddy/User/payment" method="post">
                         <div class="form-group">
                             <label for="cardNumber">Credit card number</label>
-                            <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+                            <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
                         </div>
                         <div class="form-group">
-                            <label for="expiryDate">Expiration date (MM/YY)</label>
-                            <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" required>
+                            <label for="expiryDate">Expiration date</label>
+                            <input type="date" class="form-control" id="expiryDate" name="expiryDate" required>
                             <div id="expiryDateError" class="invalid-feedback"></div>
                         </div>
                         <div class="form-group">
                             <label for="cvv">CVV</label>
-                            <input type="text" class="form-control" id="cvv" placeholder="123" required>
+                            <input type="text" class="form-control" id="cvv" name="cvv" placeholder="123" required>
                         </div>
                         <div class="form-group">
                             <label for="cardHolderName">Name</label>
-                            <input type="text" class="form-control" id="cardHolderName" placeholder="Name and Surname" required>
+                            <input type="text" class="form-control" id="cardHolderName" name="accountHolder" placeholder="Name and Surname" required>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Pay</button>
                     </form>

@@ -88,6 +88,15 @@ class FPersistentManager
     return $result;
 }
 
+public static function retrieveUserById($userId)
+{
+    // Try to retrieve a RegisteredUser by their ID
+    $result = FRegisteredUser::getObj($userId);
+
+    // Return the found user or null if no user was found
+    return $result;
+}
+
 
     /*
     public static function retriveUserOnUsername($username) {
