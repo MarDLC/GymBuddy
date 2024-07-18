@@ -35,6 +35,8 @@ class CAdmin{
         return true;
     }
 
+
+/*
     public static function checkLogin(){
         $view = new VAdmin();
         $email = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));
@@ -44,21 +46,53 @@ class CAdmin{
                 if(USession::getSessionStatus() == PHP_SESSION_NONE){
                     USession::getInstance();
                     USession::setSessionElement('admin', $user->getId());  // Aggiunta logica per ottenere l'ID
-                    /*
-                     // Controlla se l'utente è un Personal Trainer approvato
-                     if ($user instanceof EPersonalTrainer && $user->getApproved() == 1) {
-                         header('Location: /GymBuddy/PersonalTrainer/Home');
-                     } else {*/
+
                     header('Location: /GymBuddy/Admin/homeAD');
                 }
-                //}
-            }else{
+            } else {
                 $view->loginError();
             }
-        }else{
+        } else {
+            $view->loginError();
+        }
+    } */
+
+    public static function checkLogin(){
+        $view = new VAdmin();
+        $email = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));
+        if($email){
+
+            $user = FPersistentManager::getInstance()->retriveUserOnUsername(UHTTPMethods::post('username'));
+
+            // Log per vedere quale utente viene restituito
+            error_log('CAdmin::checkLogin - User retrieved: ' . print_r($user, true));
+
+            if($user && password_verify(UHTTPMethods::post('password'), $user->getPassword())){
+                if(USession::getSessionStatus() == PHP_SESSION_NONE){
+                    USession::getInstance();
+                    USession::setSessionElement('admin', $user->getId());  // Aggiunta logica per ottenere l'ID
+
+                    // Controlla se l'utente è un Personal Trainer
+                    if ($user instanceof EPersonalTrainer) {
+                        header('Location: /GymBuddy/PersonalTrainer/homePT');
+                    } elseif ($user instanceof EAdmin) {
+                        // Logica per l'admin
+                        header('Location: /GymBuddy/Admin/homeAD');
+                    } else {
+                        // Logica per l'utente registrato
+                        header('Location: /GymBuddy/User/homeRU');
+                    }
+                }
+            } else {
+                error_log('CAdmin::checkLogin - Password verification failed for user: ' . UHTTPMethods::post('username'));
+                $view->loginError();
+            }
+        } else {
+            error_log('CAdmin::checkLogin - Email verification failed for username: ' . UHTTPMethods::post('username'));
             $view->loginError();
         }
     }
+
 
     public static function logout(){
         USession::getInstance();
@@ -67,16 +101,9 @@ class CAdmin{
         header('Location: /GymBuddy/Admin/Login');
     }
 
-    public static function settings(){
-        if(CAdmin::isLogged()){
-            $view = new VAdmin();
 
-            $userId = USession::getInstance()->getSessionElement('user');
-            $user = FPersistentManager::getInstance()->loadUsers($userId);
-            $view->settings($user);
-        }
-    }
 
+    /*
 
 
     public static function redirectUser() {
@@ -87,11 +114,11 @@ class CAdmin{
         if ($user instanceof ERegisteredUser) {
             header('Location: /GymBuddy/User/HomeRU');
         } elseif ($user instanceof EPersonalTrainer) {
-            header('Location: /GymBuddy/PersonalTrainer/Home');
+            header('Location: /GymBuddy/PersonalTrainer/HomePT');
         } elseif ($user instanceof EAdmin) {
             header('Location: /GymBuddy/Admin/HomeAD');
         }
-    }
+    } */
 
     public static function homeAD(){
         if (CAdmin::isLogged()) {
@@ -104,67 +131,8 @@ class CAdmin{
         }
     }
 
-    public static function requests(){
-        $view = new VAdmin();
-        $view->showRequests();
-    }
 
 
-
-
-
-    public static function approveTrainer($trainerId){
-        // Retrieve the trainer object from the database
-        $trainer = FPersistentManager::getInstance()->retriveObj('EPersonalTrainer', $trainerId);
-
-        // Check if the trainer exists
-        if($trainer){
-            // Set the trainer's approval status to true
-            $trainer->setApproved(true);
-
-            // Update the trainer in the database
-            $result = FPersistentManager::getInstance()->updateUserApproval($trainer);
-
-            // Check if the update was successful
-            if($result){
-                // The trainer was successfully approved
-                return true;
-            }else{
-                // There was an error approving the trainer
-                return false;
-            }
-        }else{
-            // The trainer does not exist
-            return false;
-        }
-    }
-
-
-public static function rejectTrainer($trainerId){
-        // Retrieve the trainer object from the database
-        $trainer = FPersistentManager::getInstance()->retriveObj('EPersonalTrainer', $trainerId);
-
-        // Check if the trainer exists
-        if($trainer){
-            // Set the trainer's approval status to false
-            $trainer->setApproved(false);
-
-            // Update the trainer in the database
-            $result = FPersistentManager::getInstance()->updateUserApproval($trainer);
-
-            // Check if the update was successful
-            if($result){
-                // The trainer was successfully rejected
-                return true;
-            }else{
-                // There was an error rejecting the trainer
-                return false;
-            }
-        }else{
-            // The trainer does not exist
-            return false;
-        }
-    }
 
     public static function postNews($title, $description) {
     // Create a new news item
@@ -196,17 +164,6 @@ public static function rejectTrainer($trainerId){
             // If not successful, redirect the admin to an error page
             header('Location: /GymBuddy/Admin/NewsDeletionError');
         }
-    }
-
-
-    //TODO implementare la funzione per visualizzare le richieste di personal trainer
-    public static function viewTrainerRequests() {
-        // Recupera tutti i personal trainer con 'approved' impostato a 0
-        $trainers = FPersistentManager::getInstance()->retrieveUnapprovedTrainers();
-
-        // Passa i personal trainer alla vista
-        $view = new VAdmin();
-        $view->showTrainerRequests($trainers);
     }
 
 

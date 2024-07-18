@@ -15,9 +15,8 @@ class VPersonalTrainer{
     /**
      * @throws SmartyException
      */
-    public function showHome($trainerData) {
-        $this->smarty->assign('trainer', $trainerData);
-        $this->smarty->display('home_trainer.tpl');
+    public function showHomePT() {
+        $this->smarty->display('homePT.tpl');
     }
 
 
@@ -59,21 +58,7 @@ class VPersonalTrainer{
         $this->smarty->display('login.tpl');
     }
 
-    public function settings($user) {
-        $this->smarty->assign('errorImg', false);
-        $this->smarty->assign('error', false);
-        $this->smarty->assign('user', $user[0][0]);
-        $this->smarty->assign('userPic', $user[0][1]);
-        $this->smarty->display('setting.tpl');
-    }
 
-    public function usernameError($user, $error) {
-        $this->smarty->assign('errorImg', false);
-        $this->smarty->assign('error', $error);
-        $this->smarty->assign('user', $user[0][0]);
-        $this->smarty->assign('userPic', $user[0][1]);
-        $this->smarty->display('setting.tpl');
-    }
 
     public function uploadFileError($error){
         $this->smarty->assign('errore', $error);

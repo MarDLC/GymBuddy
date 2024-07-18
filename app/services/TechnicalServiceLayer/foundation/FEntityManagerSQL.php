@@ -362,6 +362,26 @@ class FEntityManagerSQL{
         }
     }
 
+    public function retrieveDataWithJoinCondition($table1, $conditionField, $conditionValue, $table2, $joinField) {
+        // Preparare la query SQL
+        $sql = "SELECT * FROM $table1 JOIN $table2 ON $table1.$joinField = $table2.$joinField WHERE $table1.$conditionField = :conditionValue";
+
+        // Preparare lo statement
+        $stmt = $this->getDb()->prepare($sql);
+
+        // Bind del valore della condizione
+        $stmt->bindValue(':conditionValue', $conditionValue);
+
+        // Eseguire la query
+        $stmt->execute();
+
+        // Restituire i risultati come un array associativo
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+
+
     public static function countReservations($table, $date, $time) {
         try {
             $query = "SELECT COUNT(*) as count FROM " . $table . " WHERE date = :date AND time = :time";

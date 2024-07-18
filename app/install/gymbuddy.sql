@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Lug 15, 2024 alle 16:09
+-- Creato il: Lug 18, 2024 alle 00:26
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -30,6 +30,13 @@ SET time_zone = "+00:00";
 CREATE TABLE `admin` (
   `idUser` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dump dei dati per la tabella `admin`
+--
+
+INSERT INTO `admin` (`idUser`) VALUES
+(2);
 
 -- --------------------------------------------------------
 
@@ -68,9 +75,15 @@ CREATE TABLE `news` (
 --
 
 CREATE TABLE `personaltrainer` (
-  `idUser` int(11) NOT NULL,
-  `approved` tinyint(1) NOT NULL DEFAULT 0
+  `idUser` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dump dei dati per la tabella `personaltrainer`
+--
+
+INSERT INTO `personaltrainer` (`idUser`) VALUES
+(1);
 
 -- --------------------------------------------------------
 
@@ -165,9 +178,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`idUser`, `email`, `username`, `first_name`, `last_name`, `password`, `role`) VALUES
-(7, 'mario@gmail.com', 'mariox', 'mario', 'rossi', '$2y$10$ojYoKKwtlBnGqAn6mVS2cuOu7Nr1Cp8bXKH63cYPSXsmaJw7zOEVC', 'registeredUser'),
-(8, 'mario1@gmail.com', 'mario1', 'mario', 'rossi', '$2y$10$3NahKGxGE5gJ7fkKYdfvyuQp4NbNq/PoqgAN3BLUbMTIoU/wbC8Qq', 'registeredUser'),
-(9, 'luigi@gmail.com', 'luigi1', 'luigi', 'neri', '$2y$10$MI7WZ.5gjGHLaHBkJLFSwup3GC5JehMD5OTDFlyAE9FbZS2LLYI.y', 'registeredUser');
+(1, 'personalTrainer@gmail.com', 'personalTrainer', 'mario', 'del corvo', '$2y$10$ZHf4L2qFLZOfjW8I1s4GFuBWeuamZYBAgPYkEh9s9Jc7idEFalVZK', 'personalTrainer'),
+(2, 'admin@gmail.com', 'admin', 'admin', 'user', '$2y$10$OXjV3zrKMzR6LxD1MOMXQ.SPG8zyBiL9Fg1ilj18jngohNXHbfL5i', 'admin');
 
 --
 -- Indici per le tabelle scaricate
@@ -266,7 +278,7 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT per la tabella `personaltrainer`
 --
 ALTER TABLE `personaltrainer`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT per la tabella `physicaldata`
@@ -278,7 +290,7 @@ ALTER TABLE `physicaldata`
 -- AUTO_INCREMENT per la tabella `registereduser`
 --
 ALTER TABLE `registereduser`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `reservation`
@@ -302,7 +314,7 @@ ALTER TABLE `trainingcard`
 -- AUTO_INCREMENT per la tabella `user`
 --
 ALTER TABLE `user`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Limiti per le tabelle scaricate

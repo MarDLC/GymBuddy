@@ -11,9 +11,10 @@ class VAdmin
 
     }
 
-    public function showLoginForm()
-    {
+    public function showLoginForm() {
         $this->smarty->assign('error', false);
+        $this->smarty->assign('ban', false);
+        $this->smarty->assign('regErr', false);
         $this->smarty->display('login.tpl');
     }
 
@@ -27,14 +28,6 @@ class VAdmin
         $this->smarty->display('homeAD.tpl');
     }
 
-    public function showRequests() {
-        $this->smarty->assign('meta_description', 'Gym Template');
-        $this->smarty->assign('meta_keywords', 'Gym, unica, creative, html');
-        $this->smarty->assign('title', 'Richieste Personal Trainer');
-        $this->smarty->assign('section_title', 'Required approvals');
-        $this->smarty->assign('options', ['Opzione 1', 'Opzione 2', 'Opzione 3']);
-        $this->smarty->display('approvaiscrizioni.tpl');
-    }
 
 
 }

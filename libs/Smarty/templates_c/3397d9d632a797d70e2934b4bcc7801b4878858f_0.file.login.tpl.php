@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-16 22:23:40
+/* Smarty version 3.1.33, created on 2024-07-18 11:56:31
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6696d6cc5c5eb6_10784074',
+  'unifunc' => 'content_6698e6cf027137_67501823',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3397d9d632a797d70e2934b4bcc7801b4878858f' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\login.tpl',
-      1 => 1721161414,
+      1 => 1721296587,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6696d6cc5c5eb6_10784074 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6698e6cf027137_67501823 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -111,14 +111,6 @@ function content_6696d6cc5c5eb6_10784074 (Smarty_Internal_Template $_smarty_tpl)
                         </div>
 
                         <p id="passwordMatchError" class="error-text" style="display: none;">Password must be at least 8 characters long, containing at least 1 number, 1 uppercase letter, and 1 special character.</p>
-                        <div class="form-group d-md-flex">
-                            <div class="w-50">
-                                <label class="checkbox-wrap checkbox-primary">Are you a trainer?
-                                    <input type="checkbox" checked>
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div>
 
                         <div class="form-group">
                             <button type="submit" class="form-control btn btn-primary submit px-3">Register</button>
@@ -164,19 +156,21 @@ function content_6696d6cc5c5eb6_10784074 (Smarty_Internal_Template $_smarty_tpl)
         });
     });
 
-    function setLoginFormAction() {
-        var username = document.getElementsByName('username')[0].value;
-        var form = document.getElementById('login');
-        var action = '/GymBuddy/User/checkLogin'; // Default action for registeredUser
+  function setLoginFormAction() {
+    var username = document.getElementsByName('username')[0].value;
+    var form = document.getElementById('login');
+    var action = '/GymBuddy/User/checkLogin'; // Default action for registeredUser
 
-        // Check the role based on the username entered
-        if (username.toLowerCase() === 'admin') {
-            action = '/GymBuddy/Admin/checkLogin';
-        }
+    // Check the role based on the username entered
+      if (username === 'admin') {
+          action = '/GymBuddy/Admin/checkLogin';
+      } else if (username === 'personalTrainer') {
+          action = '/GymBuddy/PersonalTrainer/checkLogin';
+      }
 
-        // Set the action attribute of the form
-        form.action = action;
-    }
+    // Set the action attribute of the form
+    form.action = action;
+}
 <?php echo '</script'; ?>
 >
 

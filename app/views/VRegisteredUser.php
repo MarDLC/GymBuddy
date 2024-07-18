@@ -14,12 +14,13 @@ class VRegisteredUser {
     /**
      * @throws SmartyException
      */
-    public function showLoginForm() {
+    public function showLoginForm($message = null, $isTrainer = false) {
+        $this->smarty->assign('message', $message);
+        $this->smarty->assign('isTrainer', $isTrainer);
         $this->smarty->assign('error', false);
         $this->smarty->assign('regErr', false);
         $this->smarty->display('login.tpl');
     }
-
     /**
      * @throws SmartyException
      */
@@ -72,6 +73,8 @@ class VRegisteredUser {
         $this->smarty->assign('physicalData', $physicalData);
         $this->smarty->display('physical_data_user.tpl');
     }
+
+
 
 
 

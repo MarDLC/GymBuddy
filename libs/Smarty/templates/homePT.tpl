@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="{$meta_description}">
-    <meta name="keywords" content="{$meta_keywords}">
+    <meta name="description" content="Gym Template">
+    <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{$title}</title>
+    <title>HomePT</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
@@ -23,41 +23,44 @@
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
-
     <script>
-        function ready() {
+        function ready(){
             if (!navigator.cookieEnabled) {
                 alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
             }
         }
-
         document.addEventListener("DOMContentLoaded", ready);
     </script>
-
-    <style>
-        #requests-table tbody tr.selected {
-            background-color: #d3d3d3;
-        }
-
-        .selected {
-            background-color: #f1f1f1;
-        }
-
-    </style>
-    <style>
-        #requests-table tbody tr td {
-            color: white;
-        }
-
-    </style>
-    <style>
-        #requests-table thead tr th {
-            color: white;
-        }
-    </style>
 </head>
 
 <body>
+
+<!-- Offcanvas Menu Section Begin -->
+<div class="offcanvas-menu-overlay"></div>
+<div class="offcanvas-menu-wrapper">
+    <div class="canvas-close">
+        <i class="fa fa-close"></i>
+    </div>
+    <div class="canvas-search search-switch">
+        <i class="fa fa-search"></i>
+    </div>
+    <nav class="canvas-menu mobile-menu">
+        <ul>
+            <li><a href="/GymBuddy/PersonalTrainer/homePT">Home</a></li>
+            <li><a href="/GymBuddy/PersonalTrainer/clientsList">Clients</a></li>
+            <li><a href="/GymBuddy/PersonalTrainer/ReservationList">Reservation</a></li>
+            <li><a href="/GymBuddy/PersonalTrainer/news">News</a></li>
+        </ul>
+    </nav>
+    <div id="mobile-menu-wrap"></div>
+    <div class="canvas-social">
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-youtube-play"></i></a>
+        <a href="#"><i class="fa fa-instagram"></i></a>
+    </div>
+</div>
+<!-- Offcanvas Menu Section End -->
 
 <!-- Header Section Begin -->
 <header class="header-section">
@@ -65,7 +68,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="/GymBuddy/Admin/homeAD">
+                    <a href="/GymBuddy/PersonalTrainer/homePT">
                         <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
@@ -73,12 +76,21 @@
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li><a href="/GymBuddy/Admin/homeAD">Home</a></li>
+                        <li class="active"><a href="/GymBuddy/PersonalTrainer/homePT">Home</a></li>
+                        <li><a href="/GymBuddy/PersonalTrainer/clientsList">Clients</a></li>
+                        <li><a href="/GymBuddy/PersonalTrainer/ReservationList">Reservation</a></li>
+                        <li><a href="/GymBuddy/PersonalTrainer/news">News</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="col-lg-3">
                 <div class="top-option">
+                    <div class="to-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-youtube-play"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                    </div>
                     <!-- Aggiunta del pulsante di logout -->
                     <a href="/GymBuddy/User/logout" class="btn btn-primary">Logout</a>
                 </div>
@@ -91,60 +103,21 @@
 </header>
 <!-- Header End -->
 
-<!-- Info Section Begin -->
-<section class="pricing-section service-pricing spad">
+<!-- Hero Section Begin -->
+<section class="hero-section" style="background-image: url('/GymBuddy/libs/Smarty/img/hero/hero-1.png'); background-size: cover; background-position: center center; height: 100vh; display: flex; align-items: flex-end; justify-content: flex-end;">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title">
-                    <h2>{$section_title}</h2>
+            <div class="col-lg-6 offset-lg-6">
+                <div class="hi-text" style="margin-bottom: 250px; margin-left: 50px;">
+                    <span style="color: white; text-transform: uppercase;">Shape your body</span>
+                    <h1 style="color: white; text-transform: uppercase;">Be <strong style="color: #f36100; text-transform: uppercase;">strong</strong> training hard</h1>
                 </div>
-                <table id="requests-table" class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Email</th>
-                        <th>Username</th>
-                        <th>Nome</th>
-                        <th>Cognome</th>
-                        <th>Azioni</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {if $requests|@count > 0}
-                        {foreach from=$requests item=request}
-                            <tr id="request-{$request->getId()}">
-                                <td>{$request->getId()}</td>
-                                <td>{$request->getEmail()}</td>
-                                <td>{$request->getUsername()}</td>
-                                <td>{$request->getFirstName()}</td>
-                                <td>{$request->getLastName()}</td>
-                                <td>
-                                    <form method="post" action="/GymBuddy/Admin/handleTrainerRequest">
-                                        <input type="hidden" name="trainerId" value="{$request->getId()}">
-                                        <button type="button" id="approve-{$request->getId()}"
-                                                class="btn btn-success approve-button">Approva
-                                        </button>
-                                        <button type="button" id="deny-{$request->getId()}"
-                                                class="btn btn-danger deny-button">Rifiuta
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        {/foreach}
-                    {else}
-                        <tr>
-                            <td colspan="6" class="text-center">Non ci sono richieste di personal trainer in sospeso.
-                            </td>
-                        </tr>
-                    {/if}
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
 </section>
-<!-- Info Section End -->
+<!-- Hero Section End -->
+
 
 <!-- Get In Touch Section Begin -->
 <div class="gettouch-section">
@@ -234,9 +207,7 @@
             <div class="col-lg-12 text-center">
                 <div class="copyright-text">
                     <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                        All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i>
-                        by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                 </div>
             </div>
@@ -256,7 +227,6 @@
 </div>
 <!-- Search model end -->
 
-
 <!-- Js Plugins -->
 <script src="/GymBuddy/libs/Smarty/js/jquery-3.3.1.min.js"></script>
 <script src="/GymBuddy/libs/Smarty/js/bootstrap.min.js"></script>
@@ -266,25 +236,6 @@
 <script src="/GymBuddy/libs/Smarty/js/jquery.slicknav.js"></script>
 <script src="/GymBuddy/libs/Smarty/js/owl.carousel.min.js"></script>
 <script src="/GymBuddy/libs/Smarty/js/main.js"></script>
-<script>
-    $(document).ready(function() {
-        // Gestore di eventi per il pulsante "Approva"
-        $('.approve-button').click(function() {
-            var trainerId = this.id.split('-')[1];
-            $.post('/GymBuddy/Admin/handleTrainerRequest', { trainerId: trainerId, action: 'approve' }, function(data) {
-                $('#request-' + trainerId).remove();
-            });
-        });
-
-        // Gestore di eventi per il pulsante "Rifiuta"
-        $('.deny-button').click(function() {
-            var trainerId = this.id.split('-')[1];
-            $.post('/GymBuddy/Admin/handleTrainerRequest', { trainerId: trainerId, action: 'deny' }, function(data) {
-                $('#request-' + trainerId).remove();
-            });
-        });
-    });
-</script>
 
 </body>
 

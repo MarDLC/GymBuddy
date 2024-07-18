@@ -6,25 +6,30 @@
 class CPersonalTrainer
 {
 
-    public static function login(){
-        if (UCookie::isSet('PHPSESSID')) {
-            if (session_status() == PHP_SESSION_NONE) {
-                USession::getInstance();
-            }
+public static function login(){
+    if (UCookie::isSet('PHPSESSID')) {
+        if (session_status() == PHP_SESSION_NONE) {
+            USession::getInstance();
         }
-        if (USession::isSetSessionElement('user')) {
-            header('Location: /GymBuddy/PersonalTrainer/Home');
-        }
-        $view = new VPersonalTrainer();
-        $view->showLoginForm();
     }
+    if (USession::isSetSessionElement('personalTrainer')) {
+        header('Location: /GymBuddy/PersonalTrainer/Home');
+    }
+    $view = new VPersonalTrainer();
+
+    // Prima di mostrare il form di login, assicurati che 'regErr' sia sempre impostato
+    if (!isset($view->regErr)) {
+        $view->regErr = false;
+    }
+
+    $view->showLoginForm();
+}
 
     public static function registration()
     {
         $view = new VPersonalTrainer();
         if (FPersistentManager::getInstance()->verifyUserEmail(UHTTPMethods::post('email')) == false && FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username')) == false) {
             $user = new EPersonalTrainer(UHTTPMethods::post('first_name'), UHTTPMethods::post('last_name'), UHTTPMethods::post('email'), UHTTPMethods::post('password'), UHTTPMethods::post('username'));
-            $user->setApproved(false); // Set the approval status to false
             FPersistentManager::getInstance()->uploadObj($user);
 
             $view->showLoginForm();
@@ -42,7 +47,7 @@ class CPersonalTrainer
                 USession::getInstance();
             }
         }
-        if (USession::isSetSessionElement('user')) {
+        if (USession::isSetSessionElement('personalTrainer')) {
             $logged = true;
         }
         if (!$logged) {
@@ -52,26 +57,103 @@ class CPersonalTrainer
         return true;
     }
 
-    public static function checkLogin()
-    {
-        $view = new VPersonalTrainer();
-        $username = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));
-        if ($username) {
-            $user = FPersistentManager::getInstance()->retriveUserOnUsername(UHTTPMethods::post('username'));
-            if (password_verify(UHTTPMethods::post('password'), $user->getPassword())) {
-                if (USession::getSessionStatus() == PHP_SESSION_NONE) {
-                    USession::getInstance();
-                    // Salva l'intero oggetto utente nella sessione
-                    USession::setSessionElement('user', $user);
-                    header('Location: /GymBuddy/PersonalTrainer/Home');
+
+
+/*
+  public static function checkLogin(){
+    $view = new VPersonalTrainer();
+    $email = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));
+    if($email){
+        $user = FPersistentManager::getInstance()->retrivePersonalTrainerOnUsername(UHTTPMethods::post('username'));
+
+        // Log per debug
+        error_log('CPersonalTrainer::checkLogin - User retrieved: ' . print_r($user, true));
+
+        if($user && password_verify(UHTTPMethods::post('password'), $user->getPassword())){
+            if(USession::getSessionStatus() == PHP_SESSION_NONE){
+                USession::getInstance();
+                USession::setSessionElement('personalTrainer', $user->getId());  // Aggiunta logica per ottenere l'ID
+
+                // Controlla se l'utente è un Personal Trainer
+                if ($user instanceof EPersonalTrainer) {
+                    header('Location: /GymBuddy/PersonalTrainer/homePT');
+                } else {
+                    header('Location: /GymBuddy/PersonalTrainer/Login');
                 }
-            } else {
-                $view->loginError();
             }
+        }else{
+            error_log('CPersonalTrainer::checkLogin - Password verification failed for user: ' . UHTTPMethods::post('username'));
+            $view->loginError();
+        }
+    }else{
+        error_log('CPersonalTrainer::checkLogin - Email verification failed for username: ' . UHTTPMethods::post('username'));
+        $view->loginError();
+    }
+} */
+
+/*
+  public static function checkLogin(){
+    $view = new VPersonalTrainer();
+    $email = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));
+    if($email){
+        $user = FPersistentManager::getInstance()->retrivePersonalTrainerOnUsername(UHTTPMethods::post('username'));
+        if(password_verify(UHTTPMethods::post('password'), $user->getPassword())){
+            // Avvia la sessione se non è già stata avviata
+            if(session_status() == PHP_SESSION_NONE){
+                session_start();
+            }
+            // Imposta l'ID del PersonalTrainer nella sessione
+            $_SESSION['personalTrainer'] = $user->getId();
+
+            // Reindirizza alla home page del PersonalTrainer
+            header('Location: /GymBuddy/PersonalTrainer/homePT');
+            exit();  // Aggiungi un'istruzione di uscita dopo il reindirizzamento per interrompere l'esecuzione dello script
         } else {
             $view->loginError();
         }
+    } else {
+        $view->loginError();
     }
+} */
+
+
+    public static function checkLogin(){
+        $view = new VPersonalTrainer();
+        $email = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));
+        if($email){
+
+            $user = FPersistentManager::getInstance()->retriveUserOnUsername(UHTTPMethods::post('username'));
+
+            // Log per vedere quale utente viene restituito
+            error_log('CPersonalTrainer::checkLogin - User retrieved: ' . print_r($user, true));
+
+            if($user && password_verify(UHTTPMethods::post('password'), $user->getPassword())){
+                if(USession::getSessionStatus() == PHP_SESSION_NONE){
+                    USession::getInstance();
+                    USession::setSessionElement('personalTrainer', $user->getId());  // Aggiunta logica per ottenere l'ID
+
+                    // Controlla se l'utente è un Personal Trainer
+                    if ($user instanceof EPersonalTrainer) {
+                        header('Location: /GymBuddy/PersonalTrainer/homePT');
+                    } elseif ($user instanceof EAdmin) {
+                        // Logica per l'admin
+                        header('Location: /GymBuddy/Admin/homeAD');
+                    } else {
+                        // Logica per l'utente registrato
+                        header('Location: /GymBuddy/User/homeRU');
+                    }
+                }
+            } else {
+                error_log('CPersonalTrainer::checkLogin - Password verification failed for user: ' . UHTTPMethods::post('username'));
+                $view->loginError();
+            }
+        } else {
+            error_log('CPersonalTrainer::checkLogin - Email verification failed for username: ' . UHTTPMethods::post('username'));
+            $view->loginError();
+        }
+    }
+
+
 
     public static function logout()
     {
@@ -81,64 +163,26 @@ class CPersonalTrainer
         header('Location: /GymBuddy/PersonalTrainer/login');
     }
 
-    public static function settings(){
-        if(CPersonalTrainer::isLogged()){
-            $view = new VPersonalTrainer();
-
-            $userId = USession::getInstance()->getSessionElement('user');
-            $user = FPersistentManager::getInstance()->loadUsers($userId);
-            $view->settings($user);
-        }
-    }
 
 
-    public static function setUsername(){
-        if(CPersonalTrainer::isLogged()){
-            $userId = USession::getInstance()->getSessionElement('user');
-            $user = FPersistentManager::getInstance()->retriveObj(EPersonalTrainer::getEntity(), $userId);
 
-            if($user->getUsername() == UHTTPMethods::post('username')){
-                header('Location: /GymBuddy/User/PersonalTrainerProfile');
-            }else{
-                if(FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username')) == false)
-                {
-                    $user->setUsername(UHTTPMethods::post('username'));
-                    FPersistentManager::getInstance()->updateUserUsername($user);
-                    header('Location: /GymBuddy/User/PersonalTrainerProfile');
-                }else{
-                    $view = new VPersonalTrainer();
-                    $user = FPersistentManager::getInstance()->loadUsers($userId);
-                    $view->usernameError($user , true);
-                }
-            }
-        }
-    }
 
-    public static function setPassword(){
-        if(CPersonalTrainer::isLogged()){
-            $userId = USession::getInstance()->getSessionElement('user');
-            $user = FPersistentManager::getInstance()->retriveObj(ERegisteredUser::getEntity(), $userId);$newPass = UHTTPMethods::post('password');
-            $user->setPassword($newPass);
-            FPersistentManager::getInstance()->updateUserPassword($user);
 
-            header('Location: /GymBuddy/User/PersonalTrainerProfile');
-        }
-    }
-
+    /*
     public static function redirectUser()
     {
         // Ottieni l'utente corrente
-        $user = USession::getInstance()->getSessionElement('user');
+        $user = USession::getInstance()->getSessionElement('personalTrainer');
 
         // Controlla il tipo di utente e reindirizza alla corretta home page
         if ($user instanceof ERegisteredUser) {
-            header('Location: /GymBuddy/User/Home');
+            header('Location: /GymBuddy/User/HomeRU');
         } elseif ($user instanceof EPersonalTrainer) {
-            header('Location: /GymBuddy/PersonalTrainer/Home');
+            header('Location: /GymBuddy/PersonalTrainer/HomePT');
         } elseif ($user instanceof EAdmin) {
-            header('Location: /GymBuddy/Admin/Home');
+            header('Location: /GymBuddy/Admin/HomeAD');
         }
-    }
+    } */
 
 
     public static function showFollowedUsers()
@@ -205,6 +249,17 @@ class CPersonalTrainer
         } else {
             // If the user is not logged in, display an error message
             VPersonalTrainer::displayErrorMessage("User not logged in.");
+        }
+    }
+
+    public static function homePT(){
+        if (CPersonalTrainer::isLogged()) {
+            $view = new VPersonalTrainer();
+            $view->showHomePT();
+        } else {
+            // Se l'utente non è loggato, reindirizza alla pagina di login
+            header('Location: /GymBuddy/login');
+            exit();
         }
     }
 

@@ -86,14 +86,6 @@
                         </div>
 
                         <p id="passwordMatchError" class="error-text" style="display: none;">Password must be at least 8 characters long, containing at least 1 number, 1 uppercase letter, and 1 special character.</p>
-                        <div class="form-group d-md-flex">
-                            <div class="w-50">
-                                <label class="checkbox-wrap checkbox-primary">Are you a trainer?
-                                    <input type="checkbox" checked>
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div>
 
                         <div class="form-group">
                             <button type="submit" class="form-control btn btn-primary submit px-3">Register</button>
@@ -128,19 +120,21 @@
         });
     });
 
-    function setLoginFormAction() {
-        var username = document.getElementsByName('username')[0].value;
-        var form = document.getElementById('login');
-        var action = '/GymBuddy/User/checkLogin'; // Default action for registeredUser
+  function setLoginFormAction() {
+    var username = document.getElementsByName('username')[0].value;
+    var form = document.getElementById('login');
+    var action = '/GymBuddy/User/checkLogin'; // Default action for registeredUser
 
-        // Check the role based on the username entered
-        if (username.toLowerCase() === 'admin') {
-            action = '/GymBuddy/Admin/checkLogin';
-        }
+    // Check the role based on the username entered
+      if (username === 'admin') {
+          action = '/GymBuddy/Admin/checkLogin';
+      } else if (username === 'personalTrainer') {
+          action = '/GymBuddy/PersonalTrainer/checkLogin';
+      }
 
-        // Set the action attribute of the form
-        form.action = action;
-    }
+    // Set the action attribute of the form
+    form.action = action;
+}
 </script>
 
 </body>

@@ -66,11 +66,13 @@ class FRegisteredUser{
      * @param array $queryResult The query result to create the RegisteredUser object from.
      * @return EUser|array|null The created RegisteredUser object, or an array of RegisteredUser objects, or null if no RegisteredUser object could be created.
      */
-    public static function createRegisteredUserObj($queryResult){
-        // If the query result contains only one record
-        if(count($queryResult) == 1){
-            $attributes = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), "idUser", $queryResult[0]['idUser']);
+  public static function createRegisteredUserObj($queryResult){
+    // If the query result contains only one record
+    if(count($queryResult) == 1){
+        $attributes = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), "idUser", $queryResult[0]['idUser']);
 
+        // Check if $attributes is not empty
+        if (!empty($attributes)) {
             // Create a new RegisteredUser object from the query result
             $registeredUser = new ERegisteredUser($queryResult[0]['email'], $queryResult[0]['username'], $queryResult[0]['first_name'], $queryResult[0]['last_name'], $queryResult[0]['password']);
             $registeredUser->setId($queryResult[0]['idUser']);
@@ -78,14 +80,16 @@ class FRegisteredUser{
             $registeredUser->setType($attributes[0]['type']);
             // Return the created RegisteredUser object
             return $registeredUser;
-            // If the query result contains more than one record
-        } elseif(count($queryResult) > 1){
-            // Initialize an array to hold the RegisteredUser objects
-            $registeredUsers = array();
-            // Loop through each record in the query result
-            for($i = 0; $i < count($queryResult); $i++){
-                $attributes = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), "idUser", $queryResult[$i]['idUser']);
+        }
+    } elseif(count($queryResult) > 1){
+        // Initialize an array to hold the RegisteredUser objects
+        $registeredUsers = array();
+        // Loop through each record in the query result
+        for($i = 0; $i < count($queryResult); $i++){
+            $attributes = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), "idUser", $queryResult[$i]['idUser']);
 
+            // Check if $attributes is not empty
+            if (!empty($attributes)) {
                 // Create a new RegisteredUser object from the current record
                 $registeredUser = new ERegisteredUser($queryResult[$i]['email'], $queryResult[$i]['username'], $queryResult[$i]['first_name'], $queryResult[$i]['last_name'], $queryResult[$i]['password']);
                 $registeredUser->setId($queryResult[$i]['idUser']);
@@ -94,14 +98,14 @@ class FRegisteredUser{
                 // Add the RegisteredUser object to the array
                 $registeredUsers[] = $registeredUser;
             }
-            // Return the array of RegisteredUser objects
-            return $registeredUsers;
-            // If the query result is empty
-        } else{
-            // Return an empty array
-            return array();
         }
+        // Return the array of RegisteredUser objects
+        return $registeredUsers;
+    } else{
+        // Return an empty array
+        return array();
     }
+}
 
 
     /**

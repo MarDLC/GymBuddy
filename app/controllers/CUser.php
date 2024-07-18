@@ -19,31 +19,18 @@ class CUser{
     }
 
     public static function registration()
-    {
-        error_log('first_name: ' . (isset($_POST['first_name']) ? $_POST['first_name'] : 'missing'));
-        error_log('last_name: ' . (isset($_POST['last_name']) ? $_POST['last_name'] : 'missing'));
+{
+    $view = new VRegisteredUser();
+    if(FPersistentManager::getInstance()->verifyUserEmail(UHTTPMethods::post('email')) == false && FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username')) == false){
 
-        $view = new VRegisteredUser();
-        if(FPersistentManager::getInstance()->verifyUserEmail(UHTTPMethods::post('email')) == false && FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username')) == false){
-            /*
-            // Controlla se l'utente vuole registrarsi come Personal Trainer
-            if (isset($_POST['isTrainer'])) {
-                $user = new EPersonalTrainer(UHTTPMethods::post('email'), UHTTPMethods::post('username'), UHTTPMethods::post('first_name'),UHTTPMethods::post('last_name'),UHTTPMethods::post('password'));
-                $user->setApproved(0);  // Imposta 'approved' a 0
-                FPersistentManager::getInstance()->uploadObj($user);
+        $user = new ERegisteredUser(UHTTPMethods::post('email'), UHTTPMethods::post('username'), UHTTPMethods::post('first_name'),UHTTPMethods::post('last_name'),UHTTPMethods::post('password'));
 
-                // Mostra un messaggio all'utente per informarlo che la sua richiesta è in attesa di approvazione
-                $view->showMessage('La tua richiesta è stata inviata e sarà esaminata da un amministratore. Riceverai una notifica quando la tua richiesta sarà approvata.');
-            } else { */
-                $user = new ERegisteredUser(UHTTPMethods::post('email'), UHTTPMethods::post('username'), UHTTPMethods::post('first_name'),UHTTPMethods::post('last_name'),UHTTPMethods::post('password'));
-
-                FPersistentManager::getInstance()->uploadObj($user);
-                $view->showLoginForm();
-           // }
-        }else{
-            $view->registrationError();
-        }
+        FPersistentManager::getInstance()->uploadObj($user);
+        $view->showLoginForm();
+    }else{
+        $view->registrationError();
     }
+}
 
 
     public static function isLogged()
@@ -66,31 +53,64 @@ class CUser{
     }
 
 
+
     public static function checkLogin(){
         $view = new VRegisteredUser();
         $email = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));
         if($email){
+
             $user = FPersistentManager::getInstance()->retriveUserOnUsername(UHTTPMethods::post('username'));
-            if(password_verify(UHTTPMethods::post('password'), $user->getPassword())){
+
+            // Log per vedere quale utente viene restituito
+            error_log('CUser::checkLogin - User retrieved: ' . print_r($user, true));
+
+            if($user && password_verify(UHTTPMethods::post('password'), $user->getPassword())){
                 if(USession::getSessionStatus() == PHP_SESSION_NONE){
                     USession::getInstance();
                     USession::setSessionElement('user', $user->getId());  // Aggiunta logica per ottenere l'ID
-                   /*
-                    // Controlla se l'utente è un Personal Trainer approvato
-                    if ($user instanceof EPersonalTrainer && $user->getApproved() == 1) {
-                        header('Location: /GymBuddy/PersonalTrainer/Home');
-                    } else {*/
+
+                    // Controlla se l'utente è un Personal Trainer
+                    if ($user instanceof EPersonalTrainer) {
+                            header('Location: /GymBuddy/PersonalTrainer/homePT');
+                    } elseif ($user instanceof EAdmin) {
+                        // Logica per l'admin
+                        header('Location: /GymBuddy/Admin/homeAD');
+                    } else {
+                        // Logica per l'utente registrato
                         header('Location: /GymBuddy/User/homeRU');
                     }
-                //}
-            }else{
+                }
+            } else {
+                error_log('CUser::checkLogin - Password verification failed for user: ' . UHTTPMethods::post('username'));
                 $view->loginError();
             }
-        }else{
+        } else {
+            error_log('CUser::checkLogin - Email verification failed for username: ' . UHTTPMethods::post('username'));
             $view->loginError();
         }
     }
 
+
+
+
+
+
+
+    public static function checkRole() {
+        // Prendi l'username dal POST request
+        $username = UHTTPMethods::post('username');
+
+        // Cerca l'utente nel database
+        $user = FPersistentManager::getInstance()->retriveUserOnUsernameGeneral($username);
+
+        // Se l'utente esiste, restituisci il suo ruolo
+        if ($user) {
+            echo $user->getRole();
+        } else {
+            // Se l'utente non esiste, restituisci un messaggio di errore
+            echo "User not found";
+        }
+    }
 
 
 
@@ -122,50 +142,9 @@ class CUser{
         header('Location: /GymBuddy/User/Home');
     }
 
-    public static function settings(){
-        if(CUser::isLogged()){
-            $view = new VRegisteredUser();
-
-            $userId = USession::getInstance()->getSessionElement('user');
-            $user = FPersistentManager::getInstance()->loadUsers($userId);
-            $view->settings($user);
-        }
-    }
 
 
-    public static function setUsername(){
-        if(CUser::isLogged()){
-            $userId = USession::getInstance()->getSessionElement('user');
-            $user = FPersistentManager::getInstance()->retriveObj(ERegisteredUser::getEntity(), $userId);
-
-            if($user->getUsername() == UHTTPMethods::post('username')){
-                header('Location: /GymBuddy/User/PersonalProfile');
-            }else{
-                if(FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username')) == false)
-                {
-                    $user->setUsername(UHTTPMethods::post('username'));
-                    FPersistentManager::getInstance()->updateUserUsername($user);
-                    header('Location: /GymBuddy/User/PersonalProfile');
-                }else{
-                    $view = new VRegisteredUser();
-                    $user = FPersistentManager::getInstance()->loadUsers($userId);
-                    $view->usernameError($user , true);
-                }
-            }
-        }
-    }
-
-    public static function setPassword(){
-        if(CUser::isLogged()){
-            $userId = USession::getInstance()->getSessionElement('user');
-            $user = FPersistentManager::getInstance()->retriveObj(ERegisteredUser::getEntity(), $userId);$newPass = UHTTPMethods::post('password');
-            $user->setPassword($newPass);
-            FPersistentManager::getInstance()->updateUserPassword($user);
-
-            header('Location: /GymBuddy/User/PersonalProfile');
-        }
-    }
-
+   /*
     public static function redirectUser() {
         // Ottieni l'utente corrente
         $user = USession::getInstance()->getSessionElement('user');
@@ -178,7 +157,7 @@ class CUser{
         } elseif ($user instanceof EAdmin) {
             header('Location: /GymBuddy/Admin/Home');
         }
-    }
+    } */
 
 
     public static function showUserSubscription() {

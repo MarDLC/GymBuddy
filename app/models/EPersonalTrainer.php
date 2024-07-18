@@ -13,10 +13,7 @@ require_once ("EUser.php");
  * The class does not have any methods apart from the getEntity method, which returns the class name.
  */
 class EPersonalTrainer extends EUser {
-    /**
-     * @var boolean $approved A flag indicating whether the personal trainer has been approved by the admin.
-     */
-    public $approved = false;
+
 
     /**
      * @var string $role The role of the user. For a personal trainer user, this is set to "personalTrainer".
@@ -40,6 +37,7 @@ class EPersonalTrainer extends EUser {
     public function __construct($email, $username, $first_name, $last_name, $password)
     {
         parent::__construct($email, $username, $first_name, $last_name, $password);
+
     }
 
     /**
@@ -52,20 +50,8 @@ class EPersonalTrainer extends EUser {
         return self::$entity;
     }
 
-    public function isApproved()
-    {
-        return $this->approved;
-    }
 
-    public function getApproved()
-    {
-        return $this->approved;
-    }
 
-    public function setApproved($bool)
-    {
-        $this->approved = $bool;
-    }
 
 
 

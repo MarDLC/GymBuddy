@@ -15,7 +15,7 @@ class FPersonalTrainer{
     /**
      * @var string The value to be used in SQL queries.
      */
-    private static $value = "(:idUser,:approved)";
+    private static $value = "(:idUser)";
 
     /**
      * @var string The key to be used in SQL queries.
@@ -64,18 +64,12 @@ class FPersonalTrainer{
      * @param PDOStatement $stmt The statement to bind the user's idto.
      * @param EPersonalTrainer $user The user whose email to bind.
      */
-    public static function bind($stmt, $personaltrainer,$id){
-        $stmt->bindValue(":idUser", $id->getId(), PDO::PARAM_INT);
-        $stmt->bindValue(":approved", $personaltrainer->isApproved(), PDO::PARAM_BOOL);
+    public static function bind($stmt, $personaltrainer){
+        $stmt->bindValue(":idUser", $personaltrainer->getId(), PDO::PARAM_INT);
 
     }
 
-    /**
-     * Creates a personal trainer object or an array of personal trainer objects from the given query result.
-     *
-     * @param array $queryResult The query result to create the personal trainer object(s) from.
-     * @return EPersonalTrainer|array The created personal trainer object or array of personal trainer objects.
-     */
+    /*
     public static function createPersonalTrainerObj($queryResult){
         if(count($queryResult) == 1){
             // If there is only one result, create a single user object.
@@ -89,19 +83,52 @@ class FPersonalTrainer{
             // If there are multiple results, create an array of user objects.
             $personalTrainers = array();
             for($i = 0; $i < count($queryResult); $i++){
-                $personalTrainer = new EPersonalTrainer($queryResult[$i]['email'], $queryResult[$i]['username'], $queryResult[$i]['first_name'], $queryResult[$i]['last_name'], $queryResult[$i]['password']);
-                $personalTrainer->setId($queryResult[$i]['idUser']);
-                if (isset($queryResult[$i]['approved'])) {
-                    $personalTrainer->setApproved($queryResult[$i]['approved']);
+                if ($queryResult[$i] !== null) {
+                    $personalTrainer = new EPersonalTrainer($queryResult[$i]['email'], $queryResult[$i]['username'], $queryResult[$i]['first_name'], $queryResult[$i]['last_name'], $queryResult[$i]['password']);
+                    $personalTrainer->setId($queryResult[$i]['idUser']);
+                    if (isset($queryResult[$i]['approved'])) {
+                        $personalTrainer->setApproved($queryResult[$i]['approved']);
+                    }
+                    $personalTrainers[] = $personalTrainer;
                 }
-                $personalTrainers[] = $personalTrainer;
             }
             return $personalTrainers;
         } else{
             // If there are no results, return an empty array.
             return array();
         }
+    }  */
+
+
+public static function createPersonalTrainerObj($queryResult){
+    // Check if the query result is a multidimensional array
+    if(isset($queryResult[0]) && is_array($queryResult[0])){
+        // If the query result contains more than one record
+        // Initialize an array to hold the PersonalTrainer objects
+        $personalTrainers = array();
+        // Loop through each record in the query result
+        for($i = 0; $i < count($queryResult); $i++){
+            // Create a new Personal Trainer object from the current record
+            $personalTrainer = new EPersonalTrainer($queryResult[$i]['email'], $queryResult[$i]['username'], $queryResult[$i]['first_name'], $queryResult[$i]['last_name'], $queryResult[$i]['password']);
+            $personalTrainer->setId($queryResult[$i]['idUser']);
+            $personalTrainer->setHashedPassword($queryResult[$i]['password']);
+            // Add the RegisteredUser object to the array
+            $personalTrainers[] = $personalTrainer;
+        }
+        // Return the array of RegisteredUser objects
+        return $personalTrainers;
+    } else {
+        // If the query result contains only one record
+        // Create a new PersonalTrainer object from the query result
+        $personalTrainer = new EPersonalTrainer($queryResult['email'], $queryResult['username'], $queryResult['first_name'], $queryResult['last_name'], $queryResult['password']);
+        $personalTrainer->setId($queryResult['idUser']);
+        $personalTrainer->setHashedPassword($queryResult['password']);
+        // Return the created Personal Trainer object
+        return $personalTrainer;
     }
+}
+
+
 
     /**
  * Retrieves a personal trainer object with the given email.
@@ -124,74 +151,76 @@ class FPersonalTrainer{
         }
     }
 
-    /**
-     * Saves the given personal trainer object to the database.
-     *
-     * If the given field array is null, a new personal trainer is saved. Otherwise, an existing personal trainer is updated.
-     *
-     * @param EPersonalTrainer $obj The personal trainer object to save.
-     * @param array|null $fieldArray The array of fields to update, or null to save a new personal trainer.
-     * @return string|bool The last inserted email if a new personal trainer was saved, true if an existing personal trainer was updated, or false if the save operation was not successful.
-     */
-    public static function saveObj($obj, $fieldArray = null){
-        // Check if fieldArray is null, which means we are saving a new user
-        if($fieldArray === null){
-            try{
-                // Start a new database transaction
-                FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
-                // Save the user object and get the last inserted email
+
+    public static function saveObj($obj, $fieldArray = null) {
+        if ($fieldArray === null) {
+            try {
+                // Inizia una nuova transazione del database
+                $db = FEntityManagerSQL::getInstance()->getDb();
+                $db->beginTransaction();
+                error_log('Inizio transazione per il salvataggio di un nuovo utente');
+
+                // Salva l'oggetto utente e ottieni l'ID dell'ultimo inserimento
                 $savePersonAndLastInsertedID = FEntityManagerSQL::getInstance()->saveObject(FUser::getClass(), $obj);
-                // If the save operation was successful, save the user object with the last inserted email
-                if($savePersonAndLastInsertedID !== null) {
-                    // Save the user object with the last inserted email
-                    $savePersonalTrainer = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $savePersonAndLastInsertedID);
-                    // If the user was saved successfully, commit the transaction and return the last inserted email
+
+                // Se l'operazione di salvataggio è avvenuta con successo, salva l'oggetto utente con l'ID inserito
+                if ($savePersonAndLastInsertedID !== null) {
+                    // Setta l'ID dell'oggetto con l'ID appena generato
+                    $obj->setId($savePersonAndLastInsertedID);
+
+                    // Salva l'oggetto nella tabella registeredUser
+                    $savePersonalTrainer = FEntityManagerSQL::getInstance()->saveObjectFromId(self::getClass(), $obj, $obj);
+
+                    // Se l'utente è stato salvato con successo, commetti la transazione e ritorna l'ID dell'ultimo inserimento
                     if ($savePersonalTrainer) {
-                        FEntityManagerSQL::getInstance()->getDb()->commit();
+                        $db->commit();
+                        error_log('Transazione completata con successo per il nuovo utente ID: ' . $savePersonAndLastInsertedID);
                         return $savePersonAndLastInsertedID;
+                    } else {
+                        $db->rollBack();
+                        error_log('Errore durante il salvataggio nella tabella `personalTrainer`');
+                        return false;
                     }
+                } else {
+                    $db->rollBack();
+                    error_log('Errore durante il salvataggio nella tabella `user`');
+                    return false;
                 }
-                // if the save operation was not successful, return false
-                return false;
-            }catch(PDOException $e){
-                // If an exception occurs, print the error message, rollback the transaction, and return false
-                echo "ERROR " . $e->getMessage();
+            } catch (PDOException $e) {
+                error_log('Errore PDO: ' . $e->getMessage());
                 FEntityManagerSQL::getInstance()->getDb()->rollBack();
                 return false;
-            }finally{
-                // Close the database connection
+            } finally {
                 FEntityManagerSQL::getInstance()->closeConnection();
             }
-        }else{
-            // If fieldArray is not null, we are updating an existing user
-            try{
-                // Start a new database transaction
-                FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
-                // Loop through the fieldArray and update the user fields
-                foreach($fieldArray as $fv){
-                    // If the field is not username or password, update the user field in the personal trainer table
-                    if($fv[0] != "username" && $fv[0] != "password"){
-                        // Update the user field in the personal trainer table
+        } else {
+            // Aggiornamento di un utente esistente
+            try {
+                $db = FEntityManagerSQL::getInstance()->getDb();
+                $db->beginTransaction();
+                error_log('Inizio transazione per l\'aggiornamento di un utente esistente');
+
+                foreach ($fieldArray as $fv) {
+                    if ($fv[0] != "username" && $fv[0] != "password") {
                         FEntityManagerSQL::getInstance()->updateObj(FPersonalTrainer::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
-                    }else{
-                        // if the field is username or password, update the user field in the user table
+                    } else {
                         FEntityManagerSQL::getInstance()->updateObj(FUser::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getId());
                     }
                 }
-                // Commit the transaction after updating the user fields
-                FEntityManagerSQL::getInstance()->getDb()->commit();
+
+                $db->commit();
+                error_log('Transazione completata con successo per l\'aggiornamento utente ID: ' . $obj->getId());
                 return true;
-            }catch(PDOException $e){
-                // Print the error message and rollback the transaction in case of an exception
-                echo "ERROR " . $e->getMessage();
+            } catch (PDOException $e) {
+                error_log('Errore PDO: ' . $e->getMessage());
                 FEntityManagerSQL::getInstance()->getDb()->rollBack();
                 return false;
-            }finally{
-                // Close the database connection
+            } finally {
                 FEntityManagerSQL::getInstance()->closeConnection();
             }
         }
     }
+
 
 
     public static function deletePersonalTrainerObj($id){
@@ -241,22 +270,37 @@ class FPersonalTrainer{
         return FPhysicalData::getPhysicalDataByIdUser($idUser);
     }
 
-    public static function getUnapprovedTrainers() {
-        // Retrieve the unapproved trainer data from the database
-        $results = FEntityManagerSQL::retrieveDataWithCondition('EPersonalTrainer', 'approved', 0);
 
-        // Convert the results into PersonalTrainer objects
-        $trainers = [];
-        foreach ($results as $row) {
-            $trainer = self::createPersonalTrainerObj($row);
-            $trainers[] = $trainer;
+    public static function getPersonalTrainerByUsername($username)
+    {
+        // Get an instance of FEntityManagerSQL to ensure the database connection is established
+        $entityManager = FEntityManagerSQL::getInstance();
+
+        // Retrieve the user data from the User table
+        $userResult = $entityManager->retriveObj('user', 'username', $username);
+
+        if ($userResult !== null && !empty($userResult)) {
+            // Assume retriveObj returns an array; take the first user found
+            $user = $userResult[0];
+
+            // Retrieve the personal trainer data from the PersonalTrainer table
+            $trainerResult = $entityManager->retriveObj('personalTrainer', 'idUser', $user['idUser']);
+
+            if ($trainerResult !== null && !empty($trainerResult)) {
+                // Take the first personal trainer found
+                $trainer = $trainerResult[0];
+
+                // Merge the user data and the personal trainer data
+                $result = array_merge($user, $trainer);
+
+                // Create the PersonalTrainer object
+                $personalTrainer = self::createPersonalTrainerObj($result);
+                return $personalTrainer;
+            }
         }
 
-        // Return the array of unapproved PersonalTrainer objects
-        return $trainers;
+        return null;
     }
-
-
 
 
 }
