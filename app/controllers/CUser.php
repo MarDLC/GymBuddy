@@ -20,6 +20,12 @@ class CUser
         $view->showLoginForm();
     }
 
+    public static function forceLogin()
+    {
+        $view = new VRegisteredUser();
+        $view->showLoginForm();
+    }
+
     public static function registration()
     {
         $view = new VRegisteredUser();
@@ -65,42 +71,47 @@ class CUser
     }
 
 
-    public static function checkLogin()
-    {
-        $view = new VRegisteredUser();
-        $email = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));
-        if ($email) {
+  public static function checkLogin()
+{
+    $view = new VRegisteredUser();
+    $email = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));
+    if ($email) {
 
-            $user = FPersistentManager::getInstance()->retriveUserOnUsername(UHTTPMethods::post('username'));
+        $user = FPersistentManager::getInstance()->retriveUserOnUsername(UHTTPMethods::post('username'));
 
-            // Log per vedere quale utente viene restituito
-            error_log('CUser::checkLogin - User retrieved: ' . print_r($user, true));
+        // Log per vedere quale utente viene restituito
+        error_log('CUser::checkLogin - User retrieved: ' . print_r($user, true));
 
-            if ($user && password_verify(UHTTPMethods::post('password'), $user->getPassword())) {
-                if (USession::getSessionStatus() == PHP_SESSION_NONE) {
-                    USession::getInstance();
-                    USession::setSessionElement('user', $user->getId());  // Aggiunta logica per ottenere l'ID
+        if ($user && password_verify(UHTTPMethods::post('password'), $user->getPassword())) {
+            if (USession::getSessionStatus() == PHP_SESSION_NONE) {
+                USession::getInstance();
+                USession::setSessionElement('user', $user->getId());  // Aggiunta logica per ottenere l'ID
 
-                    // Controlla se l'utente è un Personal Trainer
-                    if ($user instanceof EPersonalTrainer) {
-                        header('Location: /GymBuddy/PersonalTrainer/homePT');
-                    } elseif ($user instanceof EAdmin) {
-                        // Logica per l'admin
-                        header('Location: /GymBuddy/Admin/homeAD');
+                // Controlla se l'utente è un Personal Trainer
+                if ($user instanceof EPersonalTrainer) {
+                    header('Location: /GymBuddy/PersonalTrainer/homePT');
+                } elseif ($user instanceof EAdmin) {
+                    // Logica per l'admin
+                    header('Location: /GymBuddy/Admin/homeAD');
+                } else {
+                    // Logica per l'utente registrato
+                    // Controlla il tipo di utente
+                    if ($user->getType() == 'followed_user' || $user->getType() == 'user_only') {
+                        header('Location: /GymBuddy/User/homeVIP');
                     } else {
-                        // Logica per l'utente registrato
                         header('Location: /GymBuddy/User/homeRU');
                     }
                 }
-            } else {
-                error_log('CUser::checkLogin - Password verification failed for user: ' . UHTTPMethods::post('username'));
-                $view->loginError();
             }
         } else {
-            error_log('CUser::checkLogin - Email verification failed for username: ' . UHTTPMethods::post('username'));
+            error_log('CUser::checkLogin - Password verification failed for user: ' . UHTTPMethods::post('username'));
             $view->loginError();
         }
+    } else {
+        error_log('CUser::checkLogin - Email verification failed for username: ' . UHTTPMethods::post('username'));
+        $view->loginError();
     }
+}
 
 
     public static function home()
@@ -168,38 +179,6 @@ class CUser
     }
 
 
-    public static function showUserSubscription()
-    {
-        // Check if the user is logged in
-        if (self::isLogged()) {
-            // Get the current logged-in user
-            $userId = USession::getInstance()->getSessionElement('user');
-
-            // Retrieve the user's subscription using FPersistentManager
-            $subscription = FPersistentManager::getInstance()->getUserSubscription($userId);
-
-            // Return the subscription object or null if no subscription was found
-            return $subscription;
-        }
-        return null;
-    }
-
-
-    public static function showUserReservation()
-    {
-        // Check if the user is logged in
-        if (self::isLogged()) {
-            // Get the current logged-in user
-            $userId = USession::getInstance()->getSessionElement('user');
-
-            // Retrieve the user's reservation using FPersistentManager
-            $reservation = FPersistentManager::getInstance()->getUserReservation($userId);
-
-            // Return the reservation object or null if no reservation was found
-            return $reservation;
-        }
-        return null;
-    }
 
     public static function paymentForm($postData)
     {
@@ -307,15 +286,48 @@ public static function payment()
     header('Location: /GymBuddy/User/confirmation');
     exit();
 }
-    public static function confirmation()
-    {
-        // Get the payment success message from the session
-        $message = USession::getSessionElement('payment_success');
 
-        // Pass the message to the view
-        $view = new VRegisteredUser();
-        $view->showConfirmation($message);
+
+public static function confirmation()
+{
+    // Get the payment success message from the session
+    $message = USession::getSessionElement('payment_success');
+
+    // Check if a session is active before destroying it
+    if(session_status() == PHP_SESSION_ACTIVE) {
+        // Destroy the session
+        USession::unsetSession();
+        USession::destroySession();
     }
+
+    // Use ob_start() to start output buffering
+    ob_start();
+
+    // Use ob_end_flush() to flush the output buffer and turn off output buffering
+    ob_end_flush();
+
+    // Set a JavaScript redirect to the login page after 1 seconds
+    $redirect = '<script>setTimeout(function(){ window.location.href = "/GymBuddy/User/forceLogin"; }, 1000);</script>';
+
+    // Pass the message and the redirect script to the view
+    $view = new VRegisteredUser();
+    $view->showConfirmation($message, $redirect);
+}
+
+
+    public static function homeVIP()
+    {
+        if (CUser::isLogged()) {
+            $view = new VRegisteredUser();
+            $view->showHomeVIP();
+        } else {
+            // Se l'utente non è loggato, reindirizza alla pagina di login
+            header('Location: /GymBuddy/login');
+            exit();
+        }
+    }
+
+
 
 
 }

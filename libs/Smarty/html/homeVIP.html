@@ -22,15 +22,49 @@
     <link rel="stylesheet" href="../css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="../css/style.css" type="text/css">
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
-    <!-- Page Preloader -->
-    <div id="preloder">
-        <div class="loader"></div>
+
+
+    <!-- Offcanvas Menu Section Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="canvas-close">
+            <i class="fa fa-close"></i>
+        </div>
+        <div class="canvas-search search-switch">
+            <i class="fa fa-search"></i>
+        </div>
+        <nav class="canvas-menu mobile-menu">
+            <ul>
+                <li><a href="./indexutentenor.html">Home</a></li>
+                <li><a href="./sezioneabbonamenti.html">Abbonamento</a></li>
+                <li><a href="./prenotazione.html">Prenotazione</a></li>
+                <li><a href="comunicazioniUser.html">Comunicazioni</a></li>
+                
+                <li><a href="#">Profilo</a>
+                    <ul class="dropdown">
+                        
+                        <li><a href="./ilmioprofilo.html">Visualizza Profilo</a></li>                     
+                        <li><a href="./modpreno.html">Visualizza Prenotazione</a></li>
+                        <li><a href="./vischeda.html">Visualizza Scheda</a></li>
+						<li><a href="./visgrafico.html">Visualizza Grafico</a></li>
+                        
+                    </ul>
+                </li>
+            
+            </ul>
+        </nav>
+        <div id="mobile-menu-wrap"></div>
+        <div class="canvas-social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-youtube-play"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+        </div>
     </div>
+    <!-- Offcanvas Menu Section End -->
 
     <!-- Header Section Begin -->
     <header class="header-section">
@@ -46,7 +80,23 @@
                 <div class="col-lg-6">
                     <nav class="nav-menu">
                         <ul>
-                            <li><a href="indexutentevip.html">Home</a></li>
+                            <li class="active"><a href="homeRU.html">Home</a></li>
+                            <li><a href="./sezioneabbonamenti.html">Abbonamento</a></li>
+                            <li><a href="./prenotazione.html">Prenotazione</a></li>
+                            <li><a href="comunicazioniUser.html">Comunicazioni</a></li>
+                            
+                            <li><a href="#">Profilo</a>
+                                <ul class="dropdown">
+                                   
+                                    <li><a href="./ilmioprofilo.html">Visualizza Profilo</a></li>
+                                    <li><a href="./modpreno.html">Visualizza Prenotazione</a></li>
+									<li><a href="./vischeda.html">Visualizza Scheda</a></li>
+									<li><a href="./visgrafico.html">Visualizza Grafico</a></li>
+                                    
+
+                                </ul>
+                            </li>
+                            
                         </ul>
                     </nav>
                 </div>
@@ -62,7 +112,7 @@
                             <a href="#"><i class="fa fa-instagram"></i></a>
                         </div>
                         <!-- Aggiunta del pulsante di logout -->
-                        <a href="homeRU.html" class="btn btn-primary">Logout</a>
+                    <a href="homeRU.html" class="btn btn-primary">Logout</a>
                     </div>
                 </div>
             </div>
@@ -73,13 +123,39 @@
     </header>
     <!-- Header End -->
 
-    <!-- Info Section Begin -->
-    <section class="pricing-section service-pricing spad">
-        <div class="container">
-            <canvas id="myChart"></canvas>
+    <!-- Hero Section Begin -->
+    <section class="hero-section">
+        <div class="hs-slider owl-carousel">
+            <div class="hs-item set-bg" data-setbg="../img/hero/hero-1.jpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 offset-lg-6">
+                            <div class="hi-text">
+                                <span>Shape your body</span>
+                                <h1>Be <strong>strong</strong> traning hard</h1>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hs-item set-bg" data-setbg="../img/hero/hero-2.jpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 offset-lg-6">
+                            <div class="hi-text">
+                                <span>Shape your body</span>
+                                <h1>Be <strong>strong</strong> traning hard</h1>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
-    <!-- Info Section End -->
+    <!-- Hero Section End -->
+
 
     <!-- Get In Touch Section Begin -->
     <div class="gettouch-section">
@@ -149,7 +225,7 @@
                             <li><a href="#">Login</a></li>
                             <li><a href="#">My account</a></li>
                             <li><a href="#">Subscribe</a></li>
-                            <li><a href="#">Contact</a></li>
+                    
                         </ul>
                     </div>
                 </div>
@@ -173,19 +249,10 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="copyright-text">
-                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+        </div>   
     </section>
     <!-- Footer Section End -->
-
     <!-- Search model Begin -->
     <div class="search-model">
         <div class="h-100 d-flex align-items-center justify-content-center">
@@ -207,42 +274,8 @@
     <script src="../js/owl.carousel.min.js"></script>
     <script src="../js/main.js"></script>
 
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Codice per il grafico -->
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            fetch('/path/to/your/data/endpoint')
-                .then(response => response.json())
-                .then(data => {
-                    const pesi = data.map(item => item.peso);
-                    const altezze = data.map(item => item.altezza);
 
-                    const ctx = document.getElementById('myChart').getContext('2d');
-                    new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: altezze,
-                            datasets: [{
-                                label: 'Peso',
-                                data: pesi,
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
-                })
-                .catch(error => console.error('Errore nel recupero dei dati:', error));
-        });
-    </script>
 </body>
 
 </html>

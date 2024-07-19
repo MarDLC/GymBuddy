@@ -91,6 +91,12 @@ class CTrainingCard
     }
 
 
+    public static function trainingCardInfo()
+    {
+        $view = new VTrainingCard();
+        $view->showTrainingCardInfo();
+    }
+
 
 
 

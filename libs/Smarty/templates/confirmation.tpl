@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
 
+
 </head>
 <body>
 <div class="container">
@@ -39,5 +40,9 @@
         </div>
     </div>
 </div>
+
+<!-- JavaScript redirect -->
+{$redirect}
+
 </body>
 </html>

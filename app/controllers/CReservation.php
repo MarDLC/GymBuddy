@@ -63,4 +63,12 @@ class CReservation
             header('Location: /GymBuddy/User/ReservationCancellationError');
         }
     }
+
+    public static function reservation()
+    {
+        $view = new VRegisteredUser();
+        $view->showReservation();
+    }
+
+
 }

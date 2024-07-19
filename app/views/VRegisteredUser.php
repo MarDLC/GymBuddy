@@ -155,14 +155,36 @@ class VRegisteredUser
     }
 
 
-    public function showConfirmation($message) {
-        // Assign the message to a Smarty variable
-        $this->smarty->assign('message', $message);
+   public function showConfirmation($message, $redirect) {
+    // Assign the message to a Smarty variable
+    $this->smarty->assign('message', $message);
 
-        // Display the confirmation template
-        $this->smarty->display('confirmation.tpl');
+    // Assign the redirect script to a Smarty variable
+    $this->smarty->assign('redirect', $redirect);
+
+    // Display the confirmation template
+    $this->smarty->display('confirmation.tpl');
+}
+
+ public function showHomeVip() {
+    // Recupera l'ID utente dalla sessione
+    $userId = USession::getSessionElement('user');
+    // Recupera l'utente dal database
+    $user = FPersistentManager::retrieveUserById($userId);
+
+    // Controlla il tipo di utente e imposta il path appropriato
+    if ($user->getType() === 'followed_user') {
+        $path = "/GymBuddy/TrainingCard/trainingCardInfo";
+    } else if ($user->getType() === 'user_only') {
+        $path = "#";
     }
 
+    // Assegna il path a una variabile Smarty
+    $this->smarty->assign('pathTrainingCardInfo',$path);
+
+    // Visualizza il template
+    $this->smarty->display('homeVIP.tpl');
+}
 
 
 }
