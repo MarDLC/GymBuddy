@@ -38,4 +38,24 @@ class CSubscription {
 
     $view->showSubscription($path);
 }
+
+
+public static function subscriptionInfo() {
+    // Ensure the session is started
+    USession::getInstance();
+    // Recupera l'ID dell'utente corrente
+    $userId = USession::getSessionElement('user');
+
+    // Debug output
+    error_log("subscriptionInfo userId: " . $userId);
+
+    // Recupera le prenotazioni per l'utente corrente
+    $subscriptions = FPersistentManager::retrieveSubscriptionByUserId($userId);
+
+    // Crea un'istanza di VSubscription
+    $vSubscription = new VSubscription();
+
+    // Passa le prenotazioni alla vista
+    $vSubscription->showSubscriptionInfo($subscriptions);
+}
 }

@@ -70,5 +70,15 @@ class CReservation
         $view->showReservation();
     }
 
+public static function reservationInfo() {
+    // Recupera l'ID dell'utente corrente
+    $userId = USession::getSessionElement('user');
+
+    // Recupera le prenotazioni per l'utente corrente
+    $reservations = FPersistentManager::retrieveReservationByUserId($userId);
+
+    // Passa le prenotazioni alla vista
+    VReservation::showReservationInfo($reservations);
+}
 
 }

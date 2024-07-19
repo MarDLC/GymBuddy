@@ -56,10 +56,19 @@ class USession{
     /**
      * get element in the _SESSION superglobal
      */
-    public static function getSessionElement($id){
+  public static function getSessionElement($id){
+    // Debug output for the input
+    error_log("getSessionElement id: " . $id);
+
     if(isset($_SESSION[$id])) {
+        // Debug output for the session value
+        error_log("getSessionElement value: " . $_SESSION[$id]);
+
         return $_SESSION[$id];
     } else {
+        // Debug output for the case where the session element does not exist
+        error_log("getSessionElement value does not exist for id: " . $id);
+
         // Handle the case where the session element does not exist
         // You can return null, false, or throw an exception, depending on your needs
         return null;

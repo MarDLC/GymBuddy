@@ -56,29 +56,75 @@ class FEntityManagerSQL{
      * @param mixed $id Refers to the value in the where clause
      * @return array
      */
-    public static function retriveObj($table, $field ,$id){
-        try{
-            $query = "SELECT * FROM " .$table. " WHERE ".$field." = '".$id."';";
-            $stmt = self::$db->prepare($query);
-            $stmt->execute();
-            $rowNum = $stmt->rowCount();
-            if($rowNum > 0){
-                $result = array();
-                $stmt->setFetchMode(PDO::FETCH_ASSOC);
-                while ($row = $stmt->fetch()){
-                    $result[] = $row;
-                }
-                return $result;
-            }else{
-                return array();
+  public static function retriveObj($table, $field ,$id){
+    try{
+        $query = "SELECT * FROM " .$table. " WHERE ".$field." = '".$id."';";
+
+        // Debug output for the query
+        error_log("retriveObj query: " . $query);
+
+        $stmt = self::$db->prepare($query);
+        $stmt->execute();
+        $rowNum = $stmt->rowCount();
+
+        // Debug output for the number of rows
+        error_log("retriveObj rowNum: " . $rowNum);
+
+        if($rowNum > 0){
+            $result = array();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            while ($row = $stmt->fetch()){
+                $result[] = $row;
             }
 
-        }catch(PDOException $e){
-            echo "ERROR" . $e->getMessage();
+            // Debug output for the result
+            error_log("retriveObj result: " . print_r($result, true));
+
+            return $result;
+        }else{
             return array();
         }
+    } catch(PDOException $e){
+        // Debug output for the exception
+        error_log("retriveObj exception: " . $e->getMessage());
+        return array();
     }
+}
 
+public static function retriveLastObj($table, $field, $id, $orderBy){
+    try{
+        $query = "SELECT * FROM " .$table. " WHERE ".$field." = '".$id."' ORDER BY " . $orderBy . " DESC LIMIT 1;";
+
+        // Debug output for the query
+        error_log("retriveLastObj query: " . $query);
+
+        $stmt = self::$db->prepare($query);
+        $stmt->execute();
+        $rowNum = $stmt->rowCount();
+
+        // Debug output for the number of rows
+        error_log("retriveLastObj rowNum: " . $rowNum);
+
+        if($rowNum > 0){
+            $result = array();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            while ($row = $stmt->fetch()){
+                $result[] = $row;
+            }
+
+            // Debug output for the result
+            error_log("retriveLastObj result: " . print_r($result, true));
+
+            return $result;
+        }else{
+            return array();
+        }
+    } catch(PDOException $e){
+        // Debug output for the exception
+        error_log("retriveLastObj exception: " . $e->getMessage());
+        return array();
+    }
+}
 
     /**
      * Method to return rows from a query SELECT FROM WHERE but with 2 fields

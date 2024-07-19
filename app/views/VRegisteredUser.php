@@ -168,6 +168,7 @@ class VRegisteredUser
 }
 
 public function showHomeVip() {
+
     // Recupera l'ID utente dalla sessione
     $userId = USession::getSessionElement('user');
     // Recupera l'utente dal database

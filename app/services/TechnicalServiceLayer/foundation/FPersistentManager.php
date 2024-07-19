@@ -97,7 +97,26 @@ public static function retrieveUserById($userId)
     return $result;
 }
 
+public static function retrieveReservationByUserId($userId)
+{
+    // Try to retrieve Reservations by their User ID
+    $result = FReservation::getObj($userId);
 
+    // Return the found reservations or null if no reservations were found
+    return $result;
+}
+
+public static function retrieveSubscriptionByUserId($userId){
+    // Try to retrieve Reservations by their User ID
+    $result = FSubscription::getLastSubscriptionByUserId($userId);
+
+    // Debug output
+    error_log("retrieveSubscriptionByUserId userId: " . $userId);
+    error_log("retrieveSubscriptionByUserId result: " . print_r($result, true));
+
+    // Return the found reservations or null if no reservations were found
+    return $result;
+}
 
     public function retriveUserOnUsernameAD($username)
     {

@@ -7,12 +7,13 @@
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>View Reservation</title>
+    <title>View Subscription</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
 
+    <!-- Css Styles -->
     <!-- Css Styles -->
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/font-awesome.min.css" type="text/css">
@@ -24,13 +25,13 @@
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
 
-
     <script>
-        function ready(){
+        function ready() {
             if (!navigator.cookieEnabled) {
                 alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
             }
         }
+
         document.addEventListener("DOMContentLoaded", ready);
     </script>
 
@@ -83,7 +84,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <span>YOUR RESERVATIONS</span>
+                    <span>YOUR SUBSCRIPTION</span>
                 </div>
             </div>
         </div>
@@ -93,35 +94,24 @@
                     <thead>
                     <tr>
                         <th></th> <!-- Aggiungi una colonna per il pulsante di selezione -->
-                        <th>ID Reservation</th>
+                        <th>ID SUBSCRIPTION</th>
                         <th>ID User</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Training with PT</th>
+                        <th>TYPE</th>
+                        <th>DURATION</th>
+                        <th>PRICE</th>
                     </tr>
                     </thead>
                     <tbody id="user-table-body">
-
-                    {foreach from=$reservations item=reservation}
-                        <tr>
-                            <th></th>
-                            <td>{$reservation.id_reservation}</td>
-                            <td>{$reservation.id_user}</td>
-                            <td>{$reservation.date}</td>
-                            <td>{$reservation.time}</td>
-                            <td>{$reservation.trainingPT}</td>
-                        </tr>
-                    {/foreach}
-
-                    <!-- Qui verranno inserite dinamicamente le righe della tabella -->
+                    <tr>
+                        <th></th>
+                        <td>{$subscription.id}</td>
+                        <td>{$subscription.user_id}</td>
+                        <td>{$subscription.type}</td>
+                        <td>{$subscription.duration}</td>
+                        <td>{$subscription.price}</td>
+                    </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
-        <!-- Pulsante Elimina -->
-        <div class="row justify-content-center">
-            <div class="col-lg-12 text-center">
-                <button id="delete-selected" class="btn btn-danger">Delete</button>
             </div>
         </div>
     </div>
@@ -164,14 +154,12 @@
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href="/GymBuddy/User/homeVIP"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
+                        <a href=/GymBuddy/User/homeVIP"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
                     <p>The most iconic gym in the world has arrived in L'Aquila!
                         Live the best training experience in a unique atmosphere.
                         DISCOVER THE LEGACY: GymBuddy L'Aquila.</p>
                     <div class="fa-social">
-
-
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
                         <a href="#"><i class="fa fa-youtube-play"></i></a>
@@ -217,7 +205,9 @@
             <div class="col-lg-12 text-center">
                 <div class="copyright-text">
                     <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                        All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i>
+                        by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                 </div>
             </div>
@@ -246,6 +236,7 @@
 <script src="/GymBuddy/libs/Smarty/js/jquery.slicknav.js"></script>
 <script src="/GymBuddy/libs/Smarty/js/owl.carousel.min.js"></script>
 <script src="/GymBuddy/libs/Smarty/js/main.js"></script>
+
 <!-- Script personalizzato -->
 <script>
     // Codice JavaScript per eliminare le righe selezionate
@@ -257,7 +248,6 @@
         });
     });
 </script>
-
 
 
 </body>

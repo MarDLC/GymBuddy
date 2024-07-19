@@ -131,22 +131,52 @@ if ($userId !== null) {
      * @param string $email The email of the subscription to retrieve.
      * @return ESubscription|null The retrieved subscription object, or null if no subscription was found.
      */
-    public static function getObj($id)
-    {
-        // Use the singleton instance of FEntityManagerSQL to retrieve the subscription object from the database
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $id);
 
-        // Check if the result is not empty
-        if (count($result) > 0) {
-            // If the result is not empty, create a subscription object from the result
-            $subscription = self::createSubscriptionObj($result);
-            // Return the subscription object
-            return $subscription;
-        } else {
-            // If the result is empty, return null
-            return null;
-        }
+ /*METODO GETOBJ GENERICO
+  public static function getObj($id)
+{
+    // Use the singleton instance of FEntityManagerSQL to retrieve the subscription object from the database
+    $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), self::getKey(), $id);
+
+    // Debug output
+    error_log("getObj result: " . print_r($result, true));
+
+    // Check if the result is not empty
+    if (count($result) > 0) {
+        // If the result is not empty, create a subscription object from the result
+        $subscription = self::createSubscriptionObj($result);
+        // Return the subscription object
+        return $subscription;
+    } else {
+        // If the result is empty, return null
+        return null;
     }
+} */
+
+    //METODO GETOBJ PER PRENDERE SOLO L ULTIMO ABBONAMENTO
+
+
+
+
+    public static function getLastSubscriptionByUserId($userId)
+{
+    // Use the singleton instance of FEntityManagerSQL to retrieve the subscription objects from the database
+    $result = FEntityManagerSQL::getInstance()->retriveLastObj(self::getTable(), 'idUser', $userId, self::getKey());
+
+    // Debug output
+    error_log("getLastSubscriptionByUserId result: " . print_r($result, true));
+
+    // Check if the result is not empty
+    if (count($result) > 0) {
+        // If the result is not empty, create a subscription object from the result
+        $subscription = self::createSubscriptionObj($result);
+        // Return the subscription object
+        return $subscription;
+    } else {
+        // If the result is empty, return null
+        return null;
+    }
+}
 
     /**
      * Save a subscription object to the database.

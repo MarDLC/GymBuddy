@@ -35,7 +35,14 @@ class VReservation {
 
 
 
+public static function showReservationInfo($reservations) {
+    // Assegna le prenotazioni alla variabile Smarty
+    $smarty = new Smarty();
+    $smarty->assign('reservations', $reservations);
 
+    // Visualizza il template
+    $smarty->display('viewReservation.tpl');
+}
 
 
 }

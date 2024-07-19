@@ -45,4 +45,23 @@ class VSubscription {
     }
 
 
+ public function showSubscriptionInfo($subscription) {
+    // Debug output
+    error_log("showSubscriptionInfo subscription: " . print_r($subscription, true));
+
+    // Prepare the data for the Smarty template
+    $subscriptionData = [
+        'id' => $subscription->getIdSubscription(),
+        'user_id' => $subscription->getIdUser()->getId(), // Get the user's ID
+        'type' => $subscription->getType(),
+        'duration' => $subscription->getDuration(),
+        'price' => $subscription->getPrice(),
+    ];
+
+    // Assign the prepared data to the Smarty template
+    $this->smarty->assign('subscription', $subscriptionData);
+
+    // Display the template
+    $this->smarty->display('viewSubscription.tpl');
+}
 }
