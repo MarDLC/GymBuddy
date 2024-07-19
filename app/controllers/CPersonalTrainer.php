@@ -59,64 +59,6 @@ public static function login(){
 
 
 
-/*
-  public static function checkLogin(){
-    $view = new VPersonalTrainer();
-    $email = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));
-    if($email){
-        $user = FPersistentManager::getInstance()->retrivePersonalTrainerOnUsername(UHTTPMethods::post('username'));
-
-        // Log per debug
-        error_log('CPersonalTrainer::checkLogin - User retrieved: ' . print_r($user, true));
-
-        if($user && password_verify(UHTTPMethods::post('password'), $user->getPassword())){
-            if(USession::getSessionStatus() == PHP_SESSION_NONE){
-                USession::getInstance();
-                USession::setSessionElement('personalTrainer', $user->getId());  // Aggiunta logica per ottenere l'ID
-
-                // Controlla se l'utente è un Personal Trainer
-                if ($user instanceof EPersonalTrainer) {
-                    header('Location: /GymBuddy/PersonalTrainer/homePT');
-                } else {
-                    header('Location: /GymBuddy/PersonalTrainer/Login');
-                }
-            }
-        }else{
-            error_log('CPersonalTrainer::checkLogin - Password verification failed for user: ' . UHTTPMethods::post('username'));
-            $view->loginError();
-        }
-    }else{
-        error_log('CPersonalTrainer::checkLogin - Email verification failed for username: ' . UHTTPMethods::post('username'));
-        $view->loginError();
-    }
-} */
-
-/*
-  public static function checkLogin(){
-    $view = new VPersonalTrainer();
-    $email = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));
-    if($email){
-        $user = FPersistentManager::getInstance()->retrivePersonalTrainerOnUsername(UHTTPMethods::post('username'));
-        if(password_verify(UHTTPMethods::post('password'), $user->getPassword())){
-            // Avvia la sessione se non è già stata avviata
-            if(session_status() == PHP_SESSION_NONE){
-                session_start();
-            }
-            // Imposta l'ID del PersonalTrainer nella sessione
-            $_SESSION['personalTrainer'] = $user->getId();
-
-            // Reindirizza alla home page del PersonalTrainer
-            header('Location: /GymBuddy/PersonalTrainer/homePT');
-            exit();  // Aggiungi un'istruzione di uscita dopo il reindirizzamento per interrompere l'esecuzione dello script
-        } else {
-            $view->loginError();
-        }
-    } else {
-        $view->loginError();
-    }
-} */
-
-
     public static function checkLogin(){
         $view = new VPersonalTrainer();
         $email = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));
@@ -167,22 +109,6 @@ public static function login(){
 
 
 
-
-    /*
-    public static function redirectUser()
-    {
-        // Ottieni l'utente corrente
-        $user = USession::getInstance()->getSessionElement('personalTrainer');
-
-        // Controlla il tipo di utente e reindirizza alla corretta home page
-        if ($user instanceof ERegisteredUser) {
-            header('Location: /GymBuddy/User/HomeRU');
-        } elseif ($user instanceof EPersonalTrainer) {
-            header('Location: /GymBuddy/PersonalTrainer/HomePT');
-        } elseif ($user instanceof EAdmin) {
-            header('Location: /GymBuddy/Admin/HomeAD');
-        }
-    } */
 
 
     public static function showFollowedUsers()
@@ -263,5 +189,24 @@ public static function login(){
         }
     }
 
+
+public static function clientsList() {
+    // Ensure the session is started
+    USession::getInstance();
+    // Recupera l'ID dell'utente corrente
+    $userId = USession::getSessionElement('personalTrainer');
+
+    // Debug output
+    error_log("clientsListInfo userId: " . $userId);
+
+    // Recupera gli utenti seguiti dal personal trainer corrente
+    $lists = FPersistentManager::retrieveUserByIdAndType($userId, 'followed_user');
+
+    // Crea un'istanza di VPersonalTrainer
+    $vClientsList = new VPersonalTrainer();
+
+    // Passa gli utenti seguiti alla vista
+    $vClientsList->showClientsList($lists);
+}
 
 }

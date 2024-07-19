@@ -97,6 +97,32 @@ public static function retrieveUserById($userId)
     return $result;
 }
 
+public static function retrieveUserByIdAndType($userId, $type)
+{
+    // Initialize result to null
+    $result = null;
+
+    // Check if the type is 'followed_user'
+    if ($type === 'followed_user') {
+        // Try to retrieve followed users
+        $followedUsers = FRegisteredUser::getFollowedUsersByTrainerId();
+        // Search for the user with the given ID among the followed users
+        foreach ($followedUsers as $user) {
+            if ($user['idUser'] == $userId) {
+                $result = $user;
+                break;
+            }
+        }
+    } else {
+        // If the type is not 'followed_user', retrieve a RegisteredUser by their ID
+        $result = FRegisteredUser::getObj($userId);
+    }
+
+    // Return the found user(s) or null if no user was found
+    return $result;
+}
+
+
 public static function retrieveReservationByUserId($userId)
 {
     // Try to retrieve Reservations by their User ID

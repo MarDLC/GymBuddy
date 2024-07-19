@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-18 12:20:37
+/* Smarty version 3.1.33, created on 2024-07-19 18:40:33
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\homePT.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6698ec75e9e273_00542400',
+  'unifunc' => 'content_669a970184d289_85971632',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2fcb0d054996ee84b01326749a612d6919dd045f' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\homePT.tpl',
-      1 => 1721238473,
+      1 => 1721407230,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6698ec75e9e273_00542400 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669a970184d289_85971632 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -73,7 +73,7 @@ function content_6698ec75e9e273_00542400 (Smarty_Internal_Template $_smarty_tpl)
         <ul>
             <li><a href="/GymBuddy/PersonalTrainer/homePT">Home</a></li>
             <li><a href="/GymBuddy/PersonalTrainer/clientsList">Clients</a></li>
-            <li><a href="/GymBuddy/PersonalTrainer/ReservationList">Reservation</a></li>
+            <li><a href="/GymBuddy/PersonalTrainer/reservationList">Reservation</a></li>
             <li><a href="/GymBuddy/PersonalTrainer/news">News</a></li>
         </ul>
     </nav>

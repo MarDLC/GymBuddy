@@ -16,30 +16,50 @@ class SmartyCompilerException extends SmartyException
     }
 
     /**
-     * The line number of the template error
+     * Proprietà personalizzata per il numero di linea dell'errore
      *
-     * @type int|null
+     * @var int|null
      */
-    public $line = null;
+    private ?int $customLine = null;
 
     /**
      * The template source snippet relating to the error
      *
-     * @type string|null
+     * @var string|null
      */
-    public $source = null;
+    public ?string $source = null;
 
     /**
      * The raw text of the error message
      *
-     * @type string|null
+     * @var string|null
      */
-    public $desc = null;
+    public ?string $desc = null;
 
     /**
      * The resource identifier or template name
      *
-     * @type string|null
+     * @var string|null
      */
-    public $template = null;
+    public ?string $template = null;
+
+    /**
+     * Imposta il numero di linea personalizzato
+     *
+     * @param int|null $line
+     */
+    public function setCustomLine(?int $line)
+    {
+        $this->customLine = $line;
+    }
+
+    /**
+     * Ottiene il numero di linea personalizzato
+     *
+     * @return int|null
+     */
+    public function getCustomLine(): ?int
+    {
+        return $this->customLine;
+    }
 }

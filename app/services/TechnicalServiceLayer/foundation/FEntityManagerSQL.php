@@ -56,13 +56,13 @@ class FEntityManagerSQL{
      * @param mixed $id Refers to the value in the where clause
      * @return array
      */
-  public static function retriveObj($table, $field ,$id){
+ public static function retriveObj($table, $field ,$id){
     try{
         $query = "SELECT * FROM " .$table. " WHERE ".$field." = '".$id."';";
-
         // Debug output for the query
         error_log("retriveObj query: " . $query);
 
+        error_log("retriveObj: Preparing and executing query");
         $stmt = self::$db->prepare($query);
         $stmt->execute();
         $rowNum = $stmt->rowCount();
@@ -122,6 +122,44 @@ public static function retriveLastObj($table, $field, $id, $orderBy){
     } catch(PDOException $e){
         // Debug output for the exception
         error_log("retriveLastObj exception: " . $e->getMessage());
+        return array();
+    }
+}
+
+public static function retriveFollowedUsersByTrainerId($table, $typeField, $typeValue){
+    try{
+        $query = "SELECT user.idUser, user.first_name, user.last_name, user.email 
+                  FROM " .$table. " 
+                  JOIN user ON " .$table. ".idUser = user.idUser 
+                  WHERE ".$typeField." = '".$typeValue."';";
+
+        // Debug output for the query
+        error_log("retriveFollowedUsersByTrainerId query: " . $query);
+
+        $stmt = self::$db->prepare($query);
+        $stmt->execute();
+        $rowNum = $stmt->rowCount();
+
+        // Debug output for the number of rows
+        error_log("retriveFollowedUsersByTrainerId rowNum: " . $rowNum);
+
+        if($rowNum > 0){
+            $result = array();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            while ($row = $stmt->fetch()){
+                $result[] = $row;
+            }
+
+            // Debug output for the result
+            error_log("retriveFollowedUsersByTrainerId result: " . print_r($result, true));
+
+            return $result;
+        }else{
+            return array();
+        }
+    } catch(PDOException $e){
+        // Debug output for the exception
+        error_log("retriveFollowedUsersByTrainerId exception: " . $e->getMessage());
         return array();
     }
 }

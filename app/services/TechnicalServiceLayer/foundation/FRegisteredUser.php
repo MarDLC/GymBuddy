@@ -66,18 +66,24 @@ class FRegisteredUser{
      * @param array $queryResult The query result to create the RegisteredUser object from.
      * @return EUser|array|null The created RegisteredUser object, or an array of RegisteredUser objects, or null if no RegisteredUser object could be created.
      */
-  public static function createRegisteredUserObj($queryResult){
+public static function createRegisteredUserObj($queryResult){
     // If the query result contains only one record
     if(count($queryResult) == 1){
+        error_log("createRegisteredUserObj: Single record found, retrieving attributes");
         $attributes = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), "idUser", $queryResult[0]['idUser']);
+        error_log("createRegisteredUserObj: Attributes retrieved: " . print_r($attributes, true));
 
         // Check if $attributes is not empty
         if (!empty($attributes)) {
             // Create a new RegisteredUser object from the query result
+            error_log("createRegisteredUserObj: Creating new ERegisteredUser object");
             $registeredUser = new ERegisteredUser($queryResult[0]['email'], $queryResult[0]['username'], $queryResult[0]['first_name'], $queryResult[0]['last_name'], $queryResult[0]['password']);
             $registeredUser->setId($queryResult[0]['idUser']);
             $registeredUser->setHashedPassword($queryResult[0]['password']);
-            $registeredUser->setType($attributes[0]['type']);
+            // Check if 'type' key exists in $attributes[0] before trying to access it
+            if (isset($attributes[0]['type'])) {
+                $registeredUser->setType($attributes[0]['type']);
+            }
             // Return the created RegisteredUser object
             return $registeredUser;
         }
@@ -86,15 +92,21 @@ class FRegisteredUser{
         $registeredUsers = array();
         // Loop through each record in the query result
         for($i = 0; $i < count($queryResult); $i++){
+            error_log("createRegisteredUserObj: Multiple records found, retrieving attributes for record " . $i);
             $attributes = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), "idUser", $queryResult[$i]['idUser']);
+            error_log("createRegisteredUserObj: Attributes retrieved for record " . $i . ": " . print_r($attributes, true));
 
             // Check if $attributes is not empty
             if (!empty($attributes)) {
                 // Create a new RegisteredUser object from the current record
+                error_log("createRegisteredUserObj: Creating new ERegisteredUser object for record " . $i);
                 $registeredUser = new ERegisteredUser($queryResult[$i]['email'], $queryResult[$i]['username'], $queryResult[$i]['first_name'], $queryResult[$i]['last_name'], $queryResult[$i]['password']);
                 $registeredUser->setId($queryResult[$i]['idUser']);
                 $registeredUser->setHashedPassword($queryResult[$i]['password']);
-                $registeredUser->setType($attributes[0]['type']);
+                // Check if 'type' key exists in $attributes[0] before trying to access it
+                if (isset($attributes[0]['type'])) {
+                    $registeredUser->setType($attributes[0]['type']);
+                }
                 // Add the RegisteredUser object to the array
                 $registeredUsers[] = $registeredUser;
             }
@@ -142,6 +154,11 @@ class FRegisteredUser{
     }
 
 
+public static function getFollowedUsersByTrainerId(){
+    // Retrieve the followed users from the database
+    $result = FEntityManagerSQL::getInstance()->retriveFollowedUsersByTrainerId(self::getTable(), 'type', 'followed_user');
+    return $result;
+}
 
     public static function saveObj($obj, $fieldArray = null) {
         if ($fieldArray === null) {

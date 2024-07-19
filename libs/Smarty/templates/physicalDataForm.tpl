@@ -7,22 +7,32 @@
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HomePT</title>
+    <title>Physical Data Form</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/flaticon.css" type="text/css">
-    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/barfiller.css" type="text/css">
-    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
+    <style>
+        /* Stili per il form */
+        .form-group label {
+            color: #f36100;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+    </style>
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/barfiller.css" type="text/css">
+    <link rel="stylesheet" href="../css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/style.css" type="text/css">
+    <link rel="stylesheet" href="../css/stylelogin.css" type="text/css">
+
     <script>
         function ready(){
             if (!navigator.cookieEnabled) {
@@ -31,36 +41,10 @@
         }
         document.addEventListener("DOMContentLoaded", ready);
     </script>
+
 </head>
 
 <body>
-
-<!-- Offcanvas Menu Section Begin -->
-<div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-    <div class="canvas-close">
-        <i class="fa fa-close"></i>
-    </div>
-    <div class="canvas-search search-switch">
-        <i class="fa fa-search"></i>
-    </div>
-    <nav class="canvas-menu mobile-menu">
-        <ul>
-            <li><a href="/GymBuddy/PersonalTrainer/homePT">Home</a></li>
-            <li><a href="/GymBuddy/PersonalTrainer/clientsList">Clients</a></li>
-            <li><a href="/GymBuddy/PersonalTrainer/reservationList">Reservation</a></li>
-            <li><a href="/GymBuddy/PersonalTrainer/news">News</a></li>
-        </ul>
-    </nav>
-    <div id="mobile-menu-wrap"></div>
-    <div class="canvas-social">
-        <a href="#"><i class="fa fa-facebook"></i></a>
-        <a href="#"><i class="fa fa-twitter"></i></a>
-        <a href="#"><i class="fa fa-youtube-play"></i></a>
-        <a href="#"><i class="fa fa-instagram"></i></a>
-    </div>
-</div>
-<!-- Offcanvas Menu Section End -->
 
 <!-- Header Section Begin -->
 <header class="header-section">
@@ -68,18 +52,15 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="/GymBuddy/PersonalTrainer/homePT">
-                        <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
+                    <a href="homePT.html">
+                        <img src="../img/logo.png" alt="">
                     </a>
                 </div>
             </div>
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li class="active"><a href="/GymBuddy/PersonalTrainer/homePT">Home</a></li>
-                        <li><a href="/GymBuddy/PersonalTrainer/clientsList">Clients</a></li>
-                        <li><a href="/GymBuddy/PersonalTrainer/ReservationList">Reservation</a></li>
-                        <li><a href="/GymBuddy/PersonalTrainer/news">News</a></li>
+                        <li><a href="homePT.html">Home</a></li>
                     </ul>
                 </nav>
             </div>
@@ -92,7 +73,7 @@
                         <a href="#"><i class="fa fa-instagram"></i></a>
                     </div>
                     <!-- Aggiunta del pulsante di logout -->
-                    <a href="/GymBuddy/User/logout" class="btn btn-primary">Logout</a>
+                    <a href="home.html" class="btn btn-primary">Logout</a>
                 </div>
             </div>
         </div>
@@ -103,21 +84,55 @@
 </header>
 <!-- Header End -->
 
-<!-- Hero Section Begin -->
-<section class="hero-section" style="background-image: url('/GymBuddy/libs/Smarty/img/hero/hero-1.png'); background-size: cover; background-position: center center; height: 100vh; display: flex; align-items: flex-end; justify-content: flex-end;">
+<!-- Info Section Begin -->
+<section class="pricing-section service-pricing spad">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 offset-lg-6">
-                <div class="hi-text" style="margin-bottom: 250px; margin-left: 50px;">
-                    <span style="color: white; text-transform: uppercase;">Shape your body</span>
-                    <h1 style="color: white; text-transform: uppercase;">Be <strong style="color: #f36100; text-transform: uppercase;">strong</strong> training hard</h1>
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Enter your information</h2>
                 </div>
+                <form action="your-server-endpoint" method="post">
+                    <div class="form-group">
+                        <label for="sex">Sex (Male, Female or Nothing)</label>
+                        <input type="text" class="form-control" id="sex" name="sex" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="height">Height (cm)</label>
+                        <input type="number" class="form-control" id="height" name="height" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="weight">Weight (kg)</label>
+                        <input type="number" class="form-control" id="weight" name="weight" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="leanMass">Lean Mass (kg)</label>
+                        <input type="number" class="form-control" id="leanMass" name="leanMass" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fatMass">Fat Mass (kg)</label>
+                        <input type="number" class="form-control" id="fatMass" name="fatMass" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bmi">BMI (%)</label>
+                        <input type="number" class="form-control" id="bmi" name="bmi" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" class="form-control" id="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">User's Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </form>
             </div>
         </div>
     </div>
 </section>
-<!-- Hero Section End -->
-
+<!-- Info Section End -->
 
 <!-- Get In Touch Section Begin -->
 <div class="gettouch-section">
@@ -156,7 +171,7 @@
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href="#"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
+                        <a href="homePT.html"><img src="../img/logo.png" alt=""></a>
                     </div>
                     <p>The most iconic gym in the world has arrived in L'Aquila!
                         Live the best training experience in a unique atmosphere.
@@ -228,14 +243,22 @@
 <!-- Search model end -->
 
 <!-- Js Plugins -->
-<script src="/GymBuddy/libs/Smarty/js/jquery-3.3.1.min.js"></script>
-<script src="/GymBuddy/libs/Smarty/js/bootstrap.min.js"></script>
-<script src="/GymBuddy/libs/Smarty/js/jquery.magnific-popup.min.js"></script>
-<script src="/GymBuddy/libs/Smarty/js/masonry.pkgd.min.js"></script>
-<script src="/GymBuddy/libs/Smarty/js/jquery.barfiller.js"></script>
-<script src="/GymBuddy/libs/Smarty/js/jquery.slicknav.js"></script>
-<script src="/GymBuddy/libs/Smarty/js/owl.carousel.min.js"></script>
-<script src="/GymBuddy/libs/Smarty/js/main.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/masonry.pkgd.min.js"></script>
+<script src="js/jquery.barfiller.js"></script>
+<script src="js/jquery.slicknav.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/main.js"></script>
+
+<script>
+    // Ottieni i parametri dall'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    const nome = urlParams.get('nome');
+    const cognome = urlParams.get('cognome');
+</script>
 
 </body>
 
