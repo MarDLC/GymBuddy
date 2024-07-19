@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-19 12:10:31
+/* Smarty version 3.1.33, created on 2024-07-19 14:41:47
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\homeVIP.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669a3b971f9f42_71597812',
+  'unifunc' => 'content_669a5f0bd78c01_00647886',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8083fcca069cf3aaeaea64aaebe8955a9d491fb5' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\homeVIP.tpl',
-      1 => 1721383821,
+      1 => 1721392905,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669a3b971f9f42_71597812 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669a5f0bd78c01_00647886 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -74,7 +74,7 @@ function content_669a3b971f9f42_71597812 (Smarty_Internal_Template $_smarty_tpl)
     <nav class="canvas-menu mobile-menu">
         <ul>
             <li><a href="/GymBuddy/User/homeVIP">Home</a></li>
-            <li><a href="/GymBuddy/User/subscription">Subscription</a></li>
+            <li><a href="/GymBuddy/Subscription/subscription">Subscription</a></li>
             <li><a href="/GymBuddy/Reservation/reservation">Reservation</a></li>
             <li><a href="/GymBuddy/News/news">News</a></li>
 
@@ -85,7 +85,8 @@ function content_669a3b971f9f42_71597812 (Smarty_Internal_Template $_smarty_tpl)
                     <li><a href="/GymBuddy/Reservation/reservationInfo">View Reservation</a></li>
                     <li><a href="<?php echo $_smarty_tpl->tpl_vars['pathTrainingCardInfo']->value;?>
 ">View Training Card</a></li>
-                    <li><a href="/GymBuddy/PhysicalData/graphicInfo">View Graphic</a></li>
+                    <li><a href="<?php echo $_smarty_tpl->tpl_vars['pathGraphicInfo']->value;?>
+">View Graphic</a></li>
 
                 </ul>
             </li>
@@ -117,7 +118,7 @@ function content_669a3b971f9f42_71597812 (Smarty_Internal_Template $_smarty_tpl)
                 <nav class="nav-menu">
                     <ul>
                         <li><a href="/GymBuddy/User/homeVIP">Home</a></li>
-                        <li><a href="/GymBuddy/User/subscription">Subscription</a></li>
+                        <li><a href="/GymBuddy/Subscription/subscription">Subscription</a></li>
                         <li><a href="/GymBuddy/Reservation/reservation">Reservation</a></li>
                         <li><a href="/GymBuddy/News/news">News</a></li>
 
@@ -128,7 +129,8 @@ function content_669a3b971f9f42_71597812 (Smarty_Internal_Template $_smarty_tpl)
                                 <li><a href="/GymBuddy/Reservation/reservationInfo">View Reservation</a></li>
                                 <li><a href="<?php echo $_smarty_tpl->tpl_vars['pathTrainingCardInfo']->value;?>
 ">View Training Card</a></li>
-                                <li><a href="/GymBuddy/PhysicalData/graphicInfo">View Graphic</a></li>
+                                <li><a href="<?php echo $_smarty_tpl->tpl_vars['pathGraphicInfo']->value;?>
+">View Graphic</a></li>
 
 
                             </ul>

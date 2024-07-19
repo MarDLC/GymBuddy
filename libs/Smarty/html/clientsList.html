@@ -7,7 +7,7 @@
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Gym | Template</title>
+    <title>Clients List</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
@@ -22,19 +22,16 @@
     <link rel="stylesheet" href="../css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="../css/style.css" type="text/css">
+    <link rel="stylesheet" href="../css/stylelogin.css" type="text/css">
 
     <style>
         .selected {
-            background-color: #f1f1f1;
+            background-color: #f36100;
         }
     </style>
 </head>
 
 <body>
-    <!-- Page Preloader -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
 
     <!-- Header Section Begin -->
     <header class="header-section">
@@ -42,7 +39,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="logo">
-                        <a href="homeRU.html">
+                        <a href="./homePT.html">
                             <img src="../img/logo.png" alt="">
                         </a>
                     </div>
@@ -56,9 +53,6 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="top-option">
-                        <div class="to-search search-switch">
-                            <i class="fa fa-search"></i>
-                        </div>
                         <div class="to-social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-twitter"></i></a>
@@ -66,7 +60,7 @@
                             <a href="#"><i class="fa fa-instagram"></i></a>
                         </div>
                         <!-- Aggiunta del pulsante di logout -->
-                        <a href="homeRU.html" class="btn btn-primary">Logout</a>
+                        <a href="homePT.html" class="btn btn-primary">Logout</a>
                     </div>
                 </div>
             </div>
@@ -86,9 +80,10 @@
                     <table id="peopleTable" class="table">
                         <thead>
                             <tr>
-                                <th style="color: white;">ID</th>
-                                <th style="color: white;">Nome</th>
-                                <th style="color: white;">Cognome</th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Surname</th>
+                                <th>Email</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -102,10 +97,10 @@
         <div class="container">
             <div class="row mt-4">
                 <div class="col-lg-6">
-                    <button id="btnScheda" class="btn btn-primary" disabled>Scheda</button>
+                    <button id="btnScheda" class="btn btn-primary" disabled>Training card</button>
                 </div>
                 <div class="col-lg-6">
-                    <button id="btnDatiFisici" class="btn btn-primary" disabled>Dati fisici</button>
+                    <button id="btnDatiFisici" class="btn btn-primary" disabled>Physical data</button>
                 </div>
             </div>
         </div>
@@ -118,7 +113,7 @@
                 <div class="col-md-4">
                     <div class="gt-text">
                         <i class="fa fa-map-marker"></i>
-                        <p>333 Middle Winchendon Rd, Rindge,<br/> NH 03461</p>
+                        <p>L'Aquila Via Vetoio, 48<br/> 67100 Coppito AQ</p>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -133,7 +128,7 @@
                 <div class="col-md-4">
                     <div class="gt-text email">
                         <i class="fa fa-envelope"></i>
-                        <p>Support.gymcenter@gmail.com</p>
+                        <p>support.gymbuddy@gmail.com</p>
                     </div>
                 </div>
             </div>
@@ -148,10 +143,11 @@
                 <div class="col-lg-4">
                     <div class="fs-about">
                         <div class="fa-logo">
-                            <a href="#"><img src="../img/logo.png" alt=""></a>
+                            <a href="homePT.html"><img src="../img/logo.png" alt=""></a>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore dolore magna aliqua endisse ultrices gravida lorem.</p>
+                        <p>The most iconic gym in the world has arrived in L'Aquila!
+                            Live the best training experience in a unique atmosphere.
+                            DISCOVER THE LEGACY: GymBuddy L'Aquila.</p>
                         <div class="fa-social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-twitter"></i></a>
@@ -173,15 +169,7 @@
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="fs-widget">
-                        <h4>Support</h4>
-                        <ul>
-                            <li><a href="#">Login</a></li>
-                            <li><a href="#">My account</a></li>
-                            <li><a href="#">Subscribe</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
+
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="fs-widget">
@@ -230,14 +218,14 @@
     <!-- Search model end -->
 
     <!-- Js Plugins -->
-    <script src="../js/jquery-3.3.1.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.magnific-popup.min.js"></script>
-    <script src="../js/jquery.slicknav.js"></script>
-    <script src="../js/owl.carousel.min.js"></script>
-    <script src="../js/jquery.nice-select.min.js"></script>
-    <script src="../js/mixitup.min.js"></script>
-    <script src="../js/main.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/main.js"></script>
 
     <!-- Codice per la gestione della tabella -->
     <script>
@@ -248,9 +236,10 @@
 
             // Simulazione di dati (sostituire con dati reali)
             const peopleData = [
-                { id: 1, nome: "Marco", cognome: "Rossi" },
-                { id: 2, nome: "Giulia", cognome: "Verdi" },
-                { id: 3, nome: "Paolo", cognome: "Bianchi" }
+                { id: 1, nome: "Marco", cognome: "Rossi", email:"marco@gmail.com" },
+                { id: 2, nome: "Giulia", cognome: "Verdi" , email:"giulia@gmail.com"},
+                { id: 3, nome: "Paolo", cognome: "Bianchi" , email:"paolo@gmail.com"}
+
                 // Aggiungi altri dati se necessario
             ];
 
@@ -265,6 +254,7 @@
                     <td>${person.id}</td>
                     <td>${person.nome}</td>
                     <td>${person.cognome}</td>
+                    <td>${person.email}</td>
                 `;
 
                 // Aggiunta dell'event listener al clic sulle righe della tabella

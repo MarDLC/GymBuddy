@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-18 15:08:54
+/* Smarty version 3.1.33, created on 2024-07-19 13:55:46
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669913e66b6928_20894078',
+  'unifunc' => 'content_669a5442779a76_88417001',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7cad56e48375ae43a9432ef26897e28b7b609b41' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\home.tpl',
-      1 => 1721308133,
+      1 => 1721390144,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669913e66b6928_20894078 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669a5442779a76_88417001 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -71,7 +71,8 @@ function content_669913e66b6928_20894078 (Smarty_Internal_Template $_smarty_tpl)
     </div>
     <nav class="canvas-menu mobile-menu">
         <ul>
-            <li><a href="/GymBuddy/User/home">Home</a></li>
+            <li><a href="<?php echo $_smarty_tpl->tpl_vars['homePath']->value;?>
+">Home</a></li>
             <li><a href="/GymBuddy/User/aboutus">About Us</a></li>
             <li><a href="/GymBuddy/User/services">Services</a></li>
             <li><a href="/GymBuddy/User/team">Our Team</a></li>
@@ -95,7 +96,8 @@ function content_669913e66b6928_20894078 (Smarty_Internal_Template $_smarty_tpl)
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="/GymBuddy/User/home">
+                    <a href="<?php echo $_smarty_tpl->tpl_vars['homePath']->value;?>
+">
                         <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
@@ -103,7 +105,8 @@ function content_669913e66b6928_20894078 (Smarty_Internal_Template $_smarty_tpl)
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li class="active"><a href="/GymBuddy/User/home">Home</a></li>
+                        <li class="active"><a href="<?php echo $_smarty_tpl->tpl_vars['homePath']->value;?>
+">Home</a></li>
                         <li><a href="/GymBuddy/User/aboutus">About Us</a></li>
                         <li><a href="/GymBuddy/User/services">Services</a></li>
                         <li><a href="/GymBuddy/User/team">Our Team</a></li>

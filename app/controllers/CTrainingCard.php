@@ -79,16 +79,7 @@ class CTrainingCard
     }
 
 
-    public static function showTrainingCard($idUser) {
-        // Retrieve the TrainingCard objects for the client
-        $trainingCards = FTrainingCard::getTrainingCardsByIdUserl($idUser);
 
-        // Pass the TrainingCard objects to the view for display
-        $view = new VPersonalTrainer();
-        $view->showTrainingCards($trainingCards);
-        // If successful, redirect to the training card list page
-        header('Location: /GymBuddy/PersonalTrainer/TrainingCardList');
-    }
 
 
     public static function trainingCardInfo()

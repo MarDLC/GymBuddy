@@ -106,4 +106,13 @@ class CPhysicalData
         return FPersistentManager::getChartImageUrl($emailRegisteredUser);
     }
 
+
+
+    public static function physicalDataInfo()
+    {
+        $view = new VPhysicalData();
+        $view->showPhysicalDataInfo();
+    }
+
+
 }

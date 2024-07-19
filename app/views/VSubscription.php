@@ -1,6 +1,6 @@
 <?php
 
-require_once 'libs/Smarty/Smarty.class.php'; // Assicurati di includere Smarty
+
 
 class VSubscription {
     /**
@@ -31,4 +31,18 @@ class VSubscription {
         $this->smarty->assign('error', $errorMessage);
         $this->smarty->display('error.tpl');
     }
+
+
+    public function showSubscription($path)
+    {
+        error_log("Path: " . $path);  // Log the path
+
+        // Assegna il path a una variabile Smarty
+        $this->smarty->assign('homePath',$path);
+
+        // Visualizza il template
+        $this->smarty->display('subscription.tpl');
+    }
+
+
 }

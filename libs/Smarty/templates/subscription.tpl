@@ -44,7 +44,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="/GymBuddy/User/homeRU">
+                    <a href="{$homePath}">
                         <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
@@ -52,7 +52,7 @@
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li class="active"><a href="/GymBuddy/User/homeRU" id="home-link">Home</a></li>
+                        <li class="active"><a href="{$homePath}" id="home-link">Home</a></li>
                     </ul>
                 </nav>
             </div>
@@ -214,7 +214,7 @@
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href="/GymBuddy/Home/homeRU"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
+                        <a href="{$homePath}"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
                     <p>Transform Your Body, Elevate Your Life: Join Our Community of Fitness Enthusiasts and Experience
                         the Best in Modern Equipment, Expert Training, and Personalized Programs.</p>

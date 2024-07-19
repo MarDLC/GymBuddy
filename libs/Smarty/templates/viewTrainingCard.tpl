@@ -169,7 +169,7 @@
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href="homeVIP.html"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
+                        <a href="/GymBuddy/User/homeVIP"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
                     <p>The most iconic gym in the world has arrived in L'Aquila!
                         Live the best training experience in a unique atmosphere.

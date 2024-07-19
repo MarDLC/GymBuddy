@@ -45,11 +45,16 @@ class VRegisteredUser
         $this->smarty->display('login.tpl');
     }
 
-    public function showHome()
-    {
-        $this->smarty->display('home.tpl');
+   public function showHome()
+{
+    // Nel tuo controller
+    if (CUser::isLoggedIn()) {
+        $this->smarty->assign('homePath', '/GymBuddy/User/homeRU');
+    } else {
+        $this->smarty->assign('homePath', '/GymBuddy/User/home');
     }
-
+    $this->smarty->display('home.tpl');
+}
     public function showHomeRU()
     {
         $this->smarty->display('homeRU.tpl');
@@ -96,23 +101,19 @@ class VRegisteredUser
         $this->smarty->display('about-us.tpl');
     }
 
-    public function showServices()
-    {
-        // Nel tuo controller
-        if (CUser::isLoggedIn()) {
-            $this->smarty->assign('homePath', '/GymBuddy/User/homeRU');
-            $this->smarty->assign('enrollPath', '/GymBuddy/User/subscription');
-        } else {
-            $this->smarty->assign('homePath', '/GymBuddy/User/home');
-            $this->smarty->assign('enrollPath', '/GymBuddy/User/login');
-        }
-        $this->smarty->display('services.tpl');
+   public function showServices()
+{
+    // Nel tuo controller
+    if (CUser::isLoggedIn()) {
+        $this->smarty->assign('homePath', '/GymBuddy/User/homeRU');
+        $this->smarty->assign('enrollPath', '/GymBuddy/Subscription/subscription');
+    } else {
+        $this->smarty->assign('homePath', '/GymBuddy/User/home');
+        $this->smarty->assign('enrollPath', '/GymBuddy/User/login');
     }
+    $this->smarty->display('services.tpl');
+}
 
-    public function showSubscription()
-    {
-        $this->smarty->display('subscription.tpl');
-    }
 
     public function showPaymentForm()
     {
@@ -166,25 +167,34 @@ class VRegisteredUser
     $this->smarty->display('confirmation.tpl');
 }
 
- public function showHomeVip() {
+public function showHomeVip() {
     // Recupera l'ID utente dalla sessione
     $userId = USession::getSessionElement('user');
     // Recupera l'utente dal database
     $user = FPersistentManager::retrieveUserById($userId);
 
-    // Controlla il tipo di utente e imposta il path appropriato
+    // Controlla il tipo di utente e imposta il path appropriato per TrainingCard
     if ($user->getType() === 'followed_user') {
-        $path = "/GymBuddy/TrainingCard/trainingCardInfo";
+        $pathTrainingCard = "/GymBuddy/TrainingCard/trainingCardInfo";
     } else if ($user->getType() === 'user_only') {
-        $path = "#";
+        $pathTrainingCard = "#";
     }
 
-    // Assegna il path a una variabile Smarty
-    $this->smarty->assign('pathTrainingCardInfo',$path);
+    // Controlla il tipo di utente e imposta il path appropriato per PhysicalData
+    if ($user->getType() === 'followed_user') {
+        $pathPhysicalData = "/GymBuddy/PhysicalData/physicalDataInfo";
+    } else if ($user->getType() === 'user_only') {
+        $pathPhysicalData = "#";
+    }
+
+    // Assegna i path a variabili Smarty
+    $this->smarty->assign('pathTrainingCardInfo', $pathTrainingCard);
+    $this->smarty->assign('pathGraphicInfo', $pathPhysicalData);
 
     // Visualizza il template
     $this->smarty->display('homeVIP.tpl');
 }
+
 
 
 }

@@ -46,7 +46,7 @@
     </div>
     <nav class="canvas-menu mobile-menu">
         <ul>
-            <li><a href="/GymBuddy/User/home">Home</a></li>
+            <li><a href="{$homePath}">Home</a></li>
             <li><a href="/GymBuddy/User/aboutus">About Us</a></li>
             <li><a href="/GymBuddy/User/services">Services</a></li>
             <li><a href="/GymBuddy/User/team">Our Team</a></li>
@@ -70,7 +70,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="/GymBuddy/User/home">
+                    <a href="{$homePath}">
                         <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
@@ -78,7 +78,7 @@
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li class="active"><a href="/GymBuddy/User/home">Home</a></li>
+                        <li class="active"><a href="{$homePath}">Home</a></li>
                         <li><a href="/GymBuddy/User/aboutus">About Us</a></li>
                         <li><a href="/GymBuddy/User/services">Services</a></li>
                         <li><a href="/GymBuddy/User/team">Our Team</a></li>

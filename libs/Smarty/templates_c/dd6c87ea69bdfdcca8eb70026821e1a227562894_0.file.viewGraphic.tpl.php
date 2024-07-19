@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2024-07-19 14:47:04
+  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\viewGraphic.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_669a6048c7d9d8_25008533',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'dd6c87ea69bdfdcca8eb70026821e1a227562894' => 
+    array (
+      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\viewGraphic.tpl',
+      1 => 1721393223,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_669a6048c7d9d8_25008533 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -14,21 +37,34 @@
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/flaticon.css" type="text/css">
-    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/barfiller.css" type="text/css">
-    <link rel="stylesheet" href="../css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/style.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/barfiller.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
+
+    <?php echo '<script'; ?>
+ src="https://cdn.jsdelivr.net/npm/chart.js"><?php echo '</script'; ?>
+>
+
+    <?php echo '<script'; ?>
+>
+        function ready(){
+            if (!navigator.cookieEnabled) {
+                alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
+            }
+        }
+        document.addEventListener("DOMContentLoaded", ready);
+    <?php echo '</script'; ?>
+>
+
 </head>
 
 <body>
-<!-- Page Preloader -->
-<div id="preloder">
-    <div class="loader"></div>
-</div>
 
 <!-- Header Section Begin -->
 <header class="header-section">
@@ -36,23 +72,20 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="homePT.html">
-                        <img src="../img/logo.png" alt="">
+                    <a href="/GymBuddy/User/homeVIP">
+                        <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
             </div>
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li><a href="homePT.html">Home</a></li>
+                        <li><a href="/GymBuddy/User/homeVIP">Home</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="col-lg-3">
                 <div class="top-option">
-                    <div class="to-search search-switch">
-                        <i class="fa fa-search"></i>
-                    </div>
                     <div class="to-social">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
@@ -60,7 +93,7 @@
                         <a href="#"><i class="fa fa-instagram"></i></a>
                     </div>
                     <!-- Aggiunta del pulsante di logout -->
-                    <a href="homeRU.html" class="btn btn-primary">Logout</a>
+                    <a href="/GymBuddy/User/logout" class="btn btn-primary">Logout</a>
                 </div>
             </div>
         </div>
@@ -74,30 +107,7 @@
 <!-- Info Section Begin -->
 <section class="pricing-section service-pricing spad">
     <div class="container">
-        <div class="section-title">
-            <h2>Scheda di allenamento</h2>
-        </div>
-        <form action="#" method="post" id="workoutForm">
-            <div id="exerciseContainer">
-                <!-- Set iniziale di campi -->
-                <div class="form-group">
-                    <label for="esercizio1" style="color: white;">Esercizio</label>
-                    <input type="text" class="form-control" id="esercizio1" name="esercizio[]" placeholder="Esercizio">
-                </div>
-                <div class="form-group">
-                    <label for="ripetizioni1" style="color: white;">Ripetizioni</label>
-                    <input type="number" class="form-control" id="ripetizioni1" name="ripetizioni[]" placeholder="Ripetizioni">
-                </div>
-                <div class="form-group">
-                    <label for="recupero" style="color: white;">Recupero</label>
-                    <input type="number" class="form-control" id="recupero" name="recupero[]" placeholder="Recupero (secondi)">
-                </div>
-            </div>
-            <!-- Pulsante per aggiungere nuovi campi -->
-            <button type="button" class="btn btn-secondary" id="addExerciseButton">Aggiungi</button>
-            <!-- Pulsante di invio -->
-            <button type="submit" class="btn btn-primary">Salva</button>
-        </form>
+        <canvas id="myChart"></canvas>
     </div>
 </section>
 <!-- Info Section End -->
@@ -109,7 +119,7 @@
             <div class="col-md-4">
                 <div class="gt-text">
                     <i class="fa fa-map-marker"></i>
-                    <p>333 Middle Winchendon Rd, Rindge,<br/> NH 03461</p>
+                    <p>L'Aquila Via Vetoio, 48<br/> 67100 Coppito AQ</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -124,7 +134,7 @@
             <div class="col-md-4">
                 <div class="gt-text email">
                     <i class="fa fa-envelope"></i>
-                    <p>Support.gymcenter@gmail.com</p>
+                    <p>support.gymbuddy@gmail.com</p>
                 </div>
             </div>
         </div>
@@ -139,10 +149,11 @@
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href="#"><img src="../img/logo.png" alt=""></a>
+                        <a href="/GymBuddy/User/homeVIP"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore dolore magna aliqua endisse ultrices gravida lorem.</p>
+                    <p>The most iconic gym in the world has arrived in L'Aquila!
+                        Live the best training experience in a unique atmosphere.
+                        DISCOVER THE LEGACY: GymBuddy L'Aquila.</p>
                     <div class="fa-social">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
@@ -164,15 +175,6 @@
                 </div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-6">
-                <div class="fs-widget">
-                    <h4>Support</h4>
-                    <ul>
-                        <li><a href="#">Login</a></li>
-                        <li><a href="#">My account</a></li>
-                        <li><a href="#">Subscribe</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="fs-widget">
@@ -198,7 +200,9 @@
             <div class="col-lg-12 text-center">
                 <div class="copyright-text">
                     <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        Copyright &copy;<?php echo '<script'; ?>
+>document.write(new Date().getFullYear());<?php echo '</script'; ?>
+> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                 </div>
             </div>
@@ -219,53 +223,74 @@
 <!-- Search model end -->
 
 <!-- Js Plugins -->
-<script src="../js/jquery-3.3.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery.magnific-popup.min.js"></script>
-<script src="../js/masonry.pkgd.min.js"></script>
-<script src="../js/jquery.barfiller.js"></script>
-<script src="../js/jquery.slicknav.js"></script>
-<script src="../js/owl.carousel.min.js"></script>
-<script src="../js/main.js"></script>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/jquery-3.3.1.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/jquery.magnific-popup.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/masonry.pkgd.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/jquery.barfiller.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/jquery.slicknav.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/owl.carousel.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/main.js"><?php echo '</script'; ?>
+>
 
-<script>
-    // Ottieni i parametri dall'URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
-    const nome = urlParams.get('nome');
-    const cognome = urlParams.get('cognome');
 
-    // Contatore per i campi di esercizio aggiunti dinamicamente
-    let exerciseCounter = 1;
+<!-- Chart.js -->
+<?php echo '<script'; ?>
+ src="https://cdn.jsdelivr.net/npm/chart.js"><?php echo '</script'; ?>
+>
 
-    // Gestione del click sul pulsante "Aggiungi"
-    document.getElementById('addExerciseButton').addEventListener('click', function () {
-        exerciseCounter++;
+<!-- Codice per il grafico -->
+<?php echo '<script'; ?>
+>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        fetch('/path/to/your/data/endpoint')
+            .then(response => response.json())
+            .then(data => {
+                const pesi = data.map(item => item.peso);
+                const altezze = data.map(item => item.altezza);
 
-        // Crea un nuovo set di campi di esercizio
-        const newExerciseSet = document.createElement('div');
-        newExerciseSet.classList.add('exercise-set');
-
-        newExerciseSet.innerHTML = `
-                <div class="form-group">
-                    <label for="esercizio${exerciseCounter}" style="color: white;">Esercizio</label>
-                    <input type="text" class="form-control" id="esercizio${exerciseCounter}" name="esercizio[]" placeholder="Esercizio">
-                </div>
-                <div class="form-group">
-                    <label for="ripetizioni${exerciseCounter}" style="color: white;">Ripetizioni</label>
-                    <input type="number" class="form-control" id="ripetizioni${exerciseCounter}" name="ripetizioni[]" placeholder="Ripetizioni">
-                </div>
-                <div class="form-group">
-                    <label for="recuper${exerciseCounter}" style="color: white;">Recupero</label>
-                    <input type="number" class="form-control" id="recupero${exerciseCounter}" name="recupero[]" placeholder="Recupero (secondi)">
-                </div>
-            `;
-
-        // Aggiungi il nuovo set di campi al contenitore
-        document.getElementById('exerciseContainer').appendChild(newExerciseSet);
+                const ctx = document.getElementById('myChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: altezze,
+                        datasets: [{
+                            label: 'Peso',
+                            data: pesi,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('Errore nel recupero dei dati:', error));
     });
-</script>
-
+<?php echo '</script'; ?>
+>
 </body>
 
 </html>
+<?php }
+}

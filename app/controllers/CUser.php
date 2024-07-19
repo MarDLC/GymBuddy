@@ -163,11 +163,6 @@ class CUser
         $view->showContact();
     }
 
-    public static function subscription()
-    {
-        $view = new VRegisteredUser();
-        $view->showSubscription();
-    }
 
 
     public static function logout()
@@ -290,6 +285,8 @@ public static function payment()
 
 public static function confirmation()
 {
+    // Log the start of the method
+    error_log("Confirmation - Start");
     // Get the payment success message from the session
     $message = USession::getSessionElement('payment_success');
 
@@ -312,6 +309,9 @@ public static function confirmation()
     // Pass the message and the redirect script to the view
     $view = new VRegisteredUser();
     $view->showConfirmation($message, $redirect);
+
+    // Log the end of the method
+    error_log("Confirmation - End");
 }
 
 

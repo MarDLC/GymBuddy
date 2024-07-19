@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-19 12:12:59
+/* Smarty version 3.1.33, created on 2024-07-19 14:47:08
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\viewTrainingCard.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669a3c2be88df1_19705643',
+  'unifunc' => 'content_669a604ccbb105_76416350',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '137049ec26043e0c5e76f22b9b2a12e23ee9caf5' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\viewTrainingCard.tpl',
-      1 => 1721383975,
+      1 => 1721393171,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669a3c2be88df1_19705643 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669a604ccbb105_76416350 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -194,7 +194,7 @@ function content_669a3c2be88df1_19705643 (Smarty_Internal_Template $_smarty_tpl)
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href="homeVIP.html"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
+                        <a href="/GymBuddy/User/homeVIP"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
                     <p>The most iconic gym in the world has arrived in L'Aquila!
                         Live the best training experience in a unique atmosphere.

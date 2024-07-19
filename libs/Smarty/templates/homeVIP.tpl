@@ -49,7 +49,7 @@
     <nav class="canvas-menu mobile-menu">
         <ul>
             <li><a href="/GymBuddy/User/homeVIP">Home</a></li>
-            <li><a href="/GymBuddy/User/subscription">Subscription</a></li>
+            <li><a href="/GymBuddy/Subscription/subscription">Subscription</a></li>
             <li><a href="/GymBuddy/Reservation/reservation">Reservation</a></li>
             <li><a href="/GymBuddy/News/news">News</a></li>
 
@@ -59,7 +59,7 @@
                     <li><a href="/GymBuddy/Subscription/subscriptionInfo">View Subscription</a></li>
                     <li><a href="/GymBuddy/Reservation/reservationInfo">View Reservation</a></li>
                     <li><a href="{$pathTrainingCardInfo}">View Training Card</a></li>
-                    <li><a href="/GymBuddy/PhysicalData/graphicInfo">View Graphic</a></li>
+                    <li><a href="{$pathGraphicInfo}">View Graphic</a></li>
 
                 </ul>
             </li>
@@ -91,7 +91,7 @@
                 <nav class="nav-menu">
                     <ul>
                         <li><a href="/GymBuddy/User/homeVIP">Home</a></li>
-                        <li><a href="/GymBuddy/User/subscription">Subscription</a></li>
+                        <li><a href="/GymBuddy/Subscription/subscription">Subscription</a></li>
                         <li><a href="/GymBuddy/Reservation/reservation">Reservation</a></li>
                         <li><a href="/GymBuddy/News/news">News</a></li>
 
@@ -101,7 +101,7 @@
                                 <li><a href="/GymBuddy/Subscription/subscriptionInfo">View Subscription</a></li>
                                 <li><a href="/GymBuddy/Reservation/reservationInfo">View Reservation</a></li>
                                 <li><a href="{$pathTrainingCardInfo}">View Training Card</a></li>
-                                <li><a href="/GymBuddy/PhysicalData/graphicInfo">View Graphic</a></li>
+                                <li><a href="{$pathGraphicInfo}">View Graphic</a></li>
 
 
                             </ul>

@@ -7,7 +7,7 @@
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Gym | Template</title>
+    <title>Reservation Form</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
@@ -22,21 +22,88 @@
     <link rel="stylesheet" href="../css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="../css/style.css" type="text/css">
+    <link rel="stylesheet" href="../css/stylelogin.css" type="text/css">
+    <style>
+        .calendar-day {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 40px;
+            height: 100px; /* Altezza desiderata */
+        }
+    
+        .calendar-day input[type="date"] {
+            padding: 10px;
+            font-size: 17px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            background-color: rgb(243, 97, 0); /* Colore di sfondo arancione */
+            color: #000000; /* Colore del testo bianco */
+            border: 1px solid transparent; /* Rimuove il bordo */
+            outline: none; /* Rimuove l'outline */
+            font-weight: bold;
+        }
+    
+        .timeslot-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+    
+        .timeslot-container button {
+            width: 150px;
+            padding: 15px;
+            margin: 10px;
+            background-color: rgb(243, 97, 0);
+            color: rgb(0, 0, 0);
+            font-family: "Bahnschrift", sans-serif;
+            border: none;
+            font-size: 17px;
+            cursor: pointer;
+            transition: background-color 0.6s ease;
+            font-weight: bold;
+        }
+    
+        .timeslot-container button:hover {
+            background-color: #ffffff;
+        }
+    
+        .confirm-button {
+            text-align: center;
+        }
+    
+        .confirm-button button {
+            background-color: rgb(243, 97, 0);
+            color: rgb(0, 0, 0);
+            font-family: "Bahnschrift", sans-serif;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.6s ease;
+            font-weight: bold;
+        }
+    
+        .confirm-button button:hover {
+            background-color: #ffffff;
+        }
+    </style>
+    
+    
 </head>
 
 <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
 
-      <!-- Header Section Begin -->
-      <header class="header-section">
+    <!-- Header Section Begin -->
+    <header class="header-section">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3">
                     <div class="logo">
-                        <a href="homeRU.html">
+                        <a href="./homeRU.html">
                             <img src="../img/logo.png" alt="">
                         </a>
                     </div>
@@ -44,16 +111,12 @@
                 <div class="col-lg-6">
                     <nav class="nav-menu">
                         <ul>
-                            <li class="active"><a href="#" id="home-link">Home</a></li>
-                            
+                            <li class="active"><a href="homeRU.html" id="home-link">Home</a></li>
                         </ul>
                     </nav>
                 </div>
                 <div class="col-lg-3">
                     <div class="top-option">
-                        <div class="to-search search-switch">
-                            <i class="fa fa-search"></i>
-                        </div>
                         <div class="to-social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-twitter"></i></a>
@@ -61,7 +124,7 @@
                             <a href="#"><i class="fa fa-instagram"></i></a>
                         </div>
                         <!-- Aggiunta del pulsante di logout -->
-                    <a href="homeRU.html" class="btn btn-primary">Logout</a>
+                        <a href="home.html" class="btn btn-primary">Logout</a>
                     </div>
                 </div>
             </div>
@@ -71,84 +134,30 @@
         </div>
     </header>
     <!-- Header End -->
+
     <!-- Pricing Section Begin -->
     <section class="pricing-section service-pricing spad">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title">
-                        <span>Our Plan</span>
-                        <h2>Choose your pricing plan</h2>
-                    </div>
-                </div>
+            <div class="section-title">
+                <h2>SELECT DAY</h2>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-8">
-                    <div class="ps-item">
-                        <h3>1 Month</h3>
-                        <div class="pi-price">
-                            <h2>$ 30.0</h2>
-                            <span>SINGLE CLASS</span>
+            <div class="calendar-day">
+                <input type="date" id="calendar-day">
+            </div>
+
+            <div class="section-title">
+                            <h2>SELECT THE TIME SLOT</h2>
                         </div>
-                        <ul>
-                            <li>Unlimited equipments</li>
-                            <li>No time restriction</li>
-                        </ul>
-                        <a href="pagamento.html" class="primary-btn pricing-btn">Enroll now</a>
-                        <a href="#" class="thumb-icon"><i class="fa fa-picture-o"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-8">
-                    <div class="ps-item">
-                        <h3>12 Month</h3>
-                        <div class="pi-price">
-                            <h2>$ 300.0</h2>
-                            <span>SINGLE CLASS</span>
-                        </div>
-                        <ul>
-                            <li>Unlimited equipments</li>
-                            <li>No time restriction</li>
-                        </ul>
-                        <a href="pagamento.html" class="primary-btn pricing-btn">Enroll now</a>
-                        <a href="#" class="thumb-icon"><i class="fa fa-picture-o"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-8">
-                    <div class="ps-item">
-                        <h3>1 Month vip</h3>
-                        <div class="pi-price">
-                            <h2>$ 100.0</h2>
-                            <span>SINGLE CLASS</span>
-                        </div>
-                        <ul>
-                            <li>Unlimited equipments</li>
-                            <li>Personal trainer</li>
-                            <li>Weight losing classes</li>
-                            <li>Personal training card</li>
-                            <li>No time restriction</li>
-                        </ul>
-                        <a href="pagamento.html" class="primary-btn pricing-btn">Enroll now</a>
-                        <a href="#" class="thumb-icon"><i class="fa fa-picture-o"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-8">
-                    <div class="ps-item">
-                        <h3>12 Month vip</h3>
-                        <div class="pi-price">
-                            <h2>$ 1000.0</h2>
-                            <span>SINGLE CLASS</span>
-                        </div>
-                        <ul>
-                            <li>Unlimited equipments</li>
-                            <li>Personal trainer</li>
-                            <li>Weight losing classes</li>
-                            <li>Personal training card</li>
-                            <li>No time restriction</li>
-                        </ul>
-                        <a href="pagamento.html" class="primary-btn pricing-btn">Enroll now</a>
-                        <a href="#" class="thumb-icon"><i class="fa fa-picture-o"></i></a>
-                    </div>
-                </div>
+            <div class="timeslot-container">
+                <button onclick="selectCell(this)">9:00 - 11:00</button>
+                <button onclick="selectCell(this)">11:00 - 13:00 </button>
+                <button onclick="selectCell(this)">13:00 - 15:00 </button>
+                <button onclick="selectCell(this)">15:00 - 17:00 </button>
+                <button onclick="selectCell(this)">17:00 - 19:00 </button>
+            </div>
+
+            <div class="confirm-button">
+                <button onclick="confirmSelection()">CONFIRM</button>
             </div>
         </div>
     </section>
@@ -161,7 +170,7 @@
                 <div class="col-md-4">
                     <div class="gt-text">
                         <i class="fa fa-map-marker"></i>
-                        <p>333 Middle Winchendon Rd, Rindge,<br/> NH 03461</p>
+                        <p>L'Aquila Via Vetoio, 48<br/> 67100 Coppito AQ</p>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -176,7 +185,7 @@
                 <div class="col-md-4">
                     <div class="gt-text email">
                         <i class="fa fa-envelope"></i>
-                        <p>Support.gymcenter@gmail.com</p>
+                        <p>support.gymbuddy@gmail.com</p>
                     </div>
                 </div>
             </div>
@@ -191,10 +200,11 @@
                 <div class="col-lg-4">
                     <div class="fs-about">
                         <div class="fa-logo">
-                            <a href="#"><img src="../img/logo.png" alt=""></a>
+                            <a href="#"><img src="img/logo.png" alt=""></a>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore dolore magna aliqua endisse ultrices gravida lorem.</p>
+                        <p>The most iconic gym in the world has arrived in L'Aquila!
+                            Live the best training experience in a unique atmosphere.
+                            DISCOVER THE LEGACY: GymBuddy L'Aquila.</p>
                         <div class="fa-social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-twitter"></i></a>
@@ -216,15 +226,6 @@
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="fs-widget">
-                        <h4>Support</h4>
-                        <ul>
-                            <li><a href="#">Login</a></li>
-                            <li><a href="#">My account</a></li>
-                            <li><a href="#">Subscribe</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="fs-widget">
@@ -250,8 +251,11 @@
                 <div class="col-lg-12 text-center">
                     <div class="copyright-text">
                         <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                            All rights reserved | This template is made with <i class="fa fa-heart"
+                                aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
                     </div>
                 </div>
             </div>
@@ -271,35 +275,71 @@
     <!-- Search model end -->
 
     <!-- Js Plugins -->
-    <script src="../js/jquery-3.3.1.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.magnific-popup.min.js"></script>
-    <script src="../js/masonry.pkgd.min.js"></script>
-    <script src="../js/jquery.barfiller.js"></script>
-    <script src="../js/jquery.slicknav.js"></script>
-    <script src="../js/owl.carousel.min.js"></script>
-    <script src="../js/main.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/masonry.pkgd.min.js"></script>
+    <script src="js/jquery.barfiller.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        function selectCell(button) {
+            var calendarDay = document.getElementById('calendar-day').value;
+
+            // Verifica se è stata selezionata una data
+            if (calendarDay.trim() === '') {
+                alert("Seleziona prima una data dal calendario.");
+                return;
+            }
+
+            // Rimuove la classe selezionata da tutti i pulsanti
+            var buttons = document.querySelectorAll('button');
+            buttons.forEach(function (btn) {
+                btn.classList.remove('selected');
+                btn.classList.remove('temp-selected'); // Rimuove la classe temporanea, se presente
+            });
+
+            // Aggiunge la classe selezionata al pulsante cliccato
+            button.classList.add('selected');
+            button.classList.add('temp-selected'); // Aggiunge la classe temporanea
+        }
+
+        function confirmSelection() {
+            // Trova il pulsante selezionato
+            var selectedButton = document.querySelector('button.selected');
+
+            if (selectedButton) {
+                // Ottieni il testo del pulsante selezionato
+                var selectedText = selectedButton.textContent;
+                alert('Hai selezionato: ' + selectedText);
+
+                // Rimuovi la classe temporanea dopo un breve ritardo (1 secondo)
+                setTimeout(function () {
+                    selectedButton.classList.remove('temp-selected');
+                }, 1000);
+            } else {
+                alert("Seleziona prima un'opzione.");
+            }
+        }
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
             var homeLink = document.getElementById('home-link');
             var referrer = document.referrer;
-    
+
             // Aggiorna il link "Home" con la pagina di provenienza come query string
             if (referrer.includes('indexutentenor.html')) {
                 homeLink.href = 'indexutentenor.html?source=previous';
-            } else if (referrer.includes('indexutentevip.html')) {
-                homeLink.href = 'indexutentevip.html?source=previous';
+            } else if (referrer.includes('utentevip.html')) {
+                homeLink.href = 'utentevip.html?source=previous';
             } else {
                 homeLink.href = 'indexutentenor.html'; // Default link if referrer is not recognized
             }
         });
     </script>
-    
-    
-
-
-
 </body>
 
 </html>
