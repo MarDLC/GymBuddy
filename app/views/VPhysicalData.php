@@ -24,14 +24,30 @@ class VPhysicalData
     }
 
 
-public function showPhysicalDataForm($selectedUser)
-{
-    // Assign the selected user to a Smarty variable
-    $this->smarty->assign('selectedUser', $selectedUser);
+    public function showPhysicalDataForm()
+    {
+        // Recupera l'ID utente selezionato dalla sessione
+        $selectedUserId = USession::getSessionElement('selected_user');
 
-    // Display the physical data form template
-    $this->smarty->display('physicalDataForm.tpl');
-}
+        // Assegna l'ID utente selezionato a una variabile Smarty
+        $this->smarty->assign('selectedUserId', $selectedUserId);
+
+        // Mostra il template del form dei dati fisici
+        $this->smarty->display('physicalDataForm.tpl');
+    }
+
+
+    public function showConfirmation($message, $redirect) {
+        // Assign the message to a Smarty variable
+        $this->smarty->assign('message', $message);
+
+        // Assign the redirect script to a Smarty variable
+        $this->smarty->assign('redirect', $redirect);
+
+        // Display the confirmation template
+        $this->smarty->display('confirmation.tpl');
+    }
+
 
 
 }

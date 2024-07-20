@@ -71,17 +71,17 @@ class EPhysicalData {
      * @param float $fatMass The fat mass of the registered user.
      * @param float $bmi The Body Mass Index (BMI) of the registered user.
      */
-    public function __construct($idUser, $sex, $height, $weight, $leanMass, $fatMass, $bmi)
-    {
-        $this->idUser = $idUser;
-        $this->sex = $sex;
-        $this->height = $height;
-        $this->weight = $weight;
-        $this->leanMass = $leanMass;
-        $this->fatMass = $fatMass;
-        $this->bmi = $bmi;
-        $this->setTime();
-    }
+  public function __construct($idUser, $sex, $height, $weight, $leanMass, $fatMass, $bmi)
+{
+    $this->idUser = $idUser;
+    $this->sex = $sex;
+    $this->height = $height;
+    $this->weight = $weight;
+    $this->leanMass = $leanMass;
+    $this->fatMass = $fatMass;
+    $this->bmi = $bmi;
+    $this->setTime();
+}
 
    /**
  * Get the name of the class.
@@ -116,10 +116,10 @@ private function setTime()
  *
  * @return string The date of the physical data record in 'Y-m-d H:i:s' format.
  */
-public function getTimeStr()
-{
-    return $this->date->format('Y-m-d H:i:s');
-}
+    public function getTimeStr()
+    {
+        return $this->date->format('Y-m-d H:i:s');
+    }
 
 /**
  * Set the creation time of the physical data record.

@@ -93,9 +93,11 @@
                 <div class="section-title">
                     <h2>Enter your information</h2>
                 </div>
-                <form action="your-server-endpoint" method="post">
+                <form action="/GymBuddy/PhysicalData/compileForm" method="post">
+                    <input type="hidden" name="selected_user" value="{$selectedUserId}">
+
                     <div class="form-group">
-                        <label for="sex">Sex (Male, Female or Nothing)</label>
+                        <label for="sex">Sex (Male, Female or Other)</label>
                         <input type="text" class="form-control" id="sex" name="sex" required>
                     </div>
                     <div class="form-group">
@@ -117,10 +119,6 @@
                     <div class="form-group">
                         <label for="bmi">BMI (%)</label>
                         <input type="number" class="form-control" id="bmi" name="bmi" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="date">Date</label>
-                        <input type="date" class="form-control" id="date" name="date" required>
                     </div>
                     <div class="form-group">
                         <label for="email">User's Email</label>
@@ -260,6 +258,8 @@
     const nome = urlParams.get('nome');
     const cognome = urlParams.get('cognome');
 </script>
+
+
 
 </body>
 

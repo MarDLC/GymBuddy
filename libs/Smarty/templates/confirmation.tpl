@@ -26,7 +26,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12 mt-4">
-            <a href="/GymBuddy/User/homeRU" class="btn btn-primary">Home</a>
+            <a href="#" class="btn btn-primary">Home</a>
         </div>
         <div class="col-md-6 mt-3">
             <div class="card">

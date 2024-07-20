@@ -232,12 +232,8 @@ public static function retriveFollowedUsers(){
         }
     }
 
-    /**
-     * Method to save an object in the Database using the INSERT TO query
-     * @param String $foundClass Refers to the name of the foundation class, so you can get the table and the value
-     * @param Object $obj Refers to an Entity Object to save in the Database
-     * @return int | null
-     */
+
+
     public static function saveObject($foundClass, $obj)
     {
         try {

@@ -16,7 +16,7 @@ class FPhysicalData{
     /**
      * @var string $value The SQL value string for inserting a new record into the table.
      */
-    private static $value = "(NULL,:idUser,:sex,:height,:weight,:leanMass,:fatMass,:bmi,:date)";
+    private static $value = "(:idUser,:sex,:height,:weight,:leanMass,:fatMass,:bmi,:date,NULL)";
 
     /**
      * @var string $key The primary key of the table.
@@ -66,26 +66,47 @@ class FPhysicalData{
  * @param PDOStatement $stmt The PDOStatement to bind the parameters to.
  * @param EPhysicalData $physicalData The PhysicalData object whose properties to bind.
  */
-public static function bind($stmt, $physicalData)
-{
-    // Bind the user ID to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":idUser", $physicalData->getIdUser()->getId(), PDO::PARAM_INT);
-    // Bind the sex to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":sex", $physicalData->getSex(), PDO::PARAM_STR);
-    // Bind the height to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":height", $physicalData->getHeight(), PDO::PARAM_STR);
-    // Bind the weight to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":weight", $physicalData->getWeight(), PDO::PARAM_STR);
-    // Bind the lean mass to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":leanMass", $physicalData->getLeanMass(), PDO::PARAM_STR);
-    // Bind the fat mass to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":fatMass", $physicalData->getFatMass(), PDO::PARAM_STR);
-    // Bind the BMI to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":bmi", $physicalData->getBmi(), PDO::PARAM_STR);
-    // Bind the date to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":date", $physicalData->getTimeStr(), PDO::PARAM_STR);
+    public static function bind($stmt, $physicalData)
+    {
+        error_log("EPhysicalData object: " . print_r($physicalData, true));
 
-}
+        $idUser = $physicalData->getIdUser();
+        if ($idUser !== null) {
+            $stmt->bindValue(":idUser", $idUser, PDO::PARAM_INT);
+            error_log("Binding user ID: $idUser");
+        } else {
+            // Handle the error, e.g., throw an exception or show an error message
+            $errorMessage = 'User ID is null';
+            error_log($errorMessage);
+            throw new Exception($errorMessage);
+        }
+
+        $sex = $physicalData->getSex();
+        $stmt->bindValue(":sex", $sex, PDO::PARAM_STR);
+        error_log("Binding sex: $sex");
+
+        $height = $physicalData->getHeight();
+        $stmt->bindValue(":height", $height, PDO::PARAM_STR);
+        error_log("Binding height: $height");
+
+        $weight = $physicalData->getWeight();
+        $stmt->bindValue(":weight", $weight, PDO::PARAM_STR);
+        error_log("Binding weight: $weight");
+
+        $leanMass = $physicalData->getLeanMass();
+        $stmt->bindValue(":leanMass", $leanMass, PDO::PARAM_STR);
+        error_log("Binding leanMass: $leanMass");
+
+        $fatMass = $physicalData->getFatMass();
+        $stmt->bindValue(":fatMass", $fatMass, PDO::PARAM_STR);
+        error_log("Binding fatMass: $fatMass");
+
+        $bmi = $physicalData->getBmi();
+        $stmt->bindValue(":bmi", $bmi, PDO::PARAM_STR);
+        error_log("Binding bmi: $bmi");
+
+        $stmt->bindValue("date", $physicalData->getTimeStr(), PDO::PARAM_STR);
+    }
 
 /**
  * Creates a PhysicalData object from the given query result.
@@ -162,7 +183,9 @@ public static function getObj($id){
 public static function saveObj($obj , $fieldArray = null){
     // If the field array is null, save a new PhysicalData object
     if($fieldArray === null){
+        error_log("Saving EPhysicalData object: " . print_r($obj, true));
         $savePhysicalData = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $obj);
+        error_log("Result of save operation: " . $savePhysicalData);
         // If the save operation was successful, return the last inserted ID
         if($savePhysicalData !== null){
             return $savePhysicalData;

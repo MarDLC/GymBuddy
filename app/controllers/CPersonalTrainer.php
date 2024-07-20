@@ -57,6 +57,18 @@ public static function login(){
         return true;
     }
 
+    public static function isLoggedIn()
+    {
+        if (UCookie::isSet('PHPSESSID')) {
+            if (session_status() == PHP_SESSION_NONE) {
+                USession::getInstance();
+            }
+        }
+        $isLoggedIn = USession::isSetSessionElement('personalTrainer');
+        error_log("Is user logged in: " . ($isLoggedIn ? "Yes" : "No")); // Debug message
+        return $isLoggedIn;
+    }
+
 
 
 

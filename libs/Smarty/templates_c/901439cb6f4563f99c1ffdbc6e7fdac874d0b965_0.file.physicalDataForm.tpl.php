@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-20 02:16:03
+/* Smarty version 3.1.33, created on 2024-07-20 12:05:22
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\physicalDataForm.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669b01c383e7e8_70265873',
+  'unifunc' => 'content_669b8be2c3bdb7_08707359',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '901439cb6f4563f99c1ffdbc6e7fdac874d0b965' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\physicalDataForm.tpl',
-      1 => 1721422095,
+      1 => 1721469903,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669b01c383e7e8_70265873 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669b8be2c3bdb7_08707359 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -118,9 +118,12 @@ function content_669b01c383e7e8_70265873 (Smarty_Internal_Template $_smarty_tpl)
                 <div class="section-title">
                     <h2>Enter your information</h2>
                 </div>
-                <form action="your-server-endpoint" method="post">
+                <form action="/GymBuddy/PhysicalData/compileForm" method="post">
+                    <input type="hidden" name="selected_user" value="<?php echo $_smarty_tpl->tpl_vars['selectedUserId']->value;?>
+">
+
                     <div class="form-group">
-                        <label for="sex">Sex (Male, Female or Nothing)</label>
+                        <label for="sex">Sex (Male, Female or Other)</label>
                         <input type="text" class="form-control" id="sex" name="sex" required>
                     </div>
                     <div class="form-group">
@@ -142,10 +145,6 @@ function content_669b01c383e7e8_70265873 (Smarty_Internal_Template $_smarty_tpl)
                     <div class="form-group">
                         <label for="bmi">BMI (%)</label>
                         <input type="number" class="form-control" id="bmi" name="bmi" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="date">Date</label>
-                        <input type="date" class="form-control" id="date" name="date" required>
                     </div>
                     <div class="form-group">
                         <label for="email">User's Email</label>
@@ -305,6 +304,8 @@ function content_669b01c383e7e8_70265873 (Smarty_Internal_Template $_smarty_tpl)
     const cognome = urlParams.get('cognome');
 <?php echo '</script'; ?>
 >
+
+
 
 </body>
 
