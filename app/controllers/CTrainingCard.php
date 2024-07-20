@@ -80,11 +80,6 @@ class CTrainingCard
 
 
 
-    public static function trainingCardInfo()
-    {
-        $view = new VTrainingCard();
-        $view->showTrainingCardInfo();
-    }
 
 
     public static function trainingCardForm($data)
@@ -115,50 +110,57 @@ class CTrainingCard
     }
 
 
-    public static function compileForm()
-    {
-        // Ensure the session is started
-        USession::getInstance();
-        error_log("Session started");
+   public static function compileForm()
+{
+    // Ensure the session is started
+    USession::getInstance();
+    error_log("Session started");
 
-        // Debug: Log the value of 'id_selected_user' at the start of the method
-        error_log("id_selected_user at start: " . USession::getSessionElement('id_selected_user'));
+    // Debug: Log the value of 'id_selected_user' at the start of the method
+    error_log("id_selected_user at start: " . USession::getSessionElement('id_selected_user'));
 
-        // Verifica se l'utente è loggato
-        if (!CPersonalTrainer::isLoggedIn()) {
-            error_log("User is not logged in, redirecting to login page.");
-            header('Location: /GymBuddy/User/Login');
-            exit();
-        }
-
-        $selectedUserId = USession::getSessionElement('id_selected_user');
-
-        // Recupera l'ID utente selezionato dalla sessione
-        //$selectedUser = intval(USession::getSessionElement('id_selected_user'));
-
-
-
-        // Recupera i dati di physical data dal form
-        $sex = UHTTPMethods::post('sex');
-        $height = UHTTPMethods::post('height');
-        $weight = UHTTPMethods::post('weight');
-        $leanMass = UHTTPMethods::post('leanMass');
-        $fatMass = UHTTPMethods::post('fatMass');
-        $bmi = UHTTPMethods::post('bmi');
-
-        // Crea un nuovo oggetto PhysicalData
-        $physicalData = new EPhysicalData(  $selectedUserId, $sex, $height, $weight, $leanMass, $fatMass, $bmi);
-
-        error_log("Created EPhysicalData object: " . print_r($physicalData, true));
-
-        // Salva l'oggetto PhysicalData nel database e verifica il risultato
-        FPersistentManager::getInstance()->uploadObj($physicalData);
-
-        USession::setSessionElement('data_save_success', 'Your physical data was saved successfully!');
-        header('Location: /GymBuddy/PhysicalData/confirmation');
+    // Verifica se l'utente è loggato
+    if (!CPersonalTrainer::isLoggedIn()) {
+        error_log("User is not logged in, redirecting to login page.");
+        header('Location: /GymBuddy/User/Login');
         exit();
     }
 
+    $selectedUserId = USession::getSessionElement('id_selected_user');
+
+    // Recupera i dati di physical data dal form
+    $exercises = UHTTPMethods::post('exercises');
+    $repetition = UHTTPMethods::post('repetition');
+    $recovery = UHTTPMethods::post('recovery');
+
+    // Check if the form data is not null
+    if ($exercises === null || $repetition === null || $recovery === null) {
+        error_log("Form data is missing.");
+        USession::setSessionElement('data_save_error', 'There was an error saving your data. Please try again.');
+        header('Location: /GymBuddy/TrainingCard/confirmation');
+        exit();
+    }
+
+    // Verifica che i dati abbiano la stessa lunghezza
+    if (count($exercises) === count($repetition) && count($repetition) === count($recovery)) {
+        for ($i = 0; $i < count($exercises); $i++) {
+            // Crea un nuovo oggetto ETrainingCard per ogni set di dati
+            $trainingCard = new ETrainingCard($selectedUserId, $exercises[$i], $repetition[$i], $recovery[$i]);
+            error_log("Created ETrainingCard object: " . print_r($trainingCard, true));
+
+            // Salva l'oggetto ETrainingCard nel database
+            FPersistentManager::getInstance()->uploadObj($trainingCard);
+        }
+
+        USession::setSessionElement('data_save_success', 'Your physical data was saved successfully!');
+    } else {
+        error_log("Mismatch in the number of exercises, repetitions, and recoveries.");
+        USession::setSessionElement('data_save_error', 'There was an error saving your data. Please try again.');
+    }
+
+    header('Location: /GymBuddy/TrainingCard/confirmation');
+    exit();
+}
     public static function confirmation()
     {
         // Log the start of the method
@@ -176,14 +178,47 @@ class CTrainingCard
         $redirect = '<script>setTimeout(function(){ window.location.href = "/GymBuddy/PersonalTrainer/homePT"; }, 1000);</script>';
 
         // Pass the message and the redirect script to the view
-        $view = new VPhysicalData();
+        $view = new VTrainingCard();
         $view->showConfirmation($message, $redirect);
 
         // Log the end of the method
         error_log("Confirmation - End");
     }
 
+    public static function trainingCardInfo()
+    {
+        self::viewTrainingCard();
+    }
 
+
+    public static function viewTrainingCard() {
+    // Ensure the session is started
+    USession::getInstance();
+
+    // Check if the user is logged in
+    if (!CUser::isLoggedIn()) {
+        header('Location: /GymBuddy/User/Login');
+        exit();
+    }
+
+    // Get the user ID from the session
+    $userId = USession::getSessionElement('user');
+
+    // Retrieve the training card data for the user
+    $trainingCards = FPersistentManager::getTrainingCardsById($userId);
+
+    // Check if any training cards were retrieved
+    if (!$trainingCards) {
+        error_log("No training cards found for user ID: $userId");
+        return;
+    }
+
+    // Get the view
+    $view = new VTrainingCard();
+
+    // Show the training cards
+    $view->showTrainingCards($trainingCards);
+}
 
 
 }

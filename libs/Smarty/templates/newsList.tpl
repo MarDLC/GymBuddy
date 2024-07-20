@@ -7,7 +7,7 @@
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>View Reservation</title>
+    <title>Comunicazioni User</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
@@ -22,48 +22,61 @@
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
-
-    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/stylelogin.css" type="text/css">
     <style>
-        .pricing-section .pricing-table table {
+        .news-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .news-item {
+            background: #f8f9fa;
+            border: 5px solid #f36100;
+            border-radius: 5px;
+            padding: 20px;
             width: 100%;
-            border-collapse: collapse;
+            max-width: 600px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-
-        .pricing-section .pricing-table table th,
-        .pricing-section .pricing-table table td {
-            border: 2px solid rgb(243, 97, 0);
-            padding: 15px;
+        .news-header h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: #f36100;
+            font-weight: bold;
+        }
+        .news-item h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #f36100;
+            font-weight: bold;
+        }
+        .news-item p {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: black;
+        }
+        .news-item span {
+            font-size: 14px;
+            color: #6c757d;
+        }
+        .news-header {
             text-align: center;
-            font-size: 18px;
-            color: rgb(255, 255, 255);
-        }
-
-        .pricing-section .pricing-table table th {
-            background-color: rgb(243, 97, 0);
+            margin-top: 40px;
         }
     </style>
-
-    <script>
-        function ready(){
-            if (!navigator.cookieEnabled) {
-                alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
-            }
-        }
-        document.addEventListener("DOMContentLoaded", ready);
-    </script>
-
 </head>
 
 <body>
+
 <!-- Header Section Begin -->
 <header class="header-section">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="/GymBuddy/User/homeVIP">
+                    <a href="/GymBuddy/User/homeRU">
                         <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
@@ -71,7 +84,7 @@
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li><a href="/GymBuddy/User/homeVIP">Home</a></li>
+                        <li><a href="/GymBuddy/User/homeRU">Home</a></li>
                     </ul>
                 </nav>
             </div>
@@ -98,32 +111,21 @@
 <!-- Info Section Begin -->
 <section class="pricing-section service-pricing spad">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title">
-                    <h2>TRAINING CARD</h2>
-                </div>
-            </div>
+        <div class="news-header">
+            <h1>Ultime Notizie</h1>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="pricing-table">
-                    <table class="custom-table">
-                        <tr>
-                            <th>EXERCISE</th>
-                            <th>REPETITIONS</th>
-                            <th>RECOVERY</th>
-                        </tr>
-                        {foreach from=$trainingCards item=card}
-                        <tr>
-                            <td>{$card->exercises}</td>
-                            <td>{$card->repetition}</td>
-                            <td>{$card->recovery}</td>
-                        </tr>
-                        {/foreach}
-                    </table>
-                </div>
-            </div>
+        <div class="news-container">
+            {if $newsList}
+                {foreach from=$newsList item=news}
+                    <div class="news-item">
+                        <h2>{$news->getTitle()}</h2>
+                        <p>{$news->getDescription()}</p>
+                        <span>Pubblicato il: {$news->getTimeStr()}</span>
+                    </div>
+                {/foreach}
+            {else}
+                <p>Nessuna notizia disponibile.</p>
+            {/if}
         </div>
     </div>
 </section>
@@ -166,7 +168,7 @@
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href="/GymBuddy/User/homeVIP"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
+                        <a href="#"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
                     <p>The most iconic gym in the world has arrived in L'Aquila!
                         Live the best training experience in a unique atmosphere.

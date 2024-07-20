@@ -392,19 +392,13 @@ public static function retrieveSubscriptionByUserId($userId){
     }
 
 
-    public function getTrainingCardsByEmail($emailRegisteredUser)
-    {
-        // Use FEntityManagerSQL to execute the SQL statement
-        $results = FTrainingCard::getObj($emailRegisteredUser);
-        // Convert the results into TrainingCard objects
-        $trainingCards = [];
-        foreach ($results as $row) {
-            $trainingCard = new ETrainingCard($row['idUser'], $row['exercises'], $row['repetition'], $row['recovery']);
-            $trainingCards[] = $trainingCard;
-        }
-        // Return the array of TrainingCard objects
-        return $trainingCards;
-    }
+public static function getTrainingCardsById($userId)
+{
+    // Use FTrainingCard to get the training cards for the user
+    $trainingCards = FTrainingCard::getTrainingCardsByIdUser($userId);
+    // Return the array of TrainingCard objects
+    return $trainingCards;
+}
 
     public static function getPhysicalDataByEmail($emailRegisteredUser)
     {

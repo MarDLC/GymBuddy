@@ -34,4 +34,24 @@ class VTrainingCard{
     }
 
 
+    public function showConfirmation($message, $redirect) {
+        // Assign the message to a Smarty variable
+        $this->smarty->assign('message', $message);
+
+        // Assign the redirect script to a Smarty variable
+        $this->smarty->assign('redirect', $redirect);
+
+        // Display the confirmation template
+        $this->smarty->display('confirmation.tpl');
+    }
+
+    public function showTrainingCards($trainingCards) {
+        // Assign the training card data to the Smarty template
+        $this->smarty->assign('trainingCards', $trainingCards);
+
+        // Display the viewTrainingCard.tpl template
+        $this->smarty->display('viewTrainingCard.tpl');
+    }
+
+
 }

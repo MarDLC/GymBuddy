@@ -217,7 +217,33 @@ public static function saveObj($obj , $fieldArray = null){
     }
 }
 
-   /**
+
+    public static function createPhysicalDataObj($queryResult)
+    {
+        error_log('createPhysicalDataObj - Query Result: ' . print_r($queryResult, true));
+        $physicalDatas = [];
+        if (count($queryResult) == 1) {
+            $author = FPersonalTrainer::getObj($queryResult[0]['idUser']);
+            $physicalData = new EPhysicalData($author, $queryResult[0]['sex'], $queryResult[0]['height'], $queryResult[0]['weight'], $queryResult[0]['leanMass'], $queryResult[0]['fatMass'], $queryResult[0]['bmi']);
+            $physicalData->setIdPhysicalData($queryResult[0]['idPhysicalData']);
+            $physicalData->setCreationTime(new DateTime($queryResult[0]['date']));
+            $physicalDatas[] = $physicalData;
+        } elseif (count($queryResult) > 1) {
+            foreach ($queryResult as $row) {
+                $author = FPersonalTrainer::getObj($row['idUser']);
+                $physicalData = new EPhysicalData($author, $row['sex'], $row['height'], $row['weight'], $row['leanMass'], $row['fatMass'], $row['bmi']);
+                $physicalData->setIdPhysicalData($row['idPhysicalData']);
+                $physicalData->setCreationTime(new DateTime($row['date']));
+                $physicalDatas[] = $physicalData;
+            }
+        }
+        error_log('createPhysicalDataObj - PhysicalData Objects: ' . print_r($physicalDatas, true));
+        return $physicalDatas;
+    }
+
+
+
+    /**
  * Deletes a PhysicalData object with the given ID from the database.
  *
  * @param int $idPhysicalData The ID of the PhysicalData object to delete.
@@ -300,29 +326,6 @@ public static function deletePhysicalDataInDb($idPhysicalData){
         ];
     }
 
-
-    public static function createPhysicalDataObj($queryResult)
-    {
-        error_log('createPhysicalDataObj - Query Result: ' . print_r($queryResult, true));
-        $physicalDatas = [];
-        if (count($queryResult) == 1) {
-            $author = FPersonalTrainer::getObj($queryResult[0]['idUser']);
-            $physicalData = new EPhysicalData($author, $queryResult[0]['sex'], $queryResult[0]['height'], $queryResult[0]['weight'], $queryResult[0]['leanMass'], $queryResult[0]['fatMass'], $queryResult[0]['bmi']);
-            $physicalData->setIdPhysicalData($queryResult[0]['idPhysicalData']);
-            $physicalData->setCreationTime(new DateTime($queryResult[0]['date']));
-            $physicalDatas[] = $physicalData;
-        } elseif (count($queryResult) > 1) {
-            foreach ($queryResult as $row) {
-                $author = FPersonalTrainer::getObj($row['idUser']);
-                $physicalData = new EPhysicalData($author, $row['sex'], $row['height'], $row['weight'], $row['leanMass'], $row['fatMass'], $row['bmi']);
-                $physicalData->setIdPhysicalData($row['idPhysicalData']);
-                $physicalData->setCreationTime(new DateTime($row['date']));
-                $physicalDatas[] = $physicalData;
-            }
-        }
-        error_log('createPhysicalDataObj - PhysicalData Objects: ' . print_r($physicalDatas, true));
-        return $physicalDatas;
-    }
 
 
 

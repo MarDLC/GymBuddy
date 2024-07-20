@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-20 16:11:52
-  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\viewGraphic.tpl' */
+/* Smarty version 3.1.33, created on 2024-07-20 18:55:52
+  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\trainingCardForm.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669bc5a8e0d982_69868448',
+  'unifunc' => 'content_669bec18d09b84_23640298',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'dd6c87ea69bdfdcca8eb70026821e1a227562894' => 
+    '9ff79807bad317236427f1437e5745612c09dd55' => 
     array (
-      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\viewGraphic.tpl',
-      1 => 1721483807,
+      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\trainingCardForm.tpl',
+      1 => 1721494521,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669bc5a8e0d982_69868448 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669bec18d09b84_23640298 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -30,10 +30,12 @@ function content_669bc5a8e0d982_69868448 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Progress Chart</title>
+    <title>Gym | Template</title>
+
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
+
     <!-- Css Styles -->
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/font-awesome.min.css" type="text/css">
@@ -43,20 +45,41 @@ function content_669bc5a8e0d982_69868448 (Smarty_Internal_Template $_smarty_tpl)
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
-    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/stylelogin.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
+
+
+    <!-- Css Styles -->
+    <style>
+        /* Stili per il form */
+        .form-group label {
+            color: #f36100;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+    </style>
+
     <?php echo '<script'; ?>
- src="https://cdn.jsdelivr.net/npm/chart.js"><?php echo '</script'; ?>
 >
+        function ready(){
+            if (!navigator.cookieEnabled) {
+                alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
+            }
+        }
+        document.addEventListener("DOMContentLoaded", ready);
+    <?php echo '</script'; ?>
+>
+
 </head>
 
 <body>
+
 <!-- Header Section Begin -->
 <header class="header-section">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="/GymBuddy/User/homeVIP">
+                    <a href="/GymBuddy/PersonalTrainer/homePT">
                         <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
@@ -64,7 +87,7 @@ function content_669bc5a8e0d982_69868448 (Smarty_Internal_Template $_smarty_tpl)
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li><a href="/GymBuddy/User/homeVIP">Home</a></li>
+                        <li><a href="/GymBuddy/PersonalTrainer/homePT">Home</a></li>
                     </ul>
                 </nav>
             </div>
@@ -91,7 +114,32 @@ function content_669bc5a8e0d982_69868448 (Smarty_Internal_Template $_smarty_tpl)
 <!-- Info Section Begin -->
 <section class="pricing-section service-pricing spad">
     <div class="container">
-        <canvas id="myChart"></canvas>
+        <div class="section-title">
+            <h2>Training Card</h2>
+        </div>
+        <form action="/GymBuddy/TrainingCard/compileForm" method="post">
+            <input type="hidden" name="selected_user" value="<?php echo $_smarty_tpl->tpl_vars['selectedUserId']->value;?>
+">
+            <div id="exerciseContainer">
+                <!-- Set iniziale di campi -->
+                <div class="form-group">
+                    <label for="exercise1">Exercise</label>
+                    <input type="text" class="form-control" id="exercises" name="exercises[]" placeholder="Exercise">
+                </div>
+                <div class="form-group">
+                    <label for="repetitions1">Repetitions</label>
+                    <input type="text" class="form-control" id="repetition" name="repetition[]" placeholder="Repetitions">
+                </div>
+                <div class="form-group">
+                    <label for="recovery1">Recovery</label>
+                    <input type="text" class="form-control" id="recovery" name="recovery[]" placeholder="Recovery (minutes ' seconds'')">
+                </div>
+            </div>
+            <!-- Pulsante per aggiungere nuovi campi -->
+            <button type="button" class="btn btn-secondary" id="addExerciseButton">Add</button>
+            <!-- Pulsante di invio -->
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
     </div>
 </section>
 <!-- Info Section End -->
@@ -133,11 +181,9 @@ function content_669bc5a8e0d982_69868448 (Smarty_Internal_Template $_smarty_tpl)
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href="/GymBuddy/User/homeVIP"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
+                        <a href="/GymBuddy/PersonalTrainer/homePT"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
-                    <p>The most iconic gym in the world has arrived in L'Aquila!
-                        Live the best training experience in a unique atmosphere.
-                        DISCOVER THE LEGACY: GymBuddy L'Aquila.</p>
+                    <p>Transform Your Body, Elevate Your Life: Join Our Community of Fitness Enthusiasts and Experience the Best in Modern Equipment, Expert Training, and Personalized Programs.</p>
                     <div class="fa-social">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
@@ -232,64 +278,12 @@ function content_669bc5a8e0d982_69868448 (Smarty_Internal_Template $_smarty_tpl)
  src="/GymBuddy/libs/Smarty/js/main.js"><?php echo '</script'; ?>
 >
 
-<!-- Chart.js -->
+
+
 <?php echo '<script'; ?>
- src="https://cdn.jsdelivr.net/npm/chart.js"><?php echo '</script'; ?>
+ src="/GymBuddy/libs/Smarty/js/trainingCardForm.js"><?php echo '</script'; ?>
 >
 
-<!-- Codice per il grafico -->
-<?php echo '<script'; ?>
->
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const chartData = JSON.parse('<?php echo strtr($_smarty_tpl->tpl_vars['chartData']->value, array("\\" => "\\\\", "'" => "\\'", "\"" => "\\\"", "\r" => "\\r", "\n" => "\\n", "</" => "<\/" ));?>
-');
-        const ctx = document.getElementById('myChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: chartData.dates,
-                datasets: [{
-                    label: 'Weight',
-                    data: chartData.weights,
-                    borderColor: 'rgb(255,255,255)',
-                    borderWidth: 3
-                }, {
-                    label: 'Lean Mass',
-                    data: chartData.leanMasses,
-                    borderColor: 'rgb(96,235,54)',
-                    borderWidth: 3
-                }, {
-                    label: 'Fat Mass',
-                    data: chartData.fatMasses,
-                    borderColor: 'rgb(255,99,99)',
-                    borderWidth: 3
-                }]
-            },
-            options: {
-                scales: {
-                    x: {
-                        ticks: {
-                            color: 'rgb(255,255,255)', // Colore bianco per le etichette dell'asse x
-                            font: {
-                                size: 16 // Dimensione del font per le etichette dell'asse x
-                            }
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            color: 'rgb(255,255,255)', // Colore bianco per le etichette dell'asse y
-                            font: {
-                                size: 16 // Dimensione del font per le etichette dell'asse y
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    });
-<?php echo '</script'; ?>
->
 </body>
 
 </html>

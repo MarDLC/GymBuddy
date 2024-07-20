@@ -18,7 +18,7 @@ class VPhysicalData
         $this->smarty->assign('chartImageUrl', $chartImageUrl);
 
         // Display the template
-        $this->smarty->display('viewGraphic.tpl');
+        $this->smarty->display('viewChart.tpl');
     }
 
     public function showPhysicalDataInfo($dates, $weights, $leanMasses, $fatMasses)
@@ -34,7 +34,7 @@ class VPhysicalData
             ]);
             $this->smarty->assign('chartData', $chartData);
             // Visualizza il template
-            $this->smarty->display('viewGraphic.tpl');
+            $this->smarty->display('viewChart.tpl');
         } else {
             // Se l'utente non è loggato, reindirizza alla pagina di login
             header('Location: /GymBuddy/User/Login');

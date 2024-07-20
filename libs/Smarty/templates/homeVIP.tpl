@@ -59,7 +59,7 @@
                     <li><a href="/GymBuddy/Subscription/subscriptionInfo">View Subscription</a></li>
                     <li><a href="/GymBuddy/Reservation/reservationInfo">View Reservation</a></li>
                     <li><a href="{$pathTrainingCardInfo}">View Training Card</a></li>
-                    <li><a href="{$pathGraphicInfo}">View Graphic</a></li>
+                    <li><a href="{$pathGraphicInfo}">View Chart</a></li>
 
                 </ul>
             </li>
@@ -101,7 +101,7 @@
                                 <li><a href="/GymBuddy/Subscription/subscriptionInfo">View Subscription</a></li>
                                 <li><a href="/GymBuddy/Reservation/reservationInfo">View Reservation</a></li>
                                 <li><a href="{$pathTrainingCardInfo}">View Training Card</a></li>
-                                <li><a href="{$pathGraphicInfo}">View Graphic</a></li>
+                                <li><a href="{$pathGraphicInfo}">View Chart</a></li>
 
 
                             </ul>

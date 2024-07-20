@@ -52,6 +52,7 @@
                 <li><a href="/GymBuddy/User/team">Our Team</a></li>
                 <li><a href="/GymBuddy/User/gallery">Gallery</a></li>
                 <li><a href="/GymBuddy/User/contact">Contact</a></li>
+                <li><a href="/GymBuddy/User/news">News</a></li>
 
             </ul>
         </nav>
@@ -85,6 +86,7 @@
                             <li><a href="/GymBuddy/User/team">Our Team</a></li>
                             <li><a href="/GymBuddy/User/gallery">Gallery</a></li>
                             <li><a href="/GymBuddy/User/contact">Contact</a></li>
+                            <li><a href="/GymBuddy/User/news">News</a></li>
 
                         </ul>
                     </nav>

@@ -17,7 +17,7 @@ class FTrainingCard{
     /**
      * @var string $value The SQL value string for inserting a new record into the table.
      */
-    private static $value = "(NULL,:idUser, :exercises,:repetition,:recovery,:date)";
+    private static $value = "(:idUser,NULL, :exercises,:repetition,:recovery,:date)";
 
     /**
      * @var string $key The primary key of the table.
@@ -60,47 +60,69 @@ class FTrainingCard{
         return self::$key;
     }
 
-    /**
-     * Create a training card object from the query result
-     *
-     * @param array $queryResult The query result
-     * @return ETrainingCard|array The training card object or an array of training card objects if the query result is more than one, or an empty array if the query result is empty
-     */
-    public static function createTrainingCardObj($queryResult){
-        // If the query result contains only one record
-        if(count($queryResult) == 1){
-            $author = FPersonalTrainer::getObj($queryResult[0]['idUser']);
-            // Create a new TrainingCard object from the query result
-            $trainingCard = new ETrainingCard($author,$queryResult[0]['excercises'],$queryResult[0]['repetition'],$queryResult[0]['recovery']);
-            // Set the id of the training card in the TrainingCard object
-            $trainingCard->setIdTrainingCard($queryResult[0]['idTrainingCard']);
-            // Use the date directly as it is already a DateTime object
-            $trainingCard->setCreationTime($queryResult[0]['date']);
 
-            // Return the created TrainingCard object
-            return $trainingCard;
-        }elseif(count($queryResult) > 1){
-            // If the query result contains more than one record, create an array of TrainingCard objects
-            $trainingCards = array();
-            for($i = 0; $i < count($queryResult); $i++){
-                $author = FPersonalTrainer::getObj($queryResult[$i]['idUser']);
-                // Create a new TrainingCard object for each record in the query result
-                $trainingCard = new ETrainingCard($author,$queryResult[$i]['excercises'],$queryResult[$i]['repetition'],$queryResult[$i]['recovery']);
-                // Set the id of the training card in the TrainingCard object
-                $trainingCard->setIdTrainingCard($queryResult[$i]['idTrainingCard']);
-                // Use the date directly as it is already a DateTime object
-                $trainingCard->setCreationTime($queryResult[$i]['date']);
+    /*
+ public static function createTrainingCardObj($queryResult){
+    // Initialize an array to hold the TrainingCard objects
+    $trainingCards = array();
 
-                // Add the TrainingCard object to the array of TrainingCard objects
-                $trainingCards[] = $trainingCard;
-            }
-            // Return the array of TrainingCard objects
-            return $trainingCards;
-        }else{
-            // If the query result is empty, return an empty array
-            return array();
+    // Loop through the query result
+    for($i = 0; $i < count($queryResult); $i++){
+        $author = FPersonalTrainer::getObj($queryResult[$i]['idUser']);
+        // Check if the author is a valid FPersonalTrainer object
+        if ($author === null) {
+            // Handle the error, e.g., skip the current iteration or throw an exception
+            continue;
+        }
+        // Create a new TrainingCard object for each record in the query result
+        $trainingCard = new ETrainingCard($author,$queryResult[$i]['exercises'],$queryResult[$i]['repetition'],$queryResult[$i]['recovery']);
+        // Set the id of the training card in the TrainingCard object
+        $trainingCard->setIdTrainingCard($queryResult[$i]['idTrainingCard']);
+        // Use the date directly as it is already a DateTime object
+        $trainingCard->setCreationTime(new DateTime($queryResult[$i]['date']));
+
+        // Add the TrainingCard object to the array of TrainingCard objects
+        $trainingCards[] = $trainingCard;
+    }
+
+    // If the query result was a single record, return the single TrainingCard object
+    if (count($queryResult) == 1) {
+        return $trainingCards[0];
+    }
+
+    // Return the array of TrainingCard objects
+    return $trainingCards;
+} */
+
+
+public static function createTrainingCardObj($queryResult) {
+    $trainingCards = [];
+    foreach ($queryResult as $result) {
+        $idUser = isset($result['idUser']) ? $result['idUser'] : null;
+        $idTrainingCard = isset($result['idTrainingCard']) ? $result['idTrainingCard'] : null;
+        $exercises = isset($result['exercises']) ? $result['exercises'] : null;
+        $repetition = isset($result['repetition']) ? $result['repetition'] : null;
+        $recovery = isset($result['recovery']) ? $result['recovery'] : null;
+        $date = isset($result['date']) ? $result['date'] : null;
+
+        // Recupera l'oggetto utente utilizzando l'ID dell'utente
+        $user = FRegisteredUser::getObj($idUser);
+
+        // Assicurati di gestire correttamente gli eventuali valori nulli
+        if ($user !== null && $idTrainingCard !== null && $exercises !== null && $repetition !== null && $recovery !== null && $date !== null) {
+            // Crea l'oggetto usando i valori ottenuti
+            $trainingCard = new ETrainingCard($user, $exercises, $repetition, $recovery, $date);
+            $trainingCards[] = $trainingCard;
+        } else {
+            // Gestisci l'errore appropriato
+            throw new Exception("Dati mancanti per creare l'oggetto TrainingCard");
         }
     }
+    return $trainingCards;
+}
+
+
+
 
     /**
      * Bind the values to the SQL statement
@@ -109,7 +131,16 @@ class FTrainingCard{
      * @param ETrainingCard $trainingCard The training card object
      */
     public static function bind($stmt, $trainingCard){
-       $stmt->bindValue(":idUser", $trainingCard->getIdUser()->getId(), PDO::PARAM_INT);
+        $idUser = $trainingCard->getIdUser();
+        if ($idUser !== null) {
+            $stmt->bindValue(":idUser", $idUser, PDO::PARAM_INT);
+            error_log("Binding user ID: $idUser");
+        } else {
+            // Handle the error, e.g., throw an exception or show an error message
+            $errorMessage = 'User ID is null';
+            error_log($errorMessage);
+            throw new Exception($errorMessage);
+        }
 
         // Bind the exercises of the training card to the corresponding parameter in the SQL statement
         $stmt->bindValue(":exercises", $trainingCard->getExercises(), PDO::PARAM_STR);
@@ -216,17 +247,21 @@ class FTrainingCard{
         }
     }
 
-    public static function getTrainingCardsByIdUserl($idUser){
-        // Retrieve the TrainingCard objects for the client
-        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), 'idUser', $idUser);
-        // If the result is not empty, create a TrainingCard object from the result
-        if(count($result) > 0){
-            $trainingCards = self::createTrainingCardObj($result);
-            return $trainingCards;
-        }else{
-            // If the result is empty, return null
-            return null;
+   public static function getTrainingCardsByIdUser($userId){
+    // Retrieve the TrainingCard objects for the user
+    $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), 'idUser', $userId);
+    // If the result is not empty, create a TrainingCard object from the result
+    if(count($result) > 0){
+        $trainingCards = [];
+        foreach($result as $row) {
+            $trainingCard = self::createTrainingCardObj($row);
+            $trainingCards[] = $trainingCard;
         }
+        return $trainingCards;
+    }else{
+        // If the result is empty, return null
+        return null;
     }
+}
 
 }

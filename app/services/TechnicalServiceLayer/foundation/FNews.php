@@ -66,50 +66,31 @@ class FNews{
     return self::$key;
     }
 
-   /**
- * Create a News object from a query result.
- *
- * @param array $queryResult The result of the query.
- * @return ENews|array A News object if the query result is not empty, otherwise an empty array.
- */
-public static function createNewsObj($queryResult){
-    // Check if the query result contains exactly one item
-    if(count($queryResult) == 1){
-        $author = FAdmin::getOBj($queryResult[0]['idUser']);
-        // If it does, create a new News object using the data from the query result
-        $news = new ENews($queryResult[0]['title'],$queryResult[0]['description'], $author);
-        // Set the id of the News object
-        $news->setIdNews($queryResult[0]['idNews']);
-        // Convert the creation time from a string to a DateTime object
-        $dateTime =  DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[0]['creation_time']);
-        // Set the creation time of the News object
-        $news->setCreationTime($dateTime);
-        // Return the News object
-        return $news;
-    }elseif(count($queryResult) > 1){
-        // If the query result contains more than one item, initialize an empty array to hold the News objects
-        $newss = array();
-        // Loop through each item in the query result
-        for($i = 0; $i < count($queryResult); $i++){
-            $author = FAdmin::getOBj($queryResult[$i]['idUser']);
-            // Create a new News object using the data from the current item in the query result
-            $news = new ENews($queryResult[$i]['title'],$queryResult[$i]['description'], $author);
-            // Set the id of the News object
-            $news->setIdNews($queryResult[$i]['idNews']);
-            // Convert the creation time from a string to a DateTime object
-            $dateTime =  DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[$i]['creation_time']);
-            // Set the creation time of the News object
+
+    public static function createNewsObj($queryResult){
+        if(count($queryResult) == 1){
+            $author = FAdmin::getOBj($queryResult[0]['idUser']);
+            $news = new ENews($queryResult[0]['idUser'], $queryResult[0]['title'], $queryResult[0]['description']);
+            $news->setIdNews($queryResult[0]['idNews']);
+            $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[0]['creation_time']);
             $news->setCreationTime($dateTime);
-            // Add the News object to the array
-            $newss[] = $news;
+            return $news;
+        } elseif(count($queryResult) > 1){
+            $newss = array();
+            for($i = 0; $i < count($queryResult); $i++){
+                $author = FAdmin::getOBj($queryResult[$i]['idUser']);
+                $news = new ENews($queryResult[$i]['idUser'], $queryResult[$i]['title'], $queryResult[$i]['description']);
+                $news->setIdNews($queryResult[$i]['idNews']);
+                $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[$i]['creation_time']);
+                $news->setCreationTime($dateTime);
+                $newss[] = $news;
+            }
+            return $newss;
+        } else {
+            return array();
         }
-        // Return the array of News objects
-        return $newss;
-    }else{
-        // If the query result is empty, return an empty array
-        return array();
     }
-}
+
 
 /**
  * Bind the News parameters to the SQL statement.

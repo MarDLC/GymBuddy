@@ -131,60 +131,6 @@ class CPhysicalData
     }
 
 
-    /*
-
-      public static function compileForm()
-    {
-        // Ensure the session is started
-        USession::getInstance();
-
-        // Verifica se l'utente è loggato
-        if (CUser::isLoggedIn()) {
-            header('Location: /GymBuddy/User/Login');
-            exit();
-        }
-
-        // Debug: Verifica l'utente nella sessione
-        $userId = USession::getSessionElement('selected_user');
-        $user = FPersistentManager::retrieveUserById($userId);
-
-        // Verifica che $user sia un oggetto ERegisteredUser
-        if (!($user instanceof ERegisteredUser)) {
-            error_log("ERROR: User is not an ERegisteredUser object.");
-            // Gestisci l'errore qui, ad esempio reindirizzando l'utente a una pagina di errore
-            header('Location: /GymBuddy/User/error');
-            exit();
-        }
-
-        // Recupera i dati del form
-        $sex = UHTTPMethods::post('sex');
-        $height = UHTTPMethods::post('height');
-        $weight = UHTTPMethods::post('weight');
-        $leanMass = UHTTPMethods::post('leanMass');
-        $fatMass = UHTTPMethods::post('fatMass');
-        $bmi = UHTTPMethods::post('bmi');
-        $date = UHTTPMethods::post('date');
-
-        // Crea un nuovo oggetto PhysicalData
-        $physicalData = new EPhysicalData($userId, $sex, $height, $weight, $leanMass, $fatMass, $bmi);
-
-        // Salva l'oggetto PhysicalData nel database e verifica il risultato
-        $result = FPersistentManager::getInstance()->uploadObj($physicalData);
-
-      // If the PhysicalData object was successfully saved, set a session variable and redirect the user to a confirmation page
-    if ($result) {
-        // Set a session variable to indicate that the physical data was saved successfully
-        USession::setSessionElement('data_save_success', 'Your physical data was saved successfully!');
-
-        // Redirect the user to the confirmation page
-        header('Location: /GymBuddy/PhysicalData/confirmation');
-        exit();
-    } else {
-        // Handle the error here, for example by redirecting the user to an error page
-        header('Location: /GymBuddy/User/error');
-        exit();
-    }
-    } */
 
 
   public static function compileForm()

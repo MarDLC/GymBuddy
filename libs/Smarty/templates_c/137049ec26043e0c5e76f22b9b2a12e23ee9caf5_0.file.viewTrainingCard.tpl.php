@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-19 14:47:08
+/* Smarty version 3.1.33, created on 2024-07-20 18:34:12
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\viewTrainingCard.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669a604ccbb105_76416350',
+  'unifunc' => 'content_669be704e1e8a8_69965989',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '137049ec26043e0c5e76f22b9b2a12e23ee9caf5' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\viewTrainingCard.tpl',
-      1 => 1721393171,
+      1 => 1721492008,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669a604ccbb105_76416350 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669be704e1e8a8_69965989 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -139,16 +139,23 @@ function content_669a604ccbb105_76416350 (Smarty_Internal_Template $_smarty_tpl)
                             <th>REPETITIONS</th>
                             <th>RECOVERY</th>
                         </tr>
+                        <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['trainingCards']->value, 'card');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['card']->value) {
+?>
                         <tr>
-                            <td>PANCA PIANA</td>
-                            <td>4x10</td>
-                            <td>2'</td>
+                            <td><?php echo $_smarty_tpl->tpl_vars['card']->value->exercises;?>
+</td>
+                            <td><?php echo $_smarty_tpl->tpl_vars['card']->value->repetition;?>
+</td>
+                            <td><?php echo $_smarty_tpl->tpl_vars['card']->value->recovery;?>
+</td>
                         </tr>
-                        <tr>
-                            <td>PANCA INCLINATA</td>
-                            <td>3x12</td>
-                            <td>1' 30"</td>
-                        </tr>
+                        <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     </table>
                 </div>
             </div>

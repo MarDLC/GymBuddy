@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-20 16:19:25
-  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\homeVIP.tpl' */
+/* Smarty version 3.1.33, created on 2024-07-20 16:19:27
+  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\viewChart.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669bc76da9ab17_69102250',
+  'unifunc' => 'content_669bc76f947777_84447917',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '8083fcca069cf3aaeaea64aaebe8955a9d491fb5' => 
+    'bf3f15e0fb8ac3207a36858a48b19890442cfdb0' => 
     array (
-      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\homeVIP.tpl',
-      1 => 1721485161,
+      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\viewChart.tpl',
+      1 => 1721483807,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669bc76da9ab17_69102250 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669bc76f947777_84447917 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -30,12 +30,10 @@ function content_669bc76da9ab17_69102250 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home Vip</title>
-
+    <title>Progress Chart</title>
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
-
     <!-- Css Styles -->
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/font-awesome.min.css" type="text/css">
@@ -45,64 +43,13 @@ function content_669bc76da9ab17_69102250 (Smarty_Internal_Template $_smarty_tpl)
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
-
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/stylelogin.css" type="text/css">
     <?php echo '<script'; ?>
+ src="https://cdn.jsdelivr.net/npm/chart.js"><?php echo '</script'; ?>
 >
-        function ready(){
-            if (!navigator.cookieEnabled) {
-                alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
-            }
-        }
-        document.addEventListener("DOMContentLoaded", ready);
-    <?php echo '</script'; ?>
->
-
 </head>
 
 <body>
-
-<!-- Offcanvas Menu Section Begin -->
-<div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-    <div class="canvas-close">
-        <i class="fa fa-close"></i>
-    </div>
-    <div class="canvas-search search-switch">
-        <i class="fa fa-search"></i>
-    </div>
-    <nav class="canvas-menu mobile-menu">
-        <ul>
-            <li><a href="/GymBuddy/User/homeVIP">Home</a></li>
-            <li><a href="/GymBuddy/Subscription/subscription">Subscription</a></li>
-            <li><a href="/GymBuddy/Reservation/reservation">Reservation</a></li>
-            <li><a href="/GymBuddy/News/news">News</a></li>
-
-            <li><a href="#">Profile</a>
-                <ul class="dropdown">
-                    <!--Da fare subscriptionInfo che mostra all'utente VIP e SUB la sua iscrizione-->
-                    <li><a href="/GymBuddy/Subscription/subscriptionInfo">View Subscription</a></li>
-                    <li><a href="/GymBuddy/Reservation/reservationInfo">View Reservation</a></li>
-                    <li><a href="<?php echo $_smarty_tpl->tpl_vars['pathTrainingCardInfo']->value;?>
-">View Training Card</a></li>
-                    <li><a href="<?php echo $_smarty_tpl->tpl_vars['pathGraphicInfo']->value;?>
-">View Chart</a></li>
-
-                </ul>
-            </li>
-
-        </ul>
-    </nav>
-    <div id="mobile-menu-wrap"></div>
-    <div class="canvas-social">
-        <a href="#"><i class="fa fa-facebook"></i></a>
-        <a href="#"><i class="fa fa-twitter"></i></a>
-        <a href="#"><i class="fa fa-youtube-play"></i></a>
-        <a href="#"><i class="fa fa-instagram"></i></a>
-    </div>
-</div>
-<!-- Offcanvas Menu Section End -->
-
 <!-- Header Section Begin -->
 <header class="header-section">
     <div class="container-fluid">
@@ -118,24 +65,6 @@ function content_669bc76da9ab17_69102250 (Smarty_Internal_Template $_smarty_tpl)
                 <nav class="nav-menu">
                     <ul>
                         <li><a href="/GymBuddy/User/homeVIP">Home</a></li>
-                        <li><a href="/GymBuddy/Subscription/subscription">Subscription</a></li>
-                        <li><a href="/GymBuddy/Reservation/reservation">Reservation</a></li>
-                        <li><a href="/GymBuddy/News/news">News</a></li>
-
-                        <li><a href="#">Profile</a>
-                            <ul class="dropdown">
-                                <!--Da fare subscriptionInfo che mostra all'utente VIP e SUB la sua iscrizione-->
-                                <li><a href="/GymBuddy/Subscription/subscriptionInfo">View Subscription</a></li>
-                                <li><a href="/GymBuddy/Reservation/reservationInfo">View Reservation</a></li>
-                                <li><a href="<?php echo $_smarty_tpl->tpl_vars['pathTrainingCardInfo']->value;?>
-">View Training Card</a></li>
-                                <li><a href="<?php echo $_smarty_tpl->tpl_vars['pathGraphicInfo']->value;?>
-">View Chart</a></li>
-
-
-                            </ul>
-                        </li>
-
                     </ul>
                 </nav>
             </div>
@@ -159,21 +88,13 @@ function content_669bc76da9ab17_69102250 (Smarty_Internal_Template $_smarty_tpl)
 </header>
 <!-- Header End -->
 
-<!-- Hero Section Begin -->
-<section class="hero-section" style="background-image: url('/GymBuddy/libs/Smarty/img/hero/hero-1.png'); background-size: cover; background-position: center center; height: 100vh; display: flex; align-items: flex-end; justify-content: flex-end;">
+<!-- Info Section Begin -->
+<section class="pricing-section service-pricing spad">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-6 offset-lg-6">
-                <div class="hi-text" style="margin-bottom: 250px; margin-left: 50px;">
-                    <span style="color: white; text-transform: uppercase;">Shape your body</span>
-                    <h1 style="color: white; text-transform: uppercase;">Be <strong style="color: #f36100; text-transform: uppercase;">strong</strong> training hard</h1>
-                </div>
-            </div>
-        </div>
+        <canvas id="myChart"></canvas>
     </div>
 </section>
-<!-- Hero Section End -->
-
+<!-- Info Section End -->
 
 <!-- Get In Touch Section Begin -->
 <div class="gettouch-section">
@@ -212,7 +133,7 @@ function content_669bc76da9ab17_69102250 (Smarty_Internal_Template $_smarty_tpl)
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href="#"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
+                        <a href="/GymBuddy/User/homeVIP"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
                     <p>The most iconic gym in the world has arrived in L'Aquila!
                         Live the best training experience in a unique atmosphere.
@@ -238,7 +159,6 @@ function content_669bc76da9ab17_69102250 (Smarty_Internal_Template $_smarty_tpl)
                 </div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-6">
-
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="fs-widget">
@@ -260,10 +180,31 @@ function content_669bc76da9ab17_69102250 (Smarty_Internal_Template $_smarty_tpl)
                 </div>
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="copyright-text">
+                    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;<?php echo '<script'; ?>
+>document.write(new Date().getFullYear());<?php echo '</script'; ?>
+> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 <!-- Footer Section End -->
+
+<!-- Search model Begin -->
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Search here.....">
+        </form>
+    </div>
+</div>
+<!-- Search model end -->
 
 <!-- Js Plugins -->
 <?php echo '<script'; ?>
@@ -291,7 +232,64 @@ function content_669bc76da9ab17_69102250 (Smarty_Internal_Template $_smarty_tpl)
  src="/GymBuddy/libs/Smarty/js/main.js"><?php echo '</script'; ?>
 >
 
+<!-- Chart.js -->
+<?php echo '<script'; ?>
+ src="https://cdn.jsdelivr.net/npm/chart.js"><?php echo '</script'; ?>
+>
 
+<!-- Codice per il grafico -->
+<?php echo '<script'; ?>
+>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const chartData = JSON.parse('<?php echo strtr($_smarty_tpl->tpl_vars['chartData']->value, array("\\" => "\\\\", "'" => "\\'", "\"" => "\\\"", "\r" => "\\r", "\n" => "\\n", "</" => "<\/" ));?>
+');
+        const ctx = document.getElementById('myChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: chartData.dates,
+                datasets: [{
+                    label: 'Weight',
+                    data: chartData.weights,
+                    borderColor: 'rgb(255,255,255)',
+                    borderWidth: 3
+                }, {
+                    label: 'Lean Mass',
+                    data: chartData.leanMasses,
+                    borderColor: 'rgb(96,235,54)',
+                    borderWidth: 3
+                }, {
+                    label: 'Fat Mass',
+                    data: chartData.fatMasses,
+                    borderColor: 'rgb(255,99,99)',
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'rgb(255,255,255)', // Colore bianco per le etichette dell'asse x
+                            font: {
+                                size: 16 // Dimensione del font per le etichette dell'asse x
+                            }
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'rgb(255,255,255)', // Colore bianco per le etichette dell'asse y
+                            font: {
+                                size: 16 // Dimensione del font per le etichette dell'asse y
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+<?php echo '</script'; ?>
+>
 </body>
 
 </html>
