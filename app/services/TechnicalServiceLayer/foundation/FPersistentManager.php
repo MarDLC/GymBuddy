@@ -346,14 +346,7 @@ public static function retrieveSubscriptionByUserId($userId){
         return $result;
     }
 
-    public static function saveNews($news)
-    {
-        // Use the saveObj method of FNews to save the news item
-        $result = FNews::saveObj($news);
 
-        // Return the result of the save operation
-        return $result;
-    }
 
     public static function deleteRegisteredUser($email)
     {
@@ -545,6 +538,26 @@ public static function getTrainingCardsById($userId)
         return FPhysicalData::generatePhysicalProgressChart($idUser);
     }
 
+    public static function saveNews($news)
+    {
+        error_log("FPersistentManager::saveNews - Saving news: " . print_r($news, true));
+
+        $result = FNews::saveObj($news);
+
+        if ($result) {
+            error_log("FPersistentManager::saveNews - News saved successfully");
+        } else {
+            error_log("FPersistentManager::saveNews - Failed to save news");
+        }
+
+        return $result;
+    }
+
+    public static function getAllNews()
+    {
+        $newsList = FNews::getAll();
+        return $newsList;
+    }
 
 }
 

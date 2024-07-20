@@ -19,7 +19,7 @@ class FNews{
      * @var string $value The value for the SQL query.
      * This is used in SQL queries to specify the values to be inserted into the table.
      */
-    private static $value = "(NULL,:title,:description,:creation_time,:idUser)";
+    private static $value = "(NULL,:idUser,:title, :description,:creation_time)";
 
     /**
      * @var string $key The key for the SQL query.
@@ -91,22 +91,27 @@ class FNews{
         }
     }
 
-
 /**
  * Bind the News parameters to the SQL statement.
  *
  * @param PDOStatement $stmt The SQL statement.
  * @param ENews $news The News object.
  */
-public static function bind($stmt, $news){
-    $stmt->bindValue(":idUser", $news->getIdUser()->getId(), PDO::PARAM_INT);
-    // Bind the title of the News object to the ":title" parameter in the SQL statement
-    $stmt->bindValue(":title", $news->getTitle(), PDO::PARAM_STR);
-    // Bind the description of the News object to the ":description" parameter in the SQL statement
-    $stmt->bindValue(":description", $news->getDescription(), PDO::PARAM_STR);
-    // Bind the creation time of the News object to the ":date" parameter in the SQL statement
-    $stmt->bindValue(":creation_time", $news->getTimeStr(), PDO::PARAM_STR);
-}
+    public static function bind($stmt, $news) {
+        // Log dei valori prima di bind
+        error_log("FNews::bind - Binding parameters: " . print_r([
+                'idUser' => $news->getIdUser(),
+                'title' => $news->getTitle(),
+                'description' => $news->getDescription(),
+                'creation_time' => $news->getTimeStr()
+            ], true));
+
+        // Bind dei valori
+        $stmt->bindValue(":idUser", $news->getIdUser(), PDO::PARAM_INT);
+        $stmt->bindValue(":title", $news->getTitle(), PDO::PARAM_STR);
+        $stmt->bindValue(":description", $news->getDescription(), PDO::PARAM_STR);
+        $stmt->bindValue(":creation_time", $news->getTimeStr(), PDO::PARAM_STR);
+    }
 
    /**
  * Get a News object by id.
@@ -137,45 +142,38 @@ public static function getObj($id){
  * @param array|null $fieldArray The fields to update.
  * @return bool|int The ID of the saved News object if successful, otherwise false.
  */
-public static function saveObj($obj , $fieldArray = null){
-    // Check if the fieldArray is null
-    if($fieldArray === null){
-        // If the fieldArray is null, save the News object to the database
-        $saveNews = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $obj);
-        // Check if the News object was saved successfully
-        if($saveNews !== null){
-            // If the News object was saved successfully, return the ID of the saved News object
-            return $saveNews;
-        }else{
-            // If the News object was not saved successfully, return false
-            return false;
-        }
-    }else{
-        // If the fieldArray is not null, start a new database transaction
-        try{
-            FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
-            // Loop through each field in the fieldArray
-            foreach($fieldArray as $fv){
-                // Update the field in the database
-                FEntityManagerSQL::getInstance()->updateObj(FNews::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getIdNews());
+    public static function saveObj($obj, $fieldArray = null)
+    {
+        error_log("FNews::saveObj - Saving news object: " . print_r($obj, true));
+
+        if ($fieldArray === null) {
+            $saveNews = FEntityManagerSQL::getInstance()->saveObject(self::getClass(), $obj);
+            if ($saveNews !== null) {
+                error_log("FNews::saveObj - News saved successfully with ID: $saveNews");
+                return $saveNews;
+            } else {
+                error_log("FNews::saveObj - Failed to save news");
+                return false;
             }
-            // Commit the transaction
-            FEntityManagerSQL::getInstance()->getDb()->commit();
-            // Return true to indicate that the operation was successful
-            return true;
-        }catch(PDOException $e){
-            // If an exception occurred, print the error message
-            echo "ERROR " . $e->getMessage();
-            // Rollback the transaction
-            FEntityManagerSQL::getInstance()->getDb()->rollBack();
-            // Return false to indicate that the operation was not successful
-            return false;
-        }finally{
-            // Close the database connection
-            FEntityManagerSQL::getInstance()->closeConnection();
+        } else {
+            try {
+                FEntityManagerSQL::getInstance()->getDb()->beginTransaction();
+                foreach ($fieldArray as $fv) {
+                    FEntityManagerSQL::getInstance()->updateObj(FNews::getTable(), $fv[0], $fv[1], self::getKey(), $obj->getIdNews());
+                }
+                FEntityManagerSQL::getInstance()->getDb()->commit();
+                error_log("FNews::saveObj - News updated successfully");
+                return true;
+            } catch (PDOException $e) {
+                error_log("FNews::saveObj - ERROR: " . $e->getMessage());
+                FEntityManagerSQL::getInstance()->getDb()->rollBack();
+                return false;
+            } finally {
+                FEntityManagerSQL::getInstance()->closeConnection();
+            }
         }
     }
-}
+
 
     /**
      * Delete a News from the database.
@@ -210,6 +208,12 @@ public static function saveObj($obj , $fieldArray = null){
             // Close the database connection
             FEntityManagerSQL::getInstance()->closeConnection();
         }
+    }
+
+    public static function getAll() {
+        $results = FEntityManagerSQL::getInstance()->getAllObjects(self::getTable());
+        $newsList = self::createNewsObj($results);
+        return $newsList;
     }
 
 

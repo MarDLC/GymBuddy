@@ -30,4 +30,11 @@ class VAdmin
 
 
 
+
+
+    public function showNewsForm() {
+        $this->smarty->display('newsForm.tpl');
+    }
+
+
 }

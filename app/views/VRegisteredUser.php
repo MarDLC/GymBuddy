@@ -197,5 +197,13 @@ public function showHomeVip() {
 }
 
 
+    public function showNews($newsList) {
+        // Aggiungi log per verificare i dati passati
+        error_log("VRegisteredUser::showNews - News list: " . print_r($newsList, true));
+
+        $this->smarty->assign('newsList', $newsList);
+        $this->smarty->display('newsList.tpl');
+    }
+
 
 }

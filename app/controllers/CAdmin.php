@@ -36,27 +36,6 @@ class CAdmin{
     }
 
 
-/*
-    public static function checkLogin(){
-        $view = new VAdmin();
-        $email = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));
-        if($email){
-            $user = FPersistentManager::getInstance()->retriveUserOnUsernameAD(UHTTPMethods::post('username'));
-            if(password_verify(UHTTPMethods::post('password'), $user->getPassword())){
-                if(USession::getSessionStatus() == PHP_SESSION_NONE){
-                    USession::getInstance();
-                    USession::setSessionElement('admin', $user->getId());  // Aggiunta logica per ottenere l'ID
-
-                    header('Location: /GymBuddy/Admin/homeAD');
-                }
-            } else {
-                $view->loginError();
-            }
-        } else {
-            $view->loginError();
-        }
-    } */
-
     public static function checkLogin(){
         $view = new VAdmin();
         $email = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));
@@ -103,22 +82,8 @@ class CAdmin{
 
 
 
-    /*
 
 
-    public static function redirectUser() {
-        // Ottieni l'utente corrente
-        $user = USession::getInstance()->getSessionElement('admin');
-
-        // Controlla il tipo di utente e reindirizza alla corretta home page
-        if ($user instanceof ERegisteredUser) {
-            header('Location: /GymBuddy/User/HomeRU');
-        } elseif ($user instanceof EPersonalTrainer) {
-            header('Location: /GymBuddy/PersonalTrainer/HomePT');
-        } elseif ($user instanceof EAdmin) {
-            header('Location: /GymBuddy/Admin/HomeAD');
-        }
-    } */
 
     public static function homeAD(){
         if (CAdmin::isLogged()) {
@@ -165,6 +130,30 @@ class CAdmin{
             header('Location: /GymBuddy/Admin/NewsDeletionError');
         }
     }
+
+    public static function newsForm()
+    {
+        USession::getInstance();
+        self::isLogged(); // Verifica se l'admin è loggato
+
+        $title = UHTTPMethods::post("titolo_comunicazione");
+        $description = UHTTPMethods::post("contenuto_comunicazione");
+        $idUser = USession::getSessionElement('admin');
+
+        error_log("CAdmin::newsForm - Title: $title, Description: $description, User ID: $idUser");
+
+        $news = new ENews($idUser, $title, $description);
+        $result = FPersistentManager::getInstance()->uploadObj($news);
+
+        $view = new VAdmin();
+        $view->showNewsForm();
+
+        // Reindirizza l'utente alla pagina di conferma
+        header('Location: /GymBuddy/Admin/homeAD');
+        exit();
+
+    }
+
 
 
 

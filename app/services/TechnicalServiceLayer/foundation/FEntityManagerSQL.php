@@ -488,6 +488,18 @@ public static function retriveFollowedUsers(){
     }
 
 
+    public function getAllObjects($table) {
+        try {
+            $query = "SELECT * FROM " . $table;
+            $stmt = $this->getDb()->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("FEntityManagerSQL::getAllObjects - ERROR: " . $e->getMessage());
+            return [];
+        }
+    }
+
 
 
 }

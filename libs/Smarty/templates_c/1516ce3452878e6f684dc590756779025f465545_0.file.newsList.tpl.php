@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-20 20:38:38
-  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\homeAD.tpl' */
+/* Smarty version 3.1.33, created on 2024-07-20 20:43:23
+  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\newsList.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669c042e006a52_28671945',
+  'unifunc' => 'content_669c054bcd6431_42387370',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'ad48bbf4bd77658b0c1142912b444b6a26068316' => 
+    '1516ce3452878e6f684dc590756779025f465545' => 
     array (
-      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\homeAD.tpl',
-      1 => 1721500708,
+      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\newsList.tpl',
+      1 => 1721500136,
       2 => 'file',
     ),
   ),
@@ -20,8 +20,8 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669c042e006a52_28671945 (Smarty_Internal_Template $_smarty_tpl) {
-?>h<!DOCTYPE html>
+function content_669c054bcd6431_42387370 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -30,7 +30,7 @@ function content_669c042e006a52_28671945 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HomeAD</title>
+    <title>Comunicazioni User</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
@@ -45,46 +45,53 @@ function content_669c042e006a52_28671945 (Smarty_Internal_Template $_smarty_tpl)
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
-
-    <?php echo '<script'; ?>
->
-        function ready(){
-            if (!navigator.cookieEnabled) {
-                alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
-            }
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/stylelogin.css" type="text/css">
+    <style>
+        .news-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
         }
-        document.addEventListener("DOMContentLoaded", ready);
-    <?php echo '</script'; ?>
->
+        .news-item {
+            background: #f8f9fa;
+            border: 5px solid #f36100;
+            border-radius: 5px;
+            padding: 20px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .news-header h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: #f36100;
+            font-weight: bold;
+        }
+        .news-item h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #f36100;
+            font-weight: bold;
+        }
+        .news-item p {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: black;
+        }
+        .news-item span {
+            font-size: 14px;
+            color: #6c757d;
+        }
+        .news-header {
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
 </head>
 
 <body>
-<!-- Offcanvas Menu Section Begin -->
-<div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-    <div class="canvas-close">
-        <i class="fa fa-close"></i>
-    </div>
-    <div class="canvas-search search-switch">
-        <i class="fa fa-search"></i>
-    </div>
-    <nav class="canvas-menu mobile-menu">
-        <ul>
-            <li><a href="/GymBuddy/Admin/homeAD">Home</a></li>
-            <li><a href="/GymBuddy/Admin/requests">PT Requests</a></li>
-            <li><a href="/GymBuddy/Admin/newsForm">News</a></li>
-        </ul>
-    </nav>
-    <div id="mobile-menu-wrap"></div>
-    <div class="canvas-social">
-        <a href="#"><i class="fa fa-facebook"></i></a>
-        <a href="#"><i class="fa fa-twitter"></i></a>
-        <a href="#"><i class="fa fa-youtube-play"></i></a>
-        <a href="#"><i class="fa fa-instagram"></i></a>
-    </div>
-</div>
-<!-- Offcanvas Menu Section End -->
 
 <!-- Header Section Begin -->
 <header class="header-section">
@@ -92,7 +99,7 @@ function content_669c042e006a52_28671945 (Smarty_Internal_Template $_smarty_tpl)
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="/GymBuddy/Admin/homeAD">
+                    <a href="/GymBuddy/User/homeRU">
                         <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
@@ -100,9 +107,7 @@ function content_669c042e006a52_28671945 (Smarty_Internal_Template $_smarty_tpl)
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li><a href="/GymBuddy/Admin/homeAD">Home</a></li>
-                        <li><a href="/GymBuddy/Admin/requests">PT Requests</a></li>
-                        <li><a href="/GymBuddy/Admin/newsForm">News</a></li>
+                        <li><a href="/GymBuddy/User/homeRU">Home</a></li>
                     </ul>
                 </nav>
             </div>
@@ -114,7 +119,7 @@ function content_669c042e006a52_28671945 (Smarty_Internal_Template $_smarty_tpl)
                         <a href="#"><i class="fa fa-youtube-play"></i></a>
                         <a href="#"><i class="fa fa-instagram"></i></a>
                     </div>
-                    <!-- Aggiunta del pulsante di login -->
+                    <!-- Aggiunta del pulsante di logout -->
                     <a href="/GymBuddy/User/logout" class="btn btn-primary">Logout</a>
                 </div>
             </div>
@@ -126,20 +131,38 @@ function content_669c042e006a52_28671945 (Smarty_Internal_Template $_smarty_tpl)
 </header>
 <!-- Header End -->
 
-<!-- Hero Section Begin -->
-<section class="hero-section" style="background-image: url('/GymBuddy/libs/Smarty/img/hero/hero-1.png'); background-size: cover; background-position: center center; height: 100vh; display: flex; align-items: flex-end; justify-content: flex-end;">
+<!-- Info Section Begin -->
+<section class="pricing-section service-pricing spad">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-6 offset-lg-6">
-                <div class="hi-text" style="margin-bottom: 250px; margin-left: 50px;">
-                    <span style="color: white; text-transform: uppercase;">Shape your body</span>
-                    <h1 style="color: white; text-transform: uppercase;">Be <strong style="color: #f36100; text-transform: uppercase;">strong</strong> training hard</h1>
-                </div>
-            </div>
+        <div class="news-header">
+            <h1>Ultime Notizie</h1>
+        </div>
+        <div class="news-container">
+            <?php if ($_smarty_tpl->tpl_vars['newsList']->value) {?>
+                <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['newsList']->value, 'news');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['news']->value) {
+?>
+                    <div class="news-item">
+                        <h2><?php echo $_smarty_tpl->tpl_vars['news']->value->getTitle();?>
+</h2>
+                        <p><?php echo $_smarty_tpl->tpl_vars['news']->value->getDescription();?>
+</p>
+                        <span>Pubblicato il: <?php echo $_smarty_tpl->tpl_vars['news']->value->getTimeStr();?>
+</span>
+                    </div>
+                <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+            <?php } else { ?>
+                <p>Nessuna notizia disponibile.</p>
+            <?php }?>
         </div>
     </div>
 </section>
-<!-- Hero Section End -->
+<!-- Info Section End -->
 
 <!-- Get In Touch Section Begin -->
 <div class="gettouch-section">
@@ -279,5 +302,6 @@ function content_669c042e006a52_28671945 (Smarty_Internal_Template $_smarty_tpl)
 
 </body>
 
-</html><?php }
+</html>
+<?php }
 }

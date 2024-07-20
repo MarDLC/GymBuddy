@@ -42,11 +42,11 @@ class ENews {
      * @param string $title The title of the news item.
      * @param string $description The description of the news item.
      */
-    public function __construct($title, $description, $idUser)
+    public function __construct($idUser, $title, $description)
     {
+        $this->idUser = $idUser;
         $this->title = $title;
         $this->description = $description;
-        $this->idUser = $idUser;
         $this->setTime();
     }
 

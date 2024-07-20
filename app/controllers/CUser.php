@@ -335,6 +335,19 @@ public static function confirmation()
         return null;
     }
 
+    public static function news() {
+        self::isLogged(); // Verifica se l'utente è loggato
+
+        // Recupera tutte le news dal database
+        $newsList = FPersistentManager::getInstance()->getAllNews();
+
+        // Crea una nuova istanza di VRegisteredUser
+        $view = new VRegisteredUser();
+
+        // Mostra le news utilizzando il metodo showNews
+        $view->showNews($newsList);
+    }
+
 
 
 
