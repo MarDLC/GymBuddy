@@ -121,37 +121,44 @@ class VPersonalTrainer{
     }
 
 
-    public function showClientsList($clients) {
-        // Debug output
-        error_log("showClientsList clients: " . print_r($clients, true));
+   public function showClientsList($clients) {
+       // Log the $clients array that is passed to the method
+       error_log("Clients array passed to showClientsList: " . print_r($clients, true));
+    // Debug output
+    error_log("Before calling showClientsList: " . print_r($clients, true));
 
-        // Prepare the data for the Smarty template
-        $clientsData = [];
-        if ($clients !== null) {
-            foreach ($clients as $client) {
-                $clientsData[] = [
-                    'idUser' => isset($client['idUser']) ? (int)$client['idUser'] : null,
-                    'name' => isset($client['first_name']) ? $client['first_name'] : '',
-                    'surname' => isset($client['last_name']) ? $client['last_name'] : '',
-                    'email' => isset($client['email']) ? $client['email'] : '',
-                ];
-            }
-        }
-
-        // Additional debug output for clientsData
-        error_log("Prepared clientsData for Smarty: " . print_r($clientsData, true));
-
-        // Assign the prepared data to the Smarty template
-        $this->smarty->assign('clients', $clientsData);
-
-        // Display the template
-        try {
-            $this->smarty->display('clientsList.tpl');
-        } catch (Exception $e) {
-            error_log("Smarty display error: " . $e->getMessage());
+    // Prepare the data for the Smarty template
+    $clientsData = [];
+    if ($clients !== null) {
+        foreach ($clients as $client) {
+            error_log("Processing client: " . print_r($client, true)); // Log each client being processed
+            $clientsData[] = [
+                'idUser' => isset($client['idUser']) ? (int)$client['idUser'] : null,
+                'name' => isset($client['first_name']) ? $client['first_name'] : '',
+                'surname' => isset($client['last_name']) ? $client['last_name'] : '',
+                'email' => isset($client['email']) ? $client['email'] : '',
+            ];
         }
     }
 
+    // Additional debug output for clientsData
+    error_log("Prepared clientsData for Smarty: " . print_r($clientsData, true));
+
+    // Assign the prepared data to the Smarty template
+    $this->smarty->assign('clients', $clientsData);
+
+    // Display the template
+    try {
+        error_log("Before calling Smarty display"); // Log before displaying the template
+        $this->smarty->display('clientsList.tpl');
+        error_log("After calling Smarty display"); // Log after displaying the template
+    } catch (Exception $e) {
+        error_log("Smarty display error: " . $e->getMessage());
+    }
+
+    // Log after calling showClientsList
+    error_log("After calling showClientsList");
+}
 
 
 

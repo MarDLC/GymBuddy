@@ -23,15 +23,16 @@
         }
     </style>
 
-    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/flaticon.css" type="text/css">
-    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/barfiller.css" type="text/css">
-    <link rel="stylesheet" href="../css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/style.css" type="text/css">
-    <link rel="stylesheet" href="../css/stylelogin.css" type="text/css">
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/barfiller.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
 
     <script>
         function ready(){
@@ -52,15 +53,15 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="homePT.html">
-                        <img src="../img/logo.png" alt="">
+                    <a href="/GymBuddy/PersonalTrainer/homePT">
+                        <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
             </div>
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li><a href="homePT.html">Home</a></li>
+                        <li><a href="/GymBuddy/PersonalTrainer/homePT">Home</a></li>
                     </ul>
                 </nav>
             </div>
@@ -73,7 +74,7 @@
                         <a href="#"><i class="fa fa-instagram"></i></a>
                     </div>
                     <!-- Aggiunta del pulsante di logout -->
-                    <a href="home.html" class="btn btn-primary">Logout</a>
+                    <a href="/GymBuddy/User/logout" class="btn btn-primary">Logout</a>
                 </div>
             </div>
         </div>
@@ -171,7 +172,7 @@
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href="homePT.html"><img src="../img/logo.png" alt=""></a>
+                        <a href="/GymBuddy/PersonalTrainer/homePT"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
                     <p>The most iconic gym in the world has arrived in L'Aquila!
                         Live the best training experience in a unique atmosphere.
@@ -243,14 +244,14 @@
 <!-- Search model end -->
 
 <!-- Js Plugins -->
-<script src="js/jquery-3.3.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.magnific-popup.min.js"></script>
-<script src="js/masonry.pkgd.min.js"></script>
-<script src="js/jquery.barfiller.js"></script>
-<script src="js/jquery.slicknav.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/main.js"></script>
+<script src="/GymBuddy/libs/Smarty/js/jquery-3.3.1.min.js"></script>
+<script src="/GymBuddy/libs/Smarty/js/bootstrap.min.js"></script>
+<script src="/GymBuddy/libs/Smarty/js/jquery.magnific-popup.min.js"></script>
+<script src="/GymBuddy/libs/Smarty/js/masonry.pkgd.min.js"></script>
+<script src="/GymBuddy/libs/Smarty/js/jquery.barfiller.js"></script>
+<script src="/GymBuddy/libs/Smarty/js/jquery.slicknav.js"></script>
+<script src="/GymBuddy/libs/Smarty/js/owl.carousel.min.js"></script>
+<script src="/GymBuddy/libs/Smarty/js/main.js"></script>
 
 <script>
     // Ottieni i parametri dall'URL

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-19 20:41:15
-  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\viewSubscription.tpl' */
+/* Smarty version 3.1.33, created on 2024-07-20 02:16:03
+  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\physicalDataForm.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669ab34b244f49_39771666',
+  'unifunc' => 'content_669b01c383e7e8_70265873',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'b589bbc6f8a9c37f392c694357b0b07c8d4d9742' => 
+    '901439cb6f4563f99c1ffdbc6e7fdac874d0b965' => 
     array (
-      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\viewSubscription.tpl',
-      1 => 1721407506,
+      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\physicalDataForm.tpl',
+      1 => 1721422095,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669b01c383e7e8_70265873 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -30,12 +30,21 @@ function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>View Subscription</title>
+    <title>Physical Data Form</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
 
+    <!-- Css Styles -->
+    <style>
+        /* Stili per il form */
+        .form-group label {
+            color: #f36100;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+    </style>
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/bootstrap.min.css" type="text/css">
@@ -50,12 +59,11 @@ function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl)
 
     <?php echo '<script'; ?>
 >
-        function ready() {
+        function ready(){
             if (!navigator.cookieEnabled) {
                 alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
             }
         }
-
         document.addEventListener("DOMContentLoaded", ready);
     <?php echo '</script'; ?>
 >
@@ -70,7 +78,7 @@ function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl)
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="/GymBuddy/User/homeVIP">
+                    <a href="/GymBuddy/PersonalTrainer/homePT">
                         <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
@@ -78,7 +86,7 @@ function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl)
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li class="active"><a href="/GymBuddy/User/homeVIP" id="home-link">Home</a></li>
+                        <li><a href="/GymBuddy/PersonalTrainer/homePT">Home</a></li>
                     </ul>
                 </nav>
             </div>
@@ -102,50 +110,55 @@ function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl)
 </header>
 <!-- Header End -->
 
-
-<!-- Tabella -->
+<!-- Info Section Begin -->
 <section class="pricing-section service-pricing spad">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <span>YOUR SUBSCRIPTION</span>
+                    <h2>Enter your information</h2>
                 </div>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-lg-12">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th></th> <!-- Aggiungi una colonna per il pulsante di selezione -->
-                        <th>ID SUBSCRIPTION</th>
-                        <th>ID User</th>
-                        <th>TYPE</th>
-                        <th>DURATION</th>
-                        <th>PRICE</th>
-                    </tr>
-                    </thead>
-                    <tbody id="user-table-body">
-                    <tr>
-                        <th></th>
-                        <td><?php echo $_smarty_tpl->tpl_vars['subscription']->value['id'];?>
-</td>
-                        <td><?php echo $_smarty_tpl->tpl_vars['subscription']->value['user_id'];?>
-</td>
-                        <td><?php echo $_smarty_tpl->tpl_vars['subscription']->value['type'];?>
-</td>
-                        <td><?php echo $_smarty_tpl->tpl_vars['subscription']->value['duration'];?>
-</td>
-                        <td><?php echo $_smarty_tpl->tpl_vars['subscription']->value['price'];?>
-</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <form action="your-server-endpoint" method="post">
+                    <div class="form-group">
+                        <label for="sex">Sex (Male, Female or Nothing)</label>
+                        <input type="text" class="form-control" id="sex" name="sex" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="height">Height (cm)</label>
+                        <input type="number" class="form-control" id="height" name="height" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="weight">Weight (kg)</label>
+                        <input type="number" class="form-control" id="weight" name="weight" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="leanMass">Lean Mass (kg)</label>
+                        <input type="number" class="form-control" id="leanMass" name="leanMass" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fatMass">Fat Mass (kg)</label>
+                        <input type="number" class="form-control" id="fatMass" name="fatMass" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bmi">BMI (%)</label>
+                        <input type="number" class="form-control" id="bmi" name="bmi" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" class="form-control" id="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">User's Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </form>
             </div>
         </div>
     </div>
 </section>
+<!-- Info Section End -->
 
 <!-- Get In Touch Section Begin -->
 <div class="gettouch-section">
@@ -184,7 +197,7 @@ function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl)
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href=/GymBuddy/User/homeVIP"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
+                        <a href="/GymBuddy/PersonalTrainer/homePT"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
                     <p>The most iconic gym in the world has arrived in L'Aquila!
                         Live the best training experience in a unique atmosphere.
@@ -237,9 +250,7 @@ function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl)
                     <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         Copyright &copy;<?php echo '<script'; ?>
 >document.write(new Date().getFullYear());<?php echo '</script'; ?>
->
-                        All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i>
-                        by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                 </div>
             </div>
@@ -285,20 +296,15 @@ function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl)
  src="/GymBuddy/libs/Smarty/js/main.js"><?php echo '</script'; ?>
 >
 
-<!-- Script personalizzato -->
 <?php echo '<script'; ?>
 >
-    // Codice JavaScript per eliminare le righe selezionate
-    $(document).ready(function () {
-        // Gestisci il click sul pulsante Elimina
-        $('#delete-selected').on('click', function () {
-            // Trova le righe selezionate e rimuovile
-            $('#user-table-body input:checked').closest('tr').remove();
-        });
-    });
+    // Ottieni i parametri dall'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    const nome = urlParams.get('nome');
+    const cognome = urlParams.get('cognome');
 <?php echo '</script'; ?>
 >
-
 
 </body>
 

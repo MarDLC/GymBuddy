@@ -24,5 +24,15 @@ class VPhysicalData
     }
 
 
+public function showPhysicalDataForm($selectedUser)
+{
+    // Assign the selected user to a Smarty variable
+    $this->smarty->assign('selectedUser', $selectedUser);
+
+    // Display the physical data form template
+    $this->smarty->display('physicalDataForm.tpl');
+}
+
+
 }
 

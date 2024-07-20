@@ -13,7 +13,7 @@ public static function login(){
         }
     }
     if (USession::isSetSessionElement('personalTrainer')) {
-        header('Location: /GymBuddy/PersonalTrainer/Home');
+        header('Location: /GymBuddy/PersonalTrainer/homePT');
     }
     $view = new VPersonalTrainer();
 
@@ -56,6 +56,7 @@ public static function login(){
         }
         return true;
     }
+
 
 
 
@@ -193,14 +194,14 @@ public static function login(){
 public static function clientsList() {
     // Ensure the session is started
     USession::getInstance();
-    // Recupera l'ID dell'utente corrente
-    $userId = USession::getSessionElement('personalTrainer');
 
-    // Debug output
-    error_log("clientsListInfo userId: " . $userId);
+
 
     // Recupera gli utenti seguiti dal personal trainer corrente
-    $lists = FPersistentManager::retrieveUserByIdAndType($userId, 'followed_user');
+    $lists = FRegisteredUser::getFollowedUsers();
+
+    // Log the retrieved lists
+    error_log("Retrieved lists: " . print_r($lists, true));
 
     // Crea un'istanza di VPersonalTrainer
     $vClientsList = new VPersonalTrainer();
@@ -208,5 +209,7 @@ public static function clientsList() {
     // Passa gli utenti seguiti alla vista
     $vClientsList->showClientsList($lists);
 }
+
+
 
 }

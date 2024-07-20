@@ -126,22 +126,22 @@ public static function retriveLastObj($table, $field, $id, $orderBy){
     }
 }
 
-public static function retriveFollowedUsersByTrainerId($table, $typeField, $typeValue){
+public static function retriveFollowedUsers(){
     try{
         $query = "SELECT user.idUser, user.first_name, user.last_name, user.email 
-                  FROM " .$table. " 
-                  JOIN user ON " .$table. ".idUser = user.idUser 
-                  WHERE ".$typeField." = '".$typeValue."';";
+                  FROM registeredUser 
+                  JOIN user ON registeredUser.idUser = user.idUser 
+                  WHERE registeredUser.type = 'followed_user';";
 
         // Debug output for the query
-        error_log("retriveFollowedUsersByTrainerId query: " . $query);
+        error_log("retriveFollowedUsers query: " . $query);
 
         $stmt = self::$db->prepare($query);
         $stmt->execute();
         $rowNum = $stmt->rowCount();
 
         // Debug output for the number of rows
-        error_log("retriveFollowedUsersByTrainerId rowNum: " . $rowNum);
+        error_log("retriveFollowedUsers rowNum: " . $rowNum);
 
         if($rowNum > 0){
             $result = array();
@@ -151,7 +151,7 @@ public static function retriveFollowedUsersByTrainerId($table, $typeField, $type
             }
 
             // Debug output for the result
-            error_log("retriveFollowedUsersByTrainerId result: " . print_r($result, true));
+            error_log("retriveFollowedUsers result: " . print_r($result, true));
 
             return $result;
         }else{
@@ -159,11 +159,10 @@ public static function retriveFollowedUsersByTrainerId($table, $typeField, $type
         }
     } catch(PDOException $e){
         // Debug output for the exception
-        error_log("retriveFollowedUsersByTrainerId exception: " . $e->getMessage());
+        error_log("retriveFollowedUsers exception: " . $e->getMessage());
         return array();
     }
 }
-
     /**
      * Method to return rows from a query SELECT FROM WHERE but with 2 fields
      * @param String $table Refers to the table of the Database

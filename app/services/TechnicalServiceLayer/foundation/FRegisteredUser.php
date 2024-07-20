@@ -154,9 +154,9 @@ public static function createRegisteredUserObj($queryResult){
     }
 
 
-public static function getFollowedUsersByTrainerId(){
+public static function getFollowedUsers(){
     // Retrieve the followed users from the database
-    $result = FEntityManagerSQL::getInstance()->retriveFollowedUsersByTrainerId(self::getTable(), 'type', 'followed_user');
+    $result = FEntityManagerSQL::getInstance()->retriveFollowedUsers();
     return $result;
 }
 

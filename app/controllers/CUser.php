@@ -60,16 +60,17 @@ class CUser
         return true;
     }
 
-    public static function isLoggedIn()
-    {
-        if (UCookie::isSet('PHPSESSID')) {
-            if (session_status() == PHP_SESSION_NONE) {
-                USession::getInstance();
-            }
+   public static function isLoggedIn()
+{
+    if (UCookie::isSet('PHPSESSID')) {
+        if (session_status() == PHP_SESSION_NONE) {
+            USession::getInstance();
         }
-        return USession::isSetSessionElement('user');
     }
-
+    $isLoggedIn = USession::isSetSessionElement('user');
+    error_log("Is user logged in: " . ($isLoggedIn ? "Yes" : "No")); // Debug message
+    return $isLoggedIn;
+}
 
   public static function checkLogin()
 {

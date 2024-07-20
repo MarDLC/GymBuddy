@@ -105,7 +105,7 @@ public static function retrieveUserByIdAndType($userId, $type)
     // Check if the type is 'followed_user'
     if ($type === 'followed_user') {
         // Try to retrieve followed users
-        $followedUsers = FRegisteredUser::getFollowedUsersByTrainerId();
+        $followedUsers = FRegisteredUser::getFollowedUsers();
         // Search for the user with the given ID among the followed users
         foreach ($followedUsers as $user) {
             if ($user['idUser'] == $userId) {

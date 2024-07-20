@@ -115,4 +115,24 @@ class CPhysicalData
     }
 
 
+
+public static function physicalDataForm($postData)
+{
+    // Retrieve the selected user ID from the post data
+    $selectedUserId = $postData['selected_user'];
+
+    // Retrieve the user data from the database
+$selectedUser = FPersistentManager::retrieveUserById($selectedUserId);
+
+    // Check if the user exists
+    if (!$selectedUser) {
+        // Handle the error (e.g., show an error message and exit)
+        echo "Error: User not found.";
+        return;
+    }
+
+    // Display the physical data form with the selected user data
+    $view = new VPhysicalData();
+    $view->showPhysicalDataForm($selectedUser);
+}
 }

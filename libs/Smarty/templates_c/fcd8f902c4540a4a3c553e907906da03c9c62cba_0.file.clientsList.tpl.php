@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-19 20:41:15
-  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\viewSubscription.tpl' */
+/* Smarty version 3.1.33, created on 2024-07-20 01:59:53
+  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\clientsList.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669ab34b244f49_39771666',
+  'unifunc' => 'content_669afdf9905099_26827990',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'b589bbc6f8a9c37f392c694357b0b07c8d4d9742' => 
+    'fcd8f902c4540a4a3c553e907906da03c9c62cba' => 
     array (
-      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\viewSubscription.tpl',
-      1 => 1721407506,
+      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\clientsList.tpl',
+      1 => 1721433592,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669afdf9905099_26827990 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -30,12 +30,11 @@ function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>View Subscription</title>
+    <title>Clients List</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
-
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/bootstrap.min.css" type="text/css">
@@ -47,6 +46,12 @@ function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl)
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
+
+    <style>
+        .selected {
+            background-color: #f36100;
+        }
+    </style>
 
     <?php echo '<script'; ?>
 >
@@ -70,7 +75,7 @@ function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl)
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="/GymBuddy/User/homeVIP">
+                    <a href="/GymBuddy/PersonalTrainer/homePT">
                         <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
@@ -78,7 +83,7 @@ function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl)
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li class="active"><a href="/GymBuddy/User/homeVIP" id="home-link">Home</a></li>
+                        <li><a href="/GymBuddy/PersonalTrainer/homePT">Home</a></li>
                     </ul>
                 </nav>
             </div>
@@ -101,9 +106,7 @@ function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl)
     </div>
 </header>
 <!-- Header End -->
-
-
-<!-- Tabella -->
+<!-- Info Section Begin -->
 <section class="pricing-section service-pricing spad">
     <div class="container">
         <div class="row">
@@ -114,39 +117,64 @@ function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl)
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-lg-12">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th></th> <!-- Aggiungi una colonna per il pulsante di selezione -->
-                        <th>ID SUBSCRIPTION</th>
-                        <th>ID User</th>
-                        <th>TYPE</th>
-                        <th>DURATION</th>
-                        <th>PRICE</th>
-                    </tr>
-                    </thead>
-                    <tbody id="user-table-body">
-                    <tr>
-                        <th></th>
-                        <td><?php echo $_smarty_tpl->tpl_vars['subscription']->value['id'];?>
+    <div class="col-lg-12">
+        <table class="table" id="peopleTable">
+            <thead>
+            <tr>
+
+                <th>ID USER</th>
+                <th>NAME</th>
+                <th>SURNAME</th>
+                <th>EMAIL</th>
+                <th>OPTIONS</th>
+            </tr>
+            </thead>
+            <tbody id="user-table-body">
+            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['clients']->value, 'client');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['client']->value) {
+?>
+                <tr>
+                    <td><?php echo $_smarty_tpl->tpl_vars['client']->value['idUser'];?>
 </td>
-                        <td><?php echo $_smarty_tpl->tpl_vars['subscription']->value['user_id'];?>
+                    <td><?php echo $_smarty_tpl->tpl_vars['client']->value['name'];?>
 </td>
-                        <td><?php echo $_smarty_tpl->tpl_vars['subscription']->value['type'];?>
+                    <td><?php echo $_smarty_tpl->tpl_vars['client']->value['surname'];?>
 </td>
-                        <td><?php echo $_smarty_tpl->tpl_vars['subscription']->value['duration'];?>
+                    <td><?php echo $_smarty_tpl->tpl_vars['client']->value['email'];?>
 </td>
-                        <td><?php echo $_smarty_tpl->tpl_vars['subscription']->value['price'];?>
-</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                    <td>
+                        <!-- Form for selecting the user for Physical Data -->
+                        <form action="/GymBuddy/PhysicalData/physicalDataForm" method="post">
+                            <!-- Hidden field with the user ID -->
+                            <input type="hidden" name="selected_user" value="<?php echo $_smarty_tpl->tpl_vars['client']->value['idUser'];?>
+">
+                            <!-- Button to select the user -->
+                            <button type="submit" class="btn btn-primary">Physical Data</button>
+                        </form>
+                        <!-- Form for selecting the user for Training Card -->
+                        <form action="/GymBuddy/TrainingCard/trainingCardForm" method="post">
+                            <!-- Hidden field with the user ID -->
+                            <input type="hidden" name="selected_user" value="<?php echo $_smarty_tpl->tpl_vars['client']->value['idUser'];?>
+">
+                            <!-- Button to select the user -->
+                            <button type="submit" class="btn btn-primary">Training Card</button>
+                        </form>
+                    </td>
+                </tr>
+            <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
     </div>
 </section>
-
+<!-- Info Section End -->
 <!-- Get In Touch Section Begin -->
 <div class="gettouch-section">
     <div class="container">
@@ -184,7 +212,7 @@ function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl)
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href=/GymBuddy/User/homeVIP"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
+                        <a href="/GymBuddy/PersonalTrainer/homePT"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
                     <p>The most iconic gym in the world has arrived in L'Aquila!
                         Live the best training experience in a unique atmosphere.
@@ -210,6 +238,7 @@ function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl)
                 </div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-6">
+
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="fs-widget">
@@ -222,7 +251,7 @@ function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl)
                         </ul>
                     </div>
                     <div class="fw-recent">
-                        <h6><a href="#">Fitness: The best exercise to lose belly fat and tone up...</a></h6>
+                        <h6><a href="#">Fitness: The best exercise to lose belly fat</a></h6>
                         <ul>
                             <li>3 min read</li>
                             <li>20 Comment</li>
@@ -231,16 +260,18 @@ function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl)
                 </div>
             </div>
         </div>
+    </div>
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="copyright-text">
-                    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<?php echo '<script'; ?>
+            <div class="col-lg-12">
+                <div class="fs-text">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<?php echo '<script'; ?>
 >document.write(new Date().getFullYear());<?php echo '</script'; ?>
 >
-                        All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i>
-                        by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by
+                    <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                 </div>
             </div>
         </div>
@@ -285,20 +316,38 @@ function content_669ab34b244f49_39771666 (Smarty_Internal_Template $_smarty_tpl)
  src="/GymBuddy/libs/Smarty/js/main.js"><?php echo '</script'; ?>
 >
 
-<!-- Script personalizzato -->
+
+<!-- Codice per la gestione della tabella -->
+
 <?php echo '<script'; ?>
 >
-    // Codice JavaScript per eliminare le righe selezionate
-    $(document).ready(function () {
-        // Gestisci il click sul pulsante Elimina
-        $('#delete-selected').on('click', function () {
-            // Trova le righe selezionate e rimuovile
-            $('#user-table-body input:checked').closest('tr').remove();
+    document.addEventListener('DOMContentLoaded', () => {
+        const tableRows = document.querySelectorAll('#peopleTable tbody tr');
+
+        let selectedRow = null; // Memorizza la riga attualmente selezionata
+
+        // Aggiunta dell'event listener al clic sulle righe della tabella
+        tableRows.forEach(row => {
+            row.addEventListener('click', () => {
+                // Se la riga cliccata è già selezionata, deseleziona
+                if (selectedRow === row) {
+                    row.classList.remove('selected');
+                    selectedRow = null;
+                } else {
+                    // Deseleziona la riga attualmente selezionata
+                    if (selectedRow) {
+                        selectedRow.classList.remove('selected');
+                    }
+
+                    // Seleziona la riga cliccata
+                    row.classList.add('selected');
+                    selectedRow = row;
+                }
+            });
         });
     });
 <?php echo '</script'; ?>
 >
-
 
 </body>
 

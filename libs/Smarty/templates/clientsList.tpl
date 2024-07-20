@@ -31,11 +31,12 @@
     </style>
 
     <script>
-        function ready(){
+        function ready() {
             if (!navigator.cookieEnabled) {
                 alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
             }
         }
+
         document.addEventListener("DOMContentLoaded", ready);
     </script>
 
@@ -49,7 +50,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="/GymBuddy/User/homePT">
+                    <a href="/GymBuddy/PersonalTrainer/homePT">
                         <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
@@ -57,7 +58,7 @@
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li><a href="/GymBuddy/User/homePT">Home</a></li>
+                        <li><a href="/GymBuddy/PersonalTrainer/homePT">Home</a></li>
                     </ul>
                 </nav>
             </div>
@@ -80,7 +81,6 @@
     </div>
 </header>
 <!-- Header End -->
-
 <!-- Info Section Begin -->
 <section class="pricing-section service-pricing spad">
     <div class="container">
@@ -92,40 +92,48 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-lg-12">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>ID USER</th>
-                        <th>NAME</th>
-                        <th>SURNAME</th>
-                        <th>EMAIL</th>
-                    </tr>
-                    </thead>
-                    <tbody id="user-table-body">
-                    {foreach from=$clients item=client}
-                        <tr>
-                            <td>{$client.idUser}</td>
-                            <td>{$client.name}</td>
-                            <td>{$client.surname}</td>
-                            <td>{$client.email}</td>
-                        </tr>
-                    {/foreach}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <!-- Pulsanti per Scheda e Dati Fisici -->
-        <div class="container">
-            <div class="row mt-4">
-                <div class="col-lg-6">
-                    <button id="btnScheda" class="btn btn-primary" disabled>Training card</button>
-                </div>
-                <div class="col-lg-6">
-                    <button id="btnDatiFisici" class="btn btn-primary" disabled>Physical data</button>
-                </div>
-            </div>
-        </div>
+    <div class="col-lg-12">
+        <table class="table" id="peopleTable">
+            <thead>
+            <tr>
+
+                <th>ID USER</th>
+                <th>NAME</th>
+                <th>SURNAME</th>
+                <th>EMAIL</th>
+                <th>OPTIONS</th>
+            </tr>
+            </thead>
+            <tbody id="user-table-body">
+            {foreach from=$clients item=client}
+                <tr>
+                    <td>{$client.idUser}</td>
+                    <td>{$client.name}</td>
+                    <td>{$client.surname}</td>
+                    <td>{$client.email}</td>
+                    <td>
+                        <!-- Form for selecting the user for Physical Data -->
+                        <form action="/GymBuddy/PhysicalData/physicalDataForm" method="post">
+                            <!-- Hidden field with the user ID -->
+                            <input type="hidden" name="selected_user" value="{$client.idUser}">
+                            <!-- Button to select the user -->
+                            <button type="submit" class="btn btn-primary">Physical Data</button>
+                        </form>
+                        <!-- Form for selecting the user for Training Card -->
+                        <form action="/GymBuddy/TrainingCard/trainingCardForm" method="post">
+                            <!-- Hidden field with the user ID -->
+                            <input type="hidden" name="selected_user" value="{$client.idUser}">
+                            <!-- Button to select the user -->
+                            <button type="submit" class="btn btn-primary">Training Card</button>
+                        </form>
+                    </td>
+                </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+</div>
+
     </div>
 </section>
 <!-- Info Section End -->
@@ -166,7 +174,7 @@
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href="/GymBuddy/User/homePT"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
+                        <a href="/GymBuddy/PersonalTrainer/homePT"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
                     <p>The most iconic gym in the world has arrived in L'Aquila!
                         Live the best training experience in a unique atmosphere.
@@ -220,7 +228,9 @@
             <div class="col-lg-12">
                 <div class="fs-text">
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                    All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by
+                    <a href="https://colorlib.com" target="_blank">Colorlib</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                 </div>
             </div>
@@ -252,43 +262,20 @@
 
 
 <!-- Codice per la gestione della tabella -->
+{literal}
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const tableBody = document.querySelector('#peopleTable tbody');
-        const btnScheda = document.getElementById('btnScheda');
-        const btnDatiFisici = document.getElementById('btnDatiFisici');
-
-        // Simulazione di dati (sostituire con dati reali)
-        const peopleData = [
-            { id: 1, nome: "Marco", cognome: "Rossi", email:"marco@gmail.com" },
-            { id: 2, nome: "Giulia", cognome: "Verdi" , email:"giulia@gmail.com"},
-            { id: 3, nome: "Paolo", cognome: "Bianchi" , email:"paolo@gmail.com"}
-
-            // Aggiungi altri dati se necessario
-        ];
+        const tableRows = document.querySelectorAll('#peopleTable tbody tr');
 
         let selectedRow = null; // Memorizza la riga attualmente selezionata
 
-        // Costruzione delle righe della tabella
-        peopleData.forEach(person => {
-            const row = document.createElement('tr');
-
-            // Aggiunta delle celle della riga
-            row.innerHTML = `
-                    <td>${person.id}</td>
-                    <td>${person.nome}</td>
-                    <td>${person.cognome}</td>
-                    <td>${person.email}</td>
-                `;
-
-            // Aggiunta dell'event listener al clic sulle righe della tabella
+        // Aggiunta dell'event listener al clic sulle righe della tabella
+        tableRows.forEach(row => {
             row.addEventListener('click', () => {
+                // Se la riga cliccata è già selezionata, deseleziona
                 if (selectedRow === row) {
-                    // Se la riga cliccata è già selezionata, deseleziona
                     row.classList.remove('selected');
                     selectedRow = null;
-                    btnScheda.disabled = true; // Disabilita il pulsante Scheda
-                    btnDatiFisici.disabled = true; // Disabilita il pulsante Dati fisici
                 } else {
                     // Deseleziona la riga attualmente selezionata
                     if (selectedRow) {
@@ -298,33 +285,12 @@
                     // Seleziona la riga cliccata
                     row.classList.add('selected');
                     selectedRow = row;
-                    btnScheda.disabled = false; // Abilita il pulsante Scheda
-                    btnDatiFisici.disabled = false; // Abilita il pulsante Dati fisici
                 }
             });
-
-            // Aggiungi la riga alla tabella
-            tableBody.appendChild(row);
-        });
-
-        // Gestione click pulsante Scheda
-        btnScheda.addEventListener('click', () => {
-            if (selectedRow) {
-                const selectedId = selectedRow.cells[0].textContent; // ID della persona selezionata
-                window.location.href = `schedapt.html?id=${selectedId}`; // Sostituire con URL desiderato
-            }
-        });
-
-        // Gestione click pulsante Dati fisici
-        btnDatiFisici.addEventListener('click', () => {
-            if (selectedRow) {
-                const selectedId = selectedRow.cells[0].textContent; // ID della persona selezionata
-                window.location.href = `datifisici.html?id=${selectedId}`; // Sostituire con URL desiderato
-            }
         });
     });
-
 </script>
+{/literal}
 </body>
 
 </html>
