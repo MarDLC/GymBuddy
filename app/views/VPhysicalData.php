@@ -11,9 +11,28 @@ class VPhysicalData
 
 
 
-    public function showPhysicalDataInfo() {
+
+
+    public function displayProgressChart($chartImageUrl) {
+        // Assign the chart image URL to a Smarty variable
+        $this->smarty->assign('chartImageUrl', $chartImageUrl);
+
+        // Display the template
+        $this->smarty->display('viewGraphic.tpl');
+    }
+
+    public function showPhysicalDataInfo($dates, $weights, $leanMasses, $fatMasses)
+    {
         // Verifica se l'utente è loggato
         if (CUser::isLoggedIn()) {
+            // Assegna i dati del grafico al template
+            $chartData = json_encode([
+                'dates' => $dates,
+                'weights' => $weights,
+                'leanMasses' => $leanMasses,
+                'fatMasses' => $fatMasses,
+            ]);
+            $this->smarty->assign('chartData', $chartData);
             // Visualizza il template
             $this->smarty->display('viewGraphic.tpl');
         } else {

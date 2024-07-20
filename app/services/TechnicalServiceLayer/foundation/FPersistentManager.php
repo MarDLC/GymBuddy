@@ -533,7 +533,23 @@ public static function retrieveSubscriptionByUserId($userId){
         }
     }
 
+    public static function getPhysicalDataById($userId)
+    {
+        error_log('getPhysicalDataById - id: ' . $userId);
+        $physicalData = FPhysicalData::getPhysicalDataByIdUser($userId);
+        error_log('getPhysicalDataById - PhysicalData results: ' . print_r($physicalData, true));
+        return $physicalData;
+    }
 
+    public static function generatePhysicalProgressChart($idUser) {
+        // Generate the physical progress chart
+        return FPhysicalData::generatePhysicalProgressChart($idUser);
+    }
+
+
+    public static function getChartData($idUser) {
+        return FPhysicalData::generatePhysicalProgressChart($idUser);
+    }
 
 
 }

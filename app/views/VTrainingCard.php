@@ -20,4 +20,18 @@ class VTrainingCard{
     }
 }
 
+
+    public function showTrainingCardForm()
+    {
+        // Recupera l'ID utente selezionato dalla sessione
+        $selectedUserId = USession::getSessionElement('selected_user');
+
+        // Assegna l'ID utente selezionato a una variabile Smarty
+        $this->smarty->assign('selectedUserId', $selectedUserId);
+
+        // Mostra il template del form dei dati fisici
+        $this->smarty->display('trainingCardForm.tpl');
+    }
+
+
 }

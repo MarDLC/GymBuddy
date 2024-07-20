@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-19 14:47:04
+/* Smarty version 3.1.33, created on 2024-07-20 16:11:52
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\viewGraphic.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669a6048c7d9d8_25008533',
+  'unifunc' => 'content_669bc5a8e0d982_69868448',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'dd6c87ea69bdfdcca8eb70026821e1a227562894' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\viewGraphic.tpl',
-      1 => 1721393223,
+      1 => 1721483807,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669a6048c7d9d8_25008533 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669bc5a8e0d982_69868448 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -30,12 +30,10 @@ function content_669a6048c7d9d8_25008533 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Gym | Template</title>
-
+    <title>Progress Chart</title>
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
-
     <!-- Css Styles -->
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/font-awesome.min.css" type="text/css">
@@ -45,27 +43,13 @@ function content_669a6048c7d9d8_25008533 (Smarty_Internal_Template $_smarty_tpl)
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
-
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/stylelogin.css" type="text/css">
     <?php echo '<script'; ?>
  src="https://cdn.jsdelivr.net/npm/chart.js"><?php echo '</script'; ?>
 >
-
-    <?php echo '<script'; ?>
->
-        function ready(){
-            if (!navigator.cookieEnabled) {
-                alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
-            }
-        }
-        document.addEventListener("DOMContentLoaded", ready);
-    <?php echo '</script'; ?>
->
-
 </head>
 
 <body>
-
 <!-- Header Section Begin -->
 <header class="header-section">
     <div class="container-fluid">
@@ -248,7 +232,6 @@ function content_669a6048c7d9d8_25008533 (Smarty_Internal_Template $_smarty_tpl)
  src="/GymBuddy/libs/Smarty/js/main.js"><?php echo '</script'; ?>
 >
 
-
 <!-- Chart.js -->
 <?php echo '<script'; ?>
  src="https://cdn.jsdelivr.net/npm/chart.js"><?php echo '</script'; ?>
@@ -258,34 +241,52 @@ function content_669a6048c7d9d8_25008533 (Smarty_Internal_Template $_smarty_tpl)
 <?php echo '<script'; ?>
 >
     document.addEventListener('DOMContentLoaded', (event) => {
-        fetch('/path/to/your/data/endpoint')
-            .then(response => response.json())
-            .then(data => {
-                const pesi = data.map(item => item.peso);
-                const altezze = data.map(item => item.altezza);
-
-                const ctx = document.getElementById('myChart').getContext('2d');
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: altezze,
-                        datasets: [{
-                            label: 'Peso',
-                            data: pesi,
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            borderWidth: 1
-                        }]
+        const chartData = JSON.parse('<?php echo strtr($_smarty_tpl->tpl_vars['chartData']->value, array("\\" => "\\\\", "'" => "\\'", "\"" => "\\\"", "\r" => "\\r", "\n" => "\\n", "</" => "<\/" ));?>
+');
+        const ctx = document.getElementById('myChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: chartData.dates,
+                datasets: [{
+                    label: 'Weight',
+                    data: chartData.weights,
+                    borderColor: 'rgb(255,255,255)',
+                    borderWidth: 3
+                }, {
+                    label: 'Lean Mass',
+                    data: chartData.leanMasses,
+                    borderColor: 'rgb(96,235,54)',
+                    borderWidth: 3
+                }, {
+                    label: 'Fat Mass',
+                    data: chartData.fatMasses,
+                    borderColor: 'rgb(255,99,99)',
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'rgb(255,255,255)', // Colore bianco per le etichette dell'asse x
+                            font: {
+                                size: 16 // Dimensione del font per le etichette dell'asse x
+                            }
+                        }
                     },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'rgb(255,255,255)', // Colore bianco per le etichette dell'asse y
+                            font: {
+                                size: 16 // Dimensione del font per le etichette dell'asse y
                             }
                         }
                     }
-                });
-            })
-            .catch(error => console.error('Errore nel recupero dei dati:', error));
+                }
+            }
+        });
     });
 <?php echo '</script'; ?>
 >

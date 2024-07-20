@@ -483,5 +483,11 @@ public static function retriveFollowedUsers(){
     }
 
 
+    public static function retrivePhysicalDataByUserId($idUser) {
+        return self::retriveObj('physicaldata', 'idUser', $idUser);
+    }
+
+
+
 
 }

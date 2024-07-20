@@ -37,17 +37,7 @@ class CPhysicalData
         $view->showPhysicalData($physicalData);
     }
 
-    //TODO
-    public static function showProgressChart($emailRegisteredUser)
-    {
-        // Get the URL of the generated chart image using FPersistentManager
-        $chartImageUrl = FPersistentManager::getInstance()->getChartImageUrl($emailRegisteredUser);
 
-        // Return the HTML to display the chart image
-        return '<img src="' . $chartImageUrl . '" alt="Physical Progress Chart">';
-    }
-
-    //TODO creare il metodio uploadFileError per gestire gli errori di caricamento dei file
     public static function showPhysicalDataForm()
     {
         // Check if the personal trainer is logged in
@@ -86,39 +76,9 @@ class CPhysicalData
         header('Location: /GymBuddy/PersonalTrainer/PhysicalDataList');
     }
 
-    public static function setPhysicalData()
-    {
-        if (CPersonalTrainer::isLogged()) {
-            $userId = USession::getInstance()->getSessionElement('user');
-            $physicalData = FPersistentManager::getInstance()->retriveObj(EPhysicalData::getEntity(), $userId);
-
-            $physicalData->setSex(UHTTPMethods::post('sex'));
-            $physicalData->setHeight(UHTTPMethods::post('height'));
-            $physicalData->setWeight(UHTTPMethods::post('weight'));
-            $physicalData->setLeanMass(UHTTPMethods::post('leanMass'));
-            $physicalData->setFatMass(UHTTPMethods::post('fatMass'));
-            $physicalData->setBmi(UHTTPMethods::post('bmi'));
-            $physicalData->setTime(UHTTPMethods::post('time'));
-            FPersistentManager::getInstance()->updatePhysicalData($physicalData);
-
-            header('Location: /Agora/User/personalProfile');
-        }
-    }
-
-    //TODO Scaricare la libreia pChart e includerla nel progetto: composer require szymach/c-pchart
-    //TODO il path che scrivo qui, andrà messo anche nel metodo getImageUrl che si trova in FPersitenManager
-    public static function viewProgressChartInTrainer($emailRegisteredUser)
-    {
-        // Call the generatePhysicalProgressChart method of FPersistentManager
-        return FPersistentManager::getChartImageUrl($emailRegisteredUser);
-    }
 
 
-    public static function physicalDataInfo()
-    {
-        $view = new VPhysicalData();
-        $view->showPhysicalDataInfo();
-    }
+
 
 
     /*
@@ -293,6 +253,48 @@ class CPhysicalData
 
         // Log the end of the method
         error_log("Confirmation - End");
+    }
+
+
+    public static function showProgressChart()
+    {
+        if (CUser::isLoggedIn()) {
+            $userId = CUser::getLoggedInUserId();
+            error_log('showProgressChart - userId: ' . $userId);
+
+            $physicalData = FPersistentManager::getInstance()->getPhysicalDataById($userId);
+            error_log('showProgressChart - PhysicalData: ' . print_r($physicalData, true));
+
+            if (!empty($physicalData)) {
+                $dates = [];
+                $weights = [];
+                $leanMasses = [];
+                $fatMasses = [];
+
+                foreach ($physicalData as $data) {
+                    $dates[] = $data->getTime()->format('Y-m-d');
+                    $weights[] = $data->getWeight();
+                    $leanMasses[] = $data->getLeanMass();
+                    $fatMasses[] = $data->getFatMass();
+                }
+
+                // Passa i dati al template
+                $view = new VPhysicalData();
+                $view->showPhysicalDataInfo($dates, $weights, $leanMasses, $fatMasses);
+            } else {
+                error_log('showProgressChart - No Physical Data found for userId: ' . $userId);
+                $view = new VPhysicalData();
+                $view->showPhysicalDataInfo([], [], [], []);
+            }
+        } else {
+            error_log('showProgressChart - User not logged in');
+            header('Location: /GymBuddy/User/Login');
+        }
+    }
+
+    public static function physicalDataInfo()
+    {
+        self::showProgressChart();
     }
 
 

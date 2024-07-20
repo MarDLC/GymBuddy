@@ -7,10 +7,12 @@
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Progress Chart</title>
+    <title>Gym | Template</title>
+
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
+
     <!-- Css Styles -->
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/font-awesome.min.css" type="text/css">
@@ -20,18 +22,39 @@
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
-    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/stylelogin.css" type="text/css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
+
+
+    <!-- Css Styles -->
+    <style>
+        /* Stili per il form */
+        .form-group label {
+            color: #f36100;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+    </style>
+
+    <script>
+        function ready(){
+            if (!navigator.cookieEnabled) {
+                alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
+            }
+        }
+        document.addEventListener("DOMContentLoaded", ready);
+    </script>
+
 </head>
 
 <body>
+
 <!-- Header Section Begin -->
 <header class="header-section">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="/GymBuddy/User/homeVIP">
+                    <a href="/GymBuddy/PersonalTrainer/homePT">
                         <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
@@ -39,7 +62,7 @@
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li><a href="/GymBuddy/User/homeVIP">Home</a></li>
+                        <li><a href="/GymBuddy/PersonalTrainer/homePT">Home</a></li>
                     </ul>
                 </nav>
             </div>
@@ -66,7 +89,31 @@
 <!-- Info Section Begin -->
 <section class="pricing-section service-pricing spad">
     <div class="container">
-        <canvas id="myChart"></canvas>
+        <div class="section-title">
+            <h2>Training Card</h2>
+        </div>
+        <form action="/GymBuddy/TrainingCard/compileForm" method="post">
+            <input type="hidden" name="selected_user" value="{$selectedUserId}">
+            <div id="exerciseContainer">
+                <!-- Set iniziale di campi -->
+                <div class="form-group">
+                    <label for="exercise1">Exercise</label>
+                    <input type="text" class="form-control" id="exercise" name="exercise[]" placeholder="Exercise">
+                </div>
+                <div class="form-group">
+                    <label for="repetitions1">Repetitions</label>
+                    <input type="text" class="form-control" id="repetitions" name="repetitions[]" placeholder="Repetitions">
+                </div>
+                <div class="form-group">
+                    <label for="recovery1">Recovery</label>
+                    <input type="text" class="form-control" id="recovery" name="recovery[]" placeholder="Recovery (minutes ' seconds'')">
+                </div>
+            </div>
+            <!-- Pulsante per aggiungere nuovi campi -->
+            <button type="button" class="btn btn-secondary" id="addExerciseButton">Add</button>
+            <!-- Pulsante di invio -->
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
     </div>
 </section>
 <!-- Info Section End -->
@@ -108,11 +155,9 @@
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href="/GymBuddy/User/homeVIP"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
+                        <a href="/GymBuddy/PersonalTrainer/homePT"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
-                    <p>The most iconic gym in the world has arrived in L'Aquila!
-                        Live the best training experience in a unique atmosphere.
-                        DISCOVER THE LEGACY: GymBuddy L'Aquila.</p>
+                    <p>Transform Your Body, Elevate Your Life: Join Our Community of Fitness Enthusiasts and Experience the Best in Modern Equipment, Expert Training, and Personalized Programs.</p>
                     <div class="fa-social">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
@@ -189,59 +234,44 @@
 <script src="/GymBuddy/libs/Smarty/js/owl.carousel.min.js"></script>
 <script src="/GymBuddy/libs/Smarty/js/main.js"></script>
 
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<!-- Codice per il grafico -->
 <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const chartData = JSON.parse('{$chartData|escape:"javascript"}');
-        const ctx = document.getElementById('myChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: chartData.dates,
-                datasets: [{
-                    label: 'Weight',
-                    data: chartData.weights,
-                    borderColor: 'rgb(255,255,255)',
-                    borderWidth: 3
-                }, {
-                    label: 'Lean Mass',
-                    data: chartData.leanMasses,
-                    borderColor: 'rgb(96,235,54)',
-                    borderWidth: 3
-                }, {
-                    label: 'Fat Mass',
-                    data: chartData.fatMasses,
-                    borderColor: 'rgb(255,99,99)',
-                    borderWidth: 3
-                }]
-            },
-            options: {
-                scales: {
-                    x: {
-                        ticks: {
-                            color: 'rgb(255,255,255)', // Colore bianco per le etichette dell'asse x
-                            font: {
-                                size: 16 // Dimensione del font per le etichette dell'asse x
-                            }
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            color: 'rgb(255,255,255)', // Colore bianco per le etichette dell'asse y
-                            font: {
-                                size: 16 // Dimensione del font per le etichette dell'asse y
-                            }
-                        }
-                    }
-                }
-            }
-        });
+    // Ottieni i parametri dall'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    const nome = urlParams.get('nome');
+    const cognome = urlParams.get('cognome');
+
+    // Contatore per i campi di esercizio aggiunti dinamicamente
+    let exerciseCounter = 1;
+
+    // Gestione del click sul pulsante "Aggiungi"
+    document.getElementById('addExerciseButton').addEventListener('click', function () {
+        exerciseCounter++;
+
+        // Crea un nuovo set di campi di esercizio
+        const newExerciseSet = document.createElement('div');
+        newExerciseSet.classList.add('exercise-set');
+
+        newExerciseSet.innerHTML = `
+                <div class="form-group">
+                    <label for="exercise${exerciseCounter}">Exercise</label>
+                    <input type="text" class="form-control" id="exercise${exerciseCounter}" name="exercise[]" placeholder="Exercise">
+                </div>
+                <div class="form-group">
+                    <label for="repetitions${exerciseCounter}">Repetitions</label>
+                    <input type="text" class="form-control" id="repetitions${exerciseCounter}" name="repetitions[]" placeholder="Repetitions">
+                </div>
+                <div class="form-group">
+                    <label for="recovery${exerciseCounter}">Recovery</label>
+                    <input type="text" class="form-control" id="recovery${exerciseCounter}" name="recovery[]" placeholder="Recovery (minutes ' seconds'')">
+                </div>
+            `;
+
+        // Aggiungi il nuovo set di campi al contenitore
+        document.getElementById('exerciseContainer').appendChild(newExerciseSet);
     });
 </script>
+
 </body>
 
 </html>

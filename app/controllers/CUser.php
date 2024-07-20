@@ -328,6 +328,13 @@ public static function confirmation()
         }
     }
 
+    public static function getLoggedInUserId() {
+        if (self::isLoggedIn()) {
+            return USession::getInstance()->getSessionElement('user');
+        }
+        return null;
+    }
+
 
 
 

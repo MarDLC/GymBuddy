@@ -108,12 +108,9 @@ class FPhysicalData{
         $stmt->bindValue("date", $physicalData->getTimeStr(), PDO::PARAM_STR);
     }
 
-/**
- * Creates a PhysicalData object from the given query result.
- *
- * @param array $queryResult The query result to create the PhysicalData object from.
- * @return EPhysicalData|array|null The created PhysicalData object, or an array of PhysicalData objects, or null if no PhysicalData object could be created.
- */
+
+
+    /*
 public static function createPhysicalDataObj($queryResult){
     // If the query result contains only one record
     if(count($queryResult) == 1){
@@ -149,7 +146,7 @@ public static function createPhysicalDataObj($queryResult){
         // Return an empty array
         return array();
     }
-}
+} */
 
     /**
  * Retrieves a PhysicalData object with the given ID.
@@ -256,44 +253,77 @@ public static function deletePhysicalDataInDb($idPhysicalData){
     }
  }
 
-    public static function getPhysicalDataByIdUser($idUser){
+
+
+
+    public static function getPhysicalDataByIdUser($idUser)
+    {
+        error_log('getPhysicalDataByIdUser - idUser: ' . $idUser);
         // Retrieve the PhysicalData objects for the client using the user ID
         $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), 'idUser', $idUser);
-        // If the result is not empty, create a PhysicalData object from the result
-        if(count($result) > 0){
+        error_log('getPhysicalDataByIdUser - Query Result: ' . print_r($result, true));
+
+        // If the result is not empty, create PhysicalData objects from the result
+        if (count($result) > 0) {
             $physicalData = self::createPhysicalDataObj($result);
+            error_log('getPhysicalDataByIdUser - PhysicalData Created: ' . print_r($physicalData, true));
             return $physicalData;
         } else {
-            // If the result is empty, return null
+            error_log('getPhysicalDataByIdUser - No data found');
             return null;
         }
     }
+
 
     public static function generatePhysicalProgressChart($idUser) {
         // Retrieve the PhysicalData objects for the client
         $physicalData = self::getPhysicalDataByIdUser($idUser);
 
-        // Create a new pChart object
-        $chart = new pChart\pData();
+        // Prepare data for the chart
+        $weights = array_map(function($data) { return $data->getWeight(); }, $physicalData);
+        $leanMasses = array_map(function($data) { return $data->getLeanMass(); }, $physicalData);
+        $fatMasses = array_map(function($data) { return $data->getFatMass(); }, $physicalData);
+        $dates = array_map(function($data) { return $data->getTime()->format('Y-m-d'); }, $physicalData);
 
-        // For each physical data you want to track, add a data series to the chart
-        $chart->addPoints(array_column($physicalData, 'weight'), "Peso");
-        $chart->addPoints(array_column($physicalData, 'fatMass'), "Massa grassa");
-        $chart->addPoints(array_column($physicalData, 'leanMass'), "Massa magra");
-        $chart->addPoints(array_column($physicalData, 'bmi'), "BMI");
+        // Log the retrieved data
+        error_log("Weights: " . print_r($weights, true));
+        error_log("Lean Masses: " . print_r($leanMasses, true));
+        error_log("Fat Masses: " . print_r($fatMasses, true));
+        error_log("Dates: " . print_r($dates, true));
 
-        // Set the X-axis labels with the dates of the checks
-        $chart->addPoints(array_column($physicalData, 'time'), "Labels");
-        $chart->setSerieDescription("Labels","Mesi");
-        $chart->setAbscissa("Labels");
-
-        // Create a new pChart object for drawing the chart
-        $chartPicture = new pChart\pImage(700, 230, $chart);
-
-        // Draw the chart
-        $chartPicture->drawLineChart();
-
-        // Save the chart as an image
-        $chartPicture->Render("path/to/save/your/image.png");
+        // Return the data array
+        return [
+            'weights' => $weights,
+            'leanMasses' => $leanMasses,
+            'fatMasses' => $fatMasses,
+            'dates' => $dates
+        ];
     }
+
+
+    public static function createPhysicalDataObj($queryResult)
+    {
+        error_log('createPhysicalDataObj - Query Result: ' . print_r($queryResult, true));
+        $physicalDatas = [];
+        if (count($queryResult) == 1) {
+            $author = FPersonalTrainer::getObj($queryResult[0]['idUser']);
+            $physicalData = new EPhysicalData($author, $queryResult[0]['sex'], $queryResult[0]['height'], $queryResult[0]['weight'], $queryResult[0]['leanMass'], $queryResult[0]['fatMass'], $queryResult[0]['bmi']);
+            $physicalData->setIdPhysicalData($queryResult[0]['idPhysicalData']);
+            $physicalData->setCreationTime(new DateTime($queryResult[0]['date']));
+            $physicalDatas[] = $physicalData;
+        } elseif (count($queryResult) > 1) {
+            foreach ($queryResult as $row) {
+                $author = FPersonalTrainer::getObj($row['idUser']);
+                $physicalData = new EPhysicalData($author, $row['sex'], $row['height'], $row['weight'], $row['leanMass'], $row['fatMass'], $row['bmi']);
+                $physicalData->setIdPhysicalData($row['idPhysicalData']);
+                $physicalData->setCreationTime(new DateTime($row['date']));
+                $physicalDatas[] = $physicalData;
+            }
+        }
+        error_log('createPhysicalDataObj - PhysicalData Objects: ' . print_r($physicalDatas, true));
+        return $physicalDatas;
+    }
+
+
+
 }
