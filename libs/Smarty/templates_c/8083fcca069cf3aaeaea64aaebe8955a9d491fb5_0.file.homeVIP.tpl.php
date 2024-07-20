@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-20 16:19:25
+/* Smarty version 3.1.33, created on 2024-07-20 23:08:26
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\homeVIP.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669bc76da9ab17_69102250',
+  'unifunc' => 'content_669c274a4e7ee2_09163190',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8083fcca069cf3aaeaea64aaebe8955a9d491fb5' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\homeVIP.tpl',
-      1 => 1721485161,
+      1 => 1721509698,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669bc76da9ab17_69102250 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669c274a4e7ee2_09163190 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -76,7 +76,7 @@ function content_669bc76da9ab17_69102250 (Smarty_Internal_Template $_smarty_tpl)
             <li><a href="/GymBuddy/User/homeVIP">Home</a></li>
             <li><a href="/GymBuddy/Subscription/subscription">Subscription</a></li>
             <li><a href="/GymBuddy/Reservation/reservation">Reservation</a></li>
-            <li><a href="/GymBuddy/News/news">News</a></li>
+            <li><a href="/GymBuddy/User/news">News</a></li>
 
             <li><a href="#">Profile</a>
                 <ul class="dropdown">
@@ -120,7 +120,7 @@ function content_669bc76da9ab17_69102250 (Smarty_Internal_Template $_smarty_tpl)
                         <li><a href="/GymBuddy/User/homeVIP">Home</a></li>
                         <li><a href="/GymBuddy/Subscription/subscription">Subscription</a></li>
                         <li><a href="/GymBuddy/Reservation/reservation">Reservation</a></li>
-                        <li><a href="/GymBuddy/News/news">News</a></li>
+                        <li><a href="/GymBuddy/User/news">News</a></li>
 
                         <li><a href="#">Profile</a>
                             <ul class="dropdown">

@@ -51,7 +51,7 @@
             <li><a href="/GymBuddy/User/homeVIP">Home</a></li>
             <li><a href="/GymBuddy/Subscription/subscription">Subscription</a></li>
             <li><a href="/GymBuddy/Reservation/reservation">Reservation</a></li>
-            <li><a href="/GymBuddy/News/news">News</a></li>
+            <li><a href="/GymBuddy/User/news">News</a></li>
 
             <li><a href="#">Profile</a>
                 <ul class="dropdown">
@@ -93,7 +93,7 @@
                         <li><a href="/GymBuddy/User/homeVIP">Home</a></li>
                         <li><a href="/GymBuddy/Subscription/subscription">Subscription</a></li>
                         <li><a href="/GymBuddy/Reservation/reservation">Reservation</a></li>
-                        <li><a href="/GymBuddy/News/news">News</a></li>
+                        <li><a href="/GymBuddy/User/news">News</a></li>
 
                         <li><a href="#">Profile</a>
                             <ul class="dropdown">

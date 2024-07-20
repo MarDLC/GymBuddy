@@ -110,42 +110,45 @@ class CTrainingCard
     }
 
 
-   public static function compileForm()
-{
-    // Ensure the session is started
-    USession::getInstance();
-    error_log("Session started");
+    public static function compileForm()
+    {
+        // Ensure the session is started
+        USession::getInstance();
+        error_log("Session started");
 
-    // Debug: Log the value of 'id_selected_user' at the start of the method
-    error_log("id_selected_user at start: " . USession::getSessionElement('id_selected_user'));
+        // Debug: Log the value of 'id_selected_user' at the start of the method
+        error_log("id_selected_user at start: " . USession::getSessionElement('id_selected_user'));
 
-    // Verifica se l'utente è loggato
-    if (!CPersonalTrainer::isLoggedIn()) {
-        error_log("User is not logged in, redirecting to login page.");
-        header('Location: /GymBuddy/User/Login');
-        exit();
-    }
+        // Verifica se l'utente è loggato
+        if (!CPersonalTrainer::isLoggedIn()) {
+            error_log("User is not logged in, redirecting to login page.");
+            header('Location: /GymBuddy/User/Login');
+            exit();
+        }
 
-    $selectedUserId = USession::getSessionElement('id_selected_user');
+        $selectedUserId = USession::getSessionElement('id_selected_user');
 
-    // Recupera i dati di physical data dal form
-    $exercises = UHTTPMethods::post('exercises');
-    $repetition = UHTTPMethods::post('repetition');
-    $recovery = UHTTPMethods::post('recovery');
+        // Recupera i dati di physical data dal form
+        $exercises = UHTTPMethods::post('exercises');
+        $repetition = UHTTPMethods::post('repetition');
+        $recovery = UHTTPMethods::post('recovery');
 
-    // Check if the form data is not null
-    if ($exercises === null || $repetition === null || $recovery === null) {
-        error_log("Form data is missing.");
-        USession::setSessionElement('data_save_error', 'There was an error saving your data. Please try again.');
-        header('Location: /GymBuddy/TrainingCard/confirmation');
-        exit();
-    }
+        // Normalizza i dati del form per evitare array di lunghezza diversa
+        $exercises = is_array($exercises) ? $exercises : [$exercises];
+        $repetition = is_array($repetition) ? $repetition : [$repetition];
+        $recovery = is_array($recovery) ? $recovery : [$recovery];
 
-    // Verifica che i dati abbiano la stessa lunghezza
-    if (count($exercises) === count($repetition) && count($repetition) === count($recovery)) {
-        for ($i = 0; $i < count($exercises); $i++) {
+        // Determine the maximum length among the arrays
+        $maxLength = max(count($exercises), count($repetition), count($recovery));
+
+        // Fill missing elements with default values (e.g., null for exercises, 0 for repetition and recovery)
+        for ($i = 0; $i < $maxLength; $i++) {
+            $exercise = $exercises[$i] ?? null;
+            $reps = $repetition[$i] ?? 0;
+            $recov = $recovery[$i] ?? 0;
+
             // Crea un nuovo oggetto ETrainingCard per ogni set di dati
-            $trainingCard = new ETrainingCard($selectedUserId, $exercises[$i], $repetition[$i], $recovery[$i]);
+            $trainingCard = new ETrainingCard($selectedUserId, $exercise, $reps, $recov);
             error_log("Created ETrainingCard object: " . print_r($trainingCard, true));
 
             // Salva l'oggetto ETrainingCard nel database
@@ -153,14 +156,10 @@ class CTrainingCard
         }
 
         USession::setSessionElement('data_save_success', 'Your physical data was saved successfully!');
-    } else {
-        error_log("Mismatch in the number of exercises, repetitions, and recoveries.");
-        USession::setSessionElement('data_save_error', 'There was an error saving your data. Please try again.');
+        header('Location: /GymBuddy/TrainingCard/confirmation');
+        exit();
     }
 
-    header('Location: /GymBuddy/TrainingCard/confirmation');
-    exit();
-}
     public static function confirmation()
     {
         // Log the start of the method

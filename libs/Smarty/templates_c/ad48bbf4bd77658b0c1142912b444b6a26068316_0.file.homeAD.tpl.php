@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-20 20:38:38
+/* Smarty version 3.1.33, created on 2024-07-20 21:12:05
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\homeAD.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669c042e006a52_28671945',
+  'unifunc' => 'content_669c0c052bb6e2_34217320',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ad48bbf4bd77658b0c1142912b444b6a26068316' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\homeAD.tpl',
-      1 => 1721500708,
+      1 => 1721502724,
       2 => 'file',
     ),
   ),
@@ -20,8 +20,8 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669c042e006a52_28671945 (Smarty_Internal_Template $_smarty_tpl) {
-?>h<!DOCTYPE html>
+function content_669c0c052bb6e2_34217320 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -72,7 +72,6 @@ function content_669c042e006a52_28671945 (Smarty_Internal_Template $_smarty_tpl)
     <nav class="canvas-menu mobile-menu">
         <ul>
             <li><a href="/GymBuddy/Admin/homeAD">Home</a></li>
-            <li><a href="/GymBuddy/Admin/requests">PT Requests</a></li>
             <li><a href="/GymBuddy/Admin/newsForm">News</a></li>
         </ul>
     </nav>
@@ -101,7 +100,6 @@ function content_669c042e006a52_28671945 (Smarty_Internal_Template $_smarty_tpl)
                 <nav class="nav-menu">
                     <ul>
                         <li><a href="/GymBuddy/Admin/homeAD">Home</a></li>
-                        <li><a href="/GymBuddy/Admin/requests">PT Requests</a></li>
                         <li><a href="/GymBuddy/Admin/newsForm">News</a></li>
                     </ul>
                 </nav>

@@ -97,6 +97,38 @@ public static function retrieveUserById($userId)
     return $result;
 }
 
+    public static function retrievePersonalTrainerById($userId)
+    {
+        // Try to retrieve a RegisteredUser by their ID
+        $result = FPersonalTrainer::getObj($userId);
+
+        // Return the found user or null if no user was found
+        return $result;
+    }
+
+
+public static function retrieveAllUserById($userId)
+{
+    // Try to retrieve a RegisteredUser by their ID
+    $result = FRegisteredUser::getObj($userId);
+    error_log('RegisteredUser: ' . print_r($result, true));
+
+    // If no RegisteredUser is found, try to retrieve a PersonalTrainer
+    if ($result === null) {
+        $result = FPersonalTrainer::getObj($userId);
+        error_log('PersonalTrainer: ' . print_r($result, true));
+    }
+
+    // If no RegisteredUser or PersonalTrainer is found, try to retrieve an Admin
+    if ($result === null) {
+        $result = FAdmin::getObj($userId);
+        error_log('Admin: ' . print_r($result, true));
+    }
+
+    // Return the found user or null if no user was found
+    return $result;
+}
+
 public static function retrieveUserByIdAndType($userId, $type)
 {
     // Initialize result to null

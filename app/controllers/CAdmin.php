@@ -99,38 +99,6 @@ class CAdmin{
 
 
 
-    public static function postNews($title, $description) {
-    // Create a new news item
-    $news = new ENews($title, $description);
-
-    // Save the news item in the database
-    $result = FPersistentManager::getInstance()->saveNews($news);
-
-    // Check if the news item was saved successfully
-    if ($result) {
-        // If successful, redirect the admin to a success page
-        header('Location: /GymBuddy/Admin/NewsSuccess');
-    } else {
-        // If not successful, redirect the admin to an error page
-        header('Location: /GymBuddy/Admin/NewsError');
-       }
-    }
-
-
-    public static function cancelNews($newsId) {
-        // Call the method to delete the news from the database
-        $result = FPersistentManager::getInstance()->deleteNews($newsId);
-
-        // Check if the news was deleted successfully
-        if ($result) {
-            // If successful, redirect the admin to a success page
-            header('Location: /GymBuddy/Admin/NewsDeletionSuccess');
-        } else {
-            // If not successful, redirect the admin to an error page
-            header('Location: /GymBuddy/Admin/NewsDeletionError');
-        }
-    }
-
     public static function newsForm()
     {
         USession::getInstance();

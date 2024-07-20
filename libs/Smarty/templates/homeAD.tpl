@@ -1,4 +1,4 @@
-h<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -47,7 +47,6 @@ h<!DOCTYPE html>
     <nav class="canvas-menu mobile-menu">
         <ul>
             <li><a href="/GymBuddy/Admin/homeAD">Home</a></li>
-            <li><a href="/GymBuddy/Admin/requests">PT Requests</a></li>
             <li><a href="/GymBuddy/Admin/newsForm">News</a></li>
         </ul>
     </nav>
@@ -76,7 +75,6 @@ h<!DOCTYPE html>
                 <nav class="nav-menu">
                     <ul>
                         <li><a href="/GymBuddy/Admin/homeAD">Home</a></li>
-                        <li><a href="/GymBuddy/Admin/requests">PT Requests</a></li>
                         <li><a href="/GymBuddy/Admin/newsForm">News</a></li>
                     </ul>
                 </nav>

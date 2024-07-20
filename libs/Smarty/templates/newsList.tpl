@@ -76,7 +76,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="/GymBuddy/User/homeRU">
+                    <a href="{$pathHomeFromNews}">
                         <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
@@ -84,7 +84,7 @@
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li><a href="/GymBuddy/User/homeRU">Home</a></li>
+                        <li><a href="{$pathHomeFromNews}">Home</a></li>
                     </ul>
                 </nav>
             </div>

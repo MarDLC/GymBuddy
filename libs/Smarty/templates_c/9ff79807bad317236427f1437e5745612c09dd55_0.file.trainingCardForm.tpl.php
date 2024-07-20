@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-20 18:55:52
+/* Smarty version 3.1.33, created on 2024-07-21 00:14:22
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\trainingCardForm.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669bec18d09b84_23640298',
+  'unifunc' => 'content_669c36bed0ae53_99910065',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9ff79807bad317236427f1437e5745612c09dd55' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\trainingCardForm.tpl',
-      1 => 1721494521,
+      1 => 1721513656,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669bec18d09b84_23640298 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669c36bed0ae53_99910065 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -124,15 +124,15 @@ function content_669bec18d09b84_23640298 (Smarty_Internal_Template $_smarty_tpl)
                 <!-- Set iniziale di campi -->
                 <div class="form-group">
                     <label for="exercise1">Exercise</label>
-                    <input type="text" class="form-control" id="exercises" name="exercises[]" placeholder="Exercise">
+                    <input type="text" class="form-control" id="exercises1" name="exercises[]" placeholder="Exercise" required>
                 </div>
                 <div class="form-group">
                     <label for="repetitions1">Repetitions</label>
-                    <input type="text" class="form-control" id="repetition" name="repetition[]" placeholder="Repetitions">
+                    <input type="text" class="form-control" id="repetition1" name="repetition[]" placeholder="Repetitions" required>
                 </div>
                 <div class="form-group">
                     <label for="recovery1">Recovery</label>
-                    <input type="text" class="form-control" id="recovery" name="recovery[]" placeholder="Recovery (minutes ' seconds'')">
+                    <input type="number" class="form-control" id="recovery1" name="recovery[]" placeholder="Recovery (minutes ' seconds'')" required>
                 </div>
             </div>
             <!-- Pulsante per aggiungere nuovi campi -->
@@ -283,6 +283,9 @@ function content_669bec18d09b84_23640298 (Smarty_Internal_Template $_smarty_tpl)
 <?php echo '<script'; ?>
  src="/GymBuddy/libs/Smarty/js/trainingCardForm.js"><?php echo '</script'; ?>
 >
+
+
+
 
 </body>
 

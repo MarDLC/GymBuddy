@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-20 16:36:42
+/* Smarty version 3.1.33, created on 2024-07-20 21:13:57
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669bcb7a45a815_49992344',
+  'unifunc' => 'content_669c0c75452120_56964967',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7cad56e48375ae43a9432ef26897e28b7b609b41' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\home.tpl',
-      1 => 1721486199,
+      1 => 1721502836,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669bcb7a45a815_49992344 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669c0c75452120_56964967 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -78,7 +78,7 @@ function content_669bcb7a45a815_49992344 (Smarty_Internal_Template $_smarty_tpl)
             <li><a href="/GymBuddy/User/team">Our Team</a></li>
             <li><a href="/GymBuddy/User/gallery">Gallery</a></li>
             <li><a href="/GymBuddy/User/contact">Contact</a></li>
-            <li><a href="/GymBuddy/User/news">News</a></li>
+
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
@@ -113,7 +113,7 @@ function content_669bcb7a45a815_49992344 (Smarty_Internal_Template $_smarty_tpl)
                         <li><a href="/GymBuddy/User/team">Our Team</a></li>
                         <li><a href="/GymBuddy/User/gallery">Gallery</a></li>
                         <li><a href="/GymBuddy/User/contact">Contact</a></li>
-                        <li><a href="/GymBuddy/User/news">News</a></li>
+
                     </ul>
                 </nav>
             </div>

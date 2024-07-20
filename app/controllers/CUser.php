@@ -336,6 +336,7 @@ public static function confirmation()
     }
 
     public static function news() {
+        USession::getInstance();
         self::isLogged(); // Verifica se l'utente è loggato
 
         // Recupera tutte le news dal database

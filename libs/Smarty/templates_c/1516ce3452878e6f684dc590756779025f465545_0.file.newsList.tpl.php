@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-20 20:43:23
+/* Smarty version 3.1.33, created on 2024-07-20 22:01:36
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\newsList.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669c054bcd6431_42387370',
+  'unifunc' => 'content_669c17a089f7b7_71455485',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1516ce3452878e6f684dc590756779025f465545' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\newsList.tpl',
-      1 => 1721500136,
+      1 => 1721503136,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669c054bcd6431_42387370 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669c17a089f7b7_71455485 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -99,7 +99,8 @@ function content_669c054bcd6431_42387370 (Smarty_Internal_Template $_smarty_tpl)
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="/GymBuddy/User/homeRU">
+                    <a href="<?php echo $_smarty_tpl->tpl_vars['pathHomeFromNews']->value;?>
+">
                         <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
@@ -107,7 +108,8 @@ function content_669c054bcd6431_42387370 (Smarty_Internal_Template $_smarty_tpl)
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li><a href="/GymBuddy/User/homeRU">Home</a></li>
+                        <li><a href="<?php echo $_smarty_tpl->tpl_vars['pathHomeFromNews']->value;?>
+">Home</a></li>
                     </ul>
                 </nav>
             </div>

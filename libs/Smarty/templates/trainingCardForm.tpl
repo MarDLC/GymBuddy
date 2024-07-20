@@ -98,15 +98,15 @@
                 <!-- Set iniziale di campi -->
                 <div class="form-group">
                     <label for="exercise1">Exercise</label>
-                    <input type="text" class="form-control" id="exercises" name="exercises[]" placeholder="Exercise">
+                    <input type="text" class="form-control" id="exercises1" name="exercises[]" placeholder="Exercise" required>
                 </div>
                 <div class="form-group">
                     <label for="repetitions1">Repetitions</label>
-                    <input type="text" class="form-control" id="repetition" name="repetition[]" placeholder="Repetitions">
+                    <input type="text" class="form-control" id="repetition1" name="repetition[]" placeholder="Repetitions" required>
                 </div>
                 <div class="form-group">
                     <label for="recovery1">Recovery</label>
-                    <input type="text" class="form-control" id="recovery" name="recovery[]" placeholder="Recovery (minutes ' seconds'')">
+                    <input type="number" class="form-control" id="recovery1" name="recovery[]" placeholder="Recovery (minutes ' seconds'')" required>
                 </div>
             </div>
             <!-- Pulsante per aggiungere nuovi campi -->
@@ -237,6 +237,9 @@
 
 
 <script src="/GymBuddy/libs/Smarty/js/trainingCardForm.js"></script>
+
+
+
 
 </body>
 

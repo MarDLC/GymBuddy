@@ -197,13 +197,26 @@ public function showHomeVip() {
 }
 
 
-    public function showNews($newsList) {
-        // Aggiungi log per verificare i dati passati
-        error_log("VRegisteredUser::showNews - News list: " . print_r($newsList, true));
+ public function showNews($newsList) {
 
-        $this->smarty->assign('newsList', $newsList);
-        $this->smarty->display('newsList.tpl');
+    // Recupera l'ID utente dalla sessione
+    $userId = USession::getSessionElement('user');
+
+    // Recupera l'utente dal database
+    $user = FPersistentManager::retrieveUserById($userId);
+
+
+    // Controlla il tipo di utente e imposta il path appropriato per TrainingCard
+     if ($user->getType() === 'followed_user' || $user->getType() ==='user_only') {
+        $pathHome = "/GymBuddy/User/homeVIP";
+    } else if ($user->getType() === null) {
+        $pathHome = "/GymBuddy/User/homeRU";
     }
+    // Assegna i path a variabili Smarty
+    $this->smarty->assign('pathHomeFromNews', $pathHome);
 
+    $this->smarty->assign('newsList', $newsList);
+    $this->smarty->display('newsList.tpl');
+}
 
 }
