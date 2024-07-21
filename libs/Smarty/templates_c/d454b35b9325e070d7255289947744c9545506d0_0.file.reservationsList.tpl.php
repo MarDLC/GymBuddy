@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-21 13:53:05
-  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\viewSubscription.tpl' */
+/* Smarty version 3.1.33, created on 2024-07-21 12:56:15
+  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\reservationsList.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669cf6a18b4b31_79359754',
+  'unifunc' => 'content_669ce94f43c756_71658080',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'b589bbc6f8a9c37f392c694357b0b07c8d4d9742' => 
+    'd454b35b9325e070d7255289947744c9545506d0' => 
     array (
-      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\viewSubscription.tpl',
-      1 => 1721553476,
+      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\reservationsList.tpl',
+      1 => 1721557804,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669cf6a18b4b31_79359754 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669ce94f43c756_71658080 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -30,12 +30,11 @@ function content_669cf6a18b4b31_79359754 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>View Subscription</title>
+    <title>View Reservation</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
-
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/bootstrap.min.css" type="text/css">
@@ -110,7 +109,7 @@ function content_669cf6a18b4b31_79359754 (Smarty_Internal_Template $_smarty_tpl)
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <span>YOUR SUBSCRIPTION</span>
+                    <span>YOUR RESERVATIONS</span>
                 </div>
             </div>
         </div>
@@ -119,32 +118,44 @@ function content_669cf6a18b4b31_79359754 (Smarty_Internal_Template $_smarty_tpl)
                 <table class="table">
                     <thead>
                     <tr>
-                        <th></th> <!-- Aggiungi una colonna per il pulsante di selezione -->
-                        <th>TYPE</th>
                         <th></th>
-                        <th>DURATION</th>
-                        <th>PRICE</th>
-                        <th></th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Email</th>
+                        <th>Date</th>
+                        <th>Time</th>
                     </tr>
                     </thead>
                     <tbody id="user-table-body">
-                    <tr>
-                        <th></th>
-                        <td><?php echo $_smarty_tpl->tpl_vars['subscription']->value['type'];?>
+                    <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['reservations']->value, 'reservation');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['reservation']->value) {
+?>
+                        <tr>
+                            <td></td>
+                            <td><?php echo $_smarty_tpl->tpl_vars['reservation']->value['name'];?>
 </td>
-                        <td></td>
-                        <td><?php echo $_smarty_tpl->tpl_vars['subscription']->value['duration'];?>
+                            <td><?php echo $_smarty_tpl->tpl_vars['reservation']->value['surname'];?>
 </td>
-                        <td><?php echo $_smarty_tpl->tpl_vars['subscription']->value['price'];?>
+                            <td><?php echo $_smarty_tpl->tpl_vars['reservation']->value['email'];?>
 </td>
-                        <td></td>
-                    </tr>
+                            <td><?php echo $_smarty_tpl->tpl_vars['reservation']->value['date'];?>
+</td>
+                            <td><?php echo $_smarty_tpl->tpl_vars['reservation']->value['time'];?>
+</td>
+                        </tr>
+                    <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </section>
+
 
 <!-- Get In Touch Section Begin -->
 <div class="gettouch-section">
@@ -183,12 +194,14 @@ function content_669cf6a18b4b31_79359754 (Smarty_Internal_Template $_smarty_tpl)
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href=/GymBuddy/User/homeVIP"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
+                        <a href="/GymBuddy/User/homeVIP"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
                     <p>The most iconic gym in the world has arrived in L'Aquila!
                         Live the best training experience in a unique atmosphere.
                         DISCOVER THE LEGACY: GymBuddy L'Aquila.</p>
                     <div class="fa-social">
+
+
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
                         <a href="#"><i class="fa fa-youtube-play"></i></a>
@@ -283,20 +296,7 @@ function content_669cf6a18b4b31_79359754 (Smarty_Internal_Template $_smarty_tpl)
 <?php echo '<script'; ?>
  src="/GymBuddy/libs/Smarty/js/main.js"><?php echo '</script'; ?>
 >
-
 <!-- Script personalizzato -->
-<?php echo '<script'; ?>
->
-    // Codice JavaScript per eliminare le righe selezionate
-    $(document).ready(function () {
-        // Gestisci il click sul pulsante Elimina
-        $('#delete-selected').on('click', function () {
-            // Trova le righe selezionate e rimuovile
-            $('#user-table-body input:checked').closest('tr').remove();
-        });
-    });
-<?php echo '</script'; ?>
->
 
 
 </body>

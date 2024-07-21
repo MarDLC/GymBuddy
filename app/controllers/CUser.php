@@ -350,11 +350,28 @@ public static function confirmation()
     }
 
 
+
     public static function page404()
     {
+
+        // Assicurarsi che la sessione sia avviata
+        USession::getInstance();
+
+
+        // Recuperare il messaggio di errore dalla sessione, se presente
+        $errorMessage = USession::getSessionElement('reservation_error');
+        error_log("Retrieved error message from session: " . $errorMessage);
+
+        // Creare l'oggetto della vista
         $view = new VRegisteredUser();
-        $view->showPage404();
+
+        // Passare il messaggio di errore alla vista
+        $view->showPage404($errorMessage);
+
+        // Eliminare il messaggio di errore dalla sessione per evitare che venga visualizzato nuovamente
+        USession::unsetSessionElement('reservation_error');
     }
+
 
 
 

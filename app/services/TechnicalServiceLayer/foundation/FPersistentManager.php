@@ -603,6 +603,19 @@ public static function getTrainingCardsById($userId)
         return FReservation::retrieveReservationsByUserTimeAndDate($userId, $time, $date);
     }
 
+    public static function getTrainerData() {
+        // Richiama il metodo getReservationsData di FPersonalTrainer senza passare $userId
+        return FPersonalTrainer::getReservationsData();
+    }
+
+
+    public static function retrieveFollowedUsers() {
+    // Call the getFollowedUsers method in FRegisteredUser
+    $result = FRegisteredUser::getFollowedUsers();
+
+    // Return the result
+    return $result;
+}
 
 }
 

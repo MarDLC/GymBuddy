@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-20 01:59:53
+/* Smarty version 3.1.33, created on 2024-07-21 11:53:07
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\clientsList.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669afdf9905099_26827990',
+  'unifunc' => 'content_669cda83a16f20_61376034',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fcd8f902c4540a4a3c553e907906da03c9c62cba' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\clientsList.tpl',
-      1 => 1721433592,
+      1 => 1721555125,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669afdf9905099_26827990 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669cda83a16f20_61376034 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -122,7 +122,7 @@ function content_669afdf9905099_26827990 (Smarty_Internal_Template $_smarty_tpl)
             <thead>
             <tr>
 
-                <th>ID USER</th>
+
                 <th>NAME</th>
                 <th>SURNAME</th>
                 <th>EMAIL</th>
@@ -136,8 +136,7 @@ if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['client']->value) {
 ?>
                 <tr>
-                    <td><?php echo $_smarty_tpl->tpl_vars['client']->value['idUser'];?>
-</td>
+
                     <td><?php echo $_smarty_tpl->tpl_vars['client']->value['name'];?>
 </td>
                     <td><?php echo $_smarty_tpl->tpl_vars['client']->value['surname'];?>

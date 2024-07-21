@@ -192,6 +192,30 @@ public static function createPersonalTrainerObj($queryResult){
         }
     }
 
+    public static function getReservationsData() {
+        // Creazione dell'istanza di FEntityManagerSQL
+        $entityManager = FEntityManagerSQL::getInstance();
+
+        // Impostazione delle tabelle e dei campi per la query join
+        $table1 = 'reservation';
+        $table2 = 'user';
+        $joinField = 'idUser';
+        $additionalConditionField = 'trainingPT';
+        $additionalConditionValue = 1; // Vogliamo solo le righe con trainingPT uguale a 1
+
+        // Esecuzione della query utilizzando il metodo retrieveDataWithJoinCondition
+        $result = $entityManager->retrieveDataWithJoinCondition($table1, $table2, $joinField, $additionalConditionField, $additionalConditionValue);
+
+        // Verifica del risultato della query
+        if (count($result) > 0) {
+            // Restituzione dei risultati ottenuti
+            return $result;
+        } else {
+            // Nessun risultato trovato, restituzione null
+            return null;
+        }
+    }
+
 
 
     public static function deletePersonalTrainerObj($id){
@@ -212,33 +236,6 @@ public static function createPersonalTrainerObj($queryResult){
             // Close the database connection
             FEntityManagerSQL::getInstance()->closeConnection();
         }
-    }
-
-    public static function getListEmailsOfFollowedUsers() {
-    // Get the rows where type is 'followed_user'
-    $rows = FEntityManagerSQL::retriveObj('registereduser', 'type', 'followed_user');
-
-    // Initialize an empty array to hold the emails
-    $emails = array();
-
-    // Iterate over the rows
-    foreach ($rows as $row) {
-        // Add the email to the array
-        $emails[] = $row['email'];
-    }
-
-    // Return the array of emails
-    return $emails;
-}
-
-    public static function getTrainingCardsOfClient($idUser) {
-        // Retrieve the TrainingCard objects for the client
-        return FTrainingCard::getTrainingCardsByIdUserl($idUser);
-    }
-
-    public static function getPhysicalDataOfClient($idUser) {
-        // Retrieve the PhysicalData objects for the client
-        return FPhysicalData::getPhysicalDataByIdUser($idUser);
     }
 
 

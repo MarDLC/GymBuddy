@@ -126,6 +126,7 @@ class CReservation
         // If the user has already made a reservation, log an error message and redirect the user to an error page
         error_log("User has already made a reservation for time slot: $time on date: $date");
         USession::setSessionElement('reservation_error', 'You have already made a reservation for this time slot.');
+        error_log("Session element 'reservation_error': " . USession::getSessionElement('reservation_error'));
         header('Location: /GymBuddy/User/page404');
         exit();
     }

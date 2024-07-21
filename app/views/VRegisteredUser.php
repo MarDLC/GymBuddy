@@ -45,16 +45,17 @@ class VRegisteredUser
         $this->smarty->display('login.tpl');
     }
 
-   public function showHome()
-{
-    // Nel tuo controller
-    if (CUser::isLoggedIn()) {
-        $this->smarty->assign('homePath', '/GymBuddy/User/homeRU');
-    } else {
-        $this->smarty->assign('homePath', '/GymBuddy/User/home');
+    public function showHome()
+    {
+        // Nel tuo controller
+        if (CUser::isLoggedIn()) {
+            $this->smarty->assign('homePath', '/GymBuddy/User/homeRU');
+        } else {
+            $this->smarty->assign('homePath', '/GymBuddy/User/home');
+        }
+        $this->smarty->display('home.tpl');
     }
-    $this->smarty->display('home.tpl');
-}
+
     public function showHomeRU()
     {
         $this->smarty->display('homeRU.tpl');
@@ -101,25 +102,24 @@ class VRegisteredUser
         $this->smarty->display('about-us.tpl');
     }
 
-   public function showServices()
-{
-    // Nel tuo controller
-    if (CUser::isLoggedIn()) {
-        $this->smarty->assign('homePath', '/GymBuddy/User/homeRU');
-        $this->smarty->assign('enrollPath', '/GymBuddy/Subscription/subscription');
-    } else {
-        $this->smarty->assign('homePath', '/GymBuddy/User/home');
-        $this->smarty->assign('enrollPath', '/GymBuddy/User/login');
+    public function showServices()
+    {
+        // Nel tuo controller
+        if (CUser::isLoggedIn()) {
+            $this->smarty->assign('homePath', '/GymBuddy/User/homeRU');
+            $this->smarty->assign('enrollPath', '/GymBuddy/Subscription/subscription');
+        } else {
+            $this->smarty->assign('homePath', '/GymBuddy/User/home');
+            $this->smarty->assign('enrollPath', '/GymBuddy/User/login');
+        }
+        $this->smarty->display('services.tpl');
     }
-    $this->smarty->display('services.tpl');
-}
 
 
     public function showPaymentForm()
     {
         $this->smarty->display('paymentForm.tpl');
     }
-
 
 
     public function showTeam()
@@ -156,71 +156,80 @@ class VRegisteredUser
     }
 
 
-   public function showConfirmation($message, $redirect) {
-    // Assign the message to a Smarty variable
-    $this->smarty->assign('message', $message);
-
-    // Assign the redirect script to a Smarty variable
-    $this->smarty->assign('redirect', $redirect);
-
-    // Display the confirmation template
-    $this->smarty->display('confirmation.tpl');
-}
-
-public function showHomeVip() {
-
-    // Recupera l'ID utente dalla sessione
-    $userId = USession::getSessionElement('user');
-    // Recupera l'utente dal database
-    $user = FPersistentManager::retrieveUserById($userId);
-
-    // Controlla il tipo di utente e imposta il path appropriato per TrainingCard
-    if ($user->getType() === 'followed_user') {
-        $pathTrainingCard = "/GymBuddy/TrainingCard/trainingCardInfo";
-    } else if ($user->getType() === 'user_only') {
-        $pathTrainingCard = "#";
-    }
-
-    // Controlla il tipo di utente e imposta il path appropriato per PhysicalData
-    if ($user->getType() === 'followed_user') {
-        $pathPhysicalData = "/GymBuddy/PhysicalData/physicalDataInfo";
-    } else if ($user->getType() === 'user_only') {
-        $pathPhysicalData = "#";
-    }
-
-    // Assegna i path a variabili Smarty
-    $this->smarty->assign('pathTrainingCardInfo', $pathTrainingCard);
-    $this->smarty->assign('pathGraphicInfo', $pathPhysicalData);
-
-    // Visualizza il template
-    $this->smarty->display('homeVIP.tpl');
-}
-
-
- public function showNews($newsList) {
-
-    // Recupera l'ID utente dalla sessione
-    $userId = USession::getSessionElement('user');
-
-    // Recupera l'utente dal database
-    $user = FPersistentManager::retrieveUserById($userId);
-
-
-    // Controlla il tipo di utente e imposta il path appropriato per TrainingCard
-     if ($user->getType() === 'followed_user' || $user->getType() ==='user_only') {
-        $pathHome = "/GymBuddy/User/homeVIP";
-    } else if ($user->getType() === null) {
-        $pathHome = "/GymBuddy/User/homeRU";
-    }
-    // Assegna i path a variabili Smarty
-    $this->smarty->assign('pathHomeFromNews', $pathHome);
-
-    $this->smarty->assign('newsList', $newsList);
-    $this->smarty->display('newsList.tpl');
-}
-
-    public function showPage404()
+    public function showConfirmation($message, $redirect)
     {
+        // Assign the message to a Smarty variable
+        $this->smarty->assign('message', $message);
+
+        // Assign the redirect script to a Smarty variable
+        $this->smarty->assign('redirect', $redirect);
+
+        // Display the confirmation template
+        $this->smarty->display('confirmation.tpl');
+    }
+
+    public function showHomeVip()
+    {
+
+        // Recupera l'ID utente dalla sessione
+        $userId = USession::getSessionElement('user');
+        // Recupera l'utente dal database
+        $user = FPersistentManager::retrieveUserById($userId);
+
+        // Controlla il tipo di utente e imposta il path appropriato per TrainingCard
+        if ($user->getType() === 'followed_user') {
+            $pathTrainingCard = "/GymBuddy/TrainingCard/trainingCardInfo";
+        } else if ($user->getType() === 'user_only') {
+            $pathTrainingCard = "#";
+        }
+
+        // Controlla il tipo di utente e imposta il path appropriato per PhysicalData
+        if ($user->getType() === 'followed_user') {
+            $pathPhysicalData = "/GymBuddy/PhysicalData/physicalDataInfo";
+        } else if ($user->getType() === 'user_only') {
+            $pathPhysicalData = "#";
+        }
+
+        // Assegna i path a variabili Smarty
+        $this->smarty->assign('pathTrainingCardInfo', $pathTrainingCard);
+        $this->smarty->assign('pathGraphicInfo', $pathPhysicalData);
+
+        // Visualizza il template
+        $this->smarty->display('homeVIP.tpl');
+    }
+
+
+    public function showNews($newsList)
+    {
+
+        // Recupera l'ID utente dalla sessione
+        $userId = USession::getSessionElement('user');
+
+        // Recupera l'utente dal database
+        $user = FPersistentManager::retrieveUserById($userId);
+
+
+        // Controlla il tipo di utente e imposta il path appropriato per TrainingCard
+        if ($user->getType() === 'followed_user' || $user->getType() === 'user_only') {
+            $pathHome = "/GymBuddy/User/homeVIP";
+        } else if ($user->getType() === null) {
+            $pathHome = "/GymBuddy/User/homeRU";
+        }
+        // Assegna i path a variabili Smarty
+        $this->smarty->assign('pathHomeFromNews', $pathHome);
+
+        $this->smarty->assign('newsList', $newsList);
+        $this->smarty->display('newsList.tpl');
+    }
+
+    public function showPage404($message = 'Sorry, but you have made multiple reservations at the same time on the same day, or the slots are fully booked.')
+    {
+        error_log("Showing page 404 with message: " . $message);
+        // Assegna il messaggio alla variabile Smarty
+        $this->smarty->assign('errorMessage', $message);
+
+        $this->smarty->assign('homePathFrom404', "/GymBuddy/User/homeVIP");
+        // Visualizza il template
         $this->smarty->display('404Reservation.tpl');
     }
 

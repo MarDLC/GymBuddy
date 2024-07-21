@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-21 03:33:54
+/* Smarty version 3.1.33, created on 2024-07-21 13:45:47
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\404Reservation.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669c6582cd8b98_31670357',
+  'unifunc' => 'content_669cf4eb5cf996_04138874',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4bf88879a6dcd49bbfa1c4cddf5707b4e7cc2182' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\404Reservation.tpl',
-      1 => 1721525541,
+      1 => 1721560689,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669c6582cd8b98_31670357 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669cf4eb5cf996_04138874 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -70,16 +70,19 @@ function content_669c6582cd8b98_31670357 (Smarty_Internal_Template $_smarty_tpl)
                 <div class="text-404">
                     <h1 style="color: #f36100;">404</h1>
                     <h3>Opps! This page Could Not Be Found!</h3>
-                    <p>Sorry but the page you are looking for does not exist, has been removed, or name changed</p>
+                    <p><?php echo $_smarty_tpl->tpl_vars['errorMessage']->value;?>
+</p>
                     <form action="#" class="search-404">
                     </form>
-                    <a href="/GymBuddy/User/homeVIP"><i class="fa fa-home"></i> Go back home</a>
+                    <a href="<?php echo $_smarty_tpl->tpl_vars['homePathFrom404']->value;?>
+"><i class="fa fa-home"></i> Go back home</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 <!-- 404 Section End -->
+
 
 <!-- Js Plugins -->
 <?php echo '<script'; ?>

@@ -124,27 +124,6 @@ public static function login(){
 
 
 
-    public static function showFollowedUsers()
-    {
-        // Check if the personal trainer is logged in
-        if (self::isLogged()) {
-            // Get the list of emails of followed users
-            $followedUsersEmails = FPersonalTrainer::getListEmailsOfFollowedUsers();
-
-            // Get the view
-            $view = new VPersonalTrainer();
-
-            // Show the followed users on the home page
-            $view->showFollowedUsersList($followedUsersEmails);
-        } else {
-            // If the personal trainer is not logged in, redirect to the login page
-            header('Location: /GymBuddy/PersonalTrainer/Login');
-            exit;
-        }
-    }
-
-
-
     public static function viewBookings() {
         // Check if the personal trainer is logged in
         if (self::isLogged()) {
@@ -207,10 +186,8 @@ public static function clientsList() {
     // Ensure the session is started
     USession::getInstance();
 
-
-
     // Recupera gli utenti seguiti dal personal trainer corrente
-    $lists = FRegisteredUser::getFollowedUsers();
+    $lists = FPersistentManager::retrieveFollowedUsers();
 
     // Log the retrieved lists
     error_log("Retrieved lists: " . print_r($lists, true));
@@ -222,6 +199,49 @@ public static function clientsList() {
     $vClientsList->showClientsList($lists);
 }
 
+
+    public static function reservationsList() {
+        // Assicurarsi che la sessione sia avviata
+        USession::getInstance();
+
+
+        // Recuperare i dati uniti dalle tabelle reservation e user
+        $data = FPersistentManager::getTrainerData();
+
+        // Verificare che i dati siano stati recuperati correttamente
+        if ($data === null || empty($data)) {
+            // Log dell'errore e redirezione in caso di fallimento del recupero dati
+            error_log("ERROR: No reservations data found, redirecting to 404 error page.");
+            USession::setSessionElement('reservation_error', 'No reservations found.');
+            header('Location: /GymBuddy/PersonalTrainer/page404');
+            exit();
+        }
+
+
+        // Creazione dell'oggetto della vista
+        $vReservationsList = new VPersonalTrainer();
+
+        // Passaggio dei dati alla vista per la visualizzazione
+        $vReservationsList->showReservationsList($data);
+    }
+
+    public static function page404()
+    {
+        // Assicurarsi che la sessione sia avviata
+        USession::getInstance();
+
+        // Recuperare il messaggio di errore dalla sessione, se presente
+        $errorMessage = USession::getSessionElement('reservation_error');
+
+        // Creare l'oggetto della vista
+        $view = new VPersonalTrainer();
+
+        // Passare il messaggio di errore alla vista
+        $view->showPage404($errorMessage);
+
+        // Eliminare il messaggio di errore dalla sessione per evitare che venga visualizzato nuovamente
+        USession::unsetSessionElement('reservation_error');
+    }
 
 
 }

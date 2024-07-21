@@ -7,12 +7,11 @@
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>View Subscription</title>
+    <title>View Reservation</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
-
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/bootstrap.min.css" type="text/css">
@@ -85,7 +84,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <span>YOUR SUBSCRIPTION</span>
+                    <span>YOUR RESERVATIONS</span>
                 </div>
             </div>
         </div>
@@ -94,29 +93,32 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th></th> <!-- Aggiungi una colonna per il pulsante di selezione -->
-                        <th>TYPE</th>
                         <th></th>
-                        <th>DURATION</th>
-                        <th>PRICE</th>
-                        <th></th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Email</th>
+                        <th>Date</th>
+                        <th>Time</th>
                     </tr>
                     </thead>
                     <tbody id="user-table-body">
-                    <tr>
-                        <th></th>
-                        <td>{$subscription.type}</td>
-                        <td></td>
-                        <td>{$subscription.duration}</td>
-                        <td>{$subscription.price}</td>
-                        <td></td>
-                    </tr>
+                    {foreach from=$reservations item=reservation}
+                        <tr>
+                            <td></td>
+                            <td>{$reservation.name}</td>
+                            <td>{$reservation.surname}</td>
+                            <td>{$reservation.email}</td>
+                            <td>{$reservation.date}</td>
+                            <td>{$reservation.time}</td>
+                        </tr>
+                    {/foreach}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </section>
+
 
 <!-- Get In Touch Section Begin -->
 <div class="gettouch-section">
@@ -155,12 +157,14 @@
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href=/GymBuddy/User/homeVIP"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
+                        <a href="/GymBuddy/User/homeVIP"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
                     <p>The most iconic gym in the world has arrived in L'Aquila!
                         Live the best training experience in a unique atmosphere.
                         DISCOVER THE LEGACY: GymBuddy L'Aquila.</p>
                     <div class="fa-social">
+
+
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
                         <a href="#"><i class="fa fa-youtube-play"></i></a>
@@ -237,18 +241,7 @@
 <script src="/GymBuddy/libs/Smarty/js/jquery.slicknav.js"></script>
 <script src="/GymBuddy/libs/Smarty/js/owl.carousel.min.js"></script>
 <script src="/GymBuddy/libs/Smarty/js/main.js"></script>
-
 <!-- Script personalizzato -->
-<script>
-    // Codice JavaScript per eliminare le righe selezionate
-    $(document).ready(function () {
-        // Gestisci il click sul pulsante Elimina
-        $('#delete-selected').on('click', function () {
-            // Trova le righe selezionate e rimuovile
-            $('#user-table-body input:checked').closest('tr').remove();
-        });
-    });
-</script>
 
 
 </body>

@@ -97,7 +97,7 @@
             <thead>
             <tr>
 
-                <th>ID USER</th>
+
                 <th>NAME</th>
                 <th>SURNAME</th>
                 <th>EMAIL</th>
@@ -107,7 +107,7 @@
             <tbody id="user-table-body">
             {foreach from=$clients item=client}
                 <tr>
-                    <td>{$client.idUser}</td>
+
                     <td>{$client.name}</td>
                     <td>{$client.surname}</td>
                     <td>{$client.email}</td>

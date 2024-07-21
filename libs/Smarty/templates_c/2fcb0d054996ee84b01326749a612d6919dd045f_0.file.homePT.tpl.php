@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-20 23:43:46
+/* Smarty version 3.1.33, created on 2024-07-21 12:33:01
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\homePT.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669c2f92d83991_78240452',
+  'unifunc' => 'content_669ce3dd9e56a1_39150958',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2fcb0d054996ee84b01326749a612d6919dd045f' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\homePT.tpl',
-      1 => 1721511143,
+      1 => 1721556679,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669c2f92d83991_78240452 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669ce3dd9e56a1_39150958 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -73,7 +73,7 @@ function content_669c2f92d83991_78240452 (Smarty_Internal_Template $_smarty_tpl)
         <ul>
             <li><a href="/GymBuddy/PersonalTrainer/homePT">Home</a></li>
             <li><a href="/GymBuddy/PersonalTrainer/clientsList">Clients</a></li>
-            <li><a href="/GymBuddy/PersonalTrainer/reservationList">Reservation</a></li>
+            <li><a href="/GymBuddy/PersonalTrainer/reservationsList">Reservation</a></li>
 
         </ul>
     </nav>
@@ -103,7 +103,7 @@ function content_669c2f92d83991_78240452 (Smarty_Internal_Template $_smarty_tpl)
                     <ul>
                         <li class="active"><a href="/GymBuddy/PersonalTrainer/homePT">Home</a></li>
                         <li><a href="/GymBuddy/PersonalTrainer/clientsList">Clients</a></li>
-                        <li><a href="/GymBuddy/PersonalTrainer/ReservationList">Reservation</a></li>
+                        <li><a href="/GymBuddy/PersonalTrainer/reservationsList">Reservation</a></li>
 
                     </ul>
                 </nav>

@@ -45,16 +45,17 @@
                 <div class="text-404">
                     <h1 style="color: #f36100;">404</h1>
                     <h3>Opps! This page Could Not Be Found!</h3>
-                    <p>Sorry but the page you are looking for does not exist, has been removed, or name changed</p>
+                    <p>{$errorMessage}</p>
                     <form action="#" class="search-404">
                     </form>
-                    <a href="/GymBuddy/User/homeVIP"><i class="fa fa-home"></i> Go back home</a>
+                    <a href="{$homePathFrom404}"><i class="fa fa-home"></i> Go back home</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 <!-- 404 Section End -->
+
 
 <!-- Js Plugins -->
 <script src="/GymBuddy/libs/Smarty/js/jquery-3.3.1.min.js"></script>

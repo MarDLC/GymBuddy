@@ -48,7 +48,7 @@
         <ul>
             <li><a href="/GymBuddy/PersonalTrainer/homePT">Home</a></li>
             <li><a href="/GymBuddy/PersonalTrainer/clientsList">Clients</a></li>
-            <li><a href="/GymBuddy/PersonalTrainer/reservationList">Reservation</a></li>
+            <li><a href="/GymBuddy/PersonalTrainer/reservationsList">Reservation</a></li>
 
         </ul>
     </nav>
@@ -78,7 +78,7 @@
                     <ul>
                         <li class="active"><a href="/GymBuddy/PersonalTrainer/homePT">Home</a></li>
                         <li><a href="/GymBuddy/PersonalTrainer/clientsList">Clients</a></li>
-                        <li><a href="/GymBuddy/PersonalTrainer/ReservationList">Reservation</a></li>
+                        <li><a href="/GymBuddy/PersonalTrainer/reservationsList">Reservation</a></li>
 
                     </ul>
                 </nav>

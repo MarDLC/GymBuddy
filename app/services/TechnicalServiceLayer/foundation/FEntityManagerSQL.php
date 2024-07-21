@@ -447,15 +447,22 @@ public static function retriveFollowedUsers(){
         }
     }
 
-    public function retrieveDataWithJoinCondition($table1, $conditionField, $conditionValue, $table2, $joinField) {
+    public function retrieveDataWithJoinCondition($table1, $table2, $joinField, $additionalConditionField = null, $additionalConditionValue = null) {
         // Preparare la query SQL
-        $sql = "SELECT * FROM $table1 JOIN $table2 ON $table1.$joinField = $table2.$joinField WHERE $table1.$conditionField = :conditionValue";
+        $sql = "SELECT * FROM $table1 JOIN $table2 ON $table1.$joinField = $table2.$joinField";
+
+        // Aggiungere la condizione aggiuntiva se specificata
+        if ($additionalConditionField !== null && $additionalConditionValue !== null) {
+            $sql .= " WHERE $table1.$additionalConditionField = :additionalConditionValue";
+        }
 
         // Preparare lo statement
         $stmt = $this->getDb()->prepare($sql);
 
-        // Bind del valore della condizione
-        $stmt->bindValue(':conditionValue', $conditionValue);
+        // Bind del valore della condizione aggiuntiva se specificata
+        if ($additionalConditionField !== null && $additionalConditionValue !== null) {
+            $stmt->bindValue(':additionalConditionValue', $additionalConditionValue);
+        }
 
         // Eseguire la query
         $stmt->execute();
@@ -463,8 +470,6 @@ public static function retriveFollowedUsers(){
         // Restituire i risultati come un array associativo
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
-
 
 
     public static function countReservations($table, $date, $time) {
