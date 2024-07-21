@@ -120,56 +120,6 @@ public static function login(){
 
 
 
-
-
-
-
-    public static function viewBookings() {
-        // Check if the personal trainer is logged in
-        if (self::isLogged()) {
-            // Get the current logged in personal trainer
-            $personalTrainerId = USession::getInstance()->getSessionElement('user');
-
-            // Retrieve the bookings for the personal trainer
-            $bookings = FPersistentManager::getInstance()->getFollowedUserReservationList($personalTrainerId);
-
-            // Get the view
-            $view = new VPersonalTrainer();
-
-            // Show the bookings on the profile page
-            $view->showBookings($bookings);
-        } else {
-            // If the personal trainer is not logged in, redirect to the login page
-            header('Location: /GymBuddy/PersonalTrainer/Login');
-            exit;
-        }
-    }
-
-    public static function viewUserReservation() {
-        // Check if the user is logged in
-        if (self::isLogged()) {
-            // Get the current logged-in user
-            $userId = USession::getInstance()->getSessionElement('user');
-
-            // Retrieve the user's reservation using FPersistentManager
-            $reservation = FPersistentManager::getInstance()->getUserReservation($userId);
-
-            // Check if the reservation was retrieved successfully
-            if ($reservation) {
-                // If successful, display the reservation details
-                // Implement a method to display the reservation details
-                VPersonalTrainer::displayReservationDetails($reservation);
-            } else {
-                // If not successful, display an error message
-                // Implement a method to display an error message
-                VPersonalTrainer::displayErrorMessage("No reservation found.");
-            }
-        } else {
-            // If the user is not logged in, display an error message
-            VPersonalTrainer::displayErrorMessage("User not logged in.");
-        }
-    }
-
     public static function homePT(){
         if (CPersonalTrainer::isLogged()) {
             $view = new VPersonalTrainer();

@@ -5,7 +5,7 @@ $username = "root";
 $password = "";
 $dbname = "gymbuddy";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);

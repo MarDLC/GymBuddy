@@ -28,10 +28,6 @@ class VAdmin
         $this->smarty->display('homeAD.tpl');
     }
 
-
-
-
-
     public function showNewsForm() {
         $this->smarty->display('newsForm.tpl');
     }

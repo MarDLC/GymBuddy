@@ -9,7 +9,7 @@ class VSubscription {
     private $smarty;
 
     public function __construct() {
-        $this->smarty = StartSmarty::configuration(); // Usa l'istanza condivisa di Smarty
+        $this->smarty = StartSmarty::configuration();
     }
 
     /**
@@ -21,35 +21,19 @@ class VSubscription {
         $this->smarty->display('subscriptionForm.tpl');
     }
 
-    /**
-     * Visualizza un messaggio di errore
-     *
-     * @param string $errorMessage
-     * @throws SmartyException
-     */
-    public function showError($errorMessage) {
-        $this->smarty->assign('error', $errorMessage);
-        $this->smarty->display('error.tpl');
-    }
-
 
     public function showSubscription($path)
     {
         error_log("Path: " . $path);  // Log the path
 
-        // Assegna il path a una variabile Smarty
         $this->smarty->assign('homePath',$path);
 
-        // Visualizza il template
         $this->smarty->display('subscription.tpl');
     }
 
 
  public function showSubscriptionInfo($subscription) {
-    // Debug output
-    error_log("showSubscriptionInfo subscription: " . print_r($subscription, true));
 
-    // Prepare the data for the Smarty template
     $subscriptionData = [
         'id' => $subscription->getIdSubscription(),
         'user_id' => $subscription->getIdUser()->getId(), // Get the user's ID

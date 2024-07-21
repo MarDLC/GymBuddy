@@ -5,17 +5,17 @@ $username = "root";
 $password = "";
 $dbname = "gymbuddy";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Dati dell'admin
+// Dati del personal trainer
 $email = 'personalTrainer@gmail.com';
 $username = 'personalTrainer';
 $first_name = 'mario';
-$last_name = 'del corvo';
+$last_name = 'rossi';
 $password = 'Mmario.1!';
 $role = 'personalTrainer';
 
