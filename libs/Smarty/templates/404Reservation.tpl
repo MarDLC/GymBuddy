@@ -48,7 +48,7 @@
                     <p>Sorry but the page you are looking for does not exist, has been removed, or name changed</p>
                     <form action="#" class="search-404">
                     </form>
-                    <a href="homeVIP.html"><i class="fa fa-home"></i> Go back home</a>
+                    <a href="/GymBuddy/User/homeVIP"><i class="fa fa-home"></i> Go back home</a>
                 </div>
             </div>
         </div>

@@ -591,5 +591,19 @@ public static function getTrainingCardsById($userId)
         return $newsList;
     }
 
+  public static function retrieveReservationsByTimeAndDate($time, $date)
+{
+    // Call the corresponding method in FReservation
+    return FReservation::retrieveReservationsByTimeAndDate($time, $date);
 }
+
+    public static function retrieveReservationsByUserTimeAndDate($userId, $time, $date)
+    {
+        // Call the corresponding method in FReservation
+        return FReservation::retrieveReservationsByUserTimeAndDate($userId, $time, $date);
+    }
+
+
+}
+
 

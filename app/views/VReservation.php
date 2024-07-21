@@ -44,5 +44,27 @@ public static function showReservationInfo($reservations) {
     $smarty->display('viewReservation.tpl');
 }
 
+    public function showReservation()
+    {
+        $this->smarty->display('reservationForm.tpl');
+    }
+
+    public function showReservationSub()
+    {
+        $this->smarty->display('reservationFormSub.tpl');
+    }
+
+
+
+    public function showConfirmation($message, $redirect) {
+        // Assign the message to a Smarty variable
+        $this->smarty->assign('message', $message);
+
+        // Assign the redirect script to a Smarty variable
+        $this->smarty->assign('redirect', $redirect);
+
+        // Display the confirmation template
+        $this->smarty->display('confirmation.tpl');
+    }
 
 }

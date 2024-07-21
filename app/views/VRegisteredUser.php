@@ -219,4 +219,10 @@ public function showHomeVip() {
     $this->smarty->display('newsList.tpl');
 }
 
+    public function showPage404()
+    {
+        $this->smarty->display('404Reservation.tpl');
+    }
+
+
 }

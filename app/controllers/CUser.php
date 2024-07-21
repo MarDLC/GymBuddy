@@ -350,6 +350,12 @@ public static function confirmation()
     }
 
 
+    public static function page404()
+    {
+        $view = new VRegisteredUser();
+        $view->showPage404();
+    }
+
 
 
 }

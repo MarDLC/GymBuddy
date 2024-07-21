@@ -42,7 +42,7 @@ document.getElementById('addExerciseButton').addEventListener('click', function 
         </div>
         <div class="form-group">
             <label for="recovery${exerciseCounter}">Recovery</label>
-            <input type="text" class="form-control" id="recovery${exerciseCounter}" name="recovery[]" placeholder="Recovery (minutes ' seconds'')" required>
+            <input type="number" class="form-control" id="recovery${exerciseCounter}" name="recovery[]" placeholder="Recovery (minutes ' seconds'')" required>
         </div>
     `;
 

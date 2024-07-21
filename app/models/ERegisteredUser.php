@@ -74,6 +74,11 @@ public function getType()
     return $this->type;
 }
 
+
+    public function getIdUser() {
+        return $this->idUser;
+    }
+
 /**
  * Set the type of the registered user.
  *

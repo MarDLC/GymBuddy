@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Lug 21, 2024 alle 00:20
+-- Creato il: Lug 21, 2024 alle 02:27
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -100,7 +100,8 @@ INSERT INTO `creditcard` (`idCreditCard`, `idSubscription`, `cvc`, `accountHolde
 (39, 42, 111, 'silvio', '143242', '2024-07-03', 6),
 (40, 43, 122, 'silvio', '13311', '2024-07-05', 16),
 (41, 44, 2313, 'adad', '12212321', '2024-07-05', 3),
-(42, 45, 111, 'ken', '13213', '2024-07-04', 19);
+(42, 45, 111, 'ken', '13213', '2024-07-04', 19),
+(43, 46, 123, 'matteo', '3213231', '2024-07-10', 3);
 
 -- --------------------------------------------------------
 
@@ -189,7 +190,7 @@ CREATE TABLE `registereduser` (
 --
 
 INSERT INTO `registereduser` (`idUser`, `type`) VALUES
-(3, 'user_only'),
+(3, 'followed_user'),
 (4, 'user_only'),
 (5, NULL),
 (6, 'user_only'),
@@ -205,7 +206,8 @@ INSERT INTO `registereduser` (`idUser`, `type`) VALUES
 (16, 'followed_user'),
 (17, NULL),
 (18, NULL),
-(19, 'followed_user');
+(19, 'followed_user'),
+(20, NULL);
 
 -- --------------------------------------------------------
 
@@ -217,9 +219,18 @@ CREATE TABLE `reservation` (
   `idReservation` int(11) NOT NULL,
   `idUser` int(11) NOT NULL,
   `date` date DEFAULT NULL,
-  `time` time DEFAULT NULL,
-  `trainingPT` tinyint(1) NOT NULL DEFAULT 0
+  `trainingPT` tinyint(1) NOT NULL DEFAULT 0,
+  `time` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dump dei dati per la tabella `reservation`
+--
+
+INSERT INTO `reservation` (`idReservation`, `idUser`, `date`, `trainingPT`, `time`) VALUES
+(1, 3, '2024-07-06', 0, NULL),
+(2, 3, '2024-07-04', 1, NULL),
+(3, 3, '2024-07-03', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -284,7 +295,8 @@ INSERT INTO `subscription` (`idSubscription`, `idUser`, `type`, `duration`, `pri
 (42, 6, 'individual', 1, 30),
 (43, 16, 'coached', 1, 100),
 (44, 3, 'individual', 1, 30),
-(45, 19, 'coached', 1, 100);
+(45, 19, 'coached', 1, 100),
+(46, 3, 'coached', 1, 100);
 
 -- --------------------------------------------------------
 
@@ -340,7 +352,8 @@ INSERT INTO `user` (`idUser`, `email`, `username`, `first_name`, `last_name`, `p
 (16, 'davide@gmail.com', 'davide', 'davide', 'rossi', '$2y$10$gI/U1QlxCERX2g9/76jHle5/gRsfBrz2YhZULLaaTDIXOckxgYVKW', 'registeredUser'),
 (17, 'paolo@gmail.com', 'paolo', 'paolo', 'rossi', '$2y$10$ndFSNwaR19SVFfVqTvxsMeDP74m0BFuySo5NspQdp7nOYiwu/EsVu', 'registeredUser'),
 (18, 'lorenza@gmail.com', 'lorenza', 'lorenza', 'rossi', '$2y$10$kGH8BDj8BLnEwtor4PdKdeuVOcl709A4BKyeCAxfRMyNoCIsYKXoW', 'registeredUser'),
-(19, 'kevin@gmail.com', 'kevin', 'kevin', 'rossi', '$2y$10$LBY.Fc03whhlDFbKy9NRqeSJfoeEtIjY6jSb/XPSx9HCHRcoVg082', 'registeredUser');
+(19, 'kevin@gmail.com', 'kevin', 'kevin', 'rossi', '$2y$10$LBY.Fc03whhlDFbKy9NRqeSJfoeEtIjY6jSb/XPSx9HCHRcoVg082', 'registeredUser'),
+(20, 'lavinia@gmail.com', 'lavinia', 'lavinia', 'rossi', '$2y$10$uHI15xSy5JQfgFFLqDecR.isDSJ4PSYL60OKIfDj.1VVgi6DmTzJe', 'registeredUser');
 
 --
 -- Indici per le tabelle scaricate
@@ -427,7 +440,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT per la tabella `creditcard`
 --
 ALTER TABLE `creditcard`
-  MODIFY `idCreditCard` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `idCreditCard` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT per la tabella `news`
@@ -451,19 +464,19 @@ ALTER TABLE `physicaldata`
 -- AUTO_INCREMENT per la tabella `registereduser`
 --
 ALTER TABLE `registereduser`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT per la tabella `reservation`
 --
 ALTER TABLE `reservation`
-  MODIFY `idReservation` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idReservation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT per la tabella `subscription`
 --
 ALTER TABLE `subscription`
-  MODIFY `idSubscription` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `idSubscription` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT per la tabella `trainingcard`
@@ -475,7 +488,7 @@ ALTER TABLE `trainingcard`
 -- AUTO_INCREMENT per la tabella `user`
 --
 ALTER TABLE `user`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Limiti per le tabelle scaricate

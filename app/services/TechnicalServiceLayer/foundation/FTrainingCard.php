@@ -95,32 +95,54 @@ class FTrainingCard{
 } */
 
 
-public static function createTrainingCardObj($queryResult) {
-    $trainingCards = [];
-    foreach ($queryResult as $result) {
-        $idUser = isset($result['idUser']) ? $result['idUser'] : null;
-        $idTrainingCard = isset($result['idTrainingCard']) ? $result['idTrainingCard'] : null;
-        $exercises = isset($result['exercises']) ? $result['exercises'] : null;
-        $repetition = isset($result['repetition']) ? $result['repetition'] : null;
-        $recovery = isset($result['recovery']) ? $result['recovery'] : null;
-        $date = isset($result['date']) ? $result['date'] : null;
+    public static function createTrainingCardObj($queryResult) {
+        $trainingCards = [];
+        foreach ($queryResult as $result) {
+            $idUser = isset($result['idUser']) ? $result['idUser'] : null;
+            $idTrainingCard = isset($result['idTrainingCard']) ? $result['idTrainingCard'] : null;
+            $exercises = isset($result['exercises']) ? $result['exercises'] : null;
+            $repetition = isset($result['repetition']) ? $result['repetition'] : null;
+            $recovery = isset($result['recovery']) ? $result['recovery'] : null;
+            $date = isset($result['date']) ? $result['date'] : null;
 
-        // Recupera l'oggetto utente utilizzando l'ID dell'utente
-        $user = FRegisteredUser::getObj($idUser);
+            // Log per debugging
+            error_log("createTrainingCardObj - idUser: $idUser, idTrainingCard: $idTrainingCard, exercises: $exercises, repetition: $repetition, recovery: $recovery, date: $date");
 
-        // Assicurati di gestire correttamente gli eventuali valori nulli
-        if ($user !== null && $idTrainingCard !== null && $exercises !== null && $repetition !== null && $recovery !== null && $date !== null) {
-            // Crea l'oggetto usando i valori ottenuti
-            $trainingCard = new ETrainingCard($user, $exercises, $repetition, $recovery, $date);
-            $trainingCards[] = $trainingCard;
-        } else {
-            // Gestisci l'errore appropriato
-            throw new Exception("Dati mancanti per creare l'oggetto TrainingCard");
+            // Recupera l'oggetto utente utilizzando l'ID dell'utente
+            $user = $idUser ? FRegisteredUser::getObj($idUser) : null;
+
+            // Log per debugging
+            error_log("createTrainingCardObj - user: " . print_r($user, true));
+
+            // Assicurati di gestire correttamente gli eventuali valori nulli
+            if ($user !== null && $idTrainingCard !== null && $exercises !== null && $repetition !== null && $recovery !== null && $date !== null) {
+                // Crea l'oggetto usando i valori ottenuti
+                $trainingCard = new ETrainingCard($user->getIdUser(), $exercises, $repetition, $recovery);
+                $trainingCard->setIdTrainingCard($idTrainingCard);
+                $trainingCard->setCreationTime(new DateTime($date));
+                $trainingCards[] = $trainingCard;
+            } else {
+                // Gestisci l'errore appropriato
+                error_log("Dati mancanti per creare l'oggetto TrainingCard");
+                throw new Exception("Dati mancanti per creare l'oggetto TrainingCard");
+            }
+        }
+        return $trainingCards;
+    }
+
+
+    public static function getTrainingCardsByIdUser($userId){
+        // Retrieve the TrainingCard objects for the user
+        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), 'idUser', $userId);
+        // If the result is not empty, create a TrainingCard object from the result
+        if(count($result) > 0){
+            $trainingCards = self::createTrainingCardObj($result);
+            return $trainingCards;
+        }else{
+            // If the result is empty, return null
+            return null;
         }
     }
-    return $trainingCards;
-}
-
 
 
 
@@ -247,21 +269,6 @@ public static function createTrainingCardObj($queryResult) {
         }
     }
 
-   public static function getTrainingCardsByIdUser($userId){
-    // Retrieve the TrainingCard objects for the user
-    $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), 'idUser', $userId);
-    // If the result is not empty, create a TrainingCard object from the result
-    if(count($result) > 0){
-        $trainingCards = [];
-        foreach($result as $row) {
-            $trainingCard = self::createTrainingCardObj($row);
-            $trainingCards[] = $trainingCard;
-        }
-        return $trainingCards;
-    }else{
-        // If the result is empty, return null
-        return null;
-    }
-}
+
 
 }

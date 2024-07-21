@@ -17,12 +17,12 @@ class FReservation{
     /**
      * @var string $value The SQL value string for inserting a new record into the table.
      */
-    private static $value = "(NULL, :idUser,:date,:time,:TrainingPT)";
+    private static $value = "(NULL, :idUser,:date,:trainingPT, :time)";
 
     /**
      * @var string $key The primary key of the table.
      */
-    private static $key = "idReservationr";
+    private static $key = "idReservation";
 
     /**
      * Returns the name of the table this class interacts with.
@@ -68,13 +68,23 @@ class FReservation{
  */
 public static function bind($stmt, $reservation){
     // Bind the user ID to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":idUser", $reservation->getIdUser()->getId(), PDO::PARAM_INT);
+    $idUser = $reservation->getIdUser();
+    if ($idUser !== null) {
+        $stmt->bindValue(":idUser", $idUser, PDO::PARAM_INT);
+        error_log("Binding user ID: $idUser");
+    } else {
+        // Handle the error, e.g., throw an exception or show an error message
+        $errorMessage = 'User ID is null';
+        error_log($errorMessage);
+        throw new Exception($errorMessage);
+    }
+
     // Bind the date to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":date", $reservation->getTimeStr(), PDO::PARAM_STR);
-    // Bind the time of the reservation to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":time", $reservation->getTime(), PDO::PARAM_STR);
+    $stmt->bindValue(":date", $reservation->getDate(), PDO::PARAM_STR);
     // Bind the training PT of the reservation to the corresponding parameter in the SQL statement
-    $stmt->bindValue(":TrainingPT", $reservation->getTrainingPT(), PDO::PARAM_BOOL);
+    $stmt->bindValue(":trainingPT", $reservation->getTrainingPT(), PDO::PARAM_BOOL);
+    // Bind the time of the reservation to the corresponding parameter in the SQL statement
+    $stmt->bindValue(":time", $reservation->getTimeStr(), PDO::PARAM_STR);
 
 }
 
@@ -218,6 +228,16 @@ public static function saveObj($obj , $fieldArray = null){
         return FEntityManagerSQL::countReservations(self::getTable(), $date, $time);
     }
 
+ public static function retrieveReservationsByTimeAndDate($time, $date)
+{
+    // Call the corresponding method in FEntityManagerSQL
+    return FEntityManagerSQL::getInstance()->retrieveReservationsByTimeAndDate(self::getTable(), $time, $date);
+}
 
+    public static function retrieveReservationsByUserTimeAndDate($userId, $time, $date)
+    {
+        // Call the corresponding method in FEntityManagerSQL
+        return FEntityManagerSQL::getInstance()->retrieveReservationsByUserTimeAndDate(self::getTable(), $userId, $time, $date);
+    }
 
 }

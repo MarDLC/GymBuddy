@@ -1,3 +1,5 @@
+<!-- Modifica il file viewTrainingCard.tpl -->
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -115,11 +117,11 @@
                             <th>RECOVERY</th>
                         </tr>
                         {foreach from=$trainingCards item=card}
-                        <tr>
-                            <td>{$card->exercises}</td>
-                            <td>{$card->repetition}</td>
-                            <td>{$card->recovery}</td>
-                        </tr>
+                            <tr>
+                                <td>{$card->getExercises()}</td>
+                                <td>{$card->getRepetition()}</td>
+                                <td>{$card->getRecovery()}</td>
+                            </tr>
                         {/foreach}
                     </table>
                 </div>
@@ -180,7 +182,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-3 col-sm-6">
+            <div class="col-lg-2 col-md=3 col-sm-6">
                 <div class="fs-widget">
                     <h4>Useful links</h4>
                     <ul>
@@ -191,7 +193,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-3 col-sm-6">
+            <div class="col-lg-2 col-md=3 col-sm-6">
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="fs-widget">

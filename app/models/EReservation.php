@@ -7,7 +7,8 @@
  * It includes properties for email of registered user, date, time, trainingPT, and email of personal trainer.
  * It also includes methods for getting and setting these properties.
  */
-class EReservation {
+class EReservation
+{
 
     /**
      * @var int $idReservation The id of the reservation.
@@ -32,7 +33,6 @@ class EReservation {
     private $trainingPT;
 
 
-
     /**
      * @var string $entity The name of the class. This is set to EReservation::class.
      */
@@ -46,12 +46,12 @@ class EReservation {
      * @param string $trainingPT The training personal trainer of the reservation.
      * @param string $time The time of the reservation. Default is '02:00:00'.
      */
-    public function __construct($idUser, $date, $trainingPT, $time = '02:00:00')
+    public function __construct($idUser, $date,  $trainingPT, $time)
     {
         $this->idUser = $idUser;
         $this->date = $date;
-        $this->time = $time;
         $this->trainingPT = $trainingPT;
+        $this->time = $time;
     }
 
     /**
@@ -109,24 +109,11 @@ class EReservation {
      *
      * @return string The time of the reservation.
      */
-    public function getTime()
-    {
-        return $this->time;
-    }
 
-    /**
-     * Set the time of the reservation.
-     *
-     * @param string $time The new time of the reservation.
-     */
-    public function setTime($time)
-    {
-        $this->time = $time;
-    }
 
     public function getTimeStr()
     {
-        return $this->date->format('Y-m-d H:i:s');
+        return $this->time;
     }
 
     /**
@@ -134,9 +121,11 @@ class EReservation {
      *
      * @param DateTime $dateTime The new creation time of the physical data record.
      */
-    public function setCreationTime(DateTime $dateTime){
+    public function setCreationTime(DateTime $dateTime)
+    {
         $this->date = $dateTime;
     }
+
     /**
      * Get the training personal trainer of the reservation.
      *
@@ -162,5 +151,8 @@ class EReservation {
         return $this->idUser;
     }
 
-
+    public function setTime($time)
+    {
+        $this->time = $time;
+    }
 }

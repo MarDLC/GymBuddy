@@ -92,21 +92,6 @@
             background-color: #ffffff;
         }
 
-        .pt-checkbox-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .pt-checkbox-container label {
-            font-size: 18px;
-            font-weight: bold;
-            color: rgb(243, 97, 0);
-        }
-
-        .pt-checkbox-container input[type="checkbox"] {
-            margin-left: 10px;
-            accent-color: rgb(243, 97, 0); /* Specifica il colore di accento per il checkbox */
-        }
     </style>
 </head>
 
@@ -171,11 +156,6 @@
                 <button type="button" onclick="selectCell(this)" value="15:00 - 17:00">15:00 - 17:00</button>
                 <button type="button" onclick="selectCell(this)" value="17:00 - 19:00">17:00 - 19:00</button>
                 <input type="hidden" id="selected-time" name="time">
-            </div>
-
-            <div class="pt-checkbox-container">
-                <label for="pt-checkbox">Train with PT</label>
-                <input type="checkbox" id="pt-checkbox" name="pt">
             </div>
 
             <div class="confirm-button">
@@ -306,7 +286,6 @@
 <script src="/GymBuddy/libs/Smarty/js/owl.carousel.min.js"></script>
 <script src="/GymBuddy/libs/Smarty/js/main.js"></script>
 
-
 <script>
     function selectCell(button) {
         var calendarDay = document.getElementById('calendar-day').value;
@@ -339,8 +318,7 @@
         if (selectedButton) {
             // Ottieni il testo del pulsante selezionato
             var selectedText = selectedButton.textContent;
-            var trainWithPT = document.getElementById('pt-checkbox').checked ? "Yes" : "No";
-            alert('Hai selezionato: ' + selectedText + '\nTrain with PT: ' + trainWithPT);
+            alert('Hai selezionato: ' + selectedText);
 
             // Rimuovi la classe temporanea dopo un breve ritardo (1 secondo)
             setTimeout(function () {
@@ -351,8 +329,6 @@
         }
     }
 </script>
-
-
 
 </body>
 

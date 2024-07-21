@@ -500,6 +500,52 @@ public static function retriveFollowedUsers(){
         }
     }
 
+    public function retrieveReservationsByTimeAndDate($table, $time, $date)
+{
+    // Define the SQL query
+    $query = "SELECT * FROM $table WHERE time = :time AND date = :date";
+
+    // Prepare the SQL statement
+    $stmt = $this->getDb()->prepare($query);
+
+    // Bind the time and date to the corresponding parameters in the SQL statement
+    $stmt->bindParam(':time', $time, PDO::PARAM_STR);
+    $stmt->bindParam(':date', $date, PDO::PARAM_STR);
+
+    // Execute the SQL statement
+    $stmt->execute();
+
+    // Fetch the results
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Return the result
+    return $result;
+}
+
+ public function retrieveReservationsByUserTimeAndDate($table, $idUser, $time, $date)
+{
+    // Define the SQL query
+    $query = "SELECT * FROM $table WHERE idUser = :idUser AND time = :time AND date = :date";
+
+    // Prepare the SQL statement
+    $stmt = $this->getDb()->prepare($query);
+
+    // Bind the user ID, time and date to the corresponding parameters in the SQL statement
+    $stmt->bindParam(':idUser', $idUser, PDO::PARAM_INT);
+    $stmt->bindParam(':time', $time, PDO::PARAM_STR);
+    $stmt->bindParam(':date', $date, PDO::PARAM_STR);
+
+    // Execute the SQL statement
+    $stmt->execute();
+
+    // Fetch the results
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Return the result
+    return $result;
+}
+
+
 
 
 }

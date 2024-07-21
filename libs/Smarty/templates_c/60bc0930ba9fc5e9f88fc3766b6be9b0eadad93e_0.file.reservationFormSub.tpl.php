@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-21 03:40:28
-  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\viewTrainingCard.tpl' */
+/* Smarty version 3.1.33, created on 2024-07-21 02:48:21
+  from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\reservationFormSub.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669c670c88b544_95359118',
+  'unifunc' => 'content_669c5ad547d4d6_45745423',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '137049ec26043e0c5e76f22b9b2a12e23ee9caf5' => 
+    '60bc0930ba9fc5e9f88fc3766b6be9b0eadad93e' => 
     array (
-      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\viewTrainingCard.tpl',
-      1 => 1721525728,
+      0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\reservationFormSub.tpl',
+      1 => 1721522676,
       2 => 'file',
     ),
   ),
@@ -20,10 +20,8 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669c670c88b544_95359118 (Smarty_Internal_Template $_smarty_tpl) {
-?><!-- Modifica il file viewTrainingCard.tpl -->
-
-<!DOCTYPE html>
+function content_669c5ad547d4d6_45745423 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -32,7 +30,7 @@ function content_669c670c88b544_95359118 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>View Reservation</title>
+    <title>RESERVATION FORM</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
@@ -49,41 +47,79 @@ function content_669c670c88b544_95359118 (Smarty_Internal_Template $_smarty_tpl)
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
 
-    <!-- Custom CSS -->
     <style>
-        .pricing-section .pricing-table table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .pricing-section .pricing-table table th,
-        .pricing-section .pricing-table table td {
-            border: 2px solid rgb(243, 97, 0);
-            padding: 15px;
+        .calendar-day {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            font-size: 18px;
-            color: rgb(255, 255, 255);
+            margin-bottom: 40px;
+            height: 100px; /* Altezza desiderata */
         }
 
-        .pricing-section .pricing-table table th {
+        .calendar-day input[type="date"] {
+            padding: 10px;
+            font-size: 17px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            background-color: rgb(243, 97, 0); /* Colore di sfondo arancione */
+            color: #000000; /* Colore del testo bianco */
+            border: 1px solid transparent; /* Rimuove il bordo */
+            outline: none; /* Rimuove l'outline */
+            font-weight: bold;
+        }
+
+        .timeslot-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .timeslot-container button {
+            width: 150px;
+            padding: 15px;
+            margin: 10px;
             background-color: rgb(243, 97, 0);
+            color: rgb(0, 0, 0);
+            font-family: "Bahnschrift", sans-serif;
+            border: none;
+            font-size: 17px;
+            cursor: pointer;
+            transition: background-color 0.6s ease;
+            font-weight: bold;
         }
+
+        .timeslot-container button:hover {
+            background-color: #ffffff;
+        }
+
+        .confirm-button {
+            text-align: center;
+        }
+
+        .confirm-button button {
+            background-color: rgb(243, 97, 0);
+            color: rgb(0, 0, 0);
+            font-family: "Bahnschrift", sans-serif;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.6s ease;
+            font-weight: bold;
+        }
+
+        .confirm-button button:hover {
+            background-color: #ffffff;
+        }
+
     </style>
-
-    <?php echo '<script'; ?>
->
-        function ready(){
-            if (!navigator.cookieEnabled) {
-                alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
-            }
-        }
-        document.addEventListener("DOMContentLoaded", ready);
-    <?php echo '</script'; ?>
->
-
 </head>
 
 <body>
+
 <!-- Header Section Begin -->
 <header class="header-section">
     <div class="container-fluid">
@@ -98,7 +134,7 @@ function content_669c670c88b544_95359118 (Smarty_Internal_Template $_smarty_tpl)
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li><a href="/GymBuddy/User/homeVIP">Home</a></li>
+                        <li class="active"><a href="/GymBuddy/User/homeVIP" id="home-link">Home</a></li>
                     </ul>
                 </nav>
             </div>
@@ -122,49 +158,36 @@ function content_669c670c88b544_95359118 (Smarty_Internal_Template $_smarty_tpl)
 </header>
 <!-- Header End -->
 
-<!-- Info Section Begin -->
-<section class="pricing-section service-pricing spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title">
-                    <h2>TRAINING CARD</h2>
-                </div>
+<!-- Pricing Section Begin -->
+<form method="POST" action="/GymBuddy/Reservation/booking">
+    <section class="pricing-section service-pricing spad">
+        <div class="container">
+            <div class="section-title">
+                <h2>SELECT DAY</h2>
+            </div>
+            <div class="calendar-day">
+                <input type="date" id="calendar-day" name="date">
+            </div>
+
+            <div class="section-title">
+                <h2>SELECT THE TIME SLOT</h2>
+            </div>
+            <div class="timeslot-container">
+                <button type="button" onclick="selectCell(this)" value="9:00 - 11:00">9:00 - 11:00</button>
+                <button type="button" onclick="selectCell(this)" value="11:00 - 13:00">11:00 - 13:00</button>
+                <button type="button" onclick="selectCell(this)" value="13:00 - 15:00">13:00 - 15:00</button>
+                <button type="button" onclick="selectCell(this)" value="15:00 - 17:00">15:00 - 17:00</button>
+                <button type="button" onclick="selectCell(this)" value="17:00 - 19:00">17:00 - 19:00</button>
+                <input type="hidden" id="selected-time" name="time">
+            </div>
+
+            <div class="confirm-button">
+                <button type="submit" onclick="confirmSelection()">CONFIRM</button>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="pricing-table">
-                    <table class="custom-table">
-                        <tr>
-                            <th>EXERCISE</th>
-                            <th>REPETITIONS</th>
-                            <th>RECOVERY</th>
-                        </tr>
-                        <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['trainingCards']->value, 'card');
-if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['card']->value) {
-?>
-                            <tr>
-                                <td><?php echo $_smarty_tpl->tpl_vars['card']->value->getExercises();?>
-</td>
-                                <td><?php echo $_smarty_tpl->tpl_vars['card']->value->getRepetition();?>
-</td>
-                                <td><?php echo $_smarty_tpl->tpl_vars['card']->value->getRecovery();?>
-</td>
-                            </tr>
-                        <?php
-}
-}
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Info Section End -->
+    </section>
+</form>
+<!-- Pricing Section End -->
 
 <!-- Get In Touch Section Begin -->
 <div class="gettouch-section">
@@ -203,7 +226,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href="/GymBuddy/User/homeVIP"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
+                        <a href="#"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
                     <p>The most iconic gym in the world has arrived in L'Aquila!
                         Live the best training experience in a unique atmosphere.
@@ -213,11 +236,11 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         <a href="#"><i class="fa fa-twitter"></i></a>
                         <a href="#"><i class="fa fa-youtube-play"></i></a>
                         <a href="#"><i class="fa fa-instagram"></i></a>
-                        <a href="#"><i class="fa  fa-envelope-o"></i></a>
+                        <a href="#"><i class="fa fa-envelope-o"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-2 col-md=3 col-sm-6">
+            <div class="col-lg-2 col-md-3 col-sm-6">
                 <div class="fs-widget">
                     <h4>Useful links</h4>
                     <ul>
@@ -228,7 +251,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-2 col-md=3 col-sm-6">
+            <div class="col-lg-2 col-md-3 col-sm-6">
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="fs-widget">
@@ -256,8 +279,10 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         Copyright &copy;<?php echo '<script'; ?>
 >document.write(new Date().getFullYear());<?php echo '</script'; ?>
-> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+>
+                        All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
                 </div>
             </div>
         </div>
@@ -300,6 +325,52 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 >
 <?php echo '<script'; ?>
  src="/GymBuddy/libs/Smarty/js/main.js"><?php echo '</script'; ?>
+>
+
+<?php echo '<script'; ?>
+>
+    function selectCell(button) {
+        var calendarDay = document.getElementById('calendar-day').value;
+
+        // Verifica se è stata selezionata una data
+        if (calendarDay.trim() === '') {
+            alert("Seleziona prima una data dal calendario.");
+            return;
+        }
+
+        // Rimuove la classe selezionata da tutti i pulsanti
+        var buttons = document.querySelectorAll('button');
+        buttons.forEach(function (btn) {
+            btn.classList.remove('selected');
+            btn.classList.remove('temp-selected'); // Rimuove la classe temporanea, se presente
+        });
+
+        // Aggiunge la classe selezionata al pulsante cliccato
+        button.classList.add('selected');
+        button.classList.add('temp-selected'); // Aggiunge la classe temporanea
+
+        // Store the selected time slot in the hidden input field
+        document.getElementById('selected-time').value = button.value;
+    }
+
+    function confirmSelection() {
+        // Trova il pulsante selezionato
+        var selectedButton = document.querySelector('button.selected');
+
+        if (selectedButton) {
+            // Ottieni il testo del pulsante selezionato
+            var selectedText = selectedButton.textContent;
+            alert('Hai selezionato: ' + selectedText);
+
+            // Rimuovi la classe temporanea dopo un breve ritardo (1 secondo)
+            setTimeout(function () {
+                selectedButton.classList.remove('temp-selected');
+            }, 1000);
+        } else {
+            alert("Seleziona prima un'opzione.");
+        }
+    }
+<?php echo '</script'; ?>
 >
 
 </body>

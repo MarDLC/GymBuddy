@@ -32,7 +32,7 @@
             margin-bottom: 40px;
             height: 100px; /* Altezza desiderata */
         }
-    
+
         .calendar-day input[type="date"] {
             padding: 10px;
             font-size: 17px;
@@ -45,14 +45,14 @@
             outline: none; /* Rimuove l'outline */
             font-weight: bold;
         }
-    
+
         .timeslot-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             margin-bottom: 40px;
         }
-    
+
         .timeslot-container button {
             width: 150px;
             padding: 15px;
@@ -66,15 +66,15 @@
             transition: background-color 0.6s ease;
             font-weight: bold;
         }
-    
+
         .timeslot-container button:hover {
             background-color: #ffffff;
         }
-    
+
         .confirm-button {
             text-align: center;
         }
-    
+
         .confirm-button button {
             background-color: rgb(243, 97, 0);
             color: rgb(0, 0, 0);
@@ -86,260 +86,281 @@
             transition: background-color 0.6s ease;
             font-weight: bold;
         }
-    
+
         .confirm-button button:hover {
             background-color: #ffffff;
         }
+
+        .pt-checkbox-container {
+            text-align: center;
+            margin-top: 20px;
+
+        }
+
+        .pt-checkbox-container label {
+            font-size: 18px;
+            font-weight: bold;
+            color: rgb(243, 97, 0);
+        }
+
+        .pt-checkbox-container input[type="checkbox"] {
+            margin-left: 10px;
+            accent-color: rgb(243, 97, 0); /* Specifica il colore di accento per il checkbox */
+        }
     </style>
-    
-    
 </head>
 
 <body>
 
-    <!-- Header Section Begin -->
-    <header class="header-section">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="logo">
-                        <a href="./homeRU.html">
-                            <img src="../img/logo.png" alt="">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <nav class="nav-menu">
-                        <ul>
-                            <li class="active"><a href="homeRU.html" id="home-link">Home</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="top-option">
-                        <div class="to-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-youtube-play"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                        </div>
-                        <!-- Aggiunta del pulsante di logout -->
-                        <a href="home.html" class="btn btn-primary">Logout</a>
-                    </div>
+<!-- Header Section Begin -->
+<header class="header-section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="logo">
+                    <a href="./homeVIP.html">
+                        <img src="../img/logo.png" alt="">
+                    </a>
                 </div>
             </div>
-            <div class="canvas-open">
-                <i class="fa fa-bars"></i>
+            <div class="col-lg-6">
+                <nav class="nav-menu">
+                    <ul>
+                        <li class="active"><a href="homeRU.html" id="home-link">Home</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3">
+                <div class="top-option">
+                    <div class="to-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-youtube-play"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                    </div>
+                    <!-- Aggiunta del pulsante di logout -->
+                    <a href="home.html" class="btn btn-primary">Logout</a>
+                </div>
             </div>
         </div>
-    </header>
-    <!-- Header End -->
-
-    <!-- Pricing Section Begin -->
-    <section class="pricing-section service-pricing spad">
-        <div class="container">
-            <div class="section-title">
-                <h2>SELECT DAY</h2>
-            </div>
-            <div class="calendar-day">
-                <input type="date" id="calendar-day">
-            </div>
-
-            <div class="section-title">
-                            <h2>SELECT THE TIME SLOT</h2>
-                        </div>
-            <div class="timeslot-container">
-                <button onclick="selectCell(this)">9:00 - 11:00</button>
-                <button onclick="selectCell(this)">11:00 - 13:00 </button>
-                <button onclick="selectCell(this)">13:00 - 15:00 </button>
-                <button onclick="selectCell(this)">15:00 - 17:00 </button>
-                <button onclick="selectCell(this)">17:00 - 19:00 </button>
-            </div>
-
-            <div class="confirm-button">
-                <button onclick="confirmSelection()">CONFIRM</button>
-            </div>
+        <div class="canvas-open">
+            <i class="fa fa-bars"></i>
         </div>
-    </section>
-    <!-- Pricing Section End -->
+    </div>
+</header>
+<!-- Header End -->
 
-    <!-- Get In Touch Section Begin -->
-    <div class="gettouch-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="gt-text">
-                        <i class="fa fa-map-marker"></i>
-                        <p>L'Aquila Via Vetoio, 48<br/> 67100 Coppito AQ</p>
-                    </div>
+<!-- Pricing Section Begin -->
+<section class="pricing-section service-pricing spad">
+    <div class="container">
+        <div class="section-title">
+            <h2>SELECT DAY</h2>
+        </div>
+        <div class="calendar-day">
+            <input type="date" id="calendar-day">
+        </div>
+
+        <div class="section-title">
+            <h2>SELECT THE TIME SLOT</h2>
+        </div>
+        <div class="timeslot-container">
+            <button onclick="selectCell(this)">9:00 - 11:00</button>
+            <button onclick="selectCell(this)">11:00 - 13:00 </button>
+            <button onclick="selectCell(this)">13:00 - 15:00 </button>
+            <button onclick="selectCell(this)">15:00 - 17:00 </button>
+            <button onclick="selectCell(this)">17:00 - 19:00 </button>
+        </div>
+
+        <div class="pt-checkbox-container">
+            <label for="pt-checkbox">Train with PT</label>
+            <input type="checkbox" id="pt-checkbox">
+        </div>
+
+        <div class="confirm-button">
+            <button onclick="confirmSelection()">CONFIRM</button>
+        </div>
+    </div>
+</section>
+<!-- Pricing Section End -->
+
+<!-- Get In Touch Section Begin -->
+<div class="gettouch-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="gt-text">
+                    <i class="fa fa-map-marker"></i>
+                    <p>L'Aquila Via Vetoio, 48<br/> 67100 Coppito AQ</p>
                 </div>
-                <div class="col-md-4">
-                    <div class="gt-text">
-                        <i class="fa fa-mobile"></i>
-                        <ul>
-                            <li>125-711-811</li>
-                            <li>125-668-886</li>
-                        </ul>
-                    </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gt-text">
+                    <i class="fa fa-mobile"></i>
+                    <ul>
+                        <li>125-711-811</li>
+                        <li>125-668-886</li>
+                    </ul>
                 </div>
-                <div class="col-md-4">
-                    <div class="gt-text email">
-                        <i class="fa fa-envelope"></i>
-                        <p>support.gymbuddy@gmail.com</p>
-                    </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gt-text email">
+                    <i class="fa fa-envelope"></i>
+                    <p>support.gymbuddy@gmail.com</p>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Get In Touch Section End -->
+</div>
+<!-- Get In Touch Section End -->
 
-    <!-- Footer Section Begin -->
-    <section class="footer-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="fs-about">
-                        <div class="fa-logo">
-                            <a href="#"><img src="img/logo.png" alt=""></a>
-                        </div>
-                        <p>The most iconic gym in the world has arrived in L'Aquila!
-                            Live the best training experience in a unique atmosphere.
-                            DISCOVER THE LEGACY: GymBuddy L'Aquila.</p>
-                        <div class="fa-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-youtube-play"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa  fa-envelope-o"></i></a>
-                        </div>
+<!-- Footer Section Begin -->
+<section class="footer-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="fs-about">
+                    <div class="fa-logo">
+                        <a href="homeVIP.html"><img src="../img/logo.png" alt=""></a>
+                    </div>
+                    <p>The most iconic gym in the world has arrived in L'Aquila!
+                        Live the best training experience in a unique atmosphere.
+                        DISCOVER THE LEGACY: GymBuddy L'Aquila.</p>
+                    <div class="fa-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-youtube-play"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa  fa-envelope-o"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="fs-widget">
-                        <h4>Useful links</h4>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6">
+                <div class="fs-widget">
+                    <h4>Useful links</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Classes</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6">
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="fs-widget">
+                    <h4>Tips & Guides</h4>
+                    <div class="fw-recent">
+                        <h6><a href="#">Physical fitness may help prevent depression, anxiety</a></h6>
                         <ul>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Classes</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li>3 min read</li>
+                            <li>20 Comment</li>
+                        </ul>
+                    </div>
+                    <div class="fw-recent">
+                        <h6><a href="#">Fitness: The best exercise to lose belly fat and tone up...</a></h6>
+                        <ul>
+                            <li>3 min read</li>
+                            <li>20 Comment</li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-3 col-sm-6">
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="fs-widget">
-                        <h4>Tips & Guides</h4>
-                        <div class="fw-recent">
-                            <h6><a href="#">Physical fitness may help prevent depression, anxiety</a></h6>
-                            <ul>
-                                <li>3 min read</li>
-                                <li>20 Comment</li>
-                            </ul>
-                        </div>
-                        <div class="fw-recent">
-                            <h6><a href="#">Fitness: The best exercise to lose belly fat and tone up...</a></h6>
-                            <ul>
-                                <li>3 min read</li>
-                                <li>20 Comment</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="copyright-text">
-                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                            All rights reserved | This template is made with <i class="fa fa-heart"
-                                aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        </p>
-                    </div>
-                </div>
             </div>
         </div>
-    </section>
-    <!-- Footer Section End -->
-
-    <!-- Search model Begin -->
-    <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
-            </form>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="copyright-text">
+                    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                        All rights reserved | This template is made with <i class="fa fa-heart"
+                                                                            aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- Search model end -->
+</section>
+<!-- Footer Section End -->
 
-    <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/masonry.pkgd.min.js"></script>
-    <script src="js/jquery.barfiller.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
+<!-- Search model Begin -->
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Search here.....">
+        </form>
+    </div>
+</div>
+<!-- Search model end -->
 
-    <script>
-        function selectCell(button) {
-            var calendarDay = document.getElementById('calendar-day').value;
+<!-- Js Plugins -->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/masonry.pkgd.min.js"></script>
+<script src="js/jquery.barfiller.js"></script>
+<script src="js/jquery.slicknav.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/main.js"></script>
 
-            // Verifica se è stata selezionata una data
-            if (calendarDay.trim() === '') {
-                alert("Seleziona prima una data dal calendario.");
-                return;
-            }
+<script>
+    function selectCell(button) {
+        var calendarDay = document.getElementById('calendar-day').value;
 
-            // Rimuove la classe selezionata da tutti i pulsanti
-            var buttons = document.querySelectorAll('button');
-            buttons.forEach(function (btn) {
-                btn.classList.remove('selected');
-                btn.classList.remove('temp-selected'); // Rimuove la classe temporanea, se presente
-            });
-
-            // Aggiunge la classe selezionata al pulsante cliccato
-            button.classList.add('selected');
-            button.classList.add('temp-selected'); // Aggiunge la classe temporanea
+        // Verifica se è stata selezionata una data
+        if (calendarDay.trim() === '') {
+            alert("Seleziona prima una data dal calendario.");
+            return;
         }
 
-        function confirmSelection() {
-            // Trova il pulsante selezionato
-            var selectedButton = document.querySelector('button.selected');
-
-            if (selectedButton) {
-                // Ottieni il testo del pulsante selezionato
-                var selectedText = selectedButton.textContent;
-                alert('Hai selezionato: ' + selectedText);
-
-                // Rimuovi la classe temporanea dopo un breve ritardo (1 secondo)
-                setTimeout(function () {
-                    selectedButton.classList.remove('temp-selected');
-                }, 1000);
-            } else {
-                alert("Seleziona prima un'opzione.");
-            }
-        }
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var homeLink = document.getElementById('home-link');
-            var referrer = document.referrer;
-
-            // Aggiorna il link "Home" con la pagina di provenienza come query string
-            if (referrer.includes('indexutentenor.html')) {
-                homeLink.href = 'indexutentenor.html?source=previous';
-            } else if (referrer.includes('utentevip.html')) {
-                homeLink.href = 'utentevip.html?source=previous';
-            } else {
-                homeLink.href = 'indexutentenor.html'; // Default link if referrer is not recognized
-            }
+        // Rimuove la classe selezionata da tutti i pulsanti
+        var buttons = document.querySelectorAll('button');
+        buttons.forEach(function (btn) {
+            btn.classList.remove('selected');
+            btn.classList.remove('temp-selected'); // Rimuove la classe temporanea, se presente
         });
-    </script>
+
+        // Aggiunge la classe selezionata al pulsante cliccato
+        button.classList.add('selected');
+        button.classList.add('temp-selected'); // Aggiunge la classe temporanea
+    }
+
+    function confirmSelection() {
+        // Trova il pulsante selezionato
+        var selectedButton = document.querySelector('button.selected');
+
+        if (selectedButton) {
+            // Ottieni il testo del pulsante selezionato
+            var selectedText = selectedButton.textContent;
+            var trainWithPT = document.getElementById('pt-checkbox').checked ? "Yes" : "No";
+            alert('Hai selezionato: ' + selectedText + '\nTrain with PT: ' + trainWithPT);
+
+            // Rimuovi la classe temporanea dopo un breve ritardo (1 secondo)
+            setTimeout(function () {
+                selectedButton.classList.remove('temp-selected');
+            }, 1000);
+        } else {
+            alert("Seleziona prima un'opzione.");
+        }
+    }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var homeLink = document.getElementById('home-link');
+        var referrer = document.referrer;
+
+        // Aggiorna il link "Home" con la pagina di provenienza come query string
+        if (referrer.includes('indexutentenor.html')) {
+            homeLink.href = 'indexutentenor.html?source=previous';
+        } else if (referrer.includes('utentevip.html')) {
+            homeLink.href = 'utentevip.html?source=previous';
+        } else {
+            homeLink.href = 'indexutentenor.html'; // Default link if referrer is not recognized
+        }
+    });
+</script>
 </body>
 
 </html>
