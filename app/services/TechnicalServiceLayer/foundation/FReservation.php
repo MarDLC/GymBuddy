@@ -17,7 +17,7 @@ class FReservation{
     /**
      * @var string $value The SQL value string for inserting a new record into the table.
      */
-    private static $value = "(NULL, :idUser,:date,:trainingPT, :time)";
+    private static $value = "(NULL, :idUser,:date, :trainingPT, :time )";
 
     /**
      * @var string $key The primary key of the table.
@@ -86,6 +86,8 @@ public static function bind($stmt, $reservation){
     // Bind the time of the reservation to the corresponding parameter in the SQL statement
     $stmt->bindValue(":time", $reservation->getTimeStr(), PDO::PARAM_STR);
 
+
+
 }
 
 /**
@@ -95,36 +97,22 @@ public static function bind($stmt, $reservation){
  * @return EReservation|array The reservation object or an empty array if the query result is empty
  */
 public static function createReservationObj($queryResult){
-    // If the query result contains only one record
-    if(count($queryResult) == 1){
-        $author= FRegisteredUser ::getObj($queryResult[0]['idUser']);
+    $reservations= array();
+    // Loop through the query result
+    for($i = 0; $i < count($queryResult); $i++){
+        $author= FRegisteredUser ::getObj($queryResult[$i]['idUser']);
         // Create a new Reservation object from the query result
-        $reservation = new EReservation($author, $queryResult[0]['date'],$queryResult[0]['time'],$queryResult[0]['trainingPT']);
+        $reservation = new EReservation($author, $queryResult[$i]['date'],$queryResult[$i]['time'],$queryResult[$i]['trainingPT']);
         // Set the ID of the reservation in the Reservation object
-        $reservation->setIdReservation($queryResult[0]['idReservation']);
-        $reservation->setCreationTime($queryResult[0]['date']);
-        // Return the created Reservation object
-        return $reservation;
-    }elseif (count($queryResult) > 1){
-        $reservations= array();
-        // Loop through the query result
-        for($i = 0; $i < count($queryResult); $i++){
-            $author= FRegisteredUser ::getObj($queryResult[$i]['idUser']);
-            // Create a new Reservation object from the query result
-            $reservation = new EReservation($author, $queryResult[$i]['date'],$queryResult[$i]['time'],$queryResult[$i]['trainingPT']);
-            // Set the ID of the reservation in the Reservation object
-            $reservation->setIdReservation($queryResult[$i]['idReservation']);
-            $reservation->setCreationTime($queryResult[$i]['date']);
-            // Add the Reservation object to the reservations array
-            $reservations[] = $reservation;
-        }
-        // If the query result is empty, return an empty array
-        return $reservations;
-    }else{
-        return array();
+        $reservation->setIdReservation($queryResult[$i]['idReservation']);
+        // Convert the date string to a DateTime object and set the creation time
+        $reservation->setCreationTime(DateTime::createFromFormat('Y-m-d', $queryResult[$i]['date']));
+        // Add the Reservation object to the reservations array
+        $reservations[] = $reservation;
     }
+    // If the query result is empty, return an empty array
+    return $reservations;
 }
-
 /**
  * Get a reservation object by its ID
  *
@@ -228,16 +216,29 @@ public static function saveObj($obj , $fieldArray = null){
         return FEntityManagerSQL::countReservations(self::getTable(), $date, $time);
     }
 
- public static function retrieveReservationsByTimeAndDate($time, $date)
+ public static function retrieveReservationsByTimeAndDate($date, $time)
 {
     // Call the corresponding method in FEntityManagerSQL
-    return FEntityManagerSQL::getInstance()->retrieveReservationsByTimeAndDate(self::getTable(), $time, $date);
+    return FEntityManagerSQL::getInstance()->retrieveReservationsByTimeAndDate(self::getTable(), $date, $time);
 }
 
-    public static function retrieveReservationsByUserTimeAndDate($userId, $time, $date)
+    public static function retrieveReservationsByUserTimeAndDate($userId, $date, $time)
     {
         // Call the corresponding method in FEntityManagerSQL
-        return FEntityManagerSQL::getInstance()->retrieveReservationsByUserTimeAndDate(self::getTable(), $userId, $time, $date);
+        return FEntityManagerSQL::getInstance()->retrieveReservationsByUserTimeAndDate(self::getTable(), $userId, $date, $time);
+    }
+
+    public static function getReservationsByIdUser($userId) {
+        // Retrieve the Reservation objects for the user
+        $result = FEntityManagerSQL::getInstance()->retriveObj(self::getTable(), 'idUser', $userId);
+        // If the result is not empty, create a Reservation object from the result
+        if(count($result) > 0){
+            $reservations = self::createReservationObj($result);
+            return $reservations;
+        } else {
+            // If the result is empty, return null
+            return null;
+        }
     }
 
 }

@@ -88,17 +88,6 @@ class CReservation
     }
 }
 
-    public static function reservationInfo()
-    {
-        // Recupera l'ID dell'utente corrente
-        $userId = USession::getSessionElement('user');
-
-        // Recupera le prenotazioni per l'utente corrente
-        $reservations = FPersistentManager::retrieveReservationByUserId($userId);
-
-        // Passa le prenotazioni alla vista
-        VReservation::showReservationInfo($reservations);
-    }
 
   public static function booking()
 {
@@ -114,14 +103,15 @@ class CReservation
 
     // Retrieve the form data
     $date = UHTTPMethods::post('date');
-    $time = UHTTPMethods::post('time');
     $trainingPT = UHTTPMethods::post('pt') ? 1 : 0;
+    $time = UHTTPMethods::post('time');
+
 
     // Retrieve the logged in user ID from the session
     $userId = USession::getSessionElement('user');
 
     // Check if the user has already made a reservation for the same time slot and date
-    $userReservation = FPersistentManager::retrieveReservationsByUserTimeAndDate($userId, $time, $date);
+    $userReservation = FPersistentManager::retrieveReservationsByUserTimeAndDate($userId, $date, $time);
     if ($userReservation) {
         // If the user has already made a reservation, log an error message and redirect the user to an error page
         error_log("User has already made a reservation for time slot: $time on date: $date");
@@ -132,7 +122,7 @@ class CReservation
     }
 
     // Check the number of existing reservations for the same time slot and date
-    $existingReservations = FPersistentManager::retrieveReservationsByTimeAndDate($time, $date);
+    $existingReservations = FPersistentManager::retrieveReservationsByTimeAndDate($date,$time );
     if (count($existingReservations) >= 2) {
         // If there are 15 or more existing reservations, log an error message and redirect the user to an error page
         error_log("Maximum number of reservations reached for time slot: $time on date: $date");
@@ -142,7 +132,7 @@ class CReservation
     }
 
     // Create a new EReservation object
-    $reservation = new EReservation($userId, $date, $trainingPT, $time);
+    $reservation = new EReservation($userId, $date,$trainingPT, $time);
 
     // Save the EReservation object to the database
     FPersistentManager::getInstance()->uploadObj($reservation);
@@ -182,6 +172,65 @@ class CReservation
 
         // Log the end of the method
         error_log("Confirmation - End");
+    }
+
+    public static function reservationInfo()
+    {
+        self::viewReservation();
+    }
+
+
+ public static function viewReservation() {
+    // Ensure the session is started
+    USession::getInstance();
+
+    // Check if the user is logged in
+    if (!CUser::isLoggedIn()) {
+        header('Location: /GymBuddy/User/Login');
+        exit();
+    }
+
+    // Get the user ID from the session
+    $userId = USession::getSessionElement('user');
+
+    // Retrieve the training card data for the user
+    $reservations = FPersistentManager::getReservationsById($userId);
+
+    // Verify that the data was retrieved correctly
+    if ($reservations === null || empty($reservations)) {
+        // Log the error and redirect in case of data retrieval failure
+        error_log("ERROR: No reservations data found, redirecting to 404 error page.");
+        USession::setSessionElement('reservation_error',  'Sorry, but no reservations have been made yet');
+        header('Location: /GymBuddy/Reservation/page404');
+        exit();
+    }
+
+    // Get the view
+    $view = new VReservation();
+
+    // Show the training cards
+    $view->showReservations($reservations);
+}
+
+    public static function page404()
+    {
+
+        // Assicurarsi che la sessione sia avviata
+        USession::getInstance();
+
+
+        // Recuperare il messaggio di errore dalla sessione, se presente
+        $errorMessage = USession::getSessionElement('reservation_error');
+        error_log("Retrieved error message from session: " . $errorMessage);
+
+        // Creare l'oggetto della vista
+        $view = new VReservation();
+
+        // Passare il messaggio di errore alla vista
+        $view->showPage404($errorMessage);
+
+        // Eliminare il messaggio di errore dalla sessione per evitare che venga visualizzato nuovamente
+        USession::unsetSessionElement('reservation_error');
     }
 
 }

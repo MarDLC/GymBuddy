@@ -591,16 +591,16 @@ public static function getTrainingCardsById($userId)
         return $newsList;
     }
 
-  public static function retrieveReservationsByTimeAndDate($time, $date)
+  public static function retrieveReservationsByTimeAndDate($date, $time)
 {
     // Call the corresponding method in FReservation
-    return FReservation::retrieveReservationsByTimeAndDate($time, $date);
+    return FReservation::retrieveReservationsByTimeAndDate($date, $time);
 }
 
-    public static function retrieveReservationsByUserTimeAndDate($userId, $time, $date)
+    public static function retrieveReservationsByUserTimeAndDate($userId, $date, $time)
     {
         // Call the corresponding method in FReservation
-        return FReservation::retrieveReservationsByUserTimeAndDate($userId, $time, $date);
+        return FReservation::retrieveReservationsByUserTimeAndDate($userId,  $date, $time);
     }
 
     public static function getTrainerData() {
@@ -608,6 +608,13 @@ public static function getTrainingCardsById($userId)
         return FPersonalTrainer::getReservationsData();
     }
 
+    public static function getReservationsById($userId)
+    {
+        // Use FTrainingCard to get the training cards for the user
+        $reservations = FReservation::getReservationsByIdUser($userId);
+        // Return the array of TrainingCard objects
+        return $reservations;
+    }
 
     public static function retrieveFollowedUsers() {
     // Call the getFollowedUsers method in FRegisteredUser

@@ -38,20 +38,15 @@ class EReservation
      */
     private static $entity = EReservation::class;
 
-    /**
-     * Constructor for the EReservation class.
-     *
-     * @param string $emailRegisteredUser The email of the registered user.
-     * @param DateTime $date The date of the reservation.
-     * @param string $trainingPT The training personal trainer of the reservation.
-     * @param string $time The time of the reservation. Default is '02:00:00'.
-     */
+
     public function __construct($idUser, $date,  $trainingPT, $time)
     {
         $this->idUser = $idUser;
         $this->date = $date;
         $this->trainingPT = $trainingPT;
         $this->time = $time;
+
+
     }
 
     /**
@@ -121,11 +116,13 @@ class EReservation
      *
      * @param DateTime $dateTime The new creation time of the physical data record.
      */
-    public function setCreationTime(DateTime $dateTime)
-    {
-        $this->date = $dateTime;
+ public function setCreationTime($dateTime)
+{
+    if (is_string($dateTime)) {
+        $dateTime = DateTime::createFromFormat('Y-m-d', $dateTime);
     }
-
+    $this->date = $dateTime;
+}
     /**
      * Get the training personal trainer of the reservation.
      *
@@ -154,5 +151,10 @@ class EReservation
     public function setTime($time)
     {
         $this->time = $time;
+    }
+
+    public function getTime()
+    {
+        return $this->time;
     }
 }

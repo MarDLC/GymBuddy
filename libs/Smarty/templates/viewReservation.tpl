@@ -24,6 +24,26 @@
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
 
+    <!-- Custom CSS -->
+    <style>
+        .pricing-section .pricing-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .pricing-section .pricing-table table th,
+        .pricing-section .pricing-table table td {
+            border: 2px solid rgb(243, 97, 0);
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            color: rgb(255, 255, 255);
+        }
+
+        .pricing-section .pricing-table table th {
+            background-color: rgb(243, 97, 0);
+        }
+    </style>
 
     <script>
         function ready(){
@@ -37,7 +57,6 @@
 </head>
 
 <body>
-
 <!-- Header Section Begin -->
 <header class="header-section">
     <div class="container-fluid">
@@ -52,7 +71,7 @@
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li class="active"><a href="/GymBuddy/User/homeVIP" id="home-link">Home</a></li>
+                        <li><a href="/GymBuddy/User/homeVIP">Home</a></li>
                     </ul>
                 </nav>
             </div>
@@ -76,7 +95,6 @@
 </header>
 <!-- Header End -->
 
-
 <!-- Tabella -->
 <section class="pricing-section service-pricing spad">
     <div class="container">
@@ -92,41 +110,27 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th></th> <!-- Aggiungi una colonna per il pulsante di selezione -->
-                        <th>ID Reservation</th>
-                        <th>ID User</th>
+                        <th></th>
                         <th>Date</th>
+                        <th>Training With PT</wi></th>
                         <th>Time</th>
-                        <th>Training with PT</th>
                     </tr>
                     </thead>
                     <tbody id="user-table-body">
-
                     {foreach from=$reservations item=reservation}
                         <tr>
-                            <th></th>
-                            <td>{$reservation.id_reservation}</td>
-                            <td>{$reservation.id_user}</td>
+                            <td></td>
                             <td>{$reservation.date}</td>
-                            <td>{$reservation.time}</td>
                             <td>{$reservation.trainingPT}</td>
+                            <td>{$reservation.time}</td>
                         </tr>
                     {/foreach}
-
-                    <!-- Qui verranno inserite dinamicamente le righe della tabella -->
                     </tbody>
                 </table>
             </div>
         </div>
-        <!-- Pulsante Elimina -->
-        <div class="row justify-content-center">
-            <div class="col-lg-12 text-center">
-                <button id="delete-selected" class="btn btn-danger">Delete</button>
-            </div>
-        </div>
     </div>
 </section>
-
 <!-- Get In Touch Section Begin -->
 <div class="gettouch-section">
     <div class="container">
@@ -170,8 +174,6 @@
                         Live the best training experience in a unique atmosphere.
                         DISCOVER THE LEGACY: GymBuddy L'Aquila.</p>
                     <div class="fa-social">
-
-
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
                         <a href="#"><i class="fa fa-youtube-play"></i></a>
@@ -180,7 +182,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-3 col-sm-6">
+            <div class="col-lg-2 col-md=3 col-sm-6">
                 <div class="fs-widget">
                     <h4>Useful links</h4>
                     <ul>
@@ -191,7 +193,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-3 col-sm-6">
+            <div class="col-lg-2 col-md=3 col-sm-6">
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="fs-widget">
@@ -246,19 +248,6 @@
 <script src="/GymBuddy/libs/Smarty/js/jquery.slicknav.js"></script>
 <script src="/GymBuddy/libs/Smarty/js/owl.carousel.min.js"></script>
 <script src="/GymBuddy/libs/Smarty/js/main.js"></script>
-<!-- Script personalizzato -->
-<script>
-    // Codice JavaScript per eliminare le righe selezionate
-    $(document).ready(function () {
-        // Gestisci il click sul pulsante Elimina
-        $('#delete-selected').on('click', function () {
-            // Trova le righe selezionate e rimuovile
-            $('#user-table-body input:checked').closest('tr').remove();
-        });
-    });
-</script>
-
-
 
 </body>
 

@@ -95,40 +95,6 @@ class FTrainingCard{
 } */
 
 
-    public static function createTrainingCardObj($queryResult) {
-        $trainingCards = [];
-        foreach ($queryResult as $result) {
-            $idUser = isset($result['idUser']) ? $result['idUser'] : null;
-            $idTrainingCard = isset($result['idTrainingCard']) ? $result['idTrainingCard'] : null;
-            $exercises = isset($result['exercises']) ? $result['exercises'] : null;
-            $repetition = isset($result['repetition']) ? $result['repetition'] : null;
-            $recovery = isset($result['recovery']) ? $result['recovery'] : null;
-            $date = isset($result['date']) ? $result['date'] : null;
-
-            // Log per debugging
-            error_log("createTrainingCardObj - idUser: $idUser, idTrainingCard: $idTrainingCard, exercises: $exercises, repetition: $repetition, recovery: $recovery, date: $date");
-
-            // Recupera l'oggetto utente utilizzando l'ID dell'utente
-            $user = $idUser ? FRegisteredUser::getObj($idUser) : null;
-
-            // Log per debugging
-            error_log("createTrainingCardObj - user: " . print_r($user, true));
-
-            // Assicurati di gestire correttamente gli eventuali valori nulli
-            if ($user !== null && $idTrainingCard !== null && $exercises !== null && $repetition !== null && $recovery !== null && $date !== null) {
-                // Crea l'oggetto usando i valori ottenuti
-                $trainingCard = new ETrainingCard($user->getIdUser(), $exercises, $repetition, $recovery);
-                $trainingCard->setIdTrainingCard($idTrainingCard);
-                $trainingCard->setCreationTime(new DateTime($date));
-                $trainingCards[] = $trainingCard;
-            } else {
-                // Gestisci l'errore appropriato
-                error_log("Dati mancanti per creare l'oggetto TrainingCard");
-                throw new Exception("Dati mancanti per creare l'oggetto TrainingCard");
-            }
-        }
-        return $trainingCards;
-    }
 
 
     public static function getTrainingCardsByIdUser($userId){
@@ -235,6 +201,41 @@ class FTrainingCard{
                 FEntityManagerSQL::getInstance()->closeConnection();
             }
         }
+    }
+
+    public static function createTrainingCardObj($queryResult) {
+        $trainingCards = [];
+        foreach ($queryResult as $result) {
+            $idUser = isset($result['idUser']) ? $result['idUser'] : null;
+            $idTrainingCard = isset($result['idTrainingCard']) ? $result['idTrainingCard'] : null;
+            $exercises = isset($result['exercises']) ? $result['exercises'] : null;
+            $repetition = isset($result['repetition']) ? $result['repetition'] : null;
+            $recovery = isset($result['recovery']) ? $result['recovery'] : null;
+            $date = isset($result['date']) ? $result['date'] : null;
+
+            // Log per debugging
+            error_log("createTrainingCardObj - idUser: $idUser, idTrainingCard: $idTrainingCard, exercises: $exercises, repetition: $repetition, recovery: $recovery, date: $date");
+
+            // Recupera l'oggetto utente utilizzando l'ID dell'utente
+            $user = $idUser ? FRegisteredUser::getObj($idUser) : null;
+
+            // Log per debugging
+            error_log("createTrainingCardObj - user: " . print_r($user, true));
+
+            // Assicurati di gestire correttamente gli eventuali valori nulli
+            if ($user !== null && $idTrainingCard !== null && $exercises !== null && $repetition !== null && $recovery !== null && $date !== null) {
+                // Crea l'oggetto usando i valori ottenuti
+                $trainingCard = new ETrainingCard($user->getIdUser(), $exercises, $repetition, $recovery);
+                $trainingCard->setIdTrainingCard($idTrainingCard);
+                $trainingCard->setCreationTime(new DateTime($date));
+                $trainingCards[] = $trainingCard;
+            } else {
+                // Gestisci l'errore appropriato
+                error_log("Dati mancanti per creare l'oggetto TrainingCard");
+                throw new Exception("Dati mancanti per creare l'oggetto TrainingCard");
+            }
+        }
+        return $trainingCards;
     }
 
     /**

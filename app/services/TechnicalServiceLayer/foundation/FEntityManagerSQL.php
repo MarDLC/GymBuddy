@@ -56,40 +56,40 @@ class FEntityManagerSQL{
      * @param mixed $id Refers to the value in the where clause
      * @return array
      */
- public static function retriveObj($table, $field ,$id){
-    try{
-        $query = "SELECT * FROM " .$table. " WHERE ".$field." = '".$id."';";
-        // Debug output for the query
-        error_log("retriveObj query: " . $query);
+    public static function retriveObj($table, $field ,$id){
+        try{
+            $query = "SELECT * FROM " .$table. " WHERE ".$field." = '".$id."';";
+            // Debug output for the query
+            error_log("retriveObj query: " . $query);
 
-        error_log("retriveObj: Preparing and executing query");
-        $stmt = self::$db->prepare($query);
-        $stmt->execute();
-        $rowNum = $stmt->rowCount();
+            error_log("retriveObj: Preparing and executing query");
+            $stmt = self::$db->prepare($query);
+            $stmt->execute();
+            $rowNum = $stmt->rowCount();
 
-        // Debug output for the number of rows
-        error_log("retriveObj rowNum: " . $rowNum);
+            // Debug output for the number of rows
+            error_log("retriveObj rowNum: " . $rowNum);
 
-        if($rowNum > 0){
-            $result = array();
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            while ($row = $stmt->fetch()){
-                $result[] = $row;
+            if($rowNum > 0){
+                $result = array();
+                $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $stmt->fetch()){
+                    $result[] = $row;
+                }
+
+                // Debug output for the result
+                error_log("retriveObj result: " . print_r($result, true));
+
+                return $result;
+            }else{
+                return array();
             }
-
-            // Debug output for the result
-            error_log("retriveObj result: " . print_r($result, true));
-
-            return $result;
-        }else{
+        } catch(PDOException $e){
+            // Debug output for the exception
+            error_log("retriveObj exception: " . $e->getMessage());
             return array();
         }
-    } catch(PDOException $e){
-        // Debug output for the exception
-        error_log("retriveObj exception: " . $e->getMessage());
-        return array();
     }
-}
 
 public static function retriveLastObj($table, $field, $id, $orderBy){
     try{
@@ -505,17 +505,18 @@ public static function retriveFollowedUsers(){
         }
     }
 
-    public function retrieveReservationsByTimeAndDate($table, $time, $date)
+    public function retrieveReservationsByTimeAndDate($table, $date,$time)
 {
     // Define the SQL query
-    $query = "SELECT * FROM $table WHERE time = :time AND date = :date";
+    $query = "SELECT * FROM $table WHERE date = :date AND time = :time";
 
     // Prepare the SQL statement
     $stmt = $this->getDb()->prepare($query);
 
     // Bind the time and date to the corresponding parameters in the SQL statement
-    $stmt->bindParam(':time', $time, PDO::PARAM_STR);
     $stmt->bindParam(':date', $date, PDO::PARAM_STR);
+    $stmt->bindParam(':time', $time, PDO::PARAM_STR);
+
 
     // Execute the SQL statement
     $stmt->execute();
@@ -527,18 +528,19 @@ public static function retriveFollowedUsers(){
     return $result;
 }
 
- public function retrieveReservationsByUserTimeAndDate($table, $idUser, $time, $date)
+ public function retrieveReservationsByUserTimeAndDate($table, $idUser, $date, $time)
 {
     // Define the SQL query
-    $query = "SELECT * FROM $table WHERE idUser = :idUser AND time = :time AND date = :date";
+    $query = "SELECT * FROM $table WHERE idUser = :idUser AND date= :date AND time = :time";
 
     // Prepare the SQL statement
     $stmt = $this->getDb()->prepare($query);
 
     // Bind the user ID, time and date to the corresponding parameters in the SQL statement
     $stmt->bindParam(':idUser', $idUser, PDO::PARAM_INT);
-    $stmt->bindParam(':time', $time, PDO::PARAM_STR);
     $stmt->bindParam(':date', $date, PDO::PARAM_STR);
+    $stmt->bindParam(':time', $time, PDO::PARAM_STR);
+
 
     // Execute the SQL statement
     $stmt->execute();
