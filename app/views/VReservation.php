@@ -124,6 +124,7 @@ class VReservation
     {
 
 
+
         // Assegna il messaggio alla variabile Smarty
         $this->smarty->assign('errorMessage', $message);
 

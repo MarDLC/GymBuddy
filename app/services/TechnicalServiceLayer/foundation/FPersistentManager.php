@@ -624,6 +624,7 @@ public static function getTrainingCardsById($userId)
     return $result;
 }
 
+
 }
 
 

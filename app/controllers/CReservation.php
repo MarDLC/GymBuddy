@@ -233,4 +233,24 @@ class CReservation
         USession::unsetSessionElement('reservation_error');
     }
 
+public static function deleteReservation() {
+    // Ensure the session is started
+    USession::getInstance();
+
+    // Check if the user is logged in
+    if (!CUser::isLoggedIn()) {
+        header('Location: /GymBuddy/User/Login');
+        exit();
+    }
+
+    // Get the reservation ID from the POST data
+    $reservationId = UHTTPMethods::post('selected_reservation');
+
+    // Delete the reservation from the database
+    FPersistentManager::deleteReservationById($reservationId);
+
+    // Redirect the user back to the reservations page
+    header('Location: /GymBuddy/Reservation/viewReservation');
+    exit();
+}
 }

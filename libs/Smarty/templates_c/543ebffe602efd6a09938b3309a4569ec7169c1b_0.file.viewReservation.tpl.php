@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-21 16:23:06
+/* Smarty version 3.1.33, created on 2024-07-21 17:17:45
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\viewReservation.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669d19ca37ed09_90068360',
+  'unifunc' => 'content_669d2699062e61_80348321',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '543ebffe602efd6a09938b3309a4569ec7169c1b' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\viewReservation.tpl',
-      1 => 1721571240,
+      1 => 1721574894,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669d19ca37ed09_90068360 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669d2699062e61_80348321 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -70,11 +70,12 @@ function content_669d19ca37ed09_90068360 (Smarty_Internal_Template $_smarty_tpl)
 
     <?php echo '<script'; ?>
 >
-        function ready(){
+        function ready() {
             if (!navigator.cookieEnabled) {
                 alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
             }
         }
+
         document.addEventListener("DOMContentLoaded", ready);
     <?php echo '</script'; ?>
 >
@@ -137,8 +138,9 @@ function content_669d19ca37ed09_90068360 (Smarty_Internal_Template $_smarty_tpl)
                     <tr>
                         <th></th>
                         <th>Date</th>
-                        <th>Training With PT</wi></th>
+                        <th>Training With PT</th>
                         <th>Time</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody id="user-table-body">
@@ -155,6 +157,15 @@ foreach ($_from as $_smarty_tpl->tpl_vars['reservation']->value) {
 </td>
                             <td><?php echo $_smarty_tpl->tpl_vars['reservation']->value['time'];?>
 </td>
+                            <td>
+                                <form action="/GymBuddy/Reservation/deleteReservation" method="post">
+                                    <!-- Hidden field with the reservation ID -->
+                                    <input type="hidden" name="selected_reservation" value="<?php echo $_smarty_tpl->tpl_vars['reservation']->value['id'];?>
+">
+                                    <!-- Button to delete the reservation -->
+                                    <button type="submit" class="btn btn-primary">DELETE</button>
+                                </form>
+                            </td>
                         </tr>
                     <?php
 }
@@ -256,7 +267,9 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         Copyright &copy;<?php echo '<script'; ?>
 >document.write(new Date().getFullYear());<?php echo '</script'; ?>
-> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+>
+                        All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i>
+                        by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                 </div>
             </div>

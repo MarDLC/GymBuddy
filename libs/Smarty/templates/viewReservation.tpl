@@ -46,11 +46,12 @@
     </style>
 
     <script>
-        function ready(){
+        function ready() {
             if (!navigator.cookieEnabled) {
                 alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
             }
         }
+
         document.addEventListener("DOMContentLoaded", ready);
     </script>
 
@@ -112,8 +113,9 @@
                     <tr>
                         <th></th>
                         <th>Date</th>
-                        <th>Training With PT</wi></th>
+                        <th>Training With PT</th>
                         <th>Time</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody id="user-table-body">
@@ -123,6 +125,14 @@
                             <td>{$reservation.date}</td>
                             <td>{$reservation.trainingPT}</td>
                             <td>{$reservation.time}</td>
+                            <td>
+                                <form action="/GymBuddy/Reservation/deleteReservation" method="post">
+                                    <!-- Hidden field with the reservation ID -->
+                                    <input type="hidden" name="selected_reservation" value="{$reservation.id}">
+                                    <!-- Button to delete the reservation -->
+                                    <button type="submit" class="btn btn-primary">DELETE</button>
+                                </form>
+                            </td>
                         </tr>
                     {/foreach}
                     </tbody>
@@ -219,7 +229,9 @@
             <div class="col-lg-12 text-center">
                 <div class="copyright-text">
                     <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                        All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i>
+                        by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                 </div>
             </div>
