@@ -1,9 +1,6 @@
 <?php
-// Connessione al database
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "gymbuddy";
+
+require_once(__DIR__ . '/../config/config.php');
 
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
@@ -11,13 +8,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Dati del personal trainer
-$email = 'personalTrainer@gmail.com';
-$username = 'personalTrainer';
-$first_name = 'mario';
-$last_name = 'rossi';
-$password = 'Mmario.1!';
-$role = 'personalTrainer';
+// Dati dell'admin
+$email = 'admin@gmail.com';
+$username = 'admin';
+$first_name = 'admin';
+$last_name = 'user';
+$password = 'Aadmin.1!';
+$role = 'admin';
 
 // Hash della password
 $hashed_password = password_hash($password, PASSWORD_BCRYPT);
@@ -40,7 +37,7 @@ try {
     $last_id = $conn->insert_id;
 
     // Inserimento nella tabella `admin`
-    $stmt = $conn->prepare("INSERT INTO `personaltrainer` (`idUser`) VALUES (?)");
+    $stmt = $conn->prepare("INSERT INTO `admin` (`idUser`) VALUES (?)");
 
     // Associa il parametro alla query
     // "i" significa che il parametro è un intero

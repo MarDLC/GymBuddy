@@ -84,7 +84,7 @@ class CTrainingCard
         self::viewTrainingCard();
     }
 
-    public static function viewTrainingCard() {
+public static function viewTrainingCard() {
     // Ensure the session is started
     USession::getInstance();
 
@@ -101,9 +101,12 @@ class CTrainingCard
     $trainingCards = FPersistentManager::getTrainingCardsById($userId);
 
     // Check if any training cards were retrieved
-    if (!$trainingCards) {
-        error_log("No training cards found for user ID: $userId");
-        return;
+    if ($trainingCards === null || empty($trainingCards)) {
+        // Log the error and redirect in case of data retrieval failure
+        error_log("ERROR: No training cards found for user ID: $userId, redirecting to 404 error page.");
+        USession::setSessionElement('training_card_error', 'No Training Cards found.');
+        header('Location: /GymBuddy/TrainingCard/page404');
+        exit();
     }
 
     $view = new VTrainingCard();
@@ -111,5 +114,22 @@ class CTrainingCard
     $view->showTrainingCards($trainingCards);
 }
 
+    public static function page404()
+    {
+        // Assicurarsi che la sessione sia avviata
+        USession::getInstance();
+
+        // Recuperare il messaggio di errore dalla sessione, se presente
+        $errorMessage = USession::getSessionElement('training_card_error');
+
+        // Creare l'oggetto della vista
+        $view = new VTrainingCard();
+
+        // Passare il messaggio di errore alla vista
+        $view->showPage404($errorMessage);
+
+        // Eliminare il messaggio di errore dalla sessione per evitare che venga visualizzato nuovamente
+        USession::unsetSessionElement('training_card_error');
+    }
 
 }

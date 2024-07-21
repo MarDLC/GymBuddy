@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-18 22:57:58
+/* Smarty version 3.1.33, created on 2024-07-22 00:12:32
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\paymentForm.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669981d68ed5e8_03912851',
+  'unifunc' => 'content_669d87d01b7643_72680658',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '5cf7b9d679d02d1e4156d7ad55f600f1f20e04ca' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\paymentForm.tpl',
-      1 => 1721336261,
+      1 => 1721599709,
       2 => 'file',
     ),
   ),
@@ -20,26 +20,22 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669981d68ed5e8_03912851 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669d87d01b7643_72680658 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAYMENT</title>
+    <title>Form with Date Validation</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <?php echo '<script'; ?>
->
-        function ready(){
-            if (!navigator.cookieEnabled) {
-                alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
-            }
+    <style>
+        .invalid-feedback {
+            display: none;
         }
-        document.addEventListener("DOMContentLoaded", ready);
-    <?php echo '</script'; ?>
->
-
+        .is-invalid ~ .invalid-feedback {
+            display: block;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -50,7 +46,7 @@ function content_669981d68ed5e8_03912851 (Smarty_Internal_Template $_smarty_tpl)
                     <h2>Enter your credit card information</h2>
                 </div>
                 <div class="card-body">
-                    <form action="/GymBuddy/User/payment" method="post">
+                    <form id="myForm" action="/GymBuddy/User/payment" method="post">
                         <div class="form-group">
                             <label for="cardNumber">Credit card number</label>
                             <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
@@ -58,7 +54,7 @@ function content_669981d68ed5e8_03912851 (Smarty_Internal_Template $_smarty_tpl)
                         <div class="form-group">
                             <label for="expiryDate">Expiration date</label>
                             <input type="date" class="form-control" id="expiryDate" name="expiryDate" required>
-                            <div id="expiryDateError" class="invalid-feedback"></div>
+                            <div id="expiryDateError" class="invalid-feedback">Your credit card has expired.</div>
                         </div>
                         <div class="form-group">
                             <label for="cvv">CVV</label>
@@ -78,23 +74,34 @@ function content_669981d68ed5e8_03912851 (Smarty_Internal_Template $_smarty_tpl)
 
 <?php echo '<script'; ?>
 >
-    document.getElementById('expiryDate').addEventListener('input', function (e) {
-        var input = e.target.value;
-        var expiryDateError = document.getElementById('expiryDateError');
-        var month = input.split('/')[0];
-        if (input.length === 2 && !input.includes('/')) {
-            input += '/';
-            document.getElementById('expiryDate').value = input;
-        } else if (month > 12) {
-            expiryDateError.textContent = 'Il mese non può essere superiore a 12';
-            document.getElementById('expiryDate').classList.add('is-invalid');
+    document.getElementById('myForm').addEventListener('submit', function(event) {
+        var expiryDateInput = document.getElementById('expiryDate');
+        var inputDate = new Date(expiryDateInput.value);
+        var today = new Date();
+        today.setHours(0, 0, 0, 0); // Clear the time part of today's date
+
+        if (inputDate < today) {
+            expiryDateInput.classList.add('is-invalid');
+            event.preventDefault(); // Prevent form submission
         } else {
-            expiryDateError.textContent = '';
-            document.getElementById('expiryDate').classList.remove('is-invalid');
+            expiryDateInput.classList.remove('is-invalid');
+        }
+    });
+
+    document.getElementById('expiryDate').addEventListener('input', function() {
+        var inputDate = new Date(this.value);
+        var today = new Date();
+        today.setHours(0, 0, 0, 0); // Clear the time part of today's date
+
+        if (inputDate < today) {
+            this.classList.add('is-invalid');
+        } else {
+            this.classList.remove('is-invalid');
         }
     });
 <?php echo '</script'; ?>
 >
 </body>
-</html><?php }
+</html>
+<?php }
 }

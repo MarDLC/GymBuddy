@@ -47,5 +47,15 @@ class VTrainingCard{
         $this->smarty->display('viewTrainingCard.tpl');
     }
 
+    public function showPage404($message = 'Sorry, but no Training Cards have been made yet')
+    {
+        $this->smarty->assign('errorMessage', $message);
+
+        $this->smarty->assign('homePathFrom404', "/GymBuddy/User/homeVIP");
+
+        $this->smarty->display('404Reservation.tpl');
+    }
+
+
 
 }

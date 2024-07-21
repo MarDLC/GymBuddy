@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-21 01:57:07
+/* Smarty version 3.1.33, created on 2024-07-22 00:56:53
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\reservationForm.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669c4ed3b65594_91413222',
+  'unifunc' => 'content_669d92356927d6_00295701',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4c12b3fa1cfb894ec5eddf9e24272642544d56f5' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\reservationForm.tpl',
-      1 => 1721517718,
+      1 => 1721602463,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669c4ed3b65594_91413222 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669d92356927d6_00295701 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -37,17 +37,37 @@ function content_669c4ed3b65594_91413222 (Smarty_Internal_Template $_smarty_tpl)
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
+
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/flaticon.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/errorDate.css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/barfiller.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
-
     <style>
+        .invalid-feedback {
+            display: none;
+            color: red;
+            background-color:#212529
+            padding: 5px;
+            margin-bottom: 0.5em;
+            border-radius: 5px;
+            position: absolute;
+            top: 70px; /* Posizionamento sopra l'input */
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 1;
+            font-weight: bold;
+            font-size: 21px;
+        }
+        .is-invalid ~ .invalid-feedback {
+            display: block;
+        }
         .calendar-day {
             display: flex;
             justify-content: center;
@@ -55,8 +75,8 @@ function content_669c4ed3b65594_91413222 (Smarty_Internal_Template $_smarty_tpl)
             text-align: center;
             margin-bottom: 40px;
             height: 100px; /* Altezza desiderata */
+            position: relative; /* Per il posizionamento dell'errore */
         }
-
         .calendar-day input[type="date"] {
             padding: 10px;
             font-size: 17px;
@@ -64,19 +84,17 @@ function content_669c4ed3b65594_91413222 (Smarty_Internal_Template $_smarty_tpl)
             border-radius: 5px;
             text-align: center;
             background-color: rgb(243, 97, 0); /* Colore di sfondo arancione */
-            color: #000000; /* Colore del testo bianco */
+            color: #000000; /* Colore del testo nero */
             border: 1px solid transparent; /* Rimuove il bordo */
             outline: none; /* Rimuove l'outline */
             font-weight: bold;
         }
-
         .timeslot-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             margin-bottom: 40px;
         }
-
         .timeslot-container button {
             width: 150px;
             padding: 15px;
@@ -90,15 +108,12 @@ function content_669c4ed3b65594_91413222 (Smarty_Internal_Template $_smarty_tpl)
             transition: background-color 0.6s ease;
             font-weight: bold;
         }
-
         .timeslot-container button:hover {
             background-color: #ffffff;
         }
-
         .confirm-button {
             text-align: center;
         }
-
         .confirm-button button {
             background-color: rgb(243, 97, 0);
             color: rgb(0, 0, 0);
@@ -110,27 +125,36 @@ function content_669c4ed3b65594_91413222 (Smarty_Internal_Template $_smarty_tpl)
             transition: background-color 0.6s ease;
             font-weight: bold;
         }
-
         .confirm-button button:hover {
             background-color: #ffffff;
         }
-
         .pt-checkbox-container {
             text-align: center;
             margin-top: 20px;
         }
-
         .pt-checkbox-container label {
             font-size: 18px;
             font-weight: bold;
             color: rgb(243, 97, 0);
         }
-
         .pt-checkbox-container input[type="checkbox"] {
             margin-left: 10px;
             accent-color: rgb(243, 97, 0); /* Specifica il colore di accento per il checkbox */
         }
     </style>
+
+
+
+    <?php echo '<script'; ?>
+>
+        function ready(){
+            if (!navigator.cookieEnabled) {
+                alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
+            }
+        }
+        document.addEventListener("DOMContentLoaded", ready);
+    <?php echo '</script'; ?>
+>
 </head>
 
 <body>
@@ -172,16 +196,16 @@ function content_669c4ed3b65594_91413222 (Smarty_Internal_Template $_smarty_tpl)
     </div>
 </header>
 <!-- Header End -->
-
 <!-- Pricing Section Begin -->
-<form method="POST" action="/GymBuddy/Reservation/booking">
+<form id="bookingForm" method="POST" action="/GymBuddy/Reservation/booking">
     <section class="pricing-section service-pricing spad">
         <div class="container">
             <div class="section-title">
                 <h2>SELECT DAY</h2>
             </div>
             <div class="calendar-day">
-                <input type="date" id="calendar-day" name="date">
+                <input type="date" id="calendar-day" name="date" required>
+                <div id="calendarDayError" class="invalid-feedback">PLEASE INSERT A VALIDE DATE</div>
             </div>
 
             <div class="section-title">
@@ -347,9 +371,40 @@ function content_669c4ed3b65594_91413222 (Smarty_Internal_Template $_smarty_tpl)
  src="/GymBuddy/libs/Smarty/js/main.js"><?php echo '</script'; ?>
 >
 
-
 <?php echo '<script'; ?>
 >
+    document.getElementById('bookingForm').addEventListener('submit', function(event) {
+        var calendarDayInput = document.getElementById('calendar-day');
+        var calendarDayError = document.getElementById('calendarDayError');
+        var inputDate = new Date(calendarDayInput.value);
+        var today = new Date();
+        today.setHours(0, 0, 0, 0); // Clear the time part of today's date
+
+        if (inputDate < today) {
+            calendarDayInput.classList.add('is-invalid');
+            calendarDayError.style.display = 'block'; // Show the error message
+            event.preventDefault(); // Prevent form submission
+        } else {
+            calendarDayInput.classList.remove('is-invalid');
+            calendarDayError.style.display = 'none'; // Hide the error message
+        }
+    });
+
+    document.getElementById('calendar-day').addEventListener('input', function() {
+        var inputDate = new Date(this.value);
+        var today = new Date();
+        today.setHours(0, 0, 0, 0); // Clear the time part of today's date
+        var calendarDayError = document.getElementById('calendarDayError');
+
+        if (inputDate < today) {
+            this.classList.add('is-invalid');
+            calendarDayError.style.display = 'block'; // Show the error message
+        } else {
+            this.classList.remove('is-invalid');
+            calendarDayError.style.display = 'none'; // Hide the error message
+        }
+    });
+
     function selectCell(button) {
         var calendarDay = document.getElementById('calendar-day').value;
 
@@ -360,7 +415,7 @@ function content_669c4ed3b65594_91413222 (Smarty_Internal_Template $_smarty_tpl)
         }
 
         // Rimuove la classe selezionata da tutti i pulsanti
-        var buttons = document.querySelectorAll('button');
+        var buttons = document.querySelectorAll('.timeslot-container button');
         buttons.forEach(function (btn) {
             btn.classList.remove('selected');
             btn.classList.remove('temp-selected'); // Rimuove la classe temporanea, se presente
@@ -394,11 +449,6 @@ function content_669c4ed3b65594_91413222 (Smarty_Internal_Template $_smarty_tpl)
     }
 <?php echo '</script'; ?>
 >
-
-
-
 </body>
-
-</html>
-<?php }
+</html><?php }
 }
