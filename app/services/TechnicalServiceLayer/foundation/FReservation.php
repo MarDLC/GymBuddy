@@ -102,7 +102,7 @@ public static function createReservationObj($queryResult){
     for($i = 0; $i < count($queryResult); $i++){
         $author= FRegisteredUser ::getObj($queryResult[$i]['idUser']);
         // Create a new Reservation object from the query result
-        $reservation = new EReservation($author, $queryResult[$i]['date'],$queryResult[$i]['time'],$queryResult[$i]['trainingPT']);
+        $reservation = new EReservation($author, $queryResult[$i]['date'],$queryResult[$i]['trainingPT'],$queryResult[$i]['time']);
         // Set the ID of the reservation in the Reservation object
         $reservation->setIdReservation($queryResult[$i]['idReservation']);
         // Convert the date string to a DateTime object and set the creation time

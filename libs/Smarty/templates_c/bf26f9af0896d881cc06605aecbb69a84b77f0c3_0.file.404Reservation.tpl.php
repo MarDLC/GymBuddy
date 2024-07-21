@@ -1,0 +1,115 @@
+<?php
+/* Smarty version 3.1.33, created on 2024-07-21 17:27:20
+  from 'C:\Users\lorex\OneDrive - Università degli Studi dell'Aquila\GymBuddy\libs\Smarty\templates\404Reservation.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_669d28d8504596_63178158',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'bf26f9af0896d881cc06605aecbb69a84b77f0c3' => 
+    array (
+      0 => 'C:\\Users\\lorex\\OneDrive - Università degli Studi dell\'Aquila\\GymBuddy\\libs\\Smarty\\templates\\404Reservation.tpl',
+      1 => 1721575339,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_669d28d8504596_63178158 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Gym Template">
+    <meta name="keywords" content="Gym, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>404</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/barfiller.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/GymBuddy/libs/Smarty/css/stylelogin.css">
+
+    <?php echo '<script'; ?>
+>
+        function ready(){
+            if (!navigator.cookieEnabled) {
+                alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
+            }
+        }
+        document.addEventListener("DOMContentLoaded", ready);
+    <?php echo '</script'; ?>
+>
+
+</head>
+
+<body>
+
+<!-- 404 Section Begin -->
+<section class="section-404">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="text-404">
+                    <h1 style="color: #f36100;">404</h1>
+                    <h3>Opps! This page Could Not Be Found!</h3>
+                    <p><?php echo $_smarty_tpl->tpl_vars['errorMessage']->value;?>
+</p>
+                    <form action="#" class="search-404">
+                    </form>
+                    <a href="<?php echo $_smarty_tpl->tpl_vars['homePathFrom404']->value;?>
+"><i class="fa fa-home"></i> Go back home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 404 Section End -->
+
+
+<!-- Js Plugins -->
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/jquery-3.3.1.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/jquery.magnific-popup.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/masonry.pkgd.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/jquery.barfiller.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/jquery.slicknav.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/owl.carousel.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/GymBuddy/libs/Smarty/js/main.js"><?php echo '</script'; ?>
+>
+</body>
+
+</html><?php }
+}

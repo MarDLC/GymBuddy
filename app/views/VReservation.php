@@ -76,10 +76,8 @@ class VReservation
     }
 
 
-    public function showReservations($reservations)
+    /*public function showReservations($reservations)
     {
-
-
         // Prepara i dati per il template Smarty
         $reservationsData = [];
         if ($reservations !== null) {
@@ -90,7 +88,6 @@ class VReservation
                     'date' => $reservation->getDate()->format('Y-m-d'),
                     'trainingPT' => $reservation->getTrainingPT(),
                     'time' => $reservation->getTimeStr(),
-
                 ];
             }
         }
@@ -118,7 +115,34 @@ class VReservation
 
         // Log dopo aver chiamato showReservationsList
         error_log("After calling showReservationsList");
+    }*/
+
+    public function showReservations($reservations) {
+        // Prepara i dati per il template Smarty
+        $reservationsData = [];
+        if ($reservations !== null) {
+            foreach ($reservations as $reservation) {
+                $reservationsData[] = [
+                    'id' => $reservation->getIdReservation(),
+                    'date' => $reservation->getDate()->format('Y-m-d'),
+                    'trainingPT' => $reservation->getTrainingPT(),
+                    'time' => $reservation->getTimeStr(),
+                ];
+            }
+        }
+
+        // Assegna i dati preparati al template Smarty
+        $this->smarty->assign('reservations', $reservationsData);
+
+        // Mostra il template
+        $this->smarty->display('viewReservation.tpl');
     }
+
+
+
+
+
+
 
     public function showPage404($message = 'Sorry, but no reservations have been made yet')
     {

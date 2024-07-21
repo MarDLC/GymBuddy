@@ -39,7 +39,7 @@ class EReservation
     private static $entity = EReservation::class;
 
 
-    public function __construct($idUser, $date,  $trainingPT, $time)
+    public function __construct($idUser, $date, $trainingPT, $time)
     {
         $this->idUser = $idUser;
         $this->date = $date;

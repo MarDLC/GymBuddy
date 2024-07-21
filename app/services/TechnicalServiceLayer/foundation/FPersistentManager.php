@@ -398,14 +398,6 @@ public static function retrieveSubscriptionByUserId($userId){
         return $result;
     }
 
-    public static function deleteReservation($email)
-    {
-        // Use the deleteReservationInDb method of FReservation to delete the reservation
-        $result = FReservation::deleteObj($email);
-
-        // Return the result of the delete operation
-        return $result;
-    }
 
     public static function deleteNews($email)
     {
@@ -623,6 +615,16 @@ public static function getTrainingCardsById($userId)
     // Return the result
     return $result;
 }
+
+    public static function deleteReservation($reservationId)
+    {
+        // Use the deleteObj method of FReservation to delete the reservation
+        $result = FReservation::deleteObj($reservationId);
+
+        // Return the result of the delete operation
+        return $result;
+    }
+
 
 
 }
