@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-20 22:01:36
+/* Smarty version 3.1.33, created on 2024-07-22 15:32:46
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\newsList.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669c17a089f7b7_71455485',
+  'unifunc' => 'content_669e5f7e3c4b07_79542912',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1516ce3452878e6f684dc590756779025f465545' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\newsList.tpl',
-      1 => 1721503136,
+      1 => 1721597218,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669c17a089f7b7_71455485 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669e5f7e3c4b07_79542912 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -89,6 +89,16 @@ function content_669c17a089f7b7_71455485 (Smarty_Internal_Template $_smarty_tpl)
             margin-top: 40px;
         }
     </style>
+    <?php echo '<script'; ?>
+>
+        function ready(){
+            if (!navigator.cookieEnabled) {
+                alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
+            }
+        }
+        document.addEventListener("DOMContentLoaded", ready);
+    <?php echo '</script'; ?>
+>
 </head>
 
 <body>

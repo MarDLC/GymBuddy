@@ -67,30 +67,29 @@ class FNews{
     }
 
 
-    public static function createNewsObj($queryResult){
-        if(count($queryResult) == 1){
-            $author = FAdmin::getOBj($queryResult[0]['idUser']);
-            $news = new ENews($queryResult[0]['idUser'], $queryResult[0]['title'], $queryResult[0]['description']);
-            $news->setIdNews($queryResult[0]['idNews']);
-            $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[0]['creation_time']);
+public static function createNewsObj($queryResult){
+    if(count($queryResult) == 1){
+        $author = FAdmin::getOBj($queryResult[0]['idUser']);
+        $news = new ENews($queryResult[0]['idUser'], $queryResult[0]['title'], $queryResult[0]['description']);
+        $news->setIdNews($queryResult[0]['idNews']);
+        $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[0]['creation_time']);
+        $news->setCreationTime($dateTime);
+        return array($news); // Wrap the news object in an array
+    } elseif(count($queryResult) > 1){
+        $newss = array();
+        for($i = 0; $i < count($queryResult); $i++){
+            $author = FAdmin::getOBj($queryResult[$i]['idUser']);
+            $news = new ENews($queryResult[$i]['idUser'], $queryResult[$i]['title'], $queryResult[$i]['description']);
+            $news->setIdNews($queryResult[$i]['idNews']);
+            $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[$i]['creation_time']);
             $news->setCreationTime($dateTime);
-            return $news;
-        } elseif(count($queryResult) > 1){
-            $newss = array();
-            for($i = 0; $i < count($queryResult); $i++){
-                $author = FAdmin::getOBj($queryResult[$i]['idUser']);
-                $news = new ENews($queryResult[$i]['idUser'], $queryResult[$i]['title'], $queryResult[$i]['description']);
-                $news->setIdNews($queryResult[$i]['idNews']);
-                $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $queryResult[$i]['creation_time']);
-                $news->setCreationTime($dateTime);
-                $newss[] = $news;
-            }
-            return $newss;
-        } else {
-            return array();
+            $newss[] = $news;
         }
+        return $newss;
+    } else {
+        return array();
     }
-
+}
 /**
  * Bind the News parameters to the SQL statement.
  *
@@ -210,11 +209,16 @@ public static function getObj($id){
         }
     }
 
-    public static function getAll() {
-        $results = FEntityManagerSQL::getInstance()->getAllObjects(self::getTable());
-        $newsList = self::createNewsObj($results);
-        return $newsList;
+  public static function getAll() {
+    $results = FEntityManagerSQL::getInstance()->getAllObjects(self::getTable());
+    $newsList = self::createNewsObj($results);
+
+    // If $newsList is not an array, make it an array
+    if (!is_array($newsList)) {
+        $newsList = array($newsList);
     }
 
+    return $newsList;
+}
 
 }

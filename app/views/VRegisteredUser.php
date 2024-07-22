@@ -159,33 +159,36 @@ class VRegisteredUser
     }
 
 
-    public function showNews($newsList)
-    {
-
-        $userId = USession::getSessionElement('user');
-
-        $user = FPersistentManager::retrieveUserById($userId);
-
-        if ($user->getType() === 'followed_user' || $user->getType() === 'user_only') {
-            $pathHome = "/GymBuddy/User/homeVIP";
-        } else if ($user->getType() === null) {
-            $pathHome = "/GymBuddy/User/homeRU";
-        }
-
-        $this->smarty->assign('pathHomeFromNews', $pathHome);
-
-        $this->smarty->assign('newsList', $newsList);
-        $this->smarty->display('newsList.tpl');
+ public function showNews($newsList)
+{
+    // If $newsList is not an array, make it an array
+    if (!is_array($newsList)) {
+        $newsList = array($newsList);
     }
 
-    public function showPage404($message = 'Sorry, but you have made multiple reservations at the same time on the same day, or the slots are fully booked.')
-    {
-        $this->smarty->assign('errorMessage', $message);
+    $userId = USession::getSessionElement('user');
 
-        $this->smarty->assign('homePathFrom404', "/GymBuddy/User/homeVIP");
+    $user = FPersistentManager::retrieveUserById($userId);
 
-        $this->smarty->display('404Reservation.tpl');
+    if ($user->getType() === 'followed_user' || $user->getType() === 'user_only') {
+        $pathHome = "/GymBuddy/User/homeVIP";
+    } else if ($user->getType() === null) {
+        $pathHome = "/GymBuddy/User/homeRU";
     }
 
+    $this->smarty->assign('pathHomeFromNews', $pathHome);
+
+    $this->smarty->assign('newsList', $newsList);
+    $this->smarty->display('newsList.tpl');
+}
+
+public function showPage404($message = 'Sorry, but you have made multiple reservations at the same time on the same day, or the slots are fully booked.')
+{
+    $this->smarty->assign('errorMessage', $message);
+
+    $this->smarty->assign('homePathFrom404', "/GymBuddy/User/homeVIP");
+
+    $this->smarty->display('404Reservation.tpl');
+}
 
 }

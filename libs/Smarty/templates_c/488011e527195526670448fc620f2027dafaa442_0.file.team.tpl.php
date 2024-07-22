@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-18 15:59:27
+/* Smarty version 3.1.33, created on 2024-07-22 15:26:52
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\team.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_66991fbfb447f6_32281710',
+  'unifunc' => 'content_669e5e1c9e60d0_19423275',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '488011e527195526670448fc620f2027dafaa442' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\team.tpl',
-      1 => 1721311163,
+      1 => 1721597082,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_66991fbfb447f6_32281710 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669e5e1c9e60d0_19423275 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -46,6 +46,17 @@ function content_66991fbfb447f6_32281710 (Smarty_Internal_Template $_smarty_tpl)
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/style.css" type="text/css">
     <link rel="stylesheet" href="/GymBuddy/libs/Smarty/css/stylelogin.css" type="text/css">
+
+    <?php echo '<script'; ?>
+>
+        function ready(){
+            if (!navigator.cookieEnabled) {
+                alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
+            }
+        }
+        document.addEventListener("DOMContentLoaded", ready);
+    <?php echo '</script'; ?>
+>
 </head>
 
 <body>

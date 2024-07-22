@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-07-21 12:56:15
+/* Smarty version 3.1.33, created on 2024-07-22 15:29:58
   from 'C:\Users\delco\Desktop\ProgettiProgrammazioneWeb\GymBuddy\libs\Smarty\templates\reservationsList.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_669ce94f43c756_71658080',
+  'unifunc' => 'content_669e5ed6c41d43_56728920',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd454b35b9325e070d7255289947744c9545506d0' => 
     array (
       0 => 'C:\\Users\\delco\\Desktop\\ProgettiProgrammazioneWeb\\GymBuddy\\libs\\Smarty\\templates\\reservationsList.tpl',
-      1 => 1721557804,
+      1 => 1721581449,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_669ce94f43c756_71658080 (Smarty_Internal_Template $_smarty_tpl) {
+function content_669e5ed6c41d43_56728920 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="zxx">
 
@@ -70,7 +70,7 @@ function content_669ce94f43c756_71658080 (Smarty_Internal_Template $_smarty_tpl)
         <div class="row">
             <div class="col-lg-3">
                 <div class="logo">
-                    <a href="/GymBuddy/User/homeVIP">
+                    <a href="/GymBuddy/PersonalTrainer/homePT">
                         <img src="/GymBuddy/libs/Smarty/img/logo.png" alt="">
                     </a>
                 </div>
@@ -78,7 +78,7 @@ function content_669ce94f43c756_71658080 (Smarty_Internal_Template $_smarty_tpl)
             <div class="col-lg-6">
                 <nav class="nav-menu">
                     <ul>
-                        <li class="active"><a href="/GymBuddy/User/homeVIP" id="home-link">Home</a></li>
+                        <li class="active"><a href="/GymBuddy/PersonalTrainer/homePT" id="home-link">Home</a></li>
                     </ul>
                 </nav>
             </div>
@@ -194,7 +194,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href="/GymBuddy/User/homeVIP"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
+                        <a href="/GymBuddy/PersonalTrainer/homePT"><img src="/GymBuddy/libs/Smarty/img/logo.png" alt=""></a>
                     </div>
                     <p>The most iconic gym in the world has arrived in L'Aquila!
                         Live the best training experience in a unique atmosphere.

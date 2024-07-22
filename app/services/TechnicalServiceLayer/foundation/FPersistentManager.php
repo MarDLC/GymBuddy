@@ -577,11 +577,19 @@ public static function getTrainingCardsById($userId)
         return $result;
     }
 
-    public static function getAllNews()
-    {
-        $newsList = FNews::getAll();
-        return $newsList;
+  public static function getAllNews()
+{
+    $newsList = FNews::getAll();
+
+    // Check if there's only one news item
+    if (count($newsList) === 1) {
+        // If there's only one news item, return that item directly
+        return $newsList[0];
     }
+
+    // If there's more than one news item, return the whole list
+    return $newsList;
+}
 
   public static function retrieveReservationsByTimeAndDate($date, $time)
 {
